@@ -1,0 +1,15 @@
+<site-list version="1">
+  <created-by>
+    <tool>EMIESiteListManager</tool>
+    <version>12.0.0.0</version>
+    <date-created>03/03/2022 19:27:03</date-created>
+  </created-by>
+  <site url="newpacsweb1.ntuh.gov.tw">
+    <compat-mode>Default</compat-mode>
+    <open-in>IE11</open-in>
+  </site>
+  <site url="newpacsweb2.ntuh.gov.tw">
+    <compat-mode>Default</compat-mode>
+    <open-in>IE11</open-in>
+  </site>
+</site-list>
