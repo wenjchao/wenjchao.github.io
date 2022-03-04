@@ -12,4 +12,9 @@
     <compat-mode>Default</compat-mode>
     <open-in>IE11</open-in>
   </site>
+  </site>
+  <site url="ihisaw.ntuh.gov.tw">
+    <compat-mode>Default</compat-mode>
+    <open-in>IE11</open-in>
+  </site>
 </site-list>
