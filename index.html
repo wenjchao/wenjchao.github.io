@@ -1,110 +1,276 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import { 
+  FileText, 
+  ClipboardList, 
+  Activity, 
+  BrainCircuit, 
+  Plus, 
+  X, 
+  ChevronRight,
+  Sparkles,
+  Loader2
+} from 'lucide-react';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<title>Blob Sallad</title>
-</head>
-<body>
+/**
+ * CONFIGURATION & API SERVICES
+ * 易於擴展：修改此處即可更換 AI 模型或 API
+ */
+const AI_CONFIG = {
+  model: 'gemini-2.5-flash-preview-09-2025',
+  apiKey: '', // 執行環境會自動注入
+};
 
-	<canvas id="blob" width="600" height="400"></canvas><br>
-	<div class="canvasControls">
-		<a id="splitBlob">oo</a>
-		<a id="joinBlob">&curarr;&cularr;</a>
-		<a id="gravityBlob">&#10507;</a>
-		<a id="leftArrow">&larr;</a>
-		<a id="upArrow">&uarr;</a>
-		<a id="downArrow">&darr;</a>
-		<a id="rightArrow">&rarr;</a>
-	</div>
-	<div id="clickToPlay">
-		Click here to PLAY!
-	</div>
+// 模擬 API 呼叫 (未來可輕鬆換成真正的 Firebase 或 API)
+const apiService = {
+  async fetchAiAnalysis(patientState) {
+    const prompt = `你是一位專業急診醫師。請根據以下病人資料提供 3 個可能的鑑別診斷(含機率%)及 3 個建議醫囑。
+    資料: ${JSON.stringify(patientState)}
+    請回傳 JSON 格式: { "dd": [{ "name": "疾病", "prob": 80, "reason": "原因" }], "orders": [{ "code": "代碼", "text": "醫囑" }] }`;
 
-<script>
-var window_focus;$(window).focus(function(){window_focus=!0,$('#clickToPlay').fadeOut(300)}).blur(function(){window_focus=!1,$('#clickToPlay').fadeIn(300)}),$(document).ready(function(){init(),$('body').click(function(){$('#clickToPlay').fadeOut(300)}),$('#splitBlob').click(function(){blobColl.split()}),$('#joinBlob').click(function(){blobColl.join()}),$('#gravityBlob').click(function(){toggleGravity()}),$('#leftArrow').click(function(){blobColl.addForce(new Vector(-120,0))}),$('#rightArrow').click(function(){blobColl.addForce(new Vector(120,0))}),$('#upArrow').click(function(){blobColl.addForce(new Vector(0,-120))}),$('#downArrow').click(function(){blobColl.addForce(new Vector(0,120))})});function Vector(b,d){this.x=b,this.y=d,this.equal=function(e){return this.x==e.getX()&&this.y==e.getY()},this.getX=function(){return this.x},this.getY=function(){return this.y},this.setX=function(e){this.x=e},this.setY=function(e){this.y=e},this.addX=function(e){this.x+=e},this.addY=function(e){this.y+=e},this.set=function(e){this.x=e.getX(),this.y=e.getY()},this.add=function(e){this.x+=e.getX(),this.y+=e.getY()},this.sub=function(e){this.x-=e.getX(),this.y-=e.getY()},this.dotProd=function(e){return this.x*e.getX()+this.y*e.getY()},this.length=function(){return Math.sqrt(this.x*this.x+this.y*this.y)},this.scale=function(e){this.x*=e,this.y*=e},this.toString=function(){return' X: '+this.x+' Y: '+this.y}}function Environment(b,d,e,g){this.left=b,this.right=b+e,this.top=d,this.buttom=d+g,this.r=new Vector(0,0),this.collision=function(k){var m=!1;return k.getX()<this.left?(k.setX(this.left),m=!0):k.getX()>this.right&&(k.setX(this.right),m=!0),k.getY()<this.top?(k.setY(this.top),m=!0):k.getY()>this.buttom&&(k.setY(this.buttom),m=!0),m},this.draw=function(){}}function PointMass(b,d,e){this.cur=new Vector(b,d),this.prev=new Vector(b,d),this.mass=e,this.force=new Vector(0,0),this.result=new Vector(0,0),this.friction=0.01,this.getXPos=function(){return this.cur.getX()},this.getYPos=function(){return this.cur.getY()},this.getPos=function(){return this.cur},this.getXPrevPos=function(){return this.prev.getX()},this.getYPrevPos=function(){return this.prev.getY()},this.getPrevPos=function(){return this.prev},this.addXPos=function(g){this.cur.addX(g)},this.addYPos=function(g){this.cur.addY(g)},this.setForce=function(g){this.force.set(g)},this.addForce=function(g){this.force.add(g)},this.getMass=function(){return this.mass},this.setMass=function(g){this.mass=g},this.move=function(g){var k,l,m,n;n=g*g,l=this.force.getX()/this.mass,m=this.cur.getX(),k=(2-this.friction)*m-(1-this.friction)*this.prev.getX()+l*n,this.prev.setX(m),this.cur.setX(k),l=this.force.getY()/this.mass,m=this.cur.getY(),k=(2-this.friction)*m-(1-this.friction)*this.prev.getY()+l*n,this.prev.setY(m),this.cur.setY(k)},this.setFriction=function(g){this.friction=g},this.getVelocity=function(){var g,k;return g=this.cur.getX()-this.prev.getX(),k=this.cur.getY()-this.prev.getY(),g*g+k*k},this.draw=function(g,k){g.lineWidth=2,g.fillStyle='#000000',g.strokeStyle='#000000',g.beginPath(),g.arc(this.cur.getX()*k,this.cur.getY()*k,4,0,2*Math.PI,!0),g.fill()}}function ConstraintY(b,d,e,g){this.pointMass=b,this.y=d,this.delta=new Vector(0,0),this.shortConst=e,this.longConst=g,this.sc=function(){var k;if(k=Math.abs(this.pointMass.getYPos()-this.y),this.delta.setY(-k),0!=this.shortConst&&k<this.shortConst){var l;l=this.shortConst/k,this.delta.scale(l),b.getPos().sub(this.delta)}else if(0!=this.longConst&&k>this.longConst){var l;l=this.longConst/k,this.delta.scale(l),b.getPos().sub(this.delta)}}}function Joint(b,d,e,g){this.pointMassA=b,this.pointMassB=d,this.delta=new Vector(0,0),this.pointMassAPos=b.getPos(),this.pointMassBPos=d.getPos(),this.delta.set(this.pointMassBPos),this.delta.sub(this.pointMassAPos),this.shortConst=this.delta.length()*e,this.longConst=this.delta.length()*g,this.scSquared=this.shortConst*this.shortConst,this.lcSquared=this.longConst*this.longConst,this.setDist=function(k,l){this.shortConst=k,this.longConst=l,this.scSquared=this.shortConst*this.shortConst,this.lcSquared=this.longConst*this.longConst},this.scale=function(k){this.shortConst*=k,this.longConst*=k,this.scSquared=this.shortConst*this.shortConst,this.lcSquared=this.longConst*this.longConst},this.sc=function(){this.delta.set(this.pointMassBPos),this.delta.sub(this.pointMassAPos);var k=this.delta.dotProd(this.delta);if(0!=this.shortConst&&k<this.scSquared){var l;l=this.scSquared/(k+this.scSquared)-0.5,this.delta.scale(l),this.pointMassAPos.sub(this.delta),this.pointMassBPos.add(this.delta)}else if(0!=this.longConst&&k>this.lcSquared){var l;l=this.lcSquared/(k+this.lcSquared)-0.5,this.delta.scale(l),this.pointMassAPos.sub(this.delta),this.pointMassBPos.add(this.delta)}}}function Stick(b,d){this.length=function(g,k){var l,m;return l=g.getXPos()-k.getXPos(),m=g.getYPos()-k.getYPos(),Math.sqrt(l*l+m*m)}(b,d),this.lengthSquared=this.length*this.length,this.pointMassA=b,this.pointMassB=d,this.delta=new Vector(0,0),this.getPointMassA=function(){return this.pointMassA},this.getPointMassB=function(){return this.pointMassB},this.scale=function(g){this.length*=g,this.lengthSquared=this.length*this.length},this.sc=function(){var k,l,m,n;m=this.pointMassA.getPos(),n=this.pointMassB.getPos(),this.delta.set(n),this.delta.sub(m),k=this.delta.dotProd(this.delta),l=this.lengthSquared/(k+this.lengthSquared)-0.5,this.delta.scale(l),m.sub(this.delta),n.add(this.delta)},this.setForce=function(g){this.pointMassA.setForce(g),this.pointMassB.setForce(g)},this.addForce=function(g){this.pointMassA.addForce(g),this.pointMassB.addForce(g)},this.move=function(g){this.pointMassA.move(g),this.pointMassB.move(g)},this.draw=function(g,k){this.pointMassA.draw(g,k),this.pointMassB.draw(g,k),g.lineWidth=3,g.fillStyle='#000000',g.strokeStyle='#000000',g.beginPath(),g.moveTo(this.pointMassA.getXPos()*k,this.pointMassA.getYPos()*k),g.lineTo(this.pointMassB.getXPos()*k,this.pointMassB.getYPos()*k),g.stroke()}}function Spring(b,d,e,g,k){this.restLength=b,this.stiffness=d,this.damper=e,this.pointMassA=g,this.pointMassB=k,this.tmp=Vector(0,0),this.sc=function(l){l.collistion(this.pointMassA.getPos(),this.pointMassA.getPrevPos()),l.collistion(this.pointMassB.getPos(),this.pointMassB.getPrevPos())},this.move=function(l){var m,n,o,q;m=this.pointMassA.getXPos()-this.pointMassB.getXPos(),n=this.pointMassA.getYPos()-this.pointMassB.getYPos(),q=Math.sqrt(m*m+n*n),o=this.stiffness*(q/this.restLength-1);var r,s,u;r=this.pointMassA.getXVel()-this.pointMassB.getXVel(),s=this.pointMassA.getYVel()-this.pointMassB.getYVel(),u=r*m+s*n,u*=this.damper;var z,A;z=(o+u)*m,A=(o+u)*n,this.tmp.setX(-z),this.tmp.setY(-ft),this.pointMassA.addForce(this.tmp),this.tmp.setX(z),this.tmp.setY(ft),this.pointMassB.addForce(this.tmp),this.pointMassA.move(l),this.pointMassB.move(l)},this.addForce=function(l){this.pointMassA.addForce(l),this.pointMassB.addForce(l)},this.draw=function(l,m){this.pointMassA.draw(l,m),this.pointMassB.draw(l,m),l.fillStyle='#000000',l.strokeStyle='#000000',l.beginPath(),l.moveTo(this.pointMassA.getXPos()*m,this.pointMassA.getYPos()*m),l.lineTo(this.pointMassB.getXPos()*m,this.pointMassB.getXPos()*m),l.stroke()}}function Blob(b,d,e,g){function k(s,u){return s+=u,s%u}this.x=b,this.y=d,this.sticks=[],this.pointMasses=[],this.joints=[],this.middlePointMass,this.radius=e,this.drawFaceStyle=1,this.drawEyeStyle=1,this.selected=!1,g=8;var m=0.95,n=1.05,o,q,r;for(q=0,o=0;q<g;q++)this.pointMasses[q]=new PointMass(Math.cos(o)*e+b,Math.sin(o)*e+d,1),o+=2*Math.PI/g;for(this.middlePointMass=new PointMass(b,d,1),this.pointMasses[0].setMass(4),this.pointMasses[1].setMass(4),q=0;q<g;q++)this.sticks[q]=new Stick(this.pointMasses[q],this.pointMasses[k(q+1,g)]);for(q=0,r=0;q<g;q++)this.joints[r++]=new Joint(this.pointMasses[q],this.pointMasses[k(q+g/2+1,g)],m,n),this.joints[r++]=new Joint(this.pointMasses[q],this.middlePointMass,0.9*n,1.1*m);this.addBlob=function(s){var u=this.joints.length,z;this.joints[u]=new Joint(this.middlePointMass,s.getMiddlePointMass(),0,0),z=this.radius+s.getRadius(),this.joints[u].setDist(0.95*z,0)},this.getMiddlePointMass=function(){return this.middlePointMass},this.getRadius=function(){return this.radius},this.getXPos=function(){return this.middlePointMass.getXPos()},this.getYPos=function(){return this.middlePointMass.getYPos()},this.scale=function(s){var u;for(u=0;u<this.joints.length;u++)this.joints[u].scale(s);for(u=0;u<this.sticks.length;u++)this.sticks[u].scale(s);this.radius*=s},this.move=function(s){var u;for(u=0;u<this.pointMasses.length;u++)this.pointMasses[u].move(s);this.middlePointMass.move(s)},this.sc=function(s){var u,z;for(z=0;4>z;z++){for(u=0;u<this.pointMasses.length;u++)!0==s.collision(this.pointMasses[u].getPos(),this.pointMasses[u].getPrevPos())?this.pointMasses[u].setFriction(0.75):this.pointMasses[u].setFriction(0.01);for(u=0;u<this.sticks.length;u++)this.sticks[u].sc(s);for(u=0;u<this.joints.length;u++)this.joints[u].sc()}},this.setForce=function(s){var u;for(u=0;u<this.pointMasses.length;u++)this.pointMasses[u].setForce(s);this.middlePointMass.setForce(s)},this.addForce=function(s){var u;for(u=0;u<this.pointMasses.length;u++)this.pointMasses[u].addForce(s);this.middlePointMass.addForce(s),this.pointMasses[0].addForce(s),this.pointMasses[0].addForce(s),this.pointMasses[0].addForce(s),this.pointMasses[0].addForce(s)},this.moveTo=function(s,u){var z,A;for(A=this.middlePointMass.getPos(),s-=A.getX(s),u-=A.getY(u),z=0;z<this.pointMasses.length;z++)A=this.pointMasses[z].getPos(),A.addX(s),A.addY(u);A=this.middlePointMass.getPos(),A.addX(s),A.addY(u)},this.setSelected=function(s){this.selected=s},this.drawEars=function(s,u){s.strokeStyle='#000000',s.fillStyle='#FFFFFF',s.lineWidth=2,s.beginPath(),s.moveTo(-0.55*this.radius*u,-0.35*this.radius*u),s.lineTo(-0.52*this.radius*u,-0.55*this.radius*u),s.lineTo(-0.45*this.radius*u,-0.4*this.radius*u),s.fill(),s.stroke(),s.beginPath(),s.moveTo(0.55*this.radius*u,-0.35*this.radius*u),s.lineTo(0.52*this.radius*u,-0.55*this.radius*u),s.lineTo(0.45*this.radius*u,-0.4*this.radius*u),s.fill(),s.stroke()},this.drawHappyEyes1=function(s,u){s.lineWidth=1,s.fillStyle='#FFFFFF',s.beginPath(),s.arc(-0.15*this.radius*u,-0.2*this.radius*u,0.12*this.radius*u,0,2*Math.PI,!1),s.fill(),s.stroke(),s.beginPath(),s.arc(0.15*this.radius*u,-0.2*this.radius*u,0.12*this.radius*u,0,2*Math.PI,!1),s.fill(),s.stroke(),s.fillStyle='#000000',s.beginPath(),s.arc(-0.15*this.radius*u,-0.17*this.radius*u,0.06*this.radius*u,0,2*Math.PI,!1),s.fill(),s.beginPath(),s.arc(0.15*this.radius*u,-0.17*this.radius*u,0.06*this.radius*u,0,2*Math.PI,!1),s.fill()},this.drawHappyEyes2=function(s,u){s.lineWidth=1,s.fillStyle='#FFFFFF',s.beginPath(),s.arc(-0.15*this.radius*u,-0.2*this.radius*u,0.12*this.radius*u,0,2*Math.PI,!1),s.stroke(),s.beginPath(),s.arc(0.15*this.radius*u,-0.2*this.radius*u,0.12*this.radius*u,0,2*Math.PI,!1),s.stroke(),s.lineWidth=1,s.beginPath(),s.moveTo(-0.25*this.radius*u,-0.2*this.radius*u),s.lineTo(-0.05*this.radius*u,-0.2*this.radius*u),s.stroke(),s.beginPath(),s.moveTo(0.25*this.radius*u,-0.2*this.radius*u),s.lineTo(0.05*this.radius*u,-0.2*this.radius*u),s.stroke()},this.drawHappyFace1=function(s,u){s.lineWidth=2,s.strokeStyle='#000000',s.fillStyle='#000000',s.beginPath(),s.arc(0,0,0.25*this.radius*u,0,Math.PI,!1),s.stroke()},this.drawHappyFace2=function(s,u){s.lineWidth=2,s.strokeStyle='#000000',s.fillStyle='#000000',s.beginPath(),s.arc(0,0,0.25*this.radius*u,0,Math.PI,!1),s.fill()},this.drawOohFace=function(s,u){s.lineWidth=2,s.strokeStyle='#000000',s.fillStyle='#000000',s.beginPath(),s.arc(0,0.1*this.radius*u,0.25*this.radius*u,0,Math.PI,!1),s.fill(),s.beginPath(),s.moveTo(-0.25*this.radius*u,-0.3*this.radius*u),s.lineTo(-0.05*this.radius*u,-0.2*this.radius*u),s.lineTo(-0.25*this.radius*u,-0.1*this.radius*u),s.moveTo(0.25*this.radius*u,-0.3*this.radius*u),s.lineTo(0.05*this.radius*u,-0.2*this.radius*u),s.lineTo(0.25*this.radius*u,-0.1*this.radius*u),s.stroke()},this.drawFace=function(s,u){1==this.drawFaceStyle&&0.05>Math.random()?this.drawFaceStyle=2:2==this.drawFaceStyle&&0.1>Math.random()&&(this.drawFaceStyle=1),1==this.drawEyeStyle&&0.025>Math.random()?this.drawEyeStyle=2:2==this.drawEyeStyle&&0.3>Math.random()&&(this.drawEyeStyle=1),4e-3<this.middlePointMass.getVelocity()?this.drawOohFace(s,u):(1==this.drawFaceStyle?this.drawHappyFace1(s,u,0,-0.3):this.drawHappyFace2(s,u,0,-0.3),1==this.drawEyeStyle?this.drawHappyEyes1(s,u,0,-0.3):this.drawHappyEyes2(s,u,0,-0.3))},this.getPointMass=function(s){return s+=this.pointMasses.length,s%=this.pointMasses.length,this.pointMasses[s]},this.drawBody=function(s,u){var z;for(s.strokeStyle='#000000',s.fillStyle=!0==this.selected?'#FFCCCC':'#FFFFFF',s.lineWidth=5,s.beginPath(),s.moveTo(this.pointMasses[0].getXPos()*u,this.pointMasses[0].getYPos()*u),z=0;z<this.pointMasses.length;z++){var A,B,C,D,E,F,G,H,I,J,K,L;I=this.getPointMass(z-1),J=this.pointMasses[z],K=this.getPointMass(z+1),L=this.getPointMass(z+2),E=K.getXPos(),F=K.getYPos(),G=J.getXPos(),H=J.getYPos(),A=0.5*G+0.5*E,B=0.5*H+0.5*F,C=G-I.getXPos()+E-L.getXPos(),D=H-I.getYPos()+F-L.getYPos(),A+=0.16*C,B+=0.16*D,A*=u,B*=u,E*=u,F*=u,s.bezierCurveTo(A,B,E,F,E,F)}s.closePath(),s.stroke(),s.fill()},this.drawSimpleBody=function(s,u){for(q=0;q<this.sticks.length;q++)this.sticks[q].draw(s,u)},this.draw=function(s,u){var A,B,C;this.drawBody(s,u),s.strokeStyle='#000000',s.fillStyle='#000000',s.save(),s.translate(this.middlePointMass.getXPos()*u,(this.middlePointMass.getYPos()-0.35*this.radius)*u),A=new Vector(0,-1),B=new Vector(0,0),B.set(this.pointMasses[0].getPos()),B.sub(this.middlePointMass.getPos()),C=Math.acos(B.dotProd(A)/B.length()),0>B.getX()?s.rotate(-C):s.rotate(C),this.drawFace(s,u),s.restore()}}function BlobCollective(b,d,e,g){this.maxNum=g,this.numActive=1,this.blobs=[],this.tmpForce=new Vector(0,0),this.selectedBlob=null,this.blobs[0]=new Blob(b,d,0.4,8),this.split=function(){var k,m=0,n,o,q;if(this.numActive!=this.maxNum){for(n=this.blobs.length,k=0;k<this.blobs.length;k++)null!=this.blobs[k]&&this.blobs[k].getRadius()>m?(m=this.blobs[k].getRadius(),o=this.blobs[k]):null==this.blobs[k]&&(n=k);for(o.scale(0.75),q=new Blob(o.getXPos(),o.getYPos(),o.getRadius(),8),k=0;k<this.blobs.length;k++)null!=this.blobs[k]&&(this.blobs[k].addBlob(q),q.addBlob(this.blobs[k]));this.blobs[n]=q,this.numActive++}},this.findSmallest=function(k){var m,l=1e3,n;for(n=0;n<this.blobs.length;n++)n!=k&&null!=this.blobs[n]&&this.blobs[n].getRadius()<l&&(m=n,l=this.blobs[n].getRadius());return m},this.findClosest=function(k){var m,n,o,q,l=1e3,r,s,u;for(s=this.blobs[k].getMiddlePointMass(),r=0;r<this.blobs.length;r++)r!=k&&null!=this.blobs[r]&&(u=this.blobs[r].getMiddlePointMass(),o=s.getXPos()-u.getXPos(),q=s.getYPos()-u.getYPos(),n=o*o+q*q,n<l&&(l=n,m=r));return m},this.join=function(){var k,l,o,q,r;1==this.numActive||(k=this.findSmallest(-1),l=this.findClosest(k),o=this.blobs[k].getRadius(),q=this.blobs[l].getRadius(),r=Math.sqrt(o*o+q*q),this.blobs[k]=null,this.blobs[l].scale(0.945*r/q),this.numActive--)},this.selectBlob=function(k,l){var m,o,n=1e4,r=null;if(null==this.selectedBlob){for(m=0;m<this.blobs.length;m++)null!=this.blobs[m]&&(o=this.blobs[m].getMiddlePointMass(),aXbX=k-o.getXPos(),aYbY=l-o.getYPos(),dist=aXbX*aXbX+aYbY*aYbY,dist<n&&(n=dist,dist<0.5*this.blobs[m].getRadius()&&(this.selectedBlob=this.blobs[m],r={x:aXbX,y:aYbY})));return null!=this.selectedBlob&&this.selectedBlob.setSelected(!0),r}},this.unselectBlob=function(){null==this.selectedBlob||(this.selectedBlob.setSelected(!1),this.selectedBlob=null)},this.selectedBlobMoveTo=function(k,l){null==this.selectedBlob||this.selectedBlob.moveTo(k,l)},this.move=function(k){var l;for(l=0;l<this.blobs.length;l++)null!=this.blobs[l]&&this.blobs[l].move(k)},this.sc=function(k){var l;for(l=0;l<this.blobs.length;l++)null!=this.blobs[l]&&this.blobs[l].sc(k);null!=this.blobAnchor&&this.blobAnchor.sc()},this.setForce=function(k){var l;for(l=0;l<this.blobs.length;l++)if(null!=this.blobs[l]){if(this.blobs[l]==this.selectedBlob){this.blobs[l].setForce(new Vector(0,0));continue}this.blobs[l].setForce(k)}},this.addForce=function(k){var l;for(l=0;l<this.blobs.length;l++)null!=this.blobs[l]&&this.blobs[l]!=this.selectedBlob&&(this.tmpForce.setX(k.getX()*(0.75*Math.random()+0.25)),this.tmpForce.setY(k.getY()*(0.75*Math.random()+0.25)),this.blobs[l].addForce(this.tmpForce))},this.draw=function(k,l){var m;for(m=0;m<this.blobs.length;m++)null!=this.blobs[m]&&this.blobs[m].draw(k,l)}}function debug(b,d,e){!0==confirm(b)&&null!=d?d():null!=e&&e()}var env,width=600,height=400,scaleFactor=200,blobColl,gravity,stopped,savedMouseCoords=null,selectOffset=null;function update(){null!=savedMouseCoords&&null!=selectOffset&&blobColl.selectedBlobMoveTo(savedMouseCoords.x-selectOffset.x,savedMouseCoords.y-selectOffset.y),blobColl.move(0.05),blobColl.sc(env),blobColl.setForce(gravity)}function draw(){var b=document.getElementById('blob');if(null!=b.getContext){var d=b.getContext('2d');d.clearRect(0,0,width,height),env.draw(d,scaleFactor),blobColl.draw(d,scaleFactor)}}function timeout(){draw(),update(),!1==stopped&&setTimeout('timeout()',30)}function init(){function b(e){return null==e&&(e=window.event),null==e?null:e.pageX||e.pageY?{x:e.pageX/scaleFactor,y:e.pageY/scaleFactor}:null}var d=document.getElementById('blob');return null==d.getContext?void alert('You need Firefox version 1.5 or higher for this to work, sorry.'):void(document.onkeydown=function(e){var g;switch(g=null==e?window.event.keyCode:e.keyCode,g){case 37:blobColl.addForce(new Vector(-50,0));break;case 38:blobColl.addForce(new Vector(0,-50));break;case 39:blobColl.addForce(new Vector(50,0));break;case 40:blobColl.addForce(new Vector(0,50));break;case 74:blobColl.join();break;case 72:blobColl.split();break;case 71:toggleGravity();break;default:}},document.onmousedown=function(e){var g;!0!=stopped&&(g=b(e),null==g||(selectOffset=blobColl.selectBlob(g.x,g.y)))},document.onmouseup=function(){blobColl.unselectBlob(),savedMouseCoords=null,selectOffset=null},document.onmousemove=function(e){var g;!0!=stopped&&null!=selectOffset&&(g=b(e),null==g||(blobColl.selectedBlobMoveTo(g.x-selectOffset.x,g.y-selectOffset.y),savedMouseCoords=g))},env=new Environment(0.2,0.2,2.6,1.6),blobColl=new BlobCollective(1,1,1,200),gravity=new Vector(0,10),stopped=!1,timeout())}function stop(){stopped=!0}function start(){stopped=!1,timeout()}function toggleGravity(){0<gravity.getY()?gravity.setY(0):gravity.setY(10)}
-</script>
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${AI_CONFIG.model}:generateContent?key=${AI_CONFIG.apiKey}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { responseMimeType: "application/json" }
+      })
+    });
+    const data = await res.json();
+    return JSON.parse(data.candidates[0].content.parts[0].text);
+  }
+};
 
-<style>
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
-body{line-height:1;font-family: Arial;
--webkit-touch-callout: none !important;
--webkit-user-select: none !important;
--khtml-user-select: none !important;
--moz-user-select: none !important;
--ms-user-select: none !important;
-user-select: none !important;}
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
-nav ul{list-style:none}
-blockquote,q{quotes:none}
-blockquote:before,blockquote:after,q:before,q:after{content:none}
-a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}
-ins{background-color:#ff9;color:#000;text-decoration:none}
-mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
-del{text-decoration:line-through}
-abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}
-table{border-collapse:collapse;border-spacing:0}
-hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
-input,select{vertical-align:middle}
+/**
+ * UI COMPONENTS (可拆分為獨立檔案)
+ */
+const SectionCard = ({ title, icon: Icon, children, action, colorClass }) => (
+  <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[450px] overflow-hidden">
+    <div className={`p-3 border-b flex justify-between items-center ${colorClass}`}>
+      <div className="flex items-center gap-2 font-bold text-slate-700">
+        <Icon size={18} /> {title}
+      </div>
+      {action}
+    </div>
+    <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      {children}
+    </div>
+  </div>
+);
 
-.canvasControls {
-    width: 340px;
-    margin: auto;
-}
-.canvasControls a {
-    display: inline-block;
-    background-color: #EEE;
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
-    color: #000;
-    height: 20px;
-    width: 20px;
-    min-width: 20px;
-    font-size: 20px;
-    border-radius: 10px;
-    line-height: 20px;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid #555;
-    box-shadow: -2px -2px 3px #CCC inset;
-}
-.canvasControls a:hover {
-	background-color: #FFF;
-}
-.canvasControls a#splitBlob, .canvasControls a#joinBlob {
-    width: 40px;
-    font-size: 20px;
-}
-.canvasControls a#gravityBlob {
-	margin-right: 20px;
-}
-#upArrow {
-    top: -17px;
-}
-#downArrow {
-    left: -36px;
-    bottom: -20px;
-}
-#rightArrow {
-    left: -36px;
-}
-#clickToPlay {
-    position: absolute;
-    background-color: rgba(0,0,0, 0.25);
-    top: 100px;
-    width: 1000px;
-    font-size: 25px;
-    text-align: center;
-    padding: 5px;
-    color: #FFF;
-    max-width: 100%;
-    font-weight: bold;
-}
-</style>
-hi
-</body>
+export default function App() {
+  // --- STATE MANAGEMENT ---
+  const [notes, setNotes] = useState([
+    { id: 1, type: 'Admission Note', title: 'Chest Pain Evaluation', content: '65y male, sudden onset chest pain...', date: '12/12' }
+  ]);
+  const [orders, setOrders] = useState([
+    { id: 1, code: 'BLOOD001', text: 'CBC/DC', status: 'Done' }
+  ]);
+  const [results, setResults] = useState([
+    { label: 'Hb', value: '13.5', unit: 'g/dL', normal: true },
+    { label: 'Troponin-I', value: '0.5', unit: 'ng/mL', normal: false }
+  ]);
+  
+  const [isNoteModalOpen, setNoteModalOpen] = useState(false);
+  const [editingNote, setEditingNote] = useState(null);
+  const [aiAnalysis, setAiAnalysis] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-</html>
+  // --- HANDLERS ---
+  const handleRunAi = async () => {
+    setIsLoading(true);
+    try {
+      const result = await apiService.fetchAiAnalysis({ notes, results });
+      setAiAnalysis(result);
+    } catch (e) {
+      console.error("AI Error", e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const addOrderFromAi = (order) => {
+    setOrders([{ id: Date.now(), ...order, status: 'Pending' }, ...orders]);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 font-sans text-slate-900">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto mb-6 flex justify-between items-end">
+        <div>
+          <h1 className="text-2xl font-black text-slate-800 tracking-tight">ER WORKSTATION <span className="text-blue-600">v2.0</span></h1>
+          <p className="text-slate-500 text-sm">Patient: #12345678 - Wang, Da-Ming (65M)</p>
+        </div>
+        <div className="flex gap-2">
+          <div className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold ring-1 ring-red-200">Triage: 1</div>
+          <div className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold ring-1 ring-blue-200">Bed: ER-A1</div>
+        </div>
+      </div>
+
+      {/* Main Grid */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {/* 1. NOTES */}
+        <SectionCard 
+          title="Notes" 
+          icon={FileText} 
+          colorClass="bg-blue-50/50"
+          action={<button onClick={() => {setEditingNote(null); setNoteModalOpen(true)}} className="p-1 hover:bg-blue-100 rounded text-blue-600"><Plus size={20}/></button>}
+        >
+          {notes.map(note => (
+            <div 
+              key={note.id} 
+              onClick={() => {setEditingNote(note); setNoteModalOpen(true)}}
+              className="group p-3 border rounded-lg hover:border-blue-300 hover:bg-blue-50/30 cursor-pointer transition-all"
+            >
+              <div className="text-[10px] font-bold text-blue-500 uppercase">{note.date} • {note.type}</div>
+              <div className="font-semibold text-slate-700 group-hover:text-blue-700">{note.title}</div>
+            </div>
+          ))}
+        </SectionCard>
+
+        {/* 2. ORDERS */}
+        <SectionCard title="Orders" icon={ClipboardList} colorClass="bg-emerald-50/50">
+          <div className="flex gap-2 mb-2">
+            <input 
+              id="quick-order"
+              placeholder="Quick Add (e.g. LAB01 CBC)"
+              className="flex-1 bg-slate-100 border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none"
+              onKeyDown={(e) => {
+                if(e.key === 'Enter') {
+                  const [code, ...rest] = e.target.value.split(' ');
+                  addOrderFromAi({ code, text: rest.join(' ') });
+                  e.target.value = '';
+                }
+              }}
+            />
+          </div>
+          {orders.map(order => (
+            <div key={order.id} className="flex items-center justify-between p-2 border-b border-slate-100 last:border-0">
+              <div className="text-sm">
+                <span className="font-mono font-bold text-emerald-600 mr-2">{order.code}</span>
+                <span className="text-slate-600">{order.text}</span>
+              </div>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${order.status === 'Done' ? 'bg-slate-100 text-slate-400' : 'bg-emerald-100 text-emerald-700'}`}>
+                {order.status}
+              </span>
+            </div>
+          ))}
+        </SectionCard>
+
+        {/* 3. RESULTS */}
+        <SectionCard title="Results" icon={Activity} colorClass="bg-orange-50/50">
+          <div className="grid grid-cols-2 gap-3">
+            {results.map((res, i) => (
+              <div key={i} className={`p-3 rounded-xl border ${res.normal ? 'bg-white' : 'bg-red-50 border-red-100'}`}>
+                <div className="text-xs text-slate-500">{res.label}</div>
+                <div className={`text-xl font-black ${res.normal ? 'text-slate-800' : 'text-red-600'}`}>
+                  {res.value} <span className="text-xs font-normal opacity-60">{res.unit}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </SectionCard>
+
+        {/* 4. D/D AI ASSISTANT */}
+        <SectionCard 
+          title="Differential Diagnosis" 
+          icon={BrainCircuit} 
+          colorClass="bg-purple-50/50"
+          action={
+            <button 
+              onClick={handleRunAi}
+              disabled={isLoading}
+              className="flex items-center gap-1.5 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300 text-white px-3 py-1 rounded-lg text-xs font-bold transition-all shadow-sm"
+            >
+              {isLoading ? <Loader2 size={14} className="animate-spin"/> : <Sparkles size={14}/>}
+              AI Analysis
+            </button>
+          }
+        >
+          {aiAnalysis ? (
+            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
+              <div className="space-y-3">
+                {aiAnalysis.dd.map((d, i) => (
+                  <div key={i} className="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="font-bold text-slate-800">{d.name}</span>
+                      <span className="text-purple-600 font-black">{d.prob}%</span>
+                    </div>
+                    <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                      <div className="bg-purple-500 h-full transition-all duration-1000" style={{ width: `${d.prob}%` }}></div>
+                    </div>
+                    <p className="text-[10px] text-slate-500 mt-2 italic">“{d.reason}”</p>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-2 border-t border-purple-100">
+                <div className="text-[10px] font-bold text-purple-400 uppercase mb-2">Recommended Orders</div>
+                <div className="space-y-2">
+                  {aiAnalysis.orders.map((o, i) => (
+                    <button 
+                      key={i}
+                      onClick={() => addOrderFromAi(o)}
+                      className="w-full flex items-center justify-between p-2 text-left text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-lg border border-purple-100 transition-colors"
+                    >
+                      <span><span className="font-bold">{o.code}</span> {o.text}</span>
+                      <Plus size={14}/>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-2">
+              <BrainCircuit size={48} strokeWidth={1} className="opacity-20"/>
+              <p className="text-xs">點擊「AI Analysis」獲取臨床建議</p>
+            </div>
+          )}
+        </SectionCard>
+      </div>
+
+      {/* Note Edit Modal */}
+      {isNoteModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95">
+            <div className="p-4 border-b flex justify-between items-center bg-slate-50">
+              <h3 className="font-bold">{editingNote ? 'Edit Note' : 'New Note'}</h3>
+              <button onClick={() => setNoteModalOpen(false)}><X size={20}/></button>
+            </div>
+            <div className="p-6 space-y-4">
+              <input 
+                defaultValue={editingNote?.title} 
+                id="modal-title"
+                placeholder="Note Title (e.g. Vital Signs Stable)"
+                className="w-full text-lg font-bold border-none focus:ring-0 outline-none placeholder:text-slate-300"
+              />
+              <textarea 
+                defaultValue={editingNote?.content}
+                id="modal-content"
+                rows={10}
+                placeholder="Start typing findings..."
+                className="w-full text-sm border-none focus:ring-0 outline-none resize-none placeholder:text-slate-300"
+              />
+              <div className="flex justify-end gap-3 pt-4 border-t">
+                <button onClick={() => setNoteModalOpen(false)} className="px-4 py-2 text-sm font-medium text-slate-500">Cancel</button>
+                <button 
+                  onClick={() => {
+                    const title = document.getElementById('modal-title').value;
+                    const content = document.getElementById('modal-content').value;
+                    if(editingNote) {
+                      setNotes(notes.map(n => n.id === editingNote.id ? {...n, title, content} : n));
+                    } else {
+                      setNotes([{ id: Date.now(), title, content, type: 'Progress Note', date: '12/12' }, ...notes]);
+                    }
+                    setNoteModalOpen(false);
+                  }}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold shadow-md shadow-blue-200"
+                >
+                  Save Note
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
