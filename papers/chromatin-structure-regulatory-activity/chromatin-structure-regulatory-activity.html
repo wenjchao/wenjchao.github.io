@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A massively parallel reporter assay dissects the influence of chromatin structure on cis-regulatory activity</title>
+  <style>
+    :root {
+      --ink: #1f252b;
+      --muted: #5c6670;
+      --rule: #d8dde3;
+      --soft: #f6f8fa;
+    }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+    main {
+      width: min(980px, calc(100% - 36px));
+      margin: 42px auto 64px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      line-height: 1.12;
+      margin: 0 0 14px;
+      font-weight: 700;
+    }
+    h2 {
+      margin: 34px 0 10px;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 5px;
+    }
+    h3 {
+      margin: 26px 0 8px;
+      font-size: 1.08rem;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+    p {
+      margin: 0 0 14px;
+    }
+    .authors {
+      font-size: 1.05rem;
+      margin-bottom: 18px;
+    }
+    .meta, .affiliation, .note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .abstract {
+      font-weight: 700;
+      margin: 26px 0 24px;
+    }
+    .doi {
+      white-space: nowrap;
+    }
+    figure {
+      margin: 28px 0;
+      border: 1px solid var(--rule);
+      padding: 12px;
+      background: #fff;
+    }
+    figure img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 10px;
+    }
+    figcaption {
+      font-size: 0.92rem;
+      line-height: 1.42;
+    }
+    .equation {
+      margin: 18px 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .references {
+      padding-left: 1.6rem;
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+    .references li {
+      margin-bottom: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 22px;
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+    th, td {
+      border: 1px solid var(--rule);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: var(--soft);
+      font-weight: 700;
+    }
+    .checklist td:first-child {
+      width: 9rem;
+      color: var(--muted);
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']]
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+<style id="reader-panel-style">
+  main {
+    width: min(1320px, calc(100% - 36px)) !important;
+    max-width: 1320px !important;
+    padding-right: 340px !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+  .reader-panel {
+    margin: 0 0 34px;
+    padding: 0 0 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+    color: #20262d;
+    line-height: 1.72;
+    border-bottom: 1px solid #d8dde3;
+  }
+  .reader-panel section + section { margin-top: 26px; }
+  .reader-panel .layer-title { margin: 0 0 14px; font-size: 1.5em; font-weight: 760; letter-spacing: 0; color: #20262d; }
+  .reader-panel .module-block { margin: 0 0 18px; padding: 14px 16px 12px; border-left: 5px solid #d8dde3; border-radius: 6px; }
+  .reader-panel .module-thesis { margin: 0 0 12px; font-size: 14px; line-height: 1.62; color: #262d33; }
+  .reader-panel details.version { margin: 0 0 9px; border-radius: 5px; overflow: hidden; border: 1px solid rgba(31,37,43,0.10); }
+  .reader-panel details.version > summary { list-style: none; cursor: pointer; padding: 9px 12px; user-select: none; border-left: 4px solid transparent; }
+  .reader-panel details.version > summary::-webkit-details-marker { display: none; }
+  .reader-panel details.version > summary::before { content: "▸"; display: inline-block; width: 14px; margin-right: 4px; color: rgba(0,0,0,0.55); transition: transform .12s ease; }
+  .reader-panel details.version[open] > summary::before { transform: rotate(90deg); }
+  .reader-panel summary .hdr { display: inline-flex; align-items: center; gap: 9px; min-width: 0; font-size: 12px; vertical-align: top; }
+  .reader-panel summary .main-line-inline { display: block; margin-top: 8px; margin-left: 22px; font-size: 14.5px; font-weight: 560; line-height: 1.62; }
+  .reader-panel .rank-badge { display: inline-block; font-size: 11px; font-weight: 760; padding: 1px 8px; border-radius: 999px; background: rgba(0,0,0,0.11); color: #20262d; }
+  .reader-panel .vote { font-size: 11px; color: #5c6670; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .reader-panel .panel-body { padding: 10px 14px 13px 32px; font-size: 14.5px; background: rgba(255,255,255,0.60); }
+  .reader-panel .panel-body p { margin: 0 0 12px; }
+  .reader-panel .panel-body p:last-child { margin-bottom: 0; }
+  .reader-panel .panel-body .main-line { margin: 2px 0 13px; padding: 9px 12px; border-radius: 5px; font-size: 14px; font-weight: 560; background: rgba(255,255,255,0.74); }
+  .reader-panel .panel-body .main-line .label { display: block; margin-bottom: 3px; font-size: 10px; font-weight: 760; letter-spacing: .06em; color: #5c6670; }
+  .reader-panel .terms { margin-top: 10px; padding-top: 8px; border-top: 1px dashed rgba(0,0,0,0.16); font-size: 12px; color: #5c6670; }
+  .reader-panel .terms .label { margin-right: 6px; font-weight: 760; }
+  .reader-panel .chip { display: inline-block; margin: 2px 4px 2px 0; padding: 1px 7px; border-radius: 999px; background: rgba(255,255,255,0.72); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; color: #30363d; }
+  .hl { cursor: pointer; text-decoration: none; color: inherit; transition: filter .14s ease, opacity .14s ease; }
+  .hl:hover { filter: brightness(0.96); }
+  mark.hl { color: inherit; padding: 0 2px; border-radius: 2px; }
+  a.hl { padding: 0 2px; border-radius: 2px; }
+  mark.hl.is-selected { outline: 2.5px solid var(--sel-color, #444); outline-offset: 1px; border-radius: 2px; }
+  a.hl.is-selected { box-shadow: 0 0 0 2.5px var(--sel-color, #444), 0 4px 12px rgba(0,0,0,0.18); border-radius: 3px; position: relative; z-index: 2; }
+  mark.hl.hl-none { background: transparent !important; box-shadow: none !important; outline: 0 !important; cursor: default; padding: 0; border-radius: 0; }
+  .margin-rail { position: absolute; top: 0; right: 16px; width: 308px; pointer-events: none; font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
+  .margin-note { position: absolute; right: 0; width: 296px; box-sizing: border-box; pointer-events: auto; cursor: pointer; padding: 8px 10px; border: 1px solid rgba(31,37,43,0.15); border-left-width: 3px; border-radius: 6px; font-size: 12px; line-height: 1.5; color: #20262d; background: #fff; transition: top .18s ease, box-shadow .14s ease, border-color .14s ease, opacity .14s ease; }
+  .margin-note.is-active { border-color: rgba(31,37,43,0.32); }
+  .margin-note.is-selected { z-index: 3; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+  .note-next { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: rgba(255,255,255,0.72); font-size: 11px; white-space: nowrap; }
+  .note-next:hover { background: rgba(255,255,255,0.96); }
+  .color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; width: 136px; padding: 10px 10px 8px; box-sizing: border-box; border: 1px solid rgba(31,37,43,0.16); border-radius: 8px; background: rgba(255,255,255,0.94); box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
+  .color-toggle .ct-title { margin: 0 0 6px; font-size: 12px; font-weight: 760; color: #30363d; }
+  .color-toggle .ct-item { display: flex; align-items: center; gap: 7px; width: 100%; padding: 4px 3px; border: 0; background: transparent; cursor: pointer; color: #30363d; font-size: 12px; text-align: left; border-radius: 5px; }
+  .color-toggle .ct-item:hover { background: rgba(31,37,43,0.06); }
+  .color-toggle .ct-item.is-off { color: #9aa3ad; }
+  .ct-swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid currentColor; flex: 0 0 auto; }
+  .ct-item.is-off .ct-swatch { background: transparent !important; border-style: dashed; }
+  .reader-panel details.version.c-summary > summary { background: #FFF3B033; color: #7a5a00; border-left-color: #E8C75A; }
+  .reader-panel .module-block.c-summary { background: #FFF3B026; border-left-color: #E8C75A; }
+  .reader-panel .module-block.c-summary .module-thesis strong { color: #7a5a00; }
+  .reader-panel details.version.c-summary .rank-badge { background: #E8C75A; color: #fff; }
+  .reader-panel details.version.c-summary .panel-body .main-line { border-left: 3px solid #E8C75A; color: #7a5a00; }
+  .hl-summary { background: #FFF3B0; box-shadow: inset 0 -2px 0 #E8C75A; }
+  mark.hl.is-selected.sel-summary, a.hl.is-selected.sel-summary { --sel-color: #7a5a00; }
+  .margin-note.n-summary { background: #FFF3B040; border-left-color: #E8C75A; color: #7a5a00; }
+  .margin-note.n-summary.is-selected { border-color: #7a5a00; background: #FFF3B066; }
+  .ct-swatch-summary { background: #FFF3B0; border-color: #E8C75A; }
+  body.off-summary .margin-note.n-summary { display: none; }
+  body.off-summary a.hl.hl-summary { opacity: .4; pointer-events: none; }
+  body.off-summary .reader-panel details.version.c-summary { opacity: .35; pointer-events: none; }
+  .reader-panel details.version.c-m1 > summary { background: #FFB3BA33; color: #8a2330; border-left-color: #E08594; }
+  .reader-panel .module-block.c-m1 { background: #FFB3BA26; border-left-color: #E08594; }
+  .reader-panel .module-block.c-m1 .module-thesis strong { color: #8a2330; }
+  .reader-panel details.version.c-m1 .rank-badge { background: #E08594; color: #fff; }
+  .reader-panel details.version.c-m1 .panel-body .main-line { border-left: 3px solid #E08594; color: #8a2330; }
+  .hl-m1 { background: #FFB3BA; box-shadow: inset 0 -2px 0 #E08594; }
+  mark.hl.is-selected.sel-m1, a.hl.is-selected.sel-m1 { --sel-color: #8a2330; }
+  .margin-note.n-m1 { background: #FFB3BA40; border-left-color: #E08594; color: #8a2330; }
+  .margin-note.n-m1.is-selected { border-color: #8a2330; background: #FFB3BA66; }
+  .ct-swatch-m1 { background: #FFB3BA; border-color: #E08594; }
+  body.off-m1 .margin-note.n-m1 { display: none; }
+  body.off-m1 a.hl.hl-m1 { opacity: .4; pointer-events: none; }
+  body.off-m1 .reader-panel .module-block.c-m1 { opacity: .35; pointer-events: none; }
+  .reader-panel details.version.c-m2 > summary { background: #C8E6C933; color: #1f5c2e; border-left-color: #88BF8B; }
+  .reader-panel .module-block.c-m2 { background: #C8E6C926; border-left-color: #88BF8B; }
+  .reader-panel .module-block.c-m2 .module-thesis strong { color: #1f5c2e; }
+  .reader-panel details.version.c-m2 .rank-badge { background: #88BF8B; color: #fff; }
+  .reader-panel details.version.c-m2 .panel-body .main-line { border-left: 3px solid #88BF8B; color: #1f5c2e; }
+  .hl-m2 { background: #C8E6C9; box-shadow: inset 0 -2px 0 #88BF8B; }
+  mark.hl.is-selected.sel-m2, a.hl.is-selected.sel-m2 { --sel-color: #1f5c2e; }
+  .margin-note.n-m2 { background: #C8E6C940; border-left-color: #88BF8B; color: #1f5c2e; }
+  .margin-note.n-m2.is-selected { border-color: #1f5c2e; background: #C8E6C966; }
+  .ct-swatch-m2 { background: #C8E6C9; border-color: #88BF8B; }
+  body.off-m2 .margin-note.n-m2 { display: none; }
+  body.off-m2 a.hl.hl-m2 { opacity: .4; pointer-events: none; }
+  body.off-m2 .reader-panel .module-block.c-m2 { opacity: .35; pointer-events: none; }
+  .reader-panel details.version.c-m3 > summary { background: #B3D9FF33; color: #1b4d80; border-left-color: #7AB2E0; }
+  .reader-panel .module-block.c-m3 { background: #B3D9FF26; border-left-color: #7AB2E0; }
+  .reader-panel .module-block.c-m3 .module-thesis strong { color: #1b4d80; }
+  .reader-panel details.version.c-m3 .rank-badge { background: #7AB2E0; color: #fff; }
+  .reader-panel details.version.c-m3 .panel-body .main-line { border-left: 3px solid #7AB2E0; color: #1b4d80; }
+  .hl-m3 { background: #B3D9FF; box-shadow: inset 0 -2px 0 #7AB2E0; }
+  mark.hl.is-selected.sel-m3, a.hl.is-selected.sel-m3 { --sel-color: #1b4d80; }
+  .margin-note.n-m3 { background: #B3D9FF40; border-left-color: #7AB2E0; color: #1b4d80; }
+  .margin-note.n-m3.is-selected { border-color: #1b4d80; background: #B3D9FF66; }
+  .ct-swatch-m3 { background: #B3D9FF; border-color: #7AB2E0; }
+  body.off-m3 .margin-note.n-m3 { display: none; }
+  body.off-m3 a.hl.hl-m3 { opacity: .4; pointer-events: none; }
+  body.off-m3 .reader-panel .module-block.c-m3 { opacity: .35; pointer-events: none; }
+  .reader-panel details.version.c-m4 > summary { background: #FFD9B333; color: #7a3d00; border-left-color: #E0A66E; }
+  .reader-panel .module-block.c-m4 { background: #FFD9B326; border-left-color: #E0A66E; }
+  .reader-panel .module-block.c-m4 .module-thesis strong { color: #7a3d00; }
+  .reader-panel details.version.c-m4 .rank-badge { background: #E0A66E; color: #fff; }
+  .reader-panel details.version.c-m4 .panel-body .main-line { border-left: 3px solid #E0A66E; color: #7a3d00; }
+  .hl-m4 { background: #FFD9B3; box-shadow: inset 0 -2px 0 #E0A66E; }
+  mark.hl.is-selected.sel-m4, a.hl.is-selected.sel-m4 { --sel-color: #7a3d00; }
+  .margin-note.n-m4 { background: #FFD9B340; border-left-color: #E0A66E; color: #7a3d00; }
+  .margin-note.n-m4.is-selected { border-color: #7a3d00; background: #FFD9B366; }
+  .ct-swatch-m4 { background: #FFD9B3; border-color: #E0A66E; }
+  body.off-m4 .margin-note.n-m4 { display: none; }
+  body.off-m4 a.hl.hl-m4 { opacity: .4; pointer-events: none; }
+  body.off-m4 .reader-panel .module-block.c-m4 { opacity: .35; pointer-events: none; }
+  .reader-panel details.version.c-m5 > summary { background: #E1BEE733; color: #5a2a6e; border-left-color: #B287B9; }
+  .reader-panel .module-block.c-m5 { background: #E1BEE726; border-left-color: #B287B9; }
+  .reader-panel .module-block.c-m5 .module-thesis strong { color: #5a2a6e; }
+  .reader-panel details.version.c-m5 .rank-badge { background: #B287B9; color: #fff; }
+  .reader-panel details.version.c-m5 .panel-body .main-line { border-left: 3px solid #B287B9; color: #5a2a6e; }
+  .hl-m5 { background: #E1BEE7; box-shadow: inset 0 -2px 0 #B287B9; }
+  mark.hl.is-selected.sel-m5, a.hl.is-selected.sel-m5 { --sel-color: #5a2a6e; }
+  .margin-note.n-m5 { background: #E1BEE740; border-left-color: #B287B9; color: #5a2a6e; }
+  .margin-note.n-m5.is-selected { border-color: #5a2a6e; background: #E1BEE766; }
+  .ct-swatch-m5 { background: #E1BEE7; border-color: #B287B9; }
+  body.off-m5 .margin-note.n-m5 { display: none; }
+  body.off-m5 a.hl.hl-m5 { opacity: .4; pointer-events: none; }
+  body.off-m5 .reader-panel .module-block.c-m5 { opacity: .35; pointer-events: none; }
+  .reader-panel details.version.c-m6 > summary { background: #B2EBF233; color: #1d5d68; border-left-color: #7DC6CF; }
+  .reader-panel .module-block.c-m6 { background: #B2EBF226; border-left-color: #7DC6CF; }
+  .reader-panel .module-block.c-m6 .module-thesis strong { color: #1d5d68; }
+  .reader-panel details.version.c-m6 .rank-badge { background: #7DC6CF; color: #fff; }
+  .reader-panel details.version.c-m6 .panel-body .main-line { border-left: 3px solid #7DC6CF; color: #1d5d68; }
+  .hl-m6 { background: #B2EBF2; box-shadow: inset 0 -2px 0 #7DC6CF; }
+  mark.hl.is-selected.sel-m6, a.hl.is-selected.sel-m6 { --sel-color: #1d5d68; }
+  .margin-note.n-m6 { background: #B2EBF240; border-left-color: #7DC6CF; color: #1d5d68; }
+  .margin-note.n-m6.is-selected { border-color: #1d5d68; background: #B2EBF266; }
+  .ct-swatch-m6 { background: #B2EBF2; border-color: #7DC6CF; }
+  body.off-m6 .margin-note.n-m6 { display: none; }
+  body.off-m6 a.hl.hl-m6 { opacity: .4; pointer-events: none; }
+  body.off-m6 .reader-panel .module-block.c-m6 { opacity: .35; pointer-events: none; }
+  @media (max-width: 1100px) {
+    main { width: min(980px, calc(100% - 36px)) !important; padding-right: 28px !important; }
+    .margin-rail { display: none; }
+    .color-toggle { right: 10px; top: 10px; }
+  }
+</style>
+
+<aside class="reader-panel">
+<section class="panel-section panel-l1">
+<div class="layer-title">全文摘要</div>
+<details class="version c-summary" open>
+<summary>
+<span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">7 票</span></span>
+<span class="main-line-inline"><a class="hl hl-summary" id="sum-h-l1-001" data-id="h-l1-001" data-targets="h-l2_m1-007-a h-l2_m3-018-b">同一個 DNA 開關（cis-regulatory sequence, CRS）放在基因組不同位置會表現出非常不同的活性</a>。作者想知道：<a class="hl hl-summary" id="sum-h-l1-002" data-id="h-l1-002" data-targets="h-l1-002-a">周圍環境（chromatin）對開關的影響</a>，<a class="hl hl-summary" id="sum-h-l1-003" data-id="h-l1-003" data-targets="h-l1-003-a h-l1-009-a">到底是「跟每個開關的序列特性糾纏在一起」，還是「不管什麼開關，都被同一個倍數整齊放大或縮小」</a>。<a class="hl hl-summary" id="sum-h-l1-004" data-id="h-l1-004" data-targets="h-l1-004-a">他們發明了一套同時測量幾百種開關插入多個指定位置的方法</a>，<a class="hl hl-summary" id="sum-h-l1-005" data-id="h-l1-005" data-targets="h-l1-005-a">發現後者成立——位置只是個倍數放大器</a>。</span>
+</summary>
+<div class="panel-body">
+<p><a class="hl hl-summary" id="sum-h-l1-006" data-id="h-l1-006" data-targets="h-l1-006-a">DNA 上有許多「短片段開關」（cis-regulatory sequence, CRS）負責調控基因表現</a>。但<a class="hl hl-summary" id="sum-h-l1-007" data-id="h-l1-007" data-targets="h-l2_m1-007-a h-l1-007-b">同一個開關放到基因組不同位置，活性可能差好幾個數量級</a>——<a class="hl hl-summary" id="sum-h-l1-008" data-id="h-l1-008" data-targets="h-l2_m1-007-a">這是早就知道的位置效應</a>，卻一直沒人能回答關鍵問題：<a class="hl hl-summary" id="sum-h-l1-009" data-id="h-l1-009" data-targets="h-l1-009-a">位置到底是「會挑開關，跟每個開關特性糾纏」，還是「不管什麼開關都被同一個倍數整齊放大或縮小」</a>？想像每個開關是一首歌的固有音量，而基因組不同位置是裝著不同旋鈕的房間：在新房間裡，歌與歌的相對大小到底會不會變？</p>
+<p>為了一次回答這個問題，<a class="hl hl-summary" id="sum-h-l1-011" data-id="h-l1-011" data-targets="h-l2_m1-032-a">作者開發了 patchMPRA</a>。<a class="hl hl-summary" id="sum-h-l1-012" data-id="h-l1-012" data-targets="h-l1-012-a h-l1-012-b">他們先用病毒把數個「事先標好位置的插槽」（landing pad）隨機散射到細胞基因組裡</a>，<a class="hl hl-summary" id="sum-h-l1-013" data-id="h-l1-013" data-targets="h-l1-013-a h-l1-013-b">挑出每隻只插了一個的細胞培養成獨立細胞株</a>，<a class="hl hl-summary" id="sum-h-l1-014" data-id="h-l1-014" data-targets="h-l1-014-a">再用定位 PCR 反推出每個插槽落在哪裡</a>。<a class="hl hl-summary" id="sum-h-l1-015" data-id="h-l1-015" data-targets="h-l2_m2-004-a">接著把幾百個 DNA 開關各自掛上自己的身分條碼（cBC）</a>，<a class="hl hl-summary" id="sum-h-l1-016" data-id="h-l1-016" data-targets="h-l2_m2-004-a h-l1-016-b">用一個酵素把它們精準塞進插槽</a>。這樣<a class="hl hl-summary" id="sum-h-l1-017" data-id="h-l1-017" data-targets="h-l1-017-a h-l1-017-b">每個產生的 RNA 訊息都會同時帶兩個條碼——「我是哪個開關」（cBC）和「我在哪個位置」（gBC）</a>——<a class="hl hl-summary" id="sum-h-l1-018" data-id="h-l1-018" data-targets="h-l1-018-a h-l1-018-b">把定序機產生的條碼配對數一數，就能算出「某個開關在某個位置」的活性</a>。</p>
+<p>方法就位後，<a class="hl hl-summary" id="sum-h-l1-019" data-id="h-l1-019" data-targets="h-l1-019-a h-l1-019-b h-l2_m2-076-b">作者把 310 個事先篩選過的開關（涵蓋預期強、弱、被抑制三種）一次塞進 8 個位置已知的插槽</a>。結果浮現兩個重點：<a class="hl hl-summary" id="sum-h-l1-020" data-id="h-l1-020" data-targets="h-l1-007-b">不同位置的整體音量差異很大，例如位置 3 整體就比位置 4 響亮</a>；<a class="hl hl-summary" id="sum-h-l1-021" data-id="h-l1-021" data-targets="h-l1-021-a h-l1-021-b">但如果在位置 1 把 310 個開關依強度分成高、中、低三組，搬到其他位置之後，這個高中低排序大致還在</a>。<a class="hl hl-summary" id="sum-h-l1-022" data-id="h-l1-022" data-targets="h-l1-022-a">換句話說，房間在變、絕對音量也在變，但歌與歌之間的相對大小保持穩定</a>。</p>
+<p>為了用更嚴格的方式檢驗這個直覺，作者直接寫成數學式：<a class="hl hl-summary" id="sum-h-l1-023" data-id="h-l1-023" data-targets="h-l1-023-a h-l1-023-b h-l1-023-c">假設每個開關在每個位置的活性，可以拆成「開關自己的固有強度」乘上「位置的環境倍數」</a>，<a class="hl hl-summary" id="sum-h-l1-024" data-id="h-l1-024" data-targets="h-l1-024-a">即 \(E_{ij} = C_i \times L_j\)</a>。<a class="hl hl-summary" id="sum-h-l1-025" data-id="h-l1-025" data-targets="h-l1-027-a">如果這個簡單的乘法分解成立，就表示位置真的只是個整齊放大或縮小的旋鈕，跟開關是誰無關</a>。<a class="hl hl-summary" id="sum-h-l1-026" data-id="h-l1-026" data-targets="h-l1-026-a h-l1-026-b">實際擬合的吻合度非常高（相關係數約 0.9）</a>——也就是說，<a class="hl hl-summary" id="sum-h-l1-027" data-id="h-l1-027" data-targets="h-l1-027-a">這個簡單假設幾乎抓住了所有訊號</a>。再把總變異拆開來看：<a class="hl hl-summary" id="sum-h-l1-028" data-id="h-l1-028" data-targets="h-l2_m4-003-a">位置自己貢獻六成多，開關序列貢獻一成多，剩下兩成大致來自實驗雜訊</a>——<a class="hl hl-summary" id="sum-h-l1-029" data-id="h-l1-029" data-targets="h-l2_m4-004-a">幾乎沒留下空間給「特定位置與特定開關之間的特殊化學反應」</a>。</p>
+<p>作者再做兩種替換來確認這不是偶然。<a class="hl hl-summary" id="sum-h-l1-030" data-id="h-l1-030" data-targets="h-l1-019-b">每個開關上游都必須接一段「起跑線」（最小啟動子）才能被轉錄機器辨識</a>；<a class="hl hl-summary" id="sum-h-l1-031" data-id="h-l1-031" data-targets="h-l1-031-a">第一輪用其中一款，第二輪換成另一款</a>——<a class="hl hl-summary" id="sum-h-l1-032" data-id="h-l1-032" data-targets="h-l1-032-a h-l2_m4-044-a">整體音量會變，但開關的相對排序不變</a>。<a class="hl hl-summary" id="sum-h-l1-033" data-id="h-l1-033" data-targets="h-l2_m4-043-a h-l1-033-b">他們又把幾段更長、學界已驗證過的增強子加進來測</a>，<a class="hl hl-summary" id="sum-h-l1-034" data-id="h-l1-034" data-targets="h-l1-034-a h-l1-034-b">這些增強子既沒有特別強，也沒辦法把自己跟位置效應隔離開</a>。另一個獨立檢查是：<a class="hl hl-summary" id="sum-h-l1-035" data-id="h-l1-035" data-targets="h-l2_m5-007-a">把模型推算出的「固有強度」拿去跟「只放在游離 DNA 圈圈（質體）上測得的活性」對照，兩者方向一致</a>。<a class="hl hl-summary" id="sum-h-l1-036" data-id="h-l1-036" data-targets="h-l1-036-a">這支持「開關固有強度」是一個獨立、可被移植判讀的屬性</a>。</p>
+<p>作者提出一個直覺解釋：<a class="hl hl-summary" id="sum-h-l1-037" data-id="h-l1-037" data-targets="h-l2_m5-039-b">開關本身決定「能不能吸引到對的轉錄機器」</a>，而<a class="hl hl-summary" id="sum-h-l1-038" data-id="h-l1-038" data-targets="h-l2_m5-039-b">周圍的染色質決定「轉錄機器能不能擠進來」</a>。<a class="hl hl-summary" id="sum-h-l1-039" data-id="h-l1-039" data-targets="h-l1-039-a">所有轉錄機器都要穿過同一團蛋白質網路才能接觸 DNA</a>，<a class="hl hl-summary" id="sum-h-l1-040" data-id="h-l1-040" data-targets="h-l1-040-a">所以一個區域如果整體比較緻密，所有開關就一起被等比例壓低</a>——這就是位置看起來像個整齊旋鈕的原因。不過，這個結論的適用範圍仍有邊界：<a class="hl hl-summary" id="sum-h-l1-041" data-id="h-l1-041" data-targets="h-l1-041-a h-l2_m4-041-a">目前只在一種人類白血病細胞（K562 細胞）的 15 個位置上驗證</a>，<a class="hl hl-summary" id="sum-h-l1-042" data-id="h-l1-042" data-targets="h-l2_m5-006-b">且選到的開關偏向少數幾類轉錄因子辨識的序列</a>。<a class="hl hl-summary" id="sum-h-l1-043" data-id="h-l1-043" data-targets="h-l2_m5-006-b">其他類型的開關（例如把基因隔開的「絕緣子」）是否也乖乖被同一個倍數縮放，還是未解的問題</a>。</p>
+
+</div></details>
+<details class="version c-summary">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">7 票</span></span>
+</summary>
+<div class="panel-body">
+<div class="main-line"><span class="label">MAIN LINE</span>為了搞清楚一段 DNA 開關的強弱跟它「插在基因組哪個位置」這兩件事是各自獨立還是會交互糾纏，作者發明了一套叫 patchMPRA 的方法，可以一次量很多段開關插在很多不同位置時各自驅動基因表現的強度。結果發現位置只是把所有開關的強度等比例放大或縮小，並沒有跟特定 DNA 序列產生複雜的搭配效果。</div>
+<p>一個基因要被打開多少，會同時受到「附近那段控制 DNA 開關」(CRS) 和「周圍 DNA 包得鬆或緊的環境」(chromatin) 影響。但過去做過類似實驗的人，一次只能塞一兩段開關到基因組裡看效果，樣本太少，沒辦法分得清楚一個關鍵問題：把一段強開關和一段弱開關搬到鬆緊不同的位置，它們的強弱排名會被換掉嗎？還是只會整排一起變大聲或變小聲？</p>
+<p>為了一次回答這個問題，作者開發了一套叫 patchMPRA 的方法。他們先在 K562 細胞 (人類白血病細胞株) 的基因組裡隨機挖好一批「停車格」(landing pad)，每個停車格身上掛一個專屬位置條碼。然後在每段開關身上也掛一個專屬開關條碼，用一種剪接酵素 (Cre 重組酶) 把開關精準塞進這些停車格。這樣產生出來的 RNA 就會同時帶著「開關條碼」與「位置條碼」，定序後一看就知道「哪段開關插在哪個位置、做出多少 RNA」。最後用 RNA 數量除以 DNA 數量校正細胞數差異，得到每段開關真正驅動的表現量。</p>
+<p>作者比對了同一批 310 段開關在不同停車格的表現量，結果非常乾淨：雖然有些停車格整體就是把所有開關都拉高、有些就是把所有開關都壓低，但開關之間誰強誰弱的排名幾乎沒變。誇張到什麼程度？有些停車格的環境壓制力強到把原本的「強開關」壓得比其他位置的「弱開關」還弱，可是在那個停車格內部，強開關還是比弱開關強。</p>
+<p>這個「整排一起放大或縮小」的規律乾淨到可以用一條超簡單的公式描述：某段開關 i 在某位置 j 的表現量，等於這段開關本身的固有強度乘上這個位置的環境倍數，也就是 \(E_{ij} = C_i \times L_j\)。公式的預測值跟實際資料吻合度非常高 (相關係數 R = 0.9)。拆開來看，位置本身解釋了表現差異的 64%、開關本身解釋了 16%，剩下大約 20% 是實驗雜訊。換句話說，如果真的存在「特定開關跟特定位置之間的複雜搭配」，它的影響也小到看不見。</p>
+<p>作者怕這只是巧合，又做了第二輪實驗，三件事一次測：把停車格從 8 個加到 15 個、把開關旁邊那個小型「起跑點 DNA」換成另一種、再加入一些過去文獻驗證過的長版開關。三個變動測下來，結果通通沒打破：每段開關在不同位置之間的相對強弱還是維持，公式仍然成立，連長版開關都沒有自帶「抵抗位置效應」的能力。同時，patchMPRA 算出來的開關固有強度，也跟另一種對照實驗（把開關放在游離的 DNA 環、也就是質體上，完全不插進基因組，因此沒有任何染色質環境干擾）測到的強度一致。</p>
+<p>為什麼會這樣？作者猜想開關和環境其實在影響同一個步驟：開關決定「會吸引多少打開基因的蛋白質來」，環境決定「這些蛋白質有多容易擠進去」。包得緊的環境把所有蛋白質擠進去的機率一起壓低，所以對所有開關的影響都是同一個倍數，跟開關長什麼樣沒關係。</p>
+<p>不過這套實驗只在 K562 一種細胞、15 個停車格上做過，數量太少，沒辦法歸納「到底是什麼染色質特徵決定一個位置的倍數是放大還是縮小」。而且測過的開關大多是某幾類常見轉錄因子愛用的序列，其他更特別的開關（例如負責隔離功能的絕緣子）會不會也乖乖被等比例縮放，這個實驗回答不了。</p>
+
+</div></details>
+<details class="version c-summary">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">7 票</span></span>
+</summary>
+<div class="panel-body">
+<div class="main-line"><span class="label">MAIN LINE</span>一段基因要不要表現、表現多強，受兩件事控制：旁邊那段短短的調控 DNA（像開關），以及這段基因落在染色體上哪個鄰里（像鄰里環境）。長久以來沒人知道這兩者是各做各的、效果可以相乘？還是會彼此糾纏、產生只有特定組合才會出現的化學反應？作者發明了一套叫 patchMPRA 的方法，一次把幾百個不同的調控 DNA 片段，分別放到人類細胞基因體上多個固定位置，量出每一段在每一個位置的表現量。結果發現：鄰里的確會把表現整體拉強或壓弱，但它對所有開關都用同一個倍率，不會挑開關。換句話說，最終的表現量等於「開關本身的固有強度」乘以「該位置鄰里的倍率」，兩者獨立、可以相乘。</div>
+<p>一段基因要不要表現、表現多強，受兩件事控制：旁邊那段短短的調控 DNA（像開關），以及這段基因落在染色體上哪個鄰里。所謂鄰里指的是這段 DNA 周圍的「打包狀態」：DNA 平常纏在蛋白質上、像線繞著線軸，纏得鬆的地方分子容易靠近、開關才能被讀到，纏得緊的地方什麼都進不去，這整套打包系統就叫染色質 (chromatin)。長久以來大家發現，同樣一個基因，光是搬到染色體上另一個位置，表現量就可以天差地別，這個現象叫染色體位置效應 (chromosome position effect)。但沒人知道：開關和鄰里到底是各做各的，效果可以相乘？還是會彼此糾纏，只有特定組合才會出現特殊化學反應？這個問題以前回答不了，是因為要分開兩股力量，就必須讓很多種開關各自搬到很多個固定位置都量一次，過去的方法一次只能測少少幾種。</p>
+<p>為了解決這個規模問題，作者發明了 patchMPRA。他們先把幾個叫「著陸點 (landing pad)」的小卡榫，預先散布到人類白血病細胞 (K562) 基因體上不同位置，每個著陸點都帶一個獨一無二的位置條碼 (gBC)。接著把上百段要測試的調控 DNA 開關 (cis-regulatory sequence, CRS) 一個一個配上自己的身分條碼 (cBC)，一起送進細胞，讓它們自動扣進著陸點，下游接著一段「報導基因」（會被讀成 RNA、告訴我們開關有沒有啟動）——只要這段開關被細胞讀出來，RNA 上就同時帶著兩個條碼。把它定序就能同時知道「是誰、放在哪」。表現量則用 \(\log_2(\text{RNA 讀數}/\text{DNA 讀數})\) 計算，也就是平均每份基因模板被讀成多少份 RNA。</p>
+<p>作者一次把 310 段不同的開關，放進染色體上 8 個著陸點量表現。結果分兩層：第一層，不同位置整體表現量差很大，有的位置全部開關都被壓低、有的位置全部都被拉高；第二層，把開關依強度排名，這個排名在每個位置幾乎都一樣，原本強的還是強、原本弱的還是弱。把同一批開關在兩個不同位置的表現量畫散布圖，點幾乎排成一條斜線，相關係數高達 R = 0.71，已經很接近同一個實驗做兩遍的天花板。換了位置幾乎只是把整條斜線整體往上或往下平移，沒有把排名打亂，這正是「同倍率」的指紋。</p>
+<p>為了把這個直覺寫成可驗證的式子，作者直接擬合最簡單的「相乘」模型：某個開關在某個位置的表現，等於這個開關自己的固有強度，乘以該位置鄰里的倍率，即 \(E_{ij} = C_i \times L_j\)。光是這個式子就解釋掉 R = 0.90 的變異（R 越接近 1，模型預測越貼近真實），連把資料分一半、用一半的式子預測另一半，仍有 R = 0.83，代表幾乎不需要「特定開關配特定鄰里才會發生」的糾纏效應。再把總變異拆開後也能看到同樣的訊息：位置鄰里一個人就佔 64%、開關序列佔 16%、實驗雜訊約佔 20%——「你被放在哪」比「你是誰」更重要，但兩者依然各做各的。</p>
+<p>為了確認這個結論不是巧合，作者做了兩種交叉檢驗。一是把推算出來的「開關固有強度 Cᵢ」拿去跟傳統質體 (plasmid) 實驗的活性比，兩者順序對得起來，代表質體上量到的活性差不多就反映了開關沒有鄰里時的本性。二是把著陸點從 8 個擴到 15 個，又換掉開關下游的最小啟動子版本，甚至把短片段換成文獻早已驗證過的完整強化子。結果換湯也換藥，所有相對強弱的排名仍然在每個位置都保留下來。</p>
+<p>作者由此提出一種直覺解釋：開關自己決定「負責啟動讀取基因的蛋白質（轉錄因子）有多想黏上來」，鄰里則決定「這些轉錄因子能不能擠進這片區域」。鄰里一旦變緊，所有種類的轉錄因子都同樣擠不進來，所以對所有開關都打同一個折扣，這正好就是同倍率。</p>
+<p>當然這個結論目前只在一種人類白血病細胞、十幾個位置上驗證過，鄰里的倍率到底由哪些染色質特徵決定還說不出來；patchMPRA 因為每個細胞只整合一份拷貝，加上把開關精準塞進著陸點的 Cre 重組效率只有約 12%，重複性比傳統質體版略低，限制了一次能測的開關數量。</p>
+
+</div></details>
+</section>
+<section class="panel-section panel-l2">
+<div class="layer-title">分項細節</div>
+<div class="module-block c-m1">
+<p class="module-thesis"><strong>主題一</strong>：<a class="hl hl-m1" id="sum-h-l2_m1-001" data-id="h-l2_m1-001" data-targets="h-l2_m1-001-a">過去 30 年的染色體位置效應研究</a><a class="hl hl-m1" id="sum-h-l2_m1-002" data-id="h-l2_m1-002" data-targets="h-l2_m1-002-a">只能一次測少數幾個 CRS</a>，所以<a class="hl hl-m1" id="sum-h-l2_m1-003" data-id="h-l2_m1-003" data-targets="h-l1-003-a h-l1-009-a">沒人能分辨「位置 × 序列」到底是會挑序列糾纏</a>，<a class="hl hl-m1" id="sum-h-l2_m1-004" data-id="h-l2_m1-004" data-targets="h-l1-003-a h-l1-009-a">還是只是對所有序列同步等比例縮放</a>。</p>
+<details class="version c-m1">
+<summary>
+<span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">6 票</span></span>
+</summary>
+<div class="panel-body">
+<p>在基因組上，<a class="hl hl-m1" id="sum-h-l2_m1-005" data-id="h-l2_m1-005" data-targets="h-l2_m1-007-a">同一段 DNA 開關 (cis-regulatory sequence, CRS) 光是搬到另一個位置，表現量就可以差好幾個數量級</a>——<a class="hl hl-m1" id="sum-h-l2_m1-006" data-id="h-l2_m1-006" data-targets="h-l2_m1-007-a h-l1-002-a">差別不在開關序列，而在周圍 chromatin 把它包得鬆還是緊</a>。<a class="hl hl-m1" id="sum-h-l2_m1-007" data-id="h-l2_m1-007" data-targets="h-l2_m1-007-a">這個現象叫染色體位置效應 (chromosome position effect)</a>。<a class="hl hl-m1" id="sum-h-l2_m1-008" data-id="h-l2_m1-008" data-targets="h-l2_m1-008-a h-l2_m1-008-b">1979 年人們就在果蠅身上看到，光換位置就讓基因時開時關 (position-effect variegation, PEV)</a>，<a class="hl hl-m1" id="sum-h-l2_m1-009" data-id="h-l2_m1-009" data-targets="h-l2_m1-009-a">之後類似觀察一路累積 30 年</a>，<a class="hl hl-m1" id="sum-h-l2_m1-010" data-id="h-l2_m1-010" data-targets="h-l2_m1-010-a">但所有研究都停在「描述」階段：知道位置影響很大，卻沒人能釘住「這個影響的形狀長什麼樣」</a>。</p>
+<p>卡住的關鍵問題可以這樣想：把每段 DNA 開關當成一首固定音量的歌、把基因組每個位置當成一間房間，問題是房間到底「挑不挑歌」？<a class="hl hl-m1" id="sum-h-l2_m1-012" data-id="h-l2_m1-012" data-targets="h-l1-003-a">一種可能是糾纏 (sequence-specific interaction)：房間挑歌</a>，<a class="hl hl-m1" id="sum-h-l2_m1-013" data-id="h-l2_m1-013" data-targets="h-l1-009-a">把某些歌特別拉大聲、某些歌特別壓小聲，搬完房間後歌曲排名被洗牌</a>。<a class="hl hl-m1" id="sum-h-l2_m1-014" data-id="h-l2_m1-014" data-targets="h-l1-009-a">另一種可能是等比例縮放 (linear scaling)：房間只是個總音量旋鈕</a>，<a class="hl hl-m1" id="sum-h-l2_m1-015" data-id="h-l2_m1-015" data-targets="h-l1-009-a">整批歌一起被拉大或拉小，但歌之間誰大聲誰小聲完全不變</a>。分辨清楚會差很多——如果是糾纏，每換一個位置就得重新量每個開關，假設有 N 段開關搬到 M 個位置，整張表就要記 N×M 組數字；如果是等比例縮放，整個系統只需要 N+M 組數字（每段開關一個固有強度、每個位置一個倍數），而且 chromatin 對所有開關走同一套機制。</p>
+<p>兩種可能其實會留下完全不同的指紋。用同一批開關在兩個位置的活性畫散布圖：<a class="hl hl-m1" id="sum-h-l2_m1-020" data-id="h-l2_m1-020" data-targets="h-l1-009-a">如果是糾纏，點會散開甚至交叉，強弱開關的排名在兩個位置之間會洗牌</a>；<a class="hl hl-m1" id="sum-h-l2_m1-021" data-id="h-l2_m1-021" data-targets="h-l1-009-a">如果是等比例縮放，點會排成一條斜線</a>，斜率代表兩個位置的倍數比、截距代表整體平移，<a class="hl hl-m1" id="sum-h-l2_m1-023" data-id="h-l2_m1-023" data-targets="h-l1-009-a">整批開關一起變響或變悶、排名不變</a>。</p>
+<p>問題卡住的原因不是沒人想到要分辨，而是<a class="hl hl-m1" id="sum-h-l2_m1-024" data-id="h-l2_m1-024" data-targets="h-l2_m1-024-a">技術上做不到「同一批開關放到同一批位置」這張矩陣</a>。<a class="hl hl-m1" id="sum-h-l2_m1-025" data-id="h-l2_m1-025" data-targets="h-l2_m1-025-a">舊方法是用病毒或轉殖把報導基因亂塞進基因組</a>，<a class="hl hl-m1" id="sum-h-l2_m1-026" data-id="h-l2_m1-026" data-targets="h-l2_m1-002-a">每次只能放一段開關、落在哪也無法指定</a>；想知道同一段開關在 N 個位置的表現，得做 N 次獨立實驗，每次分離單株細胞、各自定序，換一段開關再乘 M 倍——所以 <a class="hl hl-m1" id="sum-h-l2_m1-027" data-id="h-l2_m1-027" data-targets="h-l2_m1-002-a">30 年累積的歷史文獻中，單一研究實際測的 CRS 數量大多落在個位數、最多十幾個</a>。<a class="hl hl-m1" id="sum-h-l2_m1-028" data-id="h-l2_m1-028" data-targets="h-l2_m1-028-a h-l2_m1-028-b">近年 TRIP (Akhtar et al. 2013) 可以一次把一個報導基因散到上千個位置、用條碼標位置</a>——位置這條軸解開了；但 <a class="hl hl-m1" id="sum-h-l2_m1-029" data-id="h-l2_m1-029" data-targets="h-l2_m1-029-a">TRIP 每次實驗仍只放一種 CRS，序列那條軸只有一個點</a>，<a class="hl hl-m1" id="sum-h-l2_m1-030" data-id="h-l2_m1-030" data-targets="h-l2_m1-010-a">無法回答「不同開關在同一位置會不會被不同對待」</a>。這就是為什麼作者在 intro 直接下判決：<a class="hl hl-m1" id="sum-h-l2_m1-031" data-id="h-l2_m1-031" data-targets="h-l1-003-a">位置效應到底「依不依賴 CRS 是哪一段」仍是個 open question</a>，<a class="hl hl-m1" id="sum-h-l2_m1-032" data-id="h-l2_m1-032" data-targets="h-l2_m1-032-a">也是他們動手做 patchMPRA 的直接動機</a>。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">cis-regulatory sequence</span><span class="chip">CRS</span><span class="chip">chromatin</span><span class="chip">patchMPRA</span></div>
+</div></details>
+<details class="version c-m1">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">4 票</span></span>
+</summary>
+<div class="panel-body">
+<p>DNA 上有許多短片段開關（CRS）負責調控基因表現，但同一段 CRS 搬到基因組不同位置，活性會差到好幾個數量級。把每段 CRS 想成一首歌、每個基因組位置想成一個房間：歌本身有固有音量，房間因為牆壁與隔音不同會把音量整體放大或壓低。回到生物層面，這個「房間」其實是 DNA 平常纏在蛋白質上的打包狀態（chromatin）——纏得鬆的地方分子能靠近、CRS 才能被讀到；纏得緊的地方什麼都進不去。</p>
+<p>這個位置效應從 1930 年代就被看到：果蠅把同一段基因搬到不同染色體位置會出現眼睛斑駁，這個現象後來被命名為位置效應斑駁 (position-effect variegation, PEV)，從此累積了超過 30 年的研究資料。然而一個關鍵問題一直懸在那裡沒被回答：當一段強 CRS 和一段弱 CRS 搬到不同房間時，到底是「挑序列糾纏」——房間會挑歌，本來大聲的可能被某個房間壓到比小聲的還小、排名整個亂掉；還是「整齊倍數縮放」——房間只是個整體音量旋鈕，所有歌一起變大變小，誰大誰小的排名不變？</p>
+<p>這兩種結果的後果完全不同。如果是挑序列糾纏，每段 CRS 在每個位置都得單獨重新量一次，無法通用；如果是整齊倍數縮放，整個現象可以寫成一條超簡單的公式 \(E_{ij} = C_i \times L_j\)——某段 CRS 在某位置的活性等於 CRS 自己的固有強度乘上該位置的環境倍數，兩個因子量一次就能組合預測。後者成立等於說基因組是一個模組化的系統：CRS 與 chromatin 兩個元件可以拆開量、結果可以相乘，不必窮舉每個特殊組合。</p>
+<p>為什麼累積 30 年的資料還是回答不了？因為過去的研究只覆蓋了「序列 × 位置」二維矩陣的其中一條軸。PEV 與後續位置效應研究通常一次只能測一兩段 CRS、搬到不同位置看效果，序列軸太窄。2013 年 Akhtar 等人發表的 thousands of reporters integrated in parallel (TRIP) 反過來把同一段 reporter 撒到上千個位置，位置軸夠寬但只有一段 CRS。要分辨「位置會不會挑序列」必須同時測「許多 CRS × 許多位置」的二維矩陣——只測單一軸看不出排名是否被打亂。也不能把過去兩條單軸實驗拼起來：不同實驗室用的 CRS、載體、細胞、整合方法都不同，系統差異會掩蓋掉細微訊號。必須在同一個實驗、同一批細胞、同一套讀數下把序列與位置兩軸同時鋪開——這正是過去 30 年缺的那塊。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">位置效應</span></div>
+</div></details>
+</div>
+<div class="module-block c-m2">
+<p class="module-thesis"><strong>主題二</strong>：<a class="hl hl-m2" id="sum-h-l2_m2-001" data-id="h-l2_m2-001" data-targets="h-l1-004-a">作者設計 patchMPRA</a>：<a class="hl hl-m2" id="sum-h-l2_m2-002" data-id="h-l2_m2-002" data-targets="h-l1-012-b h-l1-012-a">先用 lentivirus 隨機散射 landing pad</a> 並<a class="hl hl-m2" id="sum-h-l2_m2-003" data-id="h-l2_m2-003" data-targets="h-l1-014-a h-l2_m2-003-b">用 inverse PCR 把每個 gBC 對到基因組座標</a>，<a class="hl hl-m2" id="sum-h-l2_m2-004" data-id="h-l2_m2-004" data-targets="h-l2_m2-004-a h-l1-016-b">再用 Cre/lox 把 cBC-標記的 CRS library 精準塞進去</a>，<a class="hl hl-m2" id="sum-h-l2_m2-005" data-id="h-l2_m2-005" data-targets="h-l1-017-a h-l1-017-b">使每條 mRNA 同時帶 cBC（誰）與 gBC（在哪）兩個條碼</a>。</p>
+<details class="version c-m2">
+<summary>
+<span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">6 票</span></span>
+</summary>
+<div class="panel-body">
+<p><a class="hl hl-m2" id="sum-h-l2_m2-006" data-id="h-l2_m2-006" data-targets="h-l1-004-a">patchMPRA 的設計目標是同時測「很多段 CRS 在很多個位置」的活性</a>，所以實驗要先解決一個前置問題：如果直接把 CRS library 散進基因組，<a class="hl hl-m2" id="sum-h-l2_m2-007" data-id="h-l2_m2-007" data-targets="h-l2_m1-024-a">每段 CRS 落在哪、座標是什麼都不可控</a>，「序列」和「位置」兩股訊號永遠拆不開。作者的解法是<a class="hl hl-m2" id="sum-h-l2_m2-009" data-id="h-l2_m2-009" data-targets="h-l2_m2-009-a">先在基因組挖好一批位置已知的「插槽」(landing pad)</a>，<a class="hl hl-m2" id="sum-h-l2_m2-010" data-id="h-l2_m2-010" data-targets="h-l2_m2-010-a">之後所有 CRS 都插同一批插槽</a>，才能在相同位置之間比較。具體做法是<a class="hl hl-m2" id="sum-h-l2_m2-011" data-id="h-l2_m2-011" data-targets="h-l1-012-a h-l2_m2-011-b">把 landing pad 卡帶包進一種會把 DNA 永久插進細胞染色體的病毒 (lentivirus)</a>，<a class="hl hl-m2" id="sum-h-l2_m2-012" data-id="h-l2_m2-012" data-targets="h-l1-013-b h-l2_m2-012-b">用很低的感染劑量 (MOI = 1) 感染 K562 細胞</a>，<a class="hl hl-m2" id="sum-h-l2_m2-013" data-id="h-l2_m2-013" data-targets="h-l1-013-b">讓每顆細胞平均只碰到一隻病毒</a>；再<a class="hl hl-m2" id="sum-h-l2_m2-014" data-id="h-l2_m2-014" data-targets="h-l1-013-a h-l2_m2-014-b">用 FACS 把帶有 landing pad 的 GFP 陽性細胞一顆一顆分到 96 孔盤裡</a>，<a class="hl hl-m2" id="sum-h-l2_m2-015" data-id="h-l2_m2-015" data-targets="h-l2_m2-015-a">每孔長成一株純系細胞</a>，<a class="hl hl-m2" id="sum-h-l2_m2-016" data-id="h-l2_m2-016" data-targets="h-l1-041-a">每株背景上只有一個 landing pad 拷貝</a>。<a class="hl hl-m2" id="sum-h-l2_m2-017" data-id="h-l2_m2-017" data-targets="h-l2_m2-017-a h-l2_m2-017-b">GFP 是 landing pad 卡帶裡 CMV 啟動子驅動的 eGFP</a>，只要卡帶成功插進可表現位置就會發綠，<a class="hl hl-m2" id="sum-h-l2_m2-018" data-id="h-l2_m2-018" data-targets="h-l2_m2-018-a h-l2_m2-018-b">挑 GFP 陽性等於先過濾掉沒整合好的細胞</a>；堅持單拷貝則是必要的，因為<a class="hl hl-m2" id="sum-h-l2_m2-019" data-id="h-l2_m2-019" data-targets="h-l1-013-b">一隻細胞如果同時帶兩個以上 landing pad，下游 RNA 訊號就分不清來自哪個位置</a>。</p>
+<p>單拷貝確認後還有下一個問題：<a class="hl hl-m2" id="sum-h-l2_m2-020" data-id="h-l2_m2-020" data-targets="h-l2_m2-020-a h-l2_m2-068-a">每個 landing pad 旁邊都掛了一段 12 bp 的位置條碼 (gBC)</a> 當「門牌號碼」，但<a class="hl hl-m2" id="sum-h-l2_m2-021" data-id="h-l2_m2-021" data-targets="h-l2_m2-021-a">這串隨機字串本身不會告訴你它落在哪條染色體哪個位置</a>。<a class="hl hl-m2" id="sum-h-l2_m2-022" data-id="h-l2_m2-022" data-targets="h-l1-014-a h-l2_m2-003-b">作者用反向 PCR (inverse PCR) 把門牌號碼對到基因組座標</a>：<a class="hl hl-m2" id="sum-h-l2_m2-023" data-id="h-l2_m2-023" data-targets="h-l2_m2-023-a">先用一支會在特定四鹼基處剪 DNA 的限制酶 (Csp6I) 把基因組剪成碎片</a>，<a class="hl hl-m2" id="sum-h-l2_m2-024" data-id="h-l2_m2-024" data-targets="h-l2_m2-024-a">在稀釋條件下讓碎片頭尾自己接成圓圈</a>，再<a class="hl hl-m2" id="sum-h-l2_m2-025" data-id="h-l2_m2-025" data-targets="h-l2_m2-025-a">用兩支從 landing pad 朝外的引子 (LP01、LP02)</a> 從圓圈已知端擴出旁邊的未知端，<a class="hl hl-m2" id="sum-h-l2_m2-026" data-id="h-l2_m2-026" data-targets="h-l2_m2-026-a">產物會同時帶著 gBC 與緊鄰的基因組 DNA</a>，<a class="hl hl-m2" id="sum-h-l2_m2-027" data-id="h-l2_m2-027" data-targets="h-l2_m2-027-a">定序比對到 hg19 就能知道每個 gBC 落在哪</a> (<a class="hl hl-m2" id="sum-h-l2_m2-028" data-id="h-l2_m2-028" data-targets="h-l2_m1-028-a h-l2_m2-028-b">標準流程改自 Akhtar 2013 與 Wang 2012 的 calling cards 協議</a>)。為什麼非繞「先切碎、再接圓圈」這一圈不可？因為直接 PCR 需要兩端都已知，landing pad 序列已知但旁邊的基因組那段完全未知，沒辦法設另一支引子；接成圓圈後未知段就被拉回到已知端另一側，朝外設引子就跨過接口擴出來。<a class="hl hl-m2" id="sum-h-l2_m2-034" data-id="h-l2_m2-034" data-targets="h-l2_m2-034-a">反推出來的座標還會用第二支引子做位點特異性 PCR 互相驗證</a>：<a class="hl hl-m2" id="sum-h-l2_m2-035" data-id="h-l2_m2-035" data-targets="h-l2_m2-034-a">一支落在 landing pad 內部、一支落在推測的座標位置</a>，能擴出條帶就證明兩段確實在同一條染色體上頭尾相連。<a class="hl hl-m2" id="sum-h-l2_m2-036" data-id="h-l2_m2-036" data-targets="h-l1-041-a">作者最後對到 15 株細胞的 landing pad 位置</a>，<a class="hl hl-m2" id="sum-h-l2_m2-037" data-id="h-l2_m2-037" data-targets="h-l2_m2-037-a">挑選依據是 ENCODE 對該位置的染色質狀態註解</a>，<a class="hl hl-m2" id="sum-h-l2_m2-038" data-id="h-l2_m2-038" data-targets="h-l2_m2-038-a">刻意涵蓋多樣環境</a>，<a class="hl hl-m2" id="sum-h-l2_m2-039" data-id="h-l2_m2-039" data-targets="h-l2_m2-039-a">包括被視為轉錄受壓的異染色質區域 (帶有 H3K27me3 與 Polycomb 抑制標記)</a>。</p>
+<p>插槽鋪好、位置也對上了，接下來要把 CRS library 精準塞進去，<a class="hl hl-m2" id="sum-h-l2_m2-040" data-id="h-l2_m2-040" data-targets="h-l1-016-b h-l2_m2-067-a">作者用的是 Cre/lox 位點特異性整合系統</a>。<a class="hl hl-m2" id="sum-h-l2_m2-041" data-id="h-l2_m2-041" data-targets="h-l2_m2-041-a h-l2_m2-041-b">landing pad 兩端帶兩種不同的 lox 接口 (loxFAS + loxP)</a>；<a class="hl hl-m2" id="sum-h-l2_m2-042" data-id="h-l2_m2-042" data-targets="h-l2_m2-004-a h-l2_m2-042-b">同樣兩端帶同款 lox 的中介質體 (transfer vector) 上預先接好「CRS + cBC-dsRed」整段</a>。<a class="hl hl-m2" id="sum-h-l2_m2-043" data-id="h-l2_m2-043" data-targets="h-l2_m2-043-a h-l2_m2-004-a">把 transfer vector 跟一種專門認 lox 接口的酵素 (Cre 重組酶) 一起電穿孔進細胞</a>，<a class="hl hl-m2" id="sum-h-l2_m2-044" data-id="h-l2_m2-044" data-targets="h-l1-016-b">Cre 會把 landing pad 上兩個 lox 之間的 GFP 卡帶切下來</a>、<a class="hl hl-m2" id="sum-h-l2_m2-045" data-id="h-l2_m2-045" data-targets="h-l2_m2-067-a">跟 transfer vector 上兩個 lox 之間的「CRS + cBC-dsRed」整段對調</a>。為什麼用兩種不同的 lox？因為如果兩端都同款 loxP，Cre 可以把整段裝回去也能把裝好的再切下來、反覆切換不穩定；<a class="hl hl-m2" id="sum-h-l2_m2-047" data-id="h-l2_m2-047" data-targets="h-l1-019-b">loxFAS 與 loxP 「不對稱」</a>，loxFAS 只跟 loxFAS 重組、loxP 只跟 loxP 重組，<a class="hl hl-m2" id="sum-h-l2_m2-049" data-id="h-l2_m2-049" data-targets="h-l2_m2-041-b h-l1-016-b">整段只能從 transfer vector 單向走進 landing pad</a>、進去後沒辦法再被切回來 (<a class="hl hl-m2" id="sum-h-l2_m2-050" data-id="h-l2_m2-050" data-targets="h-l2_m2-050-a">Lanza 2012 Biotechnol J 提出的不對稱 lox 配對策略</a>)。<a class="hl hl-m2" id="sum-h-l2_m2-051" data-id="h-l2_m2-051" data-targets="h-l2_m3-016-b h-l2_m3-016-a">重組效率其實只有 12%</a>，但有個漂亮的訊號可以用來富集：<a class="hl hl-m2" id="sum-h-l2_m2-052" data-id="h-l2_m2-052" data-targets="h-l2_m2-052-a h-l2_m2-052-b">重組成功會把原本的 GFP 卡帶替換掉、細胞從 GFP 陽性變陰性</a>，<a class="hl hl-m2" id="sum-h-l2_m2-053" data-id="h-l2_m2-053" data-targets="h-l2_m2-053-a">用 FACS 撿 GFP 陰性 (eGFP-low) 的細胞可以把成功率從 12% 富集到 30%</a>，<a class="hl hl-m2" id="sum-h-l2_m2-054" data-id="h-l2_m2-054" data-targets="h-l2_m2-053-a">做了 2.5 倍純化</a>。至於每段 CRS 上的 cBC 條碼，<a class="hl hl-m2" id="sum-h-l2_m2-055" data-id="h-l2_m2-055" data-targets="h-l1-019-b h-l2_m2-055-b">作者把 310 個 130 bp 的 CRS 合成成 oligo pool</a>，<a class="hl hl-m2" id="sum-h-l2_m2-056" data-id="h-l2_m2-056" data-targets="h-l2_m2-042-b h-l2_m2-056-b">統一方向接到中介質體上 Hsp68 minimal promoter 上游、dsRed 報導基因下游</a>。<a class="hl hl-m2" id="sum-h-l2_m2-057" data-id="h-l2_m2-057" data-targets="h-l2_m2-057-a h-l2_m2-057-b">這 310 個 CRS 來自前一篇 episomal MPRA 已測過的元件</a>，<a class="hl hl-m2" id="sum-h-l2_m2-058" data-id="h-l2_m2-058" data-targets="h-l2_m2-058-a">先過濾掉測量誤差大的 (保留 s.e.m. &lt; 0.1)</a>，<a class="hl hl-m2" id="sum-h-l2_m2-059" data-id="h-l2_m2-059" data-targets="h-l2_m2-059-a h-l2_m2-059-b">再從強增強子、弱增強子、被抑制三類各挑高低活性</a> (<a class="hl hl-m2" id="sum-h-l2_m2-060" data-id="h-l2_m2-060" data-targets="h-l2_m2-060-a">Kwasnieski 2014 Genome Res</a>)。<a class="hl hl-m2" id="sum-h-l2_m2-061" data-id="h-l2_m2-061" data-targets="h-l2_m2-061-a h-l2_m2-042-b">dsRed 的 3' UTR 裡藏一段隨機合成的身分條碼 (cBC)</a>，<a class="hl hl-m2" id="sum-h-l2_m2-062" data-id="h-l2_m2-062" data-targets="h-l2_m2-062-a h-l2_m2-062-b">每個 CRS 平均掛 25 條不同 cBC 當技術重複</a>——<a class="hl hl-m2" id="sum-h-l2_m2-063" data-id="h-l2_m2-063" data-targets="h-l2_m2-062-a">同一段 CRS 在同一位置就有 25 個獨立讀數可以平均掉雜訊</a>。</p>
+<p>為什麼每條 mRNA 需要同時帶 cBC 和 gBC 兩個條碼？因為這個實驗的核心問題是「誰 × 在哪」的二維表格：<a class="hl hl-m2" id="sum-h-l2_m2-064" data-id="h-l2_m2-064" data-targets="h-l2_m2-064-a">只帶 cBC 你只知是哪段 CRS、搞不清來自哪個位置</a>，<a class="hl hl-m2" id="sum-h-l2_m2-065" data-id="h-l2_m2-065" data-targets="h-l2_m2-065-a">只帶 gBC 則反過來只知位置不知 CRS</a>，<a class="hl hl-m2" id="sum-h-l2_m2-066" data-id="h-l2_m2-066" data-targets="h-l1-018-b h-l1-018-a">兩個一起帶才能讓定序機把所有 cBC-gBC 配對一一數一遍</a>。兩個條碼為什麼能共線在同一條 mRNA 上？因為 <a class="hl hl-m2" id="sum-h-l2_m2-067" data-id="h-l2_m2-067" data-targets="h-l2_m2-067-a">Cre 重組會把 transfer vector 上的「CRS-Hsp68-dsRed-cBC」整段裝進 landing pad 位置</a>，<a class="hl hl-m2" id="sum-h-l2_m2-068" data-id="h-l2_m2-068" data-targets="h-l2_m2-068-a h-l2_m2-068-b">下游緊接著 landing pad 原本留在那邊的 gBC (loxP 下游、WPRE 之前)</a>，<a class="hl hl-m2" id="sum-h-l2_m2-069" data-id="h-l2_m2-069" data-targets="h-l1-017-b">CRS 把這整段轉錄成 mRNA 後，3' UTR 同一條長鏈上會同時讀到 cBC 和 gBC</a>。最後定量：<a class="hl hl-m2" id="sum-h-l2_m2-070" data-id="h-l2_m2-070" data-targets="h-l2_m2-070-a h-l2_m2-070-b">作者同時抓 RNA 和基因組 DNA</a>，<a class="hl hl-m2" id="sum-h-l2_m2-071" data-id="h-l2_m2-071" data-targets="h-l2_m2-071-a h-l2_m2-071-b">兩邊各做 PCR 擴 cBC-gBC 配對、分別定序</a>，<a class="hl hl-m2" id="sum-h-l2_m2-072" data-id="h-l2_m2-072" data-targets="h-l2_m2-072-a">每個格子的表現量是 \(\log_2(\text{RNA 讀數}/\text{DNA 讀數})\)</a>——用 DNA 讀數校正「這個位置到底有幾顆細胞、整合了幾次」，避免把「細胞多」誤當「開關強」；<a class="hl hl-m2" id="sum-h-l2_m2-075" data-id="h-l2_m2-075" data-targets="h-l2_m2-075-a">同一段 CRS 同一位置的 25 條 cBC 讀數再取平均</a>，才進入後續比較。</p>
+<p>整套設計實際跑下來是否真的撐得起後續分析？<a class="hl hl-m2" id="sum-h-l2_m2-076" data-id="h-l2_m2-076" data-targets="h-l2_m2-076-a h-l2_m2-076-b h-l1-019-b">第一輪用 8 株 landing pad × 310 個 CRS</a> <a class="hl hl-m2" id="sum-h-l2_m2-077" data-id="h-l2_m2-077" data-targets="h-l2_m2-077-a">跑出來超過 30,000 個獨立的 cBC-gBC 配對</a>，<a class="hl hl-m2" id="sum-h-l2_m2-078" data-id="h-l2_m2-078" data-targets="h-l2_m2-078-a">每段 CRS 在每個位置平均拿到 11 條不同 cBC 的讀數</a>；<a class="hl hl-m2" id="sum-h-l2_m2-079" data-id="h-l2_m2-079" data-targets="h-l2_m2-079-a h-l2_m4-030-a">兩次生物重複的相關係數 R = 0.66 (Spearman \(R_s\) = 0.71)</a>。<a class="hl hl-m2" id="sum-h-l2_m2-080" data-id="h-l2_m2-080" data-targets="h-l2_m2-080-a">這個數字比 episomal MPRA 低一截</a>，原因是 <a class="hl hl-m2" id="sum-h-l2_m2-081" data-id="h-l2_m2-081" data-targets="h-l2_m2-081-a h-l2_m2-081-b">patchMPRA 每顆細胞只整合一份、DNA 讀數本身就少</a>，再加上 <a class="hl hl-m2" id="sum-h-l2_m2-082" data-id="h-l2_m2-082" data-targets="h-l2_m3-016-a h-l2_m3-016-b">Cre 重組效率只有 12%</a>、<a class="hl hl-m2" id="sum-h-l2_m2-083" data-id="h-l2_m2-083" data-targets="h-l2_m2-083-a h-l2_m2-053-a">FACS 撿過的 GFP 陰性裡也只有 30% 真重組成功</a>，<a class="hl hl-m2" id="sum-h-l2_m2-084" data-id="h-l2_m2-084" data-targets="h-l2_m2-084-a">DNA 訊號被進一步稀釋</a>。但因為<a class="hl hl-m2" id="sum-h-l2_m2-085" data-id="h-l2_m2-085" data-targets="h-l2_m2-078-a h-l2_m2-062-a">每段 CRS 掛了 25 條 cBC、每個位置仍有 11 條獨立讀數平均</a>，<a class="hl hl-m2" id="sum-h-l2_m2-086" data-id="h-l2_m2-086" data-targets="h-l2_m2-086-a">R = 0.66 已夠分辨「位置內」與「位置間」的差異</a>；<a class="hl hl-m2" id="sum-h-l2_m2-087" data-id="h-l2_m2-087" data-targets="h-l2_m2-087-a">相隔幾個月再做一遍仍重現同一個 pattern (Supp Fig 3)</a>，<a class="hl hl-m2" id="sum-h-l2_m2-088" data-id="h-l2_m2-088" data-targets="h-l2_m2-088-a">支持後續所有跨位置比較</a>。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">染色質</span><span class="chip">patchMPRA</span><span class="chip">K562</span><span class="chip">landing pad</span><span class="chip">gBC</span><span class="chip">cBC</span><span class="chip">Cre</span><span class="chip">Hsp68 minimal promoter</span><span class="chip">episomal MPRA</span><span class="chip">ENCODE</span></div>
+</div></details>
+<details class="version c-m2">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">5 票</span></span>
+</summary>
+<div class="panel-body">
+<p>為了一次測量很多個 DNA 開關 (CRS) 在很多個固定基因組位置的活性，作者設計了 patchMPRA。整個策略的核心是把「先決定位置、後決定開關」拆成兩步：如果每個開關都靠病毒隨機插入，整合位置就會跟著開關綁死、無法把同一個開關搬到不同位置比較。所以作者先在細胞基因組裡散布一批「卡榫」(landing pad)，每個卡榫帶一個獨一無二的位置條碼 (gBC)；之後再把任何一批裝有開關 + 開關條碼 (cBC) 的 library 精準塞進這些卡榫。</p>
+<p>卡榫本身是怎麼散下去的？作者用 lentivirus 這種改裝過的反轉錄病毒，把自己攜帶的 DNA 隨機黏進宿主基因組裡。為了讓每顆細胞只被一支病毒打中、得到「一細胞一個位置」，他們把病毒粒子數壓到跟細胞數差不多 (技術上稱 multiplicity of infection = 1)，再用螢光分選 (FACS) 把會發綠光的單細胞一格一顆分進 96 孔盤，長成 clonal cell line，整合位置與 gBC 自然唯一。卡榫上裝的是一個由 CMV promoter 驅動的兩件套：會發綠光的 eGFP (檢查細胞插了沒有) 和讓細胞撐過抗生素 hygromycin 的 Hyg/TK 融合蛋白 (篩選成功插入的細胞)；兩件套前後夾一對長得不一樣的 Cre 辨識序列 loxFAS 與 loxP，後面再掛 12 bp gBC 當位置代號。</p>
+<p>拿到 clonal cell line 之後要知道每個卡榫到底插在基因組哪裡，作者用 inverse PCR 把卡榫旁邊那段不知道是什麼的基因組鄰居釣出來 (protocol 改自 Akhtar et al. 2013 Cell 與 Wang et al. 2012 Genetics)：先用限制酶 Csp6I 把基因組剪成碎片、再讓碎片自己頭尾接成小圓圈、最後用一對「朝卡榫外側」的引子做 PCR。一般 PCR 要兩支朝向彼此的引子夾住目標序列，但 gBC 旁那段未知基因組根本沒辦法事先設計引子；先把碎片接成圓圈，未知區段就被翻到圓圈的另一半，原本朝外的兩支引子在圓圈上反而朝向彼此，PCR 就能繞著圓圈把整段印出來。產物拿去 Illumina MiSeq 定序、對齊到人類參考基因組 hg19 才確認位置；另外用「卡榫內部一支引子 + 該位置專屬基因組引子」做位點特異性 PCR 驗證每隻 clone，靠是否能跑出對的長度確認整合座標。</p>
+<p>卡榫散好、座標也對到之後，下一步是把要測的 CRS library 塞進去。作者把每個開關接上一段最小啟動子 (Hsp68 minimal promoter，當作啟動轉錄的起跑線) 和帶 cBC 的 dsRed 報告基因 (會發紅光)，一整段 clone 進 transfer vector，兩端同樣夾 loxFAS / loxP；連同一個會生產 Cre 酵素的質體用電穿孔送進混好的 landing pad 細胞池。Cre 只認得同款 lox 配同款，所以強迫把 transfer vector 上的 loxFAS-loxP 段「順向」換進卡榫的位置 (這套手法稱 recombinase-mediated cassette exchange, 原始 protocol 見 Lanza et al. 2012 Biotechnol. J.)，整個交換變單向、進去就回不來；如果兩端都用同款 loxP，新片段方向會雙向亂跑、甚至被切回原樣。</p>
+<p>成功交換的細胞會從發綠光變成不發綠光、改發紅光，作者用 FACS 把綠光訊號掉下去的細胞收下來。但這條閘到底多乾淨？整池的 Cre-lox 交換效率只有大約 12%，多數細胞其實沒成功，必須先量化背景：作者拿沒加 transfer vector 也沒加 Cre 的 landing pad 細胞當參考，量它們的綠光分布、在下尾設一條閘——這群細胞照理應該都還亮綠，但仍有 28% 自然落在閘下；加了 transfer vector 和 Cre 之後，閘下比例升到 40%，多出來的 12% 就是真正換成功的細胞，閘的特異性才有量化基準。剩下的背景在後續定序時，靠「同一條 read 必須同時抓到 cBC 和 gBC 才算數」這條規則再過濾掉，沒交換的細胞根本不會產生這種雙條碼配對。</p>
+<p>為什麼一條 mRNA 上要同時掛 cBC 和 gBC？只有 cBC，知道是哪個開關卻不知道落在哪個位置；只有 gBC，知道位置卻不知道是哪個開關。兩個一起掛在同一條 mRNA 上，定序時讀到「cBC=X、gBC=Y」就一眼定位成「X 開關插在 Y 位置產出的 RNA」，整池細胞可以一起測、不用事先把不同位置的細胞分開養。cBC 被嵌進 dsRed 的 3' UTR (mRNA 尾端不轉譯成蛋白質的那段)，gBC 在卡榫設計時就放在 loxP 下游，cassette exchange 之後也跟著落在 dsRed 下游的 3' UTR；兩者都在同一段會被一起轉錄的 mRNA 上，自然出現在同一條 read 裡。為了壓掉條碼層級的雜訊，同一個 CRS 給 25 個獨立 cBC 等於 25 個獨立量測，平均後得到較穩定的開關活性。</p>
+<p>最後活性怎麼算？作者從同一群細胞同時抽 RNA 和基因組 DNA (gDNA)，各自 PCR 放大 cBC-gBC 配對後定序。每個配對的活性定義為 \(\log_2(\mathrm{RNA\ reads}/\mathrm{DNA\ reads})\)：分子是 RNA 端的讀數 (這個開關產生多少訊息)，分母 DNA 端的讀數負責校正「這個配對在細胞群裡本來就有幾份模板」。這套設計的覆蓋率和穩定度撐不撐得起後續定量？第一輪實驗總共拿到超過 30,000 個獨立 gBC-cBC 配對，平均每個 CRS 在每個 landing pad 有 11 個獨立條碼撐著平均；兩次生物重複之間的相關係數 R = 0.66 (排序版本 Spearman \(R_s\) = 0.71)，相隔數月重做四個 landing pad 仍然得到一致圖樣，覆蓋率與穩定度都足以拿來定量比較不同 CRS 的強弱。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">landing pad</span><span class="chip">gBC</span><span class="chip">cBC</span><span class="chip">MPRA</span><span class="chip">patchMPRA</span></div>
+</div></details>
+</div>
+<div class="module-block c-m3">
+<p class="module-thesis"><strong>主題三</strong>：<a class="hl hl-m3" id="sum-h-l2_m3-001" data-id="h-l2_m3-001" data-targets="h-l2_m2-076-a h-l1-019-b h-l2_m3-019-a">把 310 個 CRS 一次插進 8 個 landing pad 後</a>，<a class="hl hl-m3" id="sum-h-l2_m3-002" data-id="h-l2_m3-002" data-targets="h-l2_m3-002-a h-l2_m3-018-b h-l1-007-b">位置整體會把所有 CRS 推高或壓低很多</a>，<a class="hl hl-m3" id="sum-h-l2_m3-003" data-id="h-l2_m3-003" data-targets="h-l2_m3-003-a h-l1-022-a h-l1-021-a">但同一批 CRS 的高/中/低排名在每個位置幾乎都被保留下來</a>。</p>
+<details class="version c-m3">
+<summary>
+<span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">9 票</span></span>
+</summary>
+<div class="panel-body">
+<p>進入主結果前先看實驗規模：<a class="hl hl-m3" id="sum-h-l2_m3-004" data-id="h-l2_m3-004" data-targets="h-l2_m2-076-a h-l1-019-b">作者把 310 個 CRS 一次塞進 8 個 landing pad</a>，<a class="hl hl-m3" id="sum-h-l2_m3-005" data-id="h-l2_m3-005" data-targets="h-l2_m2-077-a">最終拿到 30,000 多組「位置 × CRS」成功配對</a>，<a class="hl hl-m3" id="sum-h-l2_m3-006" data-id="h-l2_m3-006" data-targets="h-l2_m2-078-a">平均每個 CRS 在每個位置各拿到 11 個獨立整合事件</a>——<a class="hl hl-m3" id="sum-h-l2_m3-007" data-id="h-l2_m3-007" data-targets="h-l2_m2-078-a">同一條 CRS 在同一位置被插了 11 次</a>，<a class="hl hl-m3" id="sum-h-l2_m3-008" data-id="h-l2_m3-008" data-targets="h-l2_m3-008-a h-l2_m3-008-b">這 11 個讀數可以平均掉單次測量的雜訊</a>；這也是<a class="hl hl-m3" id="sum-h-l2_m3-009" data-id="h-l2_m3-009" data-targets="h-l2_m2-062-a h-l2_m2-062-b">當初設計時把每條 CRS 各掛上 25 個不同身分條碼 (cBC) 的原因</a>，多備幾條才能保證每個位置上都湊到夠多次成功整合。為了確認結果不是運氣，<a class="hl hl-m3" id="sum-h-l2_m3-010" data-id="h-l2_m3-010" data-targets="h-l2_m4-030-a h-l2_m3-010-b">作者把整個實驗從頭做第二次 (biological replicate)</a>，<a class="hl hl-m3" id="sum-h-l2_m3-011" data-id="h-l2_m3-011" data-targets="h-l2_m3-011-a h-l2_m4-030-a">把第一次和第二次每個 (CRS, landing pad) 配對的平均活性畫成散布圖</a>：兩個變數一起變化的程度算成一個介於 -1 到 1 的數 <a class="hl hl-m3" id="sum-h-l2_m3-012" data-id="h-l2_m3-012" data-targets="h-l2_m4-030-a h-l2_m2-079-a">(Pearson 相關係數 R) 是 0.66</a>、<a class="hl hl-m3" id="sum-h-l2_m3-013" data-id="h-l2_m3-013" data-targets="h-l2_m3-013-a">只看排名先後的相關係數 (Spearman \(R_s\)) 是 0.71</a>。<a class="hl hl-m3" id="sum-h-l2_m3-014" data-id="h-l2_m3-014" data-targets="h-l2_m2-080-a">這比把 CRS 放在游離 DNA 圈圈上量到的重現性差一截</a>，原因是 <a class="hl hl-m3" id="sum-h-l2_m3-015" data-id="h-l2_m3-015" data-targets="h-l2_m2-081-a h-l1-013-b">patchMPRA 為了確保「一個位置只塞一份」，每個細胞只整合一份拷貝</a>，加上<a class="hl hl-m3" id="sum-h-l2_m3-016" data-id="h-l2_m3-016" data-targets="h-l2_m3-016-a h-l2_m3-016-b">把 CRS 精準塞進 landing pad 的剪接酵素 (Cre 重組酶) 效率只有 12%</a>。不過這個重現性已經夠用——<a class="hl hl-m3" id="sum-h-l2_m3-017" data-id="h-l2_m3-017" data-targets="h-l2_m2-086-a">後面要比的是「同一條 CRS 換不同位置」的相對大小</a>，並不需要絕對值精準。</p>
+<p><a class="hl hl-m3" id="sum-h-l2_m3-018" data-id="h-l2_m3-018" data-targets="h-l2_m3-002-a h-l2_m3-018-b">第一個視覺結果是位置整體效應有多強</a>。<a class="hl hl-m3" id="sum-h-l2_m3-019" data-id="h-l2_m3-019" data-targets="h-l2_m3-019-a">作者把每個 landing pad 裡 310 個 CRS 的活性分布壓成一個箱子 (boxplot</a>，<a class="hl hl-m3" id="sum-h-l2_m3-020" data-id="h-l2_m3-020" data-targets="h-l2_m3-020-a">箱子高度大致代表中間一半的 CRS 落在哪、中間那條橫線是中位數</a>)，<a class="hl hl-m3" id="sum-h-l2_m3-021" data-id="h-l2_m3-021" data-targets="h-l2_m3-019-a h-l2_m3-018-b">8 個位置的箱子並排畫成 Fig. 2b</a>。一眼就能看到<a class="hl hl-m3" id="sum-h-l2_m3-022" data-id="h-l2_m3-022" data-targets="h-l2_m3-018-b">整個箱子的高度在不同位置會明顯往上或往下移</a>：同樣 310 個 CRS，<a class="hl hl-m3" id="sum-h-l2_m3-023" data-id="h-l2_m3-023" data-targets="h-l1-007-b">搬到 landing pad 3 整批的活性就明顯高過搬到 landing pad 4 的同一批</a>——<a class="hl hl-m3" id="sum-h-l2_m3-024" data-id="h-l2_m3-024" data-targets="h-l1-007-b">不是某幾條變強，是整箱子都被往上推</a>。<a class="hl hl-m3" id="sum-h-l2_m3-025" data-id="h-l2_m3-025" data-targets="h-l2_m3-025-a">作者刻意沒在 landing pad 兩端加上「擋住外部影響」的隔絕元件 (insulator)</a>，<a class="hl hl-m3" id="sum-h-l2_m3-026" data-id="h-l2_m3-026" data-targets="h-l2_m3-026-a">每個 landing pad 等於完全裸露在它落地的染色質環境裡</a>，看到的位置效應是「沒有人擋」的真實效應。</p>
+<p>可是<a class="hl hl-m3" id="sum-h-l2_m3-027" data-id="h-l2_m3-027" data-targets="h-l2_m3-003-a h-l1-021-a">進到 Fig. 3a 馬上會看到另一層訊息</a>：<a class="hl hl-m3" id="sum-h-l2_m3-028" data-id="h-l2_m3-028" data-targets="h-l1-022-a">位置雖然會整體上下平移，但 CRS 彼此之間的排名幾乎沒亂</a>。<a class="hl hl-m3" id="sum-h-l2_m3-029" data-id="h-l2_m3-029" data-targets="h-l1-021-b h-l1-021-a">作者拿 landing pad 1 當基準，把 310 個 CRS 依活性切成「上 1/3、中 1/3、下 1/3」三組</a>，<a class="hl hl-m3" id="sum-h-l2_m3-030" data-id="h-l2_m3-030" data-targets="h-l1-021-b">分別塗成橘、灰、藍</a>；然後<a class="hl hl-m3" id="sum-h-l2_m3-031" data-id="h-l2_m3-031" data-targets="h-l1-021-b">把同一批 CRS 在其他 landing pad 的活性也用同一套顏色畫出來</a>。如果排名真的保留，橘色點在每個位置都該疊在最上面、藍色點在最下面，中間一條灰色——結果就是這樣，<a class="hl hl-m3" id="sum-h-l2_m3-032" data-id="h-l2_m3-032" data-targets="h-l1-021-a">三色分層幾乎沒有打亂</a>，<a class="hl hl-m3" id="sum-h-l2_m3-033" data-id="h-l2_m3-033" data-targets="h-l2_m3-033-a">換哪個 landing pad 當基準切三組結論都一樣 (Supp. Fig. 4)</a>。<a class="hl hl-m3" id="sum-h-l2_m3-034" data-id="h-l2_m3-034" data-targets="h-l2_m3-034-a h-l2_m3-034-b">另一種看法是兩個位置兩兩配對畫散布圖 (Fig. 3b)</a>：<a class="hl hl-m3" id="sum-h-l2_m3-035" data-id="h-l2_m3-035" data-targets="h-l2_m3-034-a">把每條 CRS 在 landing pad 1 的活性放 x 軸、在 landing pad 4 的活性放 y 軸</a>，每條 CRS 變成一個點。<a class="hl hl-m3" id="sum-h-l2_m3-036" data-id="h-l2_m3-036" data-targets="h-l2_m3-036-a h-l2_m3-036-b">結果點群排成一條斜線——R = 0.71、\(R_s\) = 0.65</a>；<a class="hl hl-m3" id="sum-h-l2_m3-037" data-id="h-l2_m3-037" data-targets="h-l2_m3-036-a h-l2_m3-037-b">LP1 vs LP6 也類似 (R = 0.65、\(R_s\) = 0.60)</a>。<a class="hl hl-m3" id="sum-h-l2_m3-038" data-id="h-l2_m3-038" data-targets="h-l1-022-a">位置雖然把整條斜線整體往上或往下平移，但沒有把點打散</a>，這正是排名沒亂的數值寫照。而<a class="hl hl-m3" id="sum-h-l2_m3-039" data-id="h-l2_m3-039" data-targets="h-l2_m3-034-b h-l2_m3-036-a">把這個 R = 0.71 拿來跟前面兩次重做的 R = 0.66 比</a>就更說明問題：兩次重做同樣實驗都才 R = 0.66，這就是<a class="hl hl-m3" id="sum-h-l2_m3-040" data-id="h-l2_m3-040" data-targets="h-l2_m3-040-a">「同一個位置自己跟自己重做」能達到的天花板</a>；<a class="hl hl-m3" id="sum-h-l2_m3-041" data-id="h-l2_m3-041" data-targets="h-l2_m3-034-b">現在把 CRS 從 landing pad 1 搬到 landing pad 4，得到的 R = 0.71 已經貼近這個天花板</a>，等於位置之間的差異幾乎只剩下「換個位置量一次」本身固有的雜訊。更狠的測試是某些 landing pad 的環境壓制力強到，<a class="hl hl-m3" id="sum-h-l2_m3-042" data-id="h-l2_m3-042" data-targets="h-l2_m3-042-a">連這批裡公認的「高活性」CRS 被壓下去後，都比另一個位置的「低活性」CRS 還弱</a>；可是即使如此，<a class="hl hl-m3" id="sum-h-l2_m3-043" data-id="h-l2_m3-043" data-targets="h-l1-021-a">在被狠狠壓低的那個 landing pad 內部，原本的高活性還是比中等強、中等還是比低活性強</a>——這個極端例子把「絕對量」跟「相對排名」徹底切開：如果是「位置會挑特定 CRS」的糾纏效應，照理說壓得越狠越該看到排名洗牌，現在沒看到，<a class="hl hl-m3" id="sum-h-l2_m3-045" data-id="h-l2_m3-045" data-targets="h-l2_m3-045-a">反過來支持「位置只是個整齊倍數」的解讀</a>。最後<a class="hl hl-m3" id="sum-h-l2_m3-046" data-id="h-l2_m3-046" data-targets="h-l2_m2-087-a">作者特別挑了 4 個位置效應差很多的 landing pad，幾個月後完整重做一次</a>，<a class="hl hl-m3" id="sum-h-l2_m3-047" data-id="h-l2_m3-047" data-targets="h-l2_m2-087-a">活性模式跟第一次一致 (Supp. Fig. 3)</a>——挑差異大的位置是把難題自己往身上攬，連這幾個極端位置都能重現，更接近平均的位置不會更糟。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">cBC</span><span class="chip">landing pad</span><span class="chip">patchMPRA</span><span class="chip">染色質</span></div>
+</div></details>
+<details class="version c-m3">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">6 票</span></span>
+</summary>
+<div class="panel-body">
+<p>為了同時看清「位置」和「開關身分」兩股力量，作者把 310 個開關各自畫成一個點，在每個位置上算到的活性 (log2 表現量) 再彙總成盒鬚圖 (boxplot)，8 個位置並排比較 (Fig. 2b)。每個盒子代表那個位置上 310 個開關的整體分布，盒子整體高低差就是位置效應的強度。差距相當大：LP3 整個盒子的中位數約在 +2，LP4 約在 -1.5，差了 3.5 個 log2 單位、約 10 倍 mRNA。同一批開關搬到 LP3 整批變大聲、搬到 LP4 整批變小聲。要怎麼確定這個位置間差距是真的位置效應，不是 8 株細胞各自的批次偏差？作者用三道防線檢查：同實驗整套做兩遍，散布圖相關係數 R = 0.66 (Fig. 2a)；隔幾個月重做 4 個位置，活性高低分布仍重現 (Supplementary Fig. 3)；每個開關在每個位置上掛 25 條身分條碼 (cBC barcode redundancy)，平均下來每個位置每個開關有 11 條條碼的獨立讀數可平均，單條條碼的隨機跳動被抹掉。</p>
+<p>雖然位置整體會把活性大幅推高或壓低，但「誰強誰弱」的排名幾乎不受影響。作者先在 LP1 上把 310 個開關依活性高低分成高、中、低三組，分別塗成橘、灰、藍三色 (expression bin)。然後把同一批開關搬到其他 7 個位置量一次，顏色照 LP1 的分組不變，重新畫一張盒鬚圖 (Fig. 3a)。如果排名沒被位置打亂，每個位置的橘、灰、藍三個盒子都還會維持「橘在最上、灰在中間、藍在最下」的分層；八個位置幾乎都看到這個三色分層。位置效應強到什麼程度？LP3 那個整體強勢位置，藍色 (原本是低活性) 的盒子高度已經超過 LP4、LP6 那兩個整體弱勢位置上橘色 (原本是高活性) 的盒子——「強位置的弱開關」表現得比「弱位置的強開關」還大聲。但即使整體被推得這麼歪，每個位置「自己內部」橘高於灰、灰高於藍的順序還是穩穩存在。這是因為各個位置之間的倍率差比 310 個開關彼此的固有強度差還大，所以絕對活性會跨位置反轉，但同位置內所有開關被乘的是同一個倍率，內部排名不會被打亂。作者再做一道對照：把分組參考從 LP1 換成其他每一個位置，重畫一樣的三色盒鬚圖 (Supplementary Fig. 4)，不管用哪個位置當參考，三色分層都還在——排名保留不是 LP1 特例。</p>
+<p>除了用顏色看順序，作者再用散布圖直接量化排名一致性 (Fig. 3b)。把同一批開關在兩個位置的活性兩兩配對：X 軸是 LP1 的活性、Y 軸是 LP4 的活性，每個開關一個點，總共 310 個點；如果排名保留，點會排成一條斜線。實際上 LP1 對 LP4 算出來相關係數 (Pearson R) 是 0.71，LP1 對 LP6 是 0.65，斜線型態都很清楚。R = 0.71 算高還算低？要跟「同一個實驗整套做兩遍自己跟自己比」算出的相關係數比 (replicate R = 0.66)——這就是這個量法的重現性天花板。LP1 對 LP4 算到的 R = 0.71 已經追上甚至超過這個天花板；意思是換個位置造成的排名抖動，跟同實驗做兩遍的隨機抖動差不多大。</p>
+<p>本段「排名保留」的證據鏈有三個直接限制：第一，只測 8 個位置，且這幾個位置是從已被大型計畫貼好染色質狀態標籤 (ENCODE 註解) 的區域裡挑出來的，不代表整個基因組；第二，310 個開關都是先前在游離 DNA 圈圈 (plasmid) 上篩過、有預期強弱分類的序列，不是隨機抓的；第三，同實驗做兩遍的相關係數 R = 0.66 不算高，單一開關在不同位置之間仍會抖動，是「整群分層」夠穩，不是「每個點都釘在同一名次」。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">cBC</span></div>
+</div></details>
+</div>
+<div class="module-block c-m4">
+<p class="module-thesis"><strong>主題四</strong>：<a class="hl hl-m4" id="sum-h-l2_m4-001" data-id="h-l2_m4-001" data-targets="h-l1-023-a h-l2_m4-001-b">作者把這個現象寫成 \(E_{ij} = C_i L_j + \varepsilon\)</a> <a class="hl hl-m4" id="sum-h-l2_m4-002" data-id="h-l2_m4-002" data-targets="h-l1-026-b h-l2_m4-002-b">並擬合得到 R = 0.9 與 cross-validated R = 0.83</a>，<a class="hl hl-m4" id="sum-h-l2_m4-003" data-id="h-l2_m4-003" data-targets="h-l2_m4-003-a">ANOVA 顯示位置貢獻 64%、CRS 16%、雜訊 20%</a>，<a class="hl hl-m4" id="sum-h-l2_m4-004" data-id="h-l2_m4-004" data-targets="h-l2_m4-004-a">幾乎沒有空間留給特定的位置-序列交互作用</a>。</p>
+<details class="version c-m4">
+<summary>
+<span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">7 票</span></span>
+</summary>
+<div class="panel-body">
+<p><a class="hl hl-m4" id="sum-h-l2_m4-005" data-id="h-l2_m4-005" data-targets="h-l2_m3-045-a">把前面看到的「位置整齊縮放、不挑開關」這個直覺寫成公式</a>，作者主張：<a class="hl hl-m4" id="sum-h-l2_m4-006" data-id="h-l2_m4-006" data-targets="h-l2_m4-001-b h-l1-023-b h-l1-023-c">某段開關 i 放在某位置 j 量到的活性，等於這段開關自己的固有強度 (\(C_i\)) 乘上這個位置的環境倍數 (\(L_j\))</a>，<a class="hl hl-m4" id="sum-h-l2_m4-007" data-id="h-l2_m4-007" data-targets="h-l1-023-a">整條式子寫成 \(E_{ij} = C_i L_j + \varepsilon\)</a>，<a class="hl hl-m4" id="sum-h-l2_m4-008" data-id="h-l2_m4-008" data-targets="h-l2_m4-008-a">其中 \(\varepsilon\) 是隨機誤差</a>。<a class="hl hl-m4" id="sum-h-l2_m4-009" data-id="h-l2_m4-009" data-targets="h-l1-027-a h-l1-009-a">寫成乘法的意思是位置只是個整齊縮放的旋鈕，不會挑開關、不會跟某些開關合拍才放大</a>。怎麼擬合？<a class="hl hl-m4" id="sum-h-l2_m4-010" data-id="h-l2_m4-010" data-targets="h-l2_m4-010-a">把每對 (開關, 位置) 量到的活性都丟進去</a>，<a class="hl hl-m4" id="sum-h-l2_m4-011" data-id="h-l2_m4-011" data-targets="h-l2_m4-011-a">請電腦找一組數字——每段開關一個 \(C_i\)、每個位置一個 \(L_j\)——讓 \(C_i \times L_j\) 算出來的預測值跟實驗實際量到的值差距最小</a>。<a class="hl hl-m4" id="sum-h-l2_m4-012" data-id="h-l2_m4-012" data-targets="h-l2_m4-012-a">實際上作者先對活性取 \(\log_2\)</a>，因為對數會把乘法變加法：\(\log(C_i \times L_j) = \log C_i + \log L_j\)，<a class="hl hl-m4" id="sum-h-l2_m4-014" data-id="h-l2_m4-014" data-targets="h-l2_m4-012-a">所以程式跑的是 R 語言裡一行 `lm` (linear model) 的加法擬合</a>，<a class="hl hl-m4" id="sum-h-l2_m4-015" data-id="h-l2_m4-015" data-targets="h-l1-023-a">骨子裡擬合的就是這條乘法假設</a>。</p>
+<p>擬合出來吻合得有多好？<a class="hl hl-m4" id="sum-h-l2_m4-016" data-id="h-l2_m4-016" data-targets="h-l1-026-a">作者把每個 (開關, 位置) 配對畫成一個點：橫軸是公式算出的預測值、縱軸是實驗量到的真值 (Fig. 4a)</a>。如果模型抓到規律，所有點會擠成一條完美斜線。<a class="hl hl-m4" id="sum-h-l2_m4-018" data-id="h-l2_m4-018" data-targets="h-l1-026-a h-l1-026-b">實際畫出來幾千個點確實緊貼在一條斜線上，相關係數 R = 0.90</a>——R 是把預測值跟真值一個一個對起來、看是不是排成一條直線的指標，<a class="hl hl-m4" id="sum-h-l2_m4-020" data-id="h-l2_m4-020" data-targets="h-l1-027-a">0.9 代表只用「開關固有強度 × 位置倍數」這兩個獨立因子就幾乎能把所有點預測得很準</a>。不過 R = 0.9 算的是「考過的題」，模型會不會其實只是在死背訓練資料？<a class="hl hl-m4" id="sum-h-l2_m4-022" data-id="h-l2_m4-022" data-targets="h-l2_m4-002-b">為此作者再做 cross-validation：把資料切兩半，只用一半的點算出 \(C_i\) 和 \(L_j\)，再拿這組數字去預測沒看過的另一半 (Supp Fig. 6a, b)</a>。<a class="hl hl-m4" id="sum-h-l2_m4-023" data-id="h-l2_m4-023" data-targets="h-l2_m4-002-b">新題上的 R = 0.83，比訓練時只低 0.07</a>，代表模型抓到的是普遍規律而不是死背。</p>
+<p>光說「擬合得很準」還不夠，<a class="hl hl-m4" id="sum-h-l2_m4-025" data-id="h-l2_m4-025" data-targets="h-l2_m4-003-a">作者再用一個叫 ANOVA 的工具，把「資料為什麼這麼分散」拆給各個來源負責</a>——<a class="hl hl-m4" id="sum-h-l2_m4-026" data-id="h-l2_m4-026" data-targets="h-l2_m4-003-a">也就是把總變異 (variance) 切成幾塊餅 (Supp Fig. 6c, d)</a>，分別問「位置佔多少？開關自己佔多少？實驗雜訊佔多少？」。<a class="hl hl-m4" id="sum-h-l2_m4-027" data-id="h-l2_m4-027" data-targets="h-l2_m4-003-a">算出來位置自己一個就佔 64%、開關序列佔 16%、批次重複間的實驗雜訊 (replicate variance) 約 20%</a>。先看相對重要性：位置幾乎是開關的四倍，<a class="hl hl-m4" id="sum-h-l2_m4-029" data-id="h-l2_m4-029" data-targets="h-l2_m3-018-b h-l1-022-a">對基因表現來說「你被放在哪」比「你是誰」更能決定最終的音量</a>。再回頭看 20% 那塊——<a class="hl hl-m4" id="sum-h-l2_m4-030" data-id="h-l2_m4-030" data-targets="h-l2_m4-030-a">replicate variance 是「同一管樣品分兩次測，數字會差多少」這個實驗本身的雜訊地板</a>，<a class="hl hl-m4" id="sum-h-l2_m4-031" data-id="h-l2_m4-031" data-targets="h-l2_m2-079-a h-l2_m3-008-b">把同一批細胞做兩次 patchMPRA 本來就不可能完全一樣</a>。<a class="hl hl-m4" id="sum-h-l2_m4-032" data-id="h-l2_m4-032" data-targets="h-l2_m4-003-a">模型沒抓到的那 20%，剛好等於這個雜訊地板</a>，意思是<a class="hl hl-m4" id="sum-h-l2_m4-033" data-id="h-l2_m4-033" data-targets="h-l2_m4-004-a">模型已經貼到實驗能達到的精度極限</a>。</p>
+<p>把 ANOVA 餅圖逼到這個地步，<a class="hl hl-m4" id="sum-h-l2_m4-034" data-id="h-l2_m4-034" data-targets="h-l2_m4-034-a">「位置和某段開關特殊合拍才出現」的搭配效果 (interaction term) 還有沒有藏身之處</a>？<a class="hl hl-m4" id="sum-h-l2_m4-035" data-id="h-l2_m4-035" data-targets="h-l2_m4-034-a">理論上這項要藏在「模型沒解釋」的那塊餅裡</a>，但<a class="hl hl-m4" id="sum-h-l2_m4-036" data-id="h-l2_m4-036" data-targets="h-l2_m4-004-a">這塊餅一共只剩 20%，又幾乎全部被實驗雜訊地板吃掉，沒留下任何明顯空間給特殊搭配</a>。作者也沒有把話說滿——<a class="hl hl-m4" id="sum-h-l2_m4-037" data-id="h-l2_m4-037" data-targets="h-l2_m4-004-a">原文寫的是「就算有特殊搭配效應，它的大小相對於位置和開關各自的主效應，也一定很小」</a>，<a class="hl hl-m4" id="sum-h-l2_m4-038" data-id="h-l2_m4-038" data-targets="h-l2_m4-004-a">只主張交互作用「相對於主效應微不足道」，不能斷言完全為零</a>。<a class="hl hl-m4" id="sum-h-l2_m4-039" data-id="h-l2_m4-039" data-targets="h-l2_m4-004-a">實驗雜訊本身就有 20%，要把比這還小的訊號從雜訊裡撈出來，超出這套方法的解析力</a>。</p>
+<p><a class="hl hl-m4" id="sum-h-l2_m4-040" data-id="h-l2_m4-040" data-targets="h-l1-019-b h-l2_m2-076-b">這個 64/16/20 的比例會不會只反映「這批 310 個開關 + 這 8 個位置」恰好的組合</a>？<a class="hl hl-m4" id="sum-h-l2_m4-041" data-id="h-l2_m4-041" data-targets="h-l2_m4-041-a">作者在另一輪實驗把位置擴到 15 個</a>、<a class="hl hl-m4" id="sum-h-l2_m4-042" data-id="h-l2_m4-042" data-targets="h-l1-031-a">把開關下游的小型啟動子換成另一款</a>、<a class="hl hl-m4" id="sum-h-l2_m4-043" data-id="h-l2_m4-043" data-targets="h-l2_m4-043-a">再加入文獻已驗證的長版增強子</a>，<a class="hl hl-m4" id="sum-h-l2_m4-044" data-id="h-l2_m4-044" data-targets="h-l2_m4-044-a h-l1-034-a">乘法關係仍然成立 (詳見 module 5)</a>。所以<a class="hl hl-m4" id="sum-h-l2_m4-045" data-id="h-l2_m4-045" data-targets="h-l2_m4-045-a">這條規律不是這次取樣的偶然</a>。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">patchMPRA</span><span class="chip">chromatin</span><span class="chip">landing pad</span></div>
+</div></details>
+<details class="version c-m4">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">5 票</span></span>
+</summary>
+<div class="panel-body">
+<p>作者把「位置只是個整齊倍數放大器」這個直覺寫成最簡單的乘法式：某 CRS 在某位置的表現，等於這段 CRS 自己的固有強度 \(C_i\) 乘上該位置的環境倍數 \(L_j\)，再加上一團隨機飄動 \(\varepsilon\)——也就是 \(E_{ij} = C_i L_j + \varepsilon\)，\(\varepsilon \sim N(0, \sigma^2)\)。\(+\varepsilon\) 是「模型抓不到、剩下隨機飄動」的那一塊；後面那行寫法是說這團飄動被假設成一條鐘型曲線（常態分布），平均剛好為 0、沒有系統偏差。問題是現成的線性擬合工具只認得加法、不認得乘法，所以兩邊先取 \(\log_2\) 把乘法變加法：\(\log_2 E_{ij} = \log_2 C_i + \log_2 L_j\)，再丟進 R 軟體的 `lm` 函數，自動找出最能解釋全部資料的一組 \(C_i\) 和 \(L_j\)。</p>
+<p>拿到擬合好的 \(C_i\) 和 \(L_j\) 後，作者用它們反推「模型認為每一格應該是多少」，再把模型預測值對上實際觀測值畫散布圖 (Fig. 4a)。所有 (CRS, 位置) 配對的點幾乎落在 y = x 對角線上，相關係數 R = 0.90、Spearman \(R_s\) = 0.91——模型預測幾乎貼著實際資料。但這個 0.9 有個漏洞：擬合用的資料和驗證用的資料是同一批，等於「考完試又拿同一份題目自評」，本來就會偏高。為了堵這個漏洞，作者再做 cross-validation：把資料切兩半，只用其中一半找出 \(C_i\) 和 \(L_j\)，再拿這組去預測另一半「沒參與擬合」的資料 (Supp Fig 6a, 6b)，得到 R = 0.83、\(R_s\) = 0.87——比 0.9 略低但仍然很高，代表模型不是只會背題目、換新資料一樣準。</p>
+<p>光說模型擬合得好還不夠，作者進一步問：這 (CRS, 位置) 表現量整體飄動的程度，到底是哪幾個來源各自貢獻多少？這就是 ANOVA（變異數分析）做的事——把整體飄動當作一塊大餅，依來源切片。結果 (Supp Fig 6c, 6d) 切成三塊：「換位置造成的差異」64%、「換 CRS 造成的差異」16%、「同一格重做兩次本來就會不同」20%。讀法是：同樣這 310 個 CRS、這 8 個位置，造成最大差異的是「你被插在哪」，而不是「你是哪段序列」——把一個 CRS 從一個位置搬到另一個位置，動到的活性比把它換成另一段 CRS 還多。</p>
+<p>這塊圓餅其實還可以再切一刀：「特定 CRS 配特定位置才會冒出來的交互作用」，也就是位置會挑序列、有些組合會出現特殊化學反應。但模型已經把位置和 CRS 的獨立貢獻吃光了 80%，剩下的 20% 跟「兩次重做之間天然會差多少」幾乎一樣大；要再切交互作用，只能從那 20% 雜訊裡挖。挖不出顯著值，這正是「位置和序列獨立、不挑搭」的量化證據——交互作用就算存在，也小到躲在雜訊裡看不見。</p>
+<p>如果模型成立，擬合出的「位置固有強度 \(C_i\)」應該可以被另一種不依賴 patchMPRA 的方法量到。作者把 \(C_i\) 拿去對先前用 episomal MPRA（把 CRS 放在游離的 DNA 圈圈、質體上量）量到的活性比較——質體上沒有染色質環境，量到的應該接近 \(C_i\) 本身。整體相關係數只有 R = 0.35 偏低，但把 CRS 依質體活性分高/中/低三組，搬到所有位置仍維持高&gt;中&gt;低的分組順序 (Supp Fig 7)。這支持 \(C_i\) 抓到的真的是 CRS 的固有屬性，不是擬合產生的假象。</p>
+<p>這套模型的結論留有三個邊界。第一，這 8 個位置是預先依 ENCODE 註解挑來、刻意涵蓋鬆與緊不同染色質環境的「樣本多樣集」，不是隨手挑的；第二輪實驗把位置加到 15 個重新擬合，位置&gt;CRS&gt;雜訊的分配比例仍維持，64% 並非 8 個位置湊出來的偶然。第二，整套實驗只在一種人類白血病細胞 (K562 細胞) 上做，換細胞、換更多位置會不會同樣乘法分解這篇沒答。第三，測試的 310 個 CRS 偏向少數幾類常見轉錄因子的結合位點 (AP-1、ETS-1、GATA-1)，功能更特殊的元件（例如把基因隔開的 insulator）會不會也乖乖被同倍率縮放，沒測；而且 replicate 雜訊本身就佔了 20%，比這個雜訊還小的交互作用會被蓋住偵測不到。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">patchMPRA</span><span class="chip">K562 細胞</span><span class="chip">ENCODE</span><span class="chip">episomal MPRA</span><span class="chip">質體</span><span class="chip">insulator</span><span class="chip">轉錄因子</span><span class="chip">染色質</span></div>
+</div></details>
+</div>
+<div class="module-block c-m5">
+<p class="module-thesis"><strong>主題五</strong>：作者用三道交叉檢驗──<a class="hl hl-m5" id="sum-h-l2_m5-002" data-id="h-l2_m5-002" data-targets="h-l2_m5-007-a">擬合出的 \(C_i\) 對得起 plasmid 活性</a>、<a class="hl hl-m5" id="sum-h-l2_m5-003" data-id="h-l2_m5-003" data-targets="h-l2_m4-044-a">把 Hsp68 換成 MinP minimal promoter 後排序不變</a>、<a class="hl hl-m5" id="sum-h-l2_m5-004" data-id="h-l2_m5-004" data-targets="h-l1-034-a">把長版 literature-validated enhancer 加進來測也一樣被同倍率縮放</a>──<a class="hl hl-m5" id="sum-h-l2_m5-005" data-id="h-l2_m5-005" data-targets="h-l2_m5-005-a">支持「local CRS 與 regional chromatin 影響同一步驟、彼此獨立」的模組化模型</a>，並<a class="hl hl-m5" id="sum-h-l2_m5-006" data-id="h-l2_m5-006" data-targets="h-l2_m4-041-a h-l2_m5-006-b">誠實標出 K562 單一細胞與 15 個位點的適用邊界</a>。</p>
+<details class="version c-m5">
+<summary>
+<span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">9 票</span></span>
+</summary>
+<div class="panel-body">
+<p><a class="hl hl-m5" id="sum-h-l2_m5-007" data-id="h-l2_m5-007" data-targets="h-l2_m5-007-a">第一道檢驗是「擬合出的 \(C_i\) 對得起 plasmid 活性」這件事</a>。作者把<a class="hl hl-m5" id="sum-h-l2_m5-008" data-id="h-l2_m5-008" data-targets="h-l1-023-b h-l2_m5-008-b h-l2_m4-011-a">模型算出來的開關固有強度 (\(C_i\))</a> 拿去比對另一組獨立資料：<a class="hl hl-m5" id="sum-h-l2_m5-009" data-id="h-l2_m5-009" data-targets="h-l2_m5-010-a h-l2_m2-057-b">同一批開關放在游離 DNA 圈 (plasmid) 上、完全不插進基因組量出來的活性</a>。<a class="hl hl-m5" id="sum-h-l2_m5-010" data-id="h-l2_m5-010" data-targets="h-l2_m5-010-a">整體點對點的相關係數只有 0.35</a>，遠遠不到「點點貼在斜線上」的程度；但作者改用比較粗的問法：<a class="hl hl-m5" id="sum-h-l2_m5-011" data-id="h-l2_m5-011" data-targets="h-l2_m5-011-a">把 plasmid 上的活性切成高、中、低三組</a>，再去看這三組搬到基因組每個位置之後，是不是仍然高的最高、低的最低——答案是<a class="hl hl-m5" id="sum-h-l2_m5-012" data-id="h-l2_m5-012" data-targets="h-l2_m5-012-a">每個位置都還是保留這個排序</a>。作者再用一個只看「組與組有沒有顯著差異」的統計法 (<a class="hl hl-m5" id="sum-h-l2_m5-013" data-id="h-l2_m5-013" data-targets="h-l2_m5-014-a">Wilcoxon test</a>) 確認：<a class="hl hl-m5" id="sum-h-l2_m5-014" data-id="h-l2_m5-014" data-targets="h-l2_m5-014-a">plasmid 上歸為高活性的開關，在 patchMPRA 算出來的 \(C_i\) 也顯著比較高 (P &lt; 0.05)</a>。兩種測法數值差很多但方向一致，支持 <a class="hl hl-m5" id="sum-h-l2_m5-015" data-id="h-l2_m5-015" data-targets="h-l1-036-a">plasmid 上量到的活性大致就反映了開關沒有染色質環境干擾時的本性</a>。</p>
+<p><a class="hl hl-m5" id="sum-h-l2_m5-016" data-id="h-l2_m5-016" data-targets="h-l1-031-a">第二道檢驗是換 minimal promoter</a>。<a class="hl hl-m5" id="sum-h-l2_m5-017" data-id="h-l2_m5-017" data-targets="h-l1-019-b">每段開關下游都會接一段叫 minimal promoter 的小型啟動子當作 RNA 起跑線</a>——<a class="hl hl-m5" id="sum-h-l2_m5-018" data-id="h-l2_m5-018" data-targets="h-l1-031-a h-l2_m5-018-b">第一輪用一款叫 Hsp68 的版本，第二輪換成另一款叫 MinP 的版本</a>。這兩款序列不同、會產生不同強度的訊號，等於把開關「貼著的鄰居」整個換掉。如果位置效應真的不挑序列，換鄰居只該讓整體訊號上下平移，不該打亂排序。實際上 <a class="hl hl-m5" id="sum-h-l2_m5-019" data-id="h-l2_m5-019" data-targets="h-l1-032-a">Hsp68 整體就是比 MinP 響亮</a>，但<a class="hl hl-m5" id="sum-h-l2_m5-020" data-id="h-l2_m5-020" data-targets="h-l1-032-a">同一段開關不管掛哪款 promoter，在不同位置之間的相對強弱完全一致</a>。作者這輪一次測了三件事：<a class="hl hl-m5" id="sum-h-l2_m5-021" data-id="h-l2_m5-021" data-targets="h-l2_m4-041-a h-l2_m4-043-a">把位置從 8 個擴到 15 個、換 promoter、加進長版 enhancer</a>。把 promoter 身分當成第三個變數加進模型後，<a class="hl hl-m5" id="sum-h-l2_m5-022" data-id="h-l2_m5-022" data-targets="h-l2_m5-022-a">整體吻合度仍有 0.82</a>；變異拆解 (ANOVA) 顯示<a class="hl hl-m5" id="sum-h-l2_m5-023" data-id="h-l2_m5-023" data-targets="h-l2_m5-023-a">位置佔 26%、promoter 佔 26%、開關自己佔 9%</a>。比例之所以<a class="hl hl-m5" id="sum-h-l2_m5-024" data-id="h-l2_m5-024" data-targets="h-l2_m4-003-a">比第一輪 (位置 64%、開關 16%) 變動</a>，是因為多了 promoter 變數要分一杯羹；但<a class="hl hl-m5" id="sum-h-l2_m5-025" data-id="h-l2_m5-025" data-targets="h-l2_m5-025-a">「位置主導 + 各因子模組化、彼此獨立」的結構沒變</a>，promoter 跟著被收編成另一個「強但模組化」的因子。</p>
+<p><a class="hl hl-m5" id="sum-h-l2_m5-026" data-id="h-l2_m5-026" data-targets="h-l1-033-b">第三道檢驗是「把長版 enhancer 加進來測也一樣被同倍率縮放」</a>。<a class="hl hl-m5" id="sum-h-l2_m5-027" data-id="h-l2_m5-027" data-targets="h-l2_m2-055-b h-l2_m5-027-b">第一輪實驗測的全是 130 bp 左右的短序列</a>；文獻常假設<a class="hl hl-m5" id="sum-h-l2_m5-028" data-id="h-l2_m5-028" data-targets="h-l1-034-b">「真正完整的長版開關 (literature-validated enhancer)」可能自帶某些抗壓元件</a>，所以可以掙脫位置效應。<a class="hl hl-m5" id="sum-h-l2_m5-029" data-id="h-l2_m5-029" data-targets="h-l2_m5-029-a h-l2_m5-027-b">作者把過去文獻已驗證過、長度超過 130 bp 的長版加進來測</a>。結果<a class="hl hl-m5" id="sum-h-l2_m5-030" data-id="h-l2_m5-030" data-targets="h-l1-034-a">長版沒有比短版更強</a>，<a class="hl hl-m5" id="sum-h-l2_m5-031" data-id="h-l2_m5-031" data-targets="h-l1-034-a">搬到不同位置時被乘的倍數和短版完全一樣</a>——<a class="hl hl-m5" id="sum-h-l2_m5-032" data-id="h-l2_m5-032" data-targets="h-l1-034-b">沒有任何證據顯示長度自帶對抗位置效應的本領</a>。作者預期有人會反駁「你們挑的長版剛好是弱版，所以才被壓低」，於是直接<a class="hl hl-m5" id="sum-h-l2_m5-033" data-id="h-l2_m5-033" data-targets="h-l1-033-b">把長短版的活性分佈擺在一起</a>：長版沒比短版高，但也沒特別弱，兩者活性範圍重疊；把活性配對相同的長短版搬到同一批位置看，被位置乘的倍數還是一樣。</p>
+<p>三道檢驗都通過後，作者用一個直覺解釋串起來：<a class="hl hl-m5" id="sum-h-l2_m5-035" data-id="h-l2_m5-035" data-targets="h-l2_m5-039-b">開關自己決定「能不能吸引到對的蛋白質來啟動轉錄」</a>，而<a class="hl hl-m5" id="sum-h-l2_m5-036" data-id="h-l2_m5-036" data-targets="h-l2_m5-039-b">周圍染色質決定「這些蛋白質有沒有辦法擠進來」</a>。<a class="hl hl-m5" id="sum-h-l2_m5-037" data-id="h-l2_m5-037" data-targets="h-l1-039-a">所有要啟動轉錄的蛋白質都得穿過同一張染色質網才能碰到 DNA</a>，所以<a class="hl hl-m5" id="sum-h-l2_m5-038" data-id="h-l2_m5-038" data-targets="h-l1-040-a">一個區域只要整體比較緻密，所有開關就一起被等比例壓低</a>，跟開關長什麼樣無關——這就是位置看起來像「一個整齊倍率旋鈕」的原因。<a class="hl hl-m5" id="sum-h-l2_m5-039" data-id="h-l2_m5-039" data-targets="h-l2_m5-005-a h-l2_m5-039-b">兩個因子都在影響同一件事——蛋白質實際黏上 DNA 的機率</a>：一邊提供「想黏的吸引力」、另一邊提供「能不能擠進去的通道」，要有訊號就得兩件事同時成立，獨立事件同時成立的機率就是兩個機率相乘，正好對應<a class="hl hl-m5" id="sum-h-l2_m5-041" data-id="h-l2_m5-041" data-targets="h-l1-024-a">公式 \(E_{ij} = C_i \times L_j\) 的「相乘」結構</a>。</p>
+<p>作者誠實標出適用邊界。<a class="hl hl-m5" id="sum-h-l2_m5-042" data-id="h-l2_m5-042" data-targets="h-l2_m5-042-a">整套實驗只在一種人類白血病細胞 (K562) 上做過</a>，<a class="hl hl-m5" id="sum-h-l2_m5-043" data-id="h-l2_m5-043" data-targets="h-l1-041-a h-l2_m4-041-a">又只測了 15 個基因組位置</a>；<a class="hl hl-m5" id="sum-h-l2_m5-044" data-id="h-l2_m5-044" data-targets="h-l2_m5-006-b">測過的開關大多偏向 K562 細胞特別愛用的三類轉錄因子辨識的序列（叫做 AP-1、ETS-1、GATA-1）</a>。換成別的細胞、其他位置、或者那種<a class="hl hl-m5" id="sum-h-l2_m5-045" data-id="h-l2_m5-045" data-targets="h-l2_m5-006-b">專門把不同基因區段隔開的開關 (insulator) 會不會還乖乖被等比例縮放</a>，這個實驗本身回答不了；<a class="hl hl-m5" id="sum-h-l2_m5-046" data-id="h-l2_m5-046" data-targets="h-l2_m3-025-a">insulator 的本職就是擋住旁邊染色質的影響滲透過來</a>，如果連它都被同倍率縮放，那「位置只是個倍率旋鈕」就更全面，反之則表示這個結論不夠普適。除此之外作者還明說有幾件事這個實驗回答不了：<a class="hl hl-m5" id="sum-h-l2_m5-047" data-id="h-l2_m5-047" data-targets="h-l2_m5-047-a h-l2_m5-047-b">一個位置到底是因為哪些染色質特徵才被分到大倍率或小倍率？</a><a class="hl hl-m5" id="sum-h-l2_m5-048" data-id="h-l2_m5-048" data-targets="h-l2_m1-028-b h-l2_m5-048-b">只測 15 個位置實在不夠，前人用上千個位置也只找出「靠近核膜那圈整體被壓低」這條規律</a>。「位置給同倍率」這個 pattern 本身未必只有一種物理機制——<a class="hl hl-m5" id="sum-h-l2_m5-049" data-id="h-l2_m5-049" data-targets="h-l2_m5-049-a">緻密度、長距離 looping、histone 化學修飾都可能造成同樣現象</a>，這套實驗只能說 pattern 對，沒辦法挑出背後是哪一條路。<a class="hl hl-m5" id="sum-h-l2_m5-050" data-id="h-l2_m5-050" data-targets="h-l2_m5-050-a">整套結論能否定的只是「某段特定序列搬到某個特定位置才會冒出來的特殊化學反應」</a>，其他更廣泛的影響都還開放。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">cis-regulatory sequence</span><span class="chip">chromatin</span><span class="chip">patchMPRA</span><span class="chip">\(C_i\)</span><span class="chip">\(L_j\)</span><span class="chip">\(E_{ij} = C_i \times L_j\)</span><span class="chip">K562</span><span class="chip">plasmid</span><span class="chip">質體</span><span class="chip">minimal promoter</span><span class="chip">enhancer</span><span class="chip">轉錄因子</span><span class="chip">landing pad</span></div>
+</div></details>
+<details class="version c-m5">
+<summary>
+<span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">4 票</span></span>
+</summary>
+<div class="panel-body">
+<p>第一道交叉檢驗是把模型擬合出來的 \(C_i\) 拿去跟 plasmid 對照活性比對。\(C_i\) 是模型對每段開關估出的固有強度，計算過程裡完全沒餵 plasmid 資料；plasmid 是游離的環狀 DNA、沒被塞進染色體，所以沒有周圍染色質環境的干擾，量到的活性接近開關本身的純內在強度。整體相關係數平均只有 R = 0.35，數字不算高；但分組後的排序層次很乾淨——把開關依 plasmid 活性分成低、中、高三組後，這個分組在每個 landing pad 上都還是維持原本的相對順序 (Supp Fig 7)。這個程度的吻合已經足以證明 \(C_i\) 不是模型憑空捏出來的人造數字，而是真的抓到開關的內在屬性。</p>
+<p>第二道交叉檢驗是換掉 CRS 下游必接的「起跑線」DNA。每段開關下游都必須接一段很短的起跑線才能讓轉錄機器辨認出讀取起點 (minimal promoter)；第一輪用的是 Hsp68，第二輪換成另一款 MinP，但開關序列和 landing pad 位置都不動。如果倍率縮放真的是位置和開關兩個獨立因子相乘，換起跑線應該只會把整批一起拉高或壓低、不會打亂排序；反過來如果排序被打亂，就代表「特定起跑線 × 特定開關 × 特定位置」三者之間有某種專屬的化學交互作用，乘法模型就不夠用了。實際結果：在每個 landing pad 上 Hsp68 整體表現都比 MinP 高一截，但同一段開關不論接哪款起跑線，跨位置的相對強弱排序完全一致 (Fig 4d)。作者把起跑線當成第三個獨立因子塞進乘法模型，擴充後整體 R = 0.82；再拆解變異來源，起跑線、位置、開關序列各自吃掉 26%、26%、9%——三個因子各自被乾淨地分到自己的變異來源裡，這正是模組化模型擴得開、可以一個一個獨立累加新因子的證據。</p>
+<p>第三道交叉檢驗是加進長版開關。原本第一輪測的開關都是約 130 bp 的短片段；文獻 enhancer 通常更長、包含更多轉錄因子結合位點，學界長期假設這些長版自帶能抵抗位置效應的內建元件（例如可以錨在染色質上的小段、或像 insulator 一樣的緩衝結構）。作者把 13 段 K562 基因組裡文獻驗證過的長 enhancer (&gt;130 bp) 一起塞進第二輪 library，跟 library 內的短開關放在同一批 landing pad 上同步測活性與跨位置縮放。結果完全不能逃過：長版 enhancer 整體活性其實也沒有比短版開關強；在不同 landing pad 之間，它們跟短版開關一樣被同一個倍率縮放 (Fig 4e)。意味著至少在這 13 段測過的 K562 長版 enhancer 裡，並沒有任何「長度上的優勢」讓它們脫離周圍染色質的同倍率影響——即使包含更多轉錄因子結合位點，也不會自帶位置效應緩衝。</p>
+<p>三道檢驗都通過後，作者把它們收束到一個機制解釋：開關和周圍染色質環境影響的是同一個生化步驟——轉錄因子能不能擠到 DNA 上。開關決定的是「會吸引哪些轉錄因子來、結合多牢」；染色質決定的是「這些轉錄因子能不能擠進這片區域接觸到 DNA」。一個區域如果染色質包得緊，所有種類的轉錄因子都同樣穿不過這團蛋白質網路，所以那個區域對所有開關的影響都會是同一個衰減倍率，跟開關上長什麼結合位點無關。這個邏輯也允許其他染色質機制（例如染色質遠距摺疊形成的 DNA 圈接觸 long-range looping、組蛋白上的化學修飾 histone modification）只要它們同樣等比例壓低所有轉錄因子的擴散，就會表現出一樣整齊的縮放。不過 \(L_j\) 本身只是擬合出來的純現象學量，代表每個 landing pad 對所有開關的等比例倍數；只測 15 個位點還不足以歸納「哪些染色質特徵決定 \(L_j\) 大小」，數據裡甚至出現反直覺的情況——有些被 ENCODE 註為「壓制」的區域反而允許高活性、有些被註為「正在轉錄」的區域反而把活性壓下去。</p>
+<p>這套結論的適用邊界，作者誠實標出來：K562 是一種人類白血病細胞，染色質狀態跟其他細胞（神經元、肌肉、胚胎幹細胞）可能很不同；15 個 landing pad 也只取樣了整個基因組染色質狀態的一小部分。所以「位置只是同倍率放大器」這個結論能不能推廣到其他細胞、推廣到 15 個位點以外的染色質環境，本研究還回答不了。測過的這 310 段開關在 K562 細胞裡又偏向少數幾類常見轉錄因子的結合序列 (AP-1、ETS-1、GATA-1 binding sites)；其他類型，例如把基因隔開的 insulator 結合序列，完全沒測過——insulator 本身的功能就是建立邊界、阻擋鄰近染色質效應傳過來，邏輯上正好是「對抗位置效應」的那類開關，若它確實能脫離同倍率縮放，就意味著「位置只是放大器」這個簡單模型有上限，需要為某些特殊類型的開關補上額外的交互作用項。作者把 CRISPR 列為後續方向：未來可以用 CRISPR-Cas9 把 landing pad 精準塞進指定的染色質狀態（例如特定 ENCODE 註解類別），系統性地測哪個染色質特徵決定 \(L_j\) 的大小，而不是像現在這樣只能靠 lentivirus 隨機散射然後挑剛好落在不同狀態的位點。</p>
+<div class="terms"><span class="label">Baseline 已涵蓋詞</span><span class="chip">CRS</span><span class="chip">染色質</span><span class="chip">位置效應</span><span class="chip">landing pad</span><span class="chip">K562</span><span class="chip">minimal promoter</span><span class="chip">plasmid</span><span class="chip">insulator</span><span class="chip">ENCODE</span><span class="chip">lentivirus</span><span class="chip">CRISPR-Cas9</span><span class="chip">\(C_i\)</span><span class="chip">\(L_j\)</span><span class="chip">library</span></div>
+</div></details>
+</div>
+</section>
+</aside>
+
+<script id="reader-panel-js">
+(function() {
+  var COLORS = ["summary", "m1", "m2", "m3", "m4", "m5", "m6"];
+  var COLOR_LABELS = {"summary": "全文摘要", "m1": "主題一", "m2": "主題二", "m3": "主題三", "m4": "主題四", "m5": "主題五", "m6": "主題六"};
+  function init() {
+    var main = document.querySelector('main');
+    var panel = document.querySelector('.reader-panel');
+    if (!main || !panel) return;
+    var oldRail = main.querySelector('.margin-rail');
+    if (oldRail) oldRail.remove();
+    var oldToggle = document.querySelector('.color-toggle');
+    if (oldToggle) oldToggle.remove();
+
+    function classColor(el, prefix) {
+      if (!el) return null;
+      for (var i = 0; i < el.classList.length; i++) {
+        var cls = el.classList[i];
+        if (cls.indexOf(prefix) === 0) return cls.slice(prefix.length);
+      }
+      return null;
+    }
+    function clearSelection() {
+      document.querySelectorAll('.margin-note.is-selected').forEach(function(n) { n.classList.remove('is-selected'); });
+      document.querySelectorAll('mark.hl.is-selected, a.hl.is-selected').forEach(function(el) {
+        el.classList.remove('is-selected');
+        Array.from(el.classList).forEach(function(cls) { if (cls.indexOf('sel-') === 0) el.classList.remove(cls); });
+      });
+    }
+    function noteForMarkColor(mark, colorKey) {
+      var row = notesByMark.get(mark);
+      return row ? row[colorKey] || null : null;
+    }
+    function selectPair(mark, note) {
+      clearSelection();
+      if (!mark || !note) return;
+      var colorKey = classColor(note, 'n-');
+      mark.classList.add('is-selected');
+      if (colorKey) mark.classList.add('sel-' + colorKey);
+      note.classList.add('is-selected');
+      if (colorKey) {
+        var pids = (mark.getAttribute('data-pids-' + colorKey) || '').split(/\s+/).filter(Boolean);
+        pids.forEach(function(pid) {
+          var a = document.getElementById('sum-' + pid);
+          if (a) {
+            a.classList.add('is-selected');
+            a.classList.add('sel-' + colorKey);
+          }
+        });
+      }
+    }
+    function escapeHtml(t) {
+      return String(t).replace(/[&<>"]/g, function(ch) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; });
+    }
+    function convertMath(t) {
+      return String(t).replace(/(^|[^\\])\$([^$]*?[^\\])\$/g, function(m, lead, body) { return lead + '\\(' + body + '\\)'; });
+    }
+
+    var notesByMark = new Map();
+    var phraseTargets = new Map();
+    panel.querySelectorAll('a.hl[data-targets][data-id]').forEach(function(a) {
+      phraseTargets.set(a.getAttribute('data-id'), (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean));
+    });
+
+    var rail = document.createElement('div');
+    rail.className = 'margin-rail';
+    main.appendChild(rail);
+    var marks = Array.from(main.querySelectorAll('mark.hl[data-back]'));
+    marks.forEach(function(mark) {
+      var row = {};
+      notesByMark.set(mark, row);
+      Array.from(mark.attributes).forEach(function(attr) {
+        var match = attr.name.match(/^data-zh-([a-z0-9]+)$/);
+        if (!match) return;
+        var colorKey = match[1];
+        var note = document.createElement('div');
+        note.className = 'margin-note n-' + colorKey;
+        note.innerHTML = convertMath(escapeHtml(attr.value));
+        note.addEventListener('click', function(ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          selectPair(mark, note);
+          mark.scrollIntoView({behavior: 'smooth', block: 'center'});
+        });
+        var pids = (mark.getAttribute('data-pids-' + colorKey) || '').split(/\s+/).filter(Boolean);
+        var cycle = [];
+        pids.forEach(function(pid) {
+          (phraseTargets.get(pid) || []).forEach(function(id) { if (cycle.indexOf(id) === -1) cycle.push(id); });
+        });
+        if (cycle.length > 1) {
+          var next = document.createElement('span');
+          next.className = 'note-next';
+          next.textContent = '→ 其他 ' + (cycle.length - 1) + ' 處';
+          next.title = '跳到下一處（共 ' + cycle.length + ' 處）';
+          next.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            var idx = cycle.indexOf(mark.id);
+            var nextId = cycle[(idx + 1 + cycle.length) % cycle.length];
+            var nextMark = document.getElementById(nextId);
+            var nextNote = nextMark ? noteForMarkColor(nextMark, colorKey) : null;
+            if (nextMark && nextNote) {
+              selectPair(nextMark, nextNote);
+              nextMark.scrollIntoView({behavior: 'smooth', block: 'center'});
+            }
+          });
+          note.appendChild(next);
+        }
+        rail.appendChild(note);
+        row[colorKey] = note;
+      });
+    });
+
+    var anchorCycle = new Map();
+    panel.querySelectorAll('a.hl[data-targets]').forEach(function(a) {
+      a.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        var colorKey = classColor(a, 'hl-');
+        if (colorKey && document.body.classList.contains('off-' + colorKey)) return;
+        var ids = (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean);
+        if (!ids.length) return;
+        var key = a.getAttribute('data-id') || a.id;
+        var idx = anchorCycle.get(key) || 0;
+        var target = document.getElementById(ids[idx % ids.length]);
+        anchorCycle.set(key, (idx + 1) % ids.length);
+        if (!target) return;
+        target.scrollIntoView({behavior: 'smooth', block: 'center'});
+        var note = colorKey ? noteForMarkColor(target, colorKey) : null;
+        selectPair(target, note);
+      });
+    });
+
+    var markCycle = new Map();
+    marks.forEach(function(mark) {
+      mark.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var backs = (mark.getAttribute('data-back') || '').split(/\s+/).filter(Boolean);
+        if (!backs.length) return;
+        var idx = markCycle.get(mark.id) || 0;
+        var anchor = document.getElementById(backs[idx % backs.length]);
+        markCycle.set(mark.id, (idx + 1) % backs.length);
+        if (!anchor) return;
+        var parent = anchor.closest('details');
+        while (parent) { parent.open = true; parent = parent.parentElement ? parent.parentElement.closest('details') : null; }
+        anchor.scrollIntoView({behavior: 'smooth', block: 'center'});
+        var colorKey = classColor(anchor, 'hl-');
+        var note = colorKey ? noteForMarkColor(mark, colorKey) : null;
+        selectPair(mark, note);
+      });
+    });
+
+    var layoutPending = false;
+    var inLayout = false;
+    function scheduleReposition() {
+      if (layoutPending) return;
+      layoutPending = true;
+      requestAnimationFrame(function() { layoutPending = false; reposition(); });
+    }
+    function resetRailPads() {
+      main.querySelectorAll('[data-rail-pad]').forEach(function(el) {
+        el.style.marginBottom = el.getAttribute('data-rail-orig-mb') || '';
+        el.removeAttribute('data-rail-pad');
+        el.removeAttribute('data-rail-orig-mb');
+      });
+    }
+    function blockForMark(mark) {
+      var block = mark.closest('p, figcaption, .table-title, td, th, li, h1, h2, h3, .equation');
+      if (block && block.closest('.reader-panel')) return null;
+      return block || mark.parentElement;
+    }
+    function noteVisible(note) {
+      return !!(note && note.offsetParent !== null);
+    }
+    function reposition() {
+      if (inLayout) return;
+      inLayout = true;
+      try {
+        resetRailPads();
+        var mainRect = main.getBoundingClientRect();
+        var blockEntries = new Map();
+        marks.forEach(function(mark) {
+          var block = blockForMark(mark);
+          if (!block) return;
+          var row = notesByMark.get(mark) || {};
+          COLORS.forEach(function(color) {
+            var note = row[color];
+            if (!note || !noteVisible(note)) return;
+            if (!blockEntries.has(block)) blockEntries.set(block, []);
+            blockEntries.get(block).push({mark: mark, note: note, color: color});
+          });
+        });
+        var blocks = Array.from(blockEntries.keys()).sort(function(a, b) {
+          if (a === b) return 0;
+          return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
+        });
+        blocks.forEach(function(block) {
+          var entries = blockEntries.get(block).sort(function(a, b) {
+            var ar = a.mark.getBoundingClientRect();
+            var br = b.mark.getBoundingClientRect();
+            if (ar.top !== br.top) return ar.top - br.top;
+            return COLORS.indexOf(a.color) - COLORS.indexOf(b.color);
+          });
+          var prevBottom = -Infinity;
+          var gap = 6;
+          entries.forEach(function(entry) {
+            var desired = entry.mark.getBoundingClientRect().top - mainRect.top;
+            var top = Math.max(desired, prevBottom + gap);
+            entry.note.style.top = top + 'px';
+            prevBottom = top + entry.note.offsetHeight;
+          });
+          var blockBottom = block.getBoundingClientRect().bottom - mainRect.top;
+          if (prevBottom > blockBottom) {
+            var pad = Math.ceil(prevBottom - blockBottom + 10);
+            block.setAttribute('data-rail-orig-mb', block.style.marginBottom || '');
+            var currentMb = parseFloat(getComputedStyle(block).marginBottom) || 0;
+            block.style.marginBottom = (currentMb + pad) + 'px';
+            block.setAttribute('data-rail-pad', String(pad));
+          }
+        });
+      } finally {
+        inLayout = false;
+      }
+    }
+
+    scheduleReposition();
+    window.addEventListener('resize', scheduleReposition);
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(scheduleReposition);
+      ro.observe(main);
+    } else {
+      document.addEventListener('toggle', scheduleReposition, true);
+    }
+    main.querySelectorAll('img').forEach(function(img) { if (!img.complete) img.addEventListener('load', scheduleReposition); });
+
+    if (window.IntersectionObserver) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var row = notesByMark.get(entry.target) || {};
+          Object.keys(row).forEach(function(color) { row[color].classList.toggle('is-active', entry.isIntersecting); });
+        });
+      }, {rootMargin: '-30% 0px -50% 0px'});
+      marks.forEach(function(mark) { io.observe(mark); });
+    }
+
+    function typesetRailAndPanel() {
+      if (!window.MathJax) return;
+      var ready = (MathJax.startup && MathJax.startup.promise) || Promise.resolve();
+      ready.then(function() {
+        if (MathJax.typesetPromise) return MathJax.typesetPromise([panel, rail]).then(scheduleReposition);
+        if (MathJax.typeset) { MathJax.typeset([panel, rail]); scheduleReposition(); }
+      }).catch(function() { scheduleReposition(); });
+    }
+    typesetRailAndPanel();
+
+    var toggle = document.createElement('div');
+    toggle.className = 'color-toggle';
+    toggle.innerHTML = '<div class="ct-title">顯示主題</div>';
+    var enabled = new Set(COLORS);
+    function chooseBase(mark) {
+      if (enabled.has('summary') && (mark.getAttribute('data-pids-summary') || '').trim()) return 'summary';
+      var best = null;
+      var bestCount = -1;
+      ['m1','m2','m3','m4','m5','m6'].forEach(function(color) {
+        if (!enabled.has(color)) return;
+        var count = (mark.getAttribute('data-pids-' + color) || '').split(/\s+/).filter(Boolean).length;
+        if (count > bestCount) { best = color; bestCount = count; }
+      });
+      return bestCount > 0 ? best : null;
+    }
+    function rebaseMarks() {
+      clearSelection();
+      marks.forEach(function(mark) {
+        Array.from(mark.classList).forEach(function(cls) {
+          if (cls.indexOf('hl-') === 0 || cls.indexOf('sel-') === 0) mark.classList.remove(cls);
+        });
+        mark.classList.remove('is-selected');
+        var base = chooseBase(mark);
+        mark.classList.add(base ? 'hl-' + base : 'hl-none');
+      });
+    }
+    COLORS.forEach(function(color) {
+      var item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'ct-item';
+      item.setAttribute('data-color', color);
+      item.innerHTML = '<span class="ct-swatch ct-swatch-' + color + '"></span><span>' + COLOR_LABELS[color] + '</span>';
+      item.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (enabled.has(color)) {
+          enabled.delete(color);
+          document.body.classList.add('off-' + color);
+          item.classList.add('is-off');
+        } else {
+          enabled.add(color);
+          document.body.classList.remove('off-' + color);
+          item.classList.remove('is-off');
+        }
+        rebaseMarks();
+        scheduleReposition();
+      });
+      toggle.appendChild(item);
+    });
+    document.body.appendChild(toggle);
+
+    document.addEventListener('click', function(ev) {
+      if (ev.target.closest('.hl, .margin-note, .note-next, .color-toggle')) return;
+      clearSelection();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+  <article>
+    <h1>A massively parallel reporter assay dissects the influence of chromatin structure on cis-regulatory activity</h1>
+    <p class="authors">Brett B Maricque<sup>1-4</sup>, Hemangi G Chaudhari<sup>1,2,4</sup> &amp; Barak A Cohen<sup>1,2</sup></p>
+    <p class="affiliation"><sup>1</sup>The Edison Family Center for Genome Sciences and Systems Biology, Washington University School of Medicine, Saint Louis, Missouri, USA. <sup>2</sup>Department of Genetics, Washington University School of Medicine, Saint Louis, Missouri, USA. <sup>3</sup>Present address: Department of Biological Sciences, Howard Hughes Medical Institute, Columbia University, New York, New York, USA. <sup>4</sup>These authors contributed equally to this work. Correspondence should be addressed to B.A.C. (cohen@wustl.edu).</p>
+    <p class="meta">Received 10 July 2017; accepted 2 October 2018; published online 19 November 2018; <span class="doi">doi:10.1038/nbt.4285</span></p>
+
+    <p class="abstract">A gene's position in the genome can profoundly affect its expression because regional differences in chromatin modulate the activity of locally acting cis-regulatory sequences (CRSs). Here we study how CRSs and regional chromatin act in concert on a genome-wide scale. We present a massively parallel reporter gene assay that measures the activities of hundreds of different CRSs, each integrated at many specific genomic locations. Although genome location strongly affected CRS activity, the relative strengths of CRSs were maintained at all chromosomal locations. The intrinsic activities of CRSs also correlated with their activities in plasmid-based assays. We explain our data with a quantitative model in which expression levels are set by independent contributions from local CRSs and the regional chromatin environment, rather than by more complex sequence- or protein-specific interactions between these two factors. The methods we present will help investigators determine when regulatory information is integrated in a modular fashion and when regulatory sequences interact in more complex ways.</p>
+
+    <p><mark class="hl hl-summary" id="h-l1-006-a" data-back="sum-h-l1-006" data-zh-summary="DNA 上有許多「短片段開關」（cis-regulatory sequence, CRS）負責調控基因表現" data-pids-summary="h-l1-006">Two types of cis-regulatory information control the production of mRNAs: local cis-regulatory CRSs, such as promoters, enhancers and insulators</mark><sup>1-3</sup>, and the regional chromatin surrounding a gene's location in the genome<sup>4-6</sup>. Although short CRSs are often sufficient to drive reporter genes in patterns that reflect their activity in the genome<sup>7-12</sup>, <mark class="hl hl-summary" id="h-l1-002-a" data-back="sum-h-l1-002 sum-h-l2_m1-006" data-zh-summary="周圍環境（chromatin）對開關的影響" data-pids-summary="h-l1-002" data-zh-m1="差別不在開關序列，而在周圍 chromatin 把它包得鬆還是緊" data-pids-m1="h-l2_m1-006">their activities are also heavily influenced by regional differences in chromatin state</mark>. <mark class="hl hl-summary" id="h-l2_m1-007-a" data-back="sum-h-l2_m1-007 sum-h-l1-008 sum-h-l2_m1-006 sum-h-l1-001 sum-h-l1-007 sum-h-l2_m1-005" data-zh-summary="這是早就知道的位置效應 ／ 同一個 DNA 開關（cis-regulatory sequence, CRS）放在基因組不同位置會表現出非常不同的活性 ／ 同一個開關放到基因組不同位置，活性可能差好幾個數量級" data-pids-summary="h-l1-008 h-l1-001 h-l1-007" data-zh-m1="這個現象叫染色體位置效應 (chromosome position effect) ／ 差別不在開關序列，而在周圍 chromatin 把它包得鬆還是緊 ／ 同一段 DNA 開關 (cis-regulatory sequence, CRS) 光是搬到另一個位置，表現量就可以差好幾個數量級" data-pids-m1="h-l2_m1-007 h-l2_m1-006 h-l2_m1-005">Regional differences in chromatin underlie chromosome position effects, the phenomenon whereby the same gene is expressed at dramatically different levels depending on its location in the genome</mark><sup>6,13-25</sup>. To identify the chromatin features that make different chromosomal locations permissive for CRS activity, investigators have produced detailed maps of the epigenetic and topological properties of the genome<sup>26-31</sup>. <mark class="hl hl-m1" id="h-l2_m1-025-a" data-back="sum-h-l2_m1-025" data-zh-m1="舊方法是用病毒或轉殖把報導基因亂塞進基因組" data-pids-m1="h-l2_m1-025">By integrating a reporter gene at several-or even thousands of-different chromosomal locations</mark>, investigators have tried to identify the chromatin features that correlate with a region being permissive or repressive for the function of a particular CRS<sup>6,15,19,21-23,32</sup>.</p>
+    <p><mark class="hl hl-summary" id="h-l1-003-a" data-back="sum-h-l1-003 sum-h-l2_m1-031 sum-h-l2_m1-004 sum-h-l2_m1-003 sum-h-l2_m1-012" data-zh-summary="到底是「跟每個開關的序列特性糾纏在一起」，還是「不管什麼開關，都被同一個倍數整齊放大或縮小」" data-pids-summary="h-l1-003" data-zh-m1="位置效應到底「依不依賴 CRS 是哪一段」仍是個 open question ／ 還是只是對所有序列同步等比例縮放 ／ 沒人能分辨「位置 × 序列」到底是會挑序列糾纏 ／ 一種可能是糾纏 (sequence-specific interaction)：房間挑歌" data-pids-m1="h-l2_m1-031 h-l2_m1-004 h-l2_m1-003 h-l2_m1-012">A key unanswered question is whether local CRSs and regional chromatin interact in complex sequence-specific ways or whether the two effects contribute independently to gene expression</mark>. <mark class="hl hl-summary" id="h-l1-009-a" data-back="sum-h-l1-009 sum-h-l2_m1-015 sum-h-l2_m1-023 sum-h-l2_m1-004 sum-h-l2_m1-014 sum-h-l2_m1-021 sum-h-l2_m4-009 sum-h-l1-003 sum-h-l2_m1-003 sum-h-l2_m1-013 sum-h-l2_m1-020" data-zh-summary="位置到底是「會挑開關，跟每個開關特性糾纏」，還是「不管什麼開關都被同一個倍數整齊放大或縮小」 ／ 到底是「跟每個開關的序列特性糾纏在一起」，還是「不管什麼開關，都被同一個倍數整齊放大或縮小」" data-pids-summary="h-l1-009 h-l1-003" data-zh-m1="整批歌一起被拉大或拉小，但歌之間誰大聲誰小聲完全不變 ／ 整批開關一起變響或變悶、排名不變 ／ 還是只是對所有序列同步等比例縮放 ／ 另一種可能是等比例縮放 (linear scaling)：房間只是個總音量旋鈕 ／ 如果是等比例縮放，點會排成一條斜線 ／ 沒人能分辨「位置 × 序列」到底是會挑序列糾纏 ／ 把某些歌特別拉大聲、某些歌特別壓小聲，搬完房間後歌曲排名被洗牌 ／ 如果是糾纏，點會散開甚至交叉，強弱開關的排名在兩個位置之間會洗牌" data-pids-m1="h-l2_m1-015 h-l2_m1-023 h-l2_m1-004 h-l2_m1-014 h-l2_m1-021 h-l2_m1-003 h-l2_m1-013 h-l2_m1-020" data-zh-m4="寫成乘法的意思是位置只是個整齊縮放的旋鈕，不會挑開關、不會跟某些開關合拍才放大" data-pids-m4="h-l2_m4-009">Strong and weak CRSs in one chromatin state might change their relative activities in other chromatin environments, depending on the specific molecular interactions that occur at different genomic locations. Alternatively, different chromatin states might simply scale the activities of strong and weak elements without altering their relative activities</mark>. This question remains unresolved because <mark class="hl hl-m1" id="h-l2_m1-024-a" data-back="sum-h-l2_m1-024 sum-h-l2_m2-007" data-zh-m1="技術上做不到「同一批開關放到同一批位置」這張矩陣" data-pids-m1="h-l2_m1-024" data-zh-m2="每段 CRS 落在哪、座標是什麼都不可控" data-pids-m2="h-l2_m2-007">to separate the effects of local and regional regulatory features we must measure the activity of many CRSs integrated at diverse genomic locations</mark>. <mark class="hl hl-m1" id="h-l2_m1-009-a" data-back="sum-h-l2_m1-009" data-zh-m1="之後類似觀察一路累積 30 年" data-pids-m1="h-l2_m1-009">Despite the rich history</mark><sup>6,13,15,17-21,23,24,33-36</sup> <mark class="hl hl-m1" id="h-l2_m1-001-a" data-back="sum-h-l2_m1-001" data-zh-m1="過去 30 年的染色體位置效應研究" data-pids-m1="h-l2_m1-001">of chromosome position effect studies</mark>, <mark class="hl hl-m1" id="h-l2_m1-002-a" data-back="sum-h-l2_m1-002 sum-h-l2_m1-026 sum-h-l2_m1-027" data-zh-m1="只能一次測少數幾個 CRS ／ 每次只能放一段開關、落在哪也無法指定 ／ 30 年累積的歷史文獻中，單一研究實際測的 CRS 數量大多落在個位數、最多十幾個" data-pids-m1="h-l2_m1-002 h-l2_m1-026 h-l2_m1-027">previous experiments only measured small numbers of CRSs</mark>. <mark class="hl hl-m1" id="h-l2_m1-010-a" data-back="sum-h-l2_m1-010 sum-h-l2_m1-030" data-zh-m1="但所有研究都停在「描述」階段：知道位置影響很大，卻沒人能釘住「這個影響的形狀長什麼樣」 ／ 無法回答「不同開關在同一位置會不會被不同對待」" data-pids-m1="h-l2_m1-010 h-l2_m1-030">It therefore remains an open question whether the effects of chromosome position depend heavily on the type of CRS that is present or whether chromosome effects are largely independent of the sequence of CRS</mark>.</p>
+    <p><mark class="hl hl-summary" id="h-l2_m1-032-a" data-back="sum-h-l2_m1-032 sum-h-l1-011" data-zh-summary="作者開發了 patchMPRA" data-pids-summary="h-l1-011" data-zh-m1="也是他們動手做 patchMPRA 的直接動機" data-pids-m1="h-l2_m1-032">To address this question we devised a massively parallel reporter assay (MPRA)</mark><sup>8,37-41</sup>, <mark class="hl hl-summary" id="h-l1-004-a" data-back="sum-h-l1-004 sum-h-l2_m2-001 sum-h-l2_m2-006" data-zh-summary="他們發明了一套同時測量幾百種開關插入多個指定位置的方法" data-pids-summary="h-l1-004" data-zh-m2="作者設計 patchMPRA ／ patchMPRA 的設計目標是同時測「很多段 CRS 在很多個位置」的活性" data-pids-m2="h-l2_m2-001 h-l2_m2-006">called patchMPRA (parallel targeting of chromosome positions by MPRA), to measure the activity of hundreds of CRSs integrated at several distinct genomic locations</mark>. The key innovation was to create a system in which integrated reporter genes produce mRNAs with two distinct barcodes: <mark class="hl hl-m2" id="h-l2_m2-064-a" data-back="sum-h-l2_m2-064" data-zh-m2="只帶 cBC 你只知是哪段 CRS、搞不清來自哪個位置" data-pids-m2="h-l2_m2-064">a CRS barcode (cBC) that specifies the identity of its CRS</mark> and <mark class="hl hl-m2" id="h-l2_m2-065-a" data-back="sum-h-l2_m2-065" data-zh-m2="只帶 gBC 則反過來只知位置不知 CRS" data-pids-m2="h-l2_m2-065">a genomic barcode (gBC) that specifies the location of the integrated reporter gene</mark>. patchMPRA allows us <mark class="hl hl-m2" id="h-l2_m2-010-a" data-back="sum-h-l2_m2-010" data-zh-m2="之後所有 CRS 都插同一批插槽" data-pids-m2="h-l2_m2-010">to measure the same set of CRSs at different chromosomal locations</mark> and thereby interrogate how local CRSs and regional chromatin properties set gene expression levels across the human genome.</p>
+
+    <figure id="figure-1">
+      <img src="figures/Figure_1.png" alt="Figure 1">
+      <figcaption><strong>Figure 1 patchMPRA experimental design.</strong> (a) <mark class="hl hl-summary" id="h-l1-012-b" data-back="sum-h-l1-012 sum-h-l2_m2-002" data-zh-summary="他們先用病毒把數個「事先標好位置的插槽」（landing pad）隨機散射到細胞基因組裡" data-pids-summary="h-l1-012" data-zh-m2="先用 lentivirus 隨機散射 landing pad" data-pids-m2="h-l2_m2-002">loxFAS and loxP landing pads are integrated into random genomic locations using lentiviral transduction</mark>. <mark class="hl hl-m2" id="h-l2_m2-017-a" data-back="sum-h-l2_m2-017" data-zh-m2="GFP 是 landing pad 卡帶裡 CMV 啟動子驅動的 eGFP" data-pids-m2="h-l2_m2-017">The inserted construct encodes eGFP and a hygromycin resistance and thymidine kinase (Hyg/TK) cassette under the control of a CMV promoter</mark>. <mark class="hl hl-m2" id="h-l2_m2-020-a" data-back="sum-h-l2_m2-020" data-zh-m2="每個 landing pad 旁邊都掛了一段 12 bp 的位置條碼 (gBC)" data-pids-m2="h-l2_m2-020">Each landing pad contains a unique sequence barcode (gBC) downstream of the loxP site</mark>. <mark class="hl hl-summary" id="h-l1-013-a" data-back="sum-h-l1-013 sum-h-l2_m2-014" data-zh-summary="挑出每隻只插了一個的細胞培養成獨立細胞株" data-pids-summary="h-l1-013" data-zh-m2="用 FACS 把帶有 landing pad 的 GFP 陽性細胞一顆一顆分到 96 孔盤裡" data-pids-m2="h-l2_m2-014">Singly transduced cells are sorted into 96-well plates and clonal cell lines are expanded</mark>. <mark class="hl hl-summary" id="h-l1-014-a" data-back="sum-h-l1-014 sum-h-l2_m2-003 sum-h-l2_m2-022" data-zh-summary="再用定位 PCR 反推出每個插槽落在哪裡" data-pids-summary="h-l1-014" data-zh-m2="用 inverse PCR 把每個 gBC 對到基因組座標 ／ 作者用反向 PCR (inverse PCR) 把門牌號碼對到基因組座標" data-pids-m2="h-l2_m2-003 h-l2_m2-022">The genomic locations of landing pad gBCs in clonal lines are mapped with an inverse-PCR-based approach</mark>. (b) <mark class="hl hl-summary" id="h-l2_m2-004-a" data-back="sum-h-l2_m2-004 sum-h-l1-016 sum-h-l2_m2-043 sum-h-l1-015 sum-h-l2_m2-042" data-zh-summary="用一個酵素把它們精準塞進插槽 ／ 接著把幾百個 DNA 開關各自掛上自己的身分條碼（cBC）" data-pids-summary="h-l1-016 h-l1-015" data-zh-m2="再用 Cre/lox 把 cBC-標記的 CRS library 精準塞進去 ／ 把 transfer vector 跟一種專門認 lox 接口的酵素 (Cre 重組酶) 一起電穿孔進細胞 ／ 同樣兩端帶同款 lox 的中介質體 (transfer vector) 上預先接好「CRS + cBC-dsRed」整段" data-pids-m2="h-l2_m2-004 h-l2_m2-043 h-l2_m2-042">Libraries of regulatory DNA sequences are cloned upstream of uniquely barcoded (cBC) dsRed reporter genes in a transfer vector containing loxFAS and loxP sites. Transfer vector libraries are transfected with Cre recombinase</mark>. (c) <mark class="hl hl-summary" id="h-l1-017-a" data-back="sum-h-l1-017 sum-h-l2_m2-005" data-zh-summary="每個產生的 RNA 訊息都會同時帶兩個條碼——「我是哪個開關」（cBC）和「我在哪個位置」（gBC）" data-pids-summary="h-l1-017" data-zh-m2="使每條 mRNA 同時帶 cBC（誰）與 gBC（在哪）兩個條碼" data-pids-m2="h-l2_m2-005">After recombination every integrated reporter produces an mRNA with both a cBC and a gBC that specify the identity and location of the reporter gene</mark>. <mark class="hl hl-m2" id="h-l2_m2-070-b" data-back="sum-h-l2_m2-070" data-zh-m2="作者同時抓 RNA 和基因組 DNA" data-pids-m2="h-l2_m2-070">DNA and RNA are extracted from cells that undergo Cre-mediated recombination</mark>, and <mark class="hl hl-summary" id="h-l1-018-a" data-back="sum-h-l1-018 sum-h-l2_m2-066" data-zh-summary="把定序機產生的條碼配對數一數，就能算出「某個開關在某個位置」的活性" data-pids-summary="h-l1-018" data-zh-m2="兩個一起帶才能讓定序機把所有 cBC-gBC 配對一一數一遍" data-pids-m2="h-l2_m2-066">cBC-gBC pairs are quantified by sequencing</mark>.</figcaption>
+    </figure>
+
+    <p>We first created 'landing pad' cell lines, <mark class="hl hl-m2" id="h-l2_m2-009-a" data-back="sum-h-l2_m2-009" data-zh-m2="先在基因組挖好一批位置已知的「插槽」(landing pad)" data-pids-m2="h-l2_m2-009">each of which carries a single barcoded landing pad for site-directed recombination of an MPRA library into a single genomic location</mark>. <mark class="hl hl-m2" id="h-l2_m2-041-a" data-back="sum-h-l2_m2-041" data-zh-m2="landing pad 兩端帶兩種不同的 lox 接口 (loxFAS + loxP)" data-pids-m2="h-l2_m2-041">A landing pad consists of asymmetric lox sites</mark><sup>42</sup>, flanking a CMV-GFP cassette, and a unique gBC that specifies the location of the landing pad in the genome (Fig. 1a). To facilitate integration of landing pads into many genomic locations in a range of cell types, <mark class="hl hl-summary" id="h-l1-012-a" data-back="sum-h-l1-012 sum-h-l2_m2-002 sum-h-l2_m2-011" data-zh-summary="他們先用病毒把數個「事先標好位置的插槽」（landing pad）隨機散射到細胞基因組裡" data-pids-summary="h-l1-012" data-zh-m2="先用 lentivirus 隨機散射 landing pad ／ 把 landing pad 卡帶包進一種會把 DNA 永久插進細胞染色體的病毒 (lentivirus)" data-pids-m2="h-l2_m2-002 h-l2_m2-011">we placed the landing pad cassette on a self-inactivating lentivirus and cloned a library of gBCs. Every unique lentiviral insertion delivers a landing pad with a unique gBC to a different genomic location</mark>. We created a pool of landing pad lines in human K562 cells via <mark class="hl hl-summary" id="h-l1-013-b" data-back="sum-h-l1-013 sum-h-l2_m2-012 sum-h-l2_m2-013 sum-h-l2_m2-019 sum-h-l2_m3-015" data-zh-summary="挑出每隻只插了一個的細胞培養成獨立細胞株" data-pids-summary="h-l1-013" data-zh-m2="用很低的感染劑量 (MOI = 1) 感染 K562 細胞 ／ 讓每顆細胞平均只碰到一隻病毒 ／ 一隻細胞如果同時帶兩個以上 landing pad，下游 RNA 訊號就分不清來自哪個位置" data-pids-m2="h-l2_m2-012 h-l2_m2-013 h-l2_m2-019" data-zh-m3="patchMPRA 為了確保「一個位置只塞一份」，每個細胞只整合一份拷貝" data-pids-m3="h-l2_m3-015">low-multiplicity lentiviral transductions to promote single-copy genomic integrations</mark>. <mark class="hl hl-m5" id="h-l2_m5-042-a" data-back="sum-h-l2_m5-042" data-zh-m5="整套實驗只在一種人類白血病細胞 (K562) 上做過" data-pids-m5="h-l2_m5-042">K562 is an immortalized myelogenous leukemia cell line and a tier 1 ENCODE cell line</mark> with genome-wide annotations based on an array of functional genomics data<sup>26</sup>. <mark class="hl hl-summary" id="h-l1-041-a" data-back="sum-h-l1-041 sum-h-l2_m2-036 sum-h-l2_m5-043 sum-h-l2_m2-016" data-zh-summary="目前只在一種人類白血病細胞（K562 細胞）的 15 個位置上驗證" data-pids-summary="h-l1-041" data-zh-m2="作者最後對到 15 株細胞的 landing pad 位置 ／ 每株背景上只有一個 landing pad 拷貝" data-pids-m2="h-l2_m2-036 h-l2_m2-016" data-zh-m5="又只測了 15 個基因組位置" data-pids-m5="h-l2_m5-043">We generated dozens of clonal cell lines derived from singly transduced K562 cells and mapped the integration sites of gBCs for 15 lines</mark> (Supplementary Table 1). <mark class="hl hl-m2" id="h-l2_m2-038-a" data-back="sum-h-l2_m2-038" data-zh-m2="刻意涵蓋多樣環境" data-pids-m2="h-l2_m2-038">The landing pads integrated into diverse epigenetic landscapes as determined by the constellation of epigenetic marks associated with different integration sites</mark> (Supplementary Fig. 1 and Supplementary Table 2), <mark class="hl hl-m2" id="h-l2_m2-039-a" data-back="sum-h-l2_m2-039" data-zh-m2="包括被視為轉錄受壓的異染色質區域 (帶有 H3K27me3 與 Polycomb 抑制標記)" data-pids-m2="h-l2_m2-039">including into repressed regions with the heterochromatin marks Lys27-trimethylated histone H3 (H3K27me3) and Polycomb</mark>.</p>
+    <p>In our first experiment <mark class="hl hl-m3" id="h-l2_m2-076-a" data-back="sum-h-l2_m2-076 sum-h-l2_m3-001 sum-h-l2_m3-004" data-zh-m2="第一輪用 8 株 landing pad × 310 個 CRS" data-pids-m2="h-l2_m2-076" data-zh-m3="把 310 個 CRS 一次插進 8 個 landing pad 後 ／ 作者把 310 個 CRS 一次塞進 8 個 landing pad" data-pids-m3="h-l2_m3-001 h-l2_m3-004">we pooled eight landing pad lines and introduced an MPRA library</mark> in which <mark class="hl hl-m2" id="h-l2_m2-061-a" data-back="sum-h-l2_m2-061" data-zh-m2="dsRed 的 3&#x27; UTR 裡藏一段隨機合成的身分條碼 (cBC)" data-pids-m2="h-l2_m2-061">every reporter gene contains a unique cBC in its 3' untranslated region (UTR) that identifies its upstream CRS</mark> (Fig. 1b). To provide redundancy in the measurements, <mark class="hl hl-m2" id="h-l2_m2-062-a" data-back="sum-h-l2_m2-062 sum-h-l2_m2-085 sum-h-l2_m3-009 sum-h-l2_m2-063" data-zh-m2="每個 CRS 平均掛 25 條不同 cBC 當技術重複 ／ 每段 CRS 掛了 25 條 cBC、每個位置仍有 11 條獨立讀數平均 ／ 同一段 CRS 在同一位置就有 25 個獨立讀數可以平均掉雜訊" data-pids-m2="h-l2_m2-062 h-l2_m2-085 h-l2_m2-063" data-zh-m3="當初設計時把每條 CRS 各掛上 25 個不同身分條碼 (cBC) 的原因" data-pids-m3="h-l2_m3-009">every CRS in the library was present 25 times, each time fused with a different cBC in its 3' UTR</mark>. <mark class="hl hl-summary" id="h-l1-016-b" data-back="sum-h-l1-016 sum-h-l2_m2-004 sum-h-l2_m2-040 sum-h-l2_m2-044 sum-h-l2_m2-049" data-zh-summary="用一個酵素把它們精準塞進插槽" data-pids-summary="h-l1-016" data-zh-m2="再用 Cre/lox 把 cBC-標記的 CRS library 精準塞進去 ／ 作者用的是 Cre/lox 位點特異性整合系統 ／ Cre 會把 landing pad 上兩個 lox 之間的 GFP 卡帶切下來 ／ 整段只能從 transfer vector 單向走進 landing pad" data-pids-m2="h-l2_m2-004 h-l2_m2-040 h-l2_m2-044 h-l2_m2-049">Asymmetric lox sites flanked the MPRA library to facilitate directional Cre recombinase-mediated cassette exchange into the landing pads</mark>. <mark class="hl hl-m2" id="h-l2_m2-052-a" data-back="sum-h-l2_m2-052" data-zh-m2="重組成功會把原本的 GFP 卡帶替換掉、細胞從 GFP 陽性變陰性" data-pids-m2="h-l2_m2-052">We then isolated cells that lost GFP fluorescence using fluorescence-activated cell sorting (FACS)</mark>, enriching for cells in which barcoded reporter genes integrated into barcoded landing pads. <mark class="hl hl-summary" id="h-l1-017-b" data-back="sum-h-l1-017 sum-h-l2_m2-005 sum-h-l2_m2-069" data-zh-summary="每個產生的 RNA 訊息都會同時帶兩個條碼——「我是哪個開關」（cBC）和「我在哪個位置」（gBC）" data-pids-summary="h-l1-017" data-zh-m2="使每條 mRNA 同時帶 cBC（誰）與 gBC（在哪）兩個條碼 ／ CRS 把這整段轉錄成 mRNA 後，3&#x27; UTR 同一條長鏈上會同時讀到 cBC 和 gBC" data-pids-m2="h-l2_m2-005 h-l2_m2-069">Each reporter gene in these pools transcribes an mRNA that contains a cBC specifying the identity of the CRS that produced the mRNA and a gBC specifying the location of its host landing pad</mark> (Fig. 1c). <mark class="hl hl-summary" id="h-l1-018-b" data-back="sum-h-l1-018 sum-h-l2_m2-066" data-zh-summary="把定序機產生的條碼配對數一數，就能算出「某個開關在某個位置」的活性" data-pids-summary="h-l1-018" data-zh-m2="兩個一起帶才能讓定序機把所有 cBC-gBC 配對一一數一遍" data-pids-m2="h-l2_m2-066">By quantifying barcodes with RNA sequencing, we simultaneously measured the expression driven by every CRS in the library at every landing pad in the pool</mark>.</p>
+    <p><mark class="hl hl-summary" id="h-l1-019-a" data-back="sum-h-l1-019" data-zh-summary="作者把 310 個事先篩選過的開關（涵蓋預期強、弱、被抑制三種）一次塞進 8 個位置已知的插槽" data-pids-summary="h-l1-019">The CRS library in this first experiment contained sequences predicted to be either strong enhancers, weak enhancers or repressed according to ENCODE segmentation algorithms</mark><sup>43,44</sup>. <mark class="hl hl-m2" id="h-l2_m2-057-b" data-back="sum-h-l2_m2-057 sum-h-l2_m5-009" data-zh-m2="這 310 個 CRS 來自前一篇 episomal MPRA 已測過的元件" data-pids-m2="h-l2_m2-057" data-zh-m5="同一批開關放在游離 DNA 圈 (plasmid) 上、完全不插進基因組量出來的活性" data-pids-m5="h-l2_m5-009">These sequences were previously screened for regulatory activity in K562 cells using an episomal MPRA</mark><sup>45</sup>. We selected high- and low-activity sequences from each segmentation class (Supplementary Fig. 2 and Supplementary Table 3) and <mark class="hl hl-summary" id="h-l1-019-b" data-back="sum-h-l1-019 sum-h-l2_m4-040 sum-h-l2_m2-047 sum-h-l2_m2-076 sum-h-l2_m3-001 sum-h-l2_m3-004 sum-h-l2_m5-017 sum-h-l1-030 sum-h-l2_m2-055" data-zh-summary="作者把 310 個事先篩選過的開關（涵蓋預期強、弱、被抑制三種）一次塞進 8 個位置已知的插槽 ／ 每個開關上游都必須接一段「起跑線」（最小啟動子）才能被轉錄機器辨識" data-pids-summary="h-l1-019 h-l1-030" data-zh-m2="loxFAS 與 loxP 「不對稱」 ／ 第一輪用 8 株 landing pad × 310 個 CRS ／ 作者把 310 個 130 bp 的 CRS 合成成 oligo pool" data-pids-m2="h-l2_m2-047 h-l2_m2-076 h-l2_m2-055" data-zh-m3="把 310 個 CRS 一次插進 8 個 landing pad 後 ／ 作者把 310 個 CRS 一次塞進 8 個 landing pad" data-pids-m3="h-l2_m3-001 h-l2_m3-004" data-zh-m4="這個 64/16/20 的比例會不會只反映「這批 310 個開關 + 這 8 個位置」恰好的組合" data-pids-m4="h-l2_m4-040" data-zh-m5="每段開關下游都會接一段叫 minimal promoter 的小型啟動子當作 RNA 起跑線" data-pids-m5="h-l2_m5-017">cloned a total of 310 elements into a transfer vector containing the Hsp68 minimal promoter and dsRed coding sequence flanked by asymmetric lox sites</mark>. These elements were cloned in the same orientation with respect to the minimal promoter in which they were assayed by Kwasnieski et al.<sup>45</sup>. <mark class="hl hl-summary" id="h-l2_m2-076-b" data-back="sum-h-l2_m2-076 sum-h-l1-019 sum-h-l2_m4-040" data-zh-summary="作者把 310 個事先篩選過的開關（涵蓋預期強、弱、被抑制三種）一次塞進 8 個位置已知的插槽" data-pids-summary="h-l1-019" data-zh-m2="第一輪用 8 株 landing pad × 310 個 CRS" data-pids-m2="h-l2_m2-076" data-zh-m4="這個 64/16/20 的比例會不會只反映「這批 310 個開關 + 這 8 個位置」恰好的組合" data-pids-m4="h-l2_m4-040">It was this library that was integrated into a pool of eight landing pad cell lines (above)</mark></p>
+
+    <figure id="figure-2">
+      <img src="figures/Figure_2.png" alt="Figure 2">
+      <figcaption><strong>Figure 2 <mark class="hl hl-m3" id="h-l2_m3-002-a" data-back="sum-h-l2_m3-002 sum-h-l2_m3-018" data-zh-m3="位置整體會把所有 CRS 推高或壓低很多 ／ 第一個視覺結果是位置整體效應有多強" data-pids-m3="h-l2_m3-002 h-l2_m3-018">Genomic positions have large effects on CRS activity</mark>.</strong> (a) <mark class="hl hl-m3" id="h-l2_m3-011-a" data-back="sum-h-l2_m3-011" data-zh-m3="把第一次和第二次每個 (CRS, landing pad) 配對的平均活性畫成散布圖" data-pids-m3="h-l2_m3-011">cBC and gBC measurements</mark> (\(\log_2(\mathrm{RNA\ reads}/\mathrm{DNA\ reads})\)) are averaged for each CRS within a landing pad. <mark class="hl hl-m3" id="h-l2_m4-030-a" data-back="sum-h-l2_m4-030 sum-h-l2_m3-010 sum-h-l2_m2-079 sum-h-l2_m3-012 sum-h-l2_m3-011" data-zh-m2="兩次生物重複的相關係數 R = 0.66 (Spearman $R_s$ = 0.71)" data-pids-m2="h-l2_m2-079" data-zh-m3="作者把整個實驗從頭做第二次 (biological replicate) ／ (Pearson 相關係數 R) 是 0.66 ／ 把第一次和第二次每個 (CRS, landing pad) 配對的平均活性畫成散布圖" data-pids-m3="h-l2_m3-010 h-l2_m3-012 h-l2_m3-011" data-zh-m4="replicate variance 是「同一管樣品分兩次測，數字會差多少」這個實驗本身的雜訊地板" data-pids-m4="h-l2_m4-030">The mean expression for each CRS at each landing pad is plotted for two biological replicate experiments (Pearson product-moment correlation R = 0.66</mark>; <mark class="hl hl-m3" id="h-l2_m3-013-a" data-back="sum-h-l2_m3-013" data-zh-m3="只看排名先後的相關係數 (Spearman $R_s$) 是 0.71" data-pids-m3="h-l2_m3-013">Spearman's rank-order correlation coefficient R</mark><sub>s</sub> = 0.71). (b) <mark class="hl hl-m3" id="h-l2_m3-019-a" data-back="sum-h-l2_m3-019 sum-h-l2_m3-021 sum-h-l2_m3-001" data-zh-m3="作者把每個 landing pad 裡 310 個 CRS 的活性分布壓成一個箱子 (boxplot ／ 8 個位置的箱子並排畫成 Fig. 2b ／ 把 310 個 CRS 一次插進 8 個 landing pad 後" data-pids-m3="h-l2_m3-019 h-l2_m3-021 h-l2_m3-001">The distributions of expression for the same set of 310 CRSs are plotted for each landing pad (LP)</mark>. <mark class="hl hl-m3" id="h-l2_m3-020-a" data-back="sum-h-l2_m3-020" data-zh-m3="箱子高度大致代表中間一半的 CRS 落在哪、中間那條橫線是中位數" data-pids-m3="h-l2_m3-020">Box plot elements: center line, median; limits, 25% quartile (Q1) and 75% quartile (Q3); whiskers, from Q1 - 1.5 × IQR to Q3 + 1.5 × IQR, where IQR is the interquartile range</mark>.</figcaption>
+    </figure>
+
+    <p><mark class="hl hl-m2" id="h-l2_m2-077-a" data-back="sum-h-l2_m2-077 sum-h-l2_m3-005" data-zh-m2="跑出來超過 30,000 個獨立的 cBC-gBC 配對" data-pids-m2="h-l2_m2-077" data-zh-m3="最終拿到 30,000 多組「位置 × CRS」成功配對" data-pids-m3="h-l2_m3-005">We achieved a high number of CRS integrations, totaling more than 30,000 unique site-directed recombination events as based on the number of unique gBC-cBC combinations</mark> we observed in the data. <mark class="hl hl-m3" id="h-l2_m3-008-a" data-back="sum-h-l2_m3-008" data-zh-m3="這 11 個讀數可以平均掉單次測量的雜訊" data-pids-m3="h-l2_m3-008">This high coverage ensured that CRS and genomic locations were well represented in the experiment</mark>. <mark class="hl hl-m2" id="h-l2_m2-078-a" data-back="sum-h-l2_m2-078 sum-h-l2_m2-085 sum-h-l2_m3-006 sum-h-l2_m3-007" data-zh-m2="每段 CRS 在每個位置平均拿到 11 條不同 cBC 的讀數 ／ 每段 CRS 掛了 25 條 cBC、每個位置仍有 11 條獨立讀數平均" data-pids-m2="h-l2_m2-078 h-l2_m2-085" data-zh-m3="平均每個 CRS 在每個位置各拿到 11 個獨立整合事件 ／ 同一條 CRS 在同一位置被插了 11 次" data-pids-m3="h-l2_m3-006 h-l2_m3-007">On average each CRS was represented by 11 unique barcode integrations per landing pad</mark>. <mark class="hl hl-m2" id="h-l2_m2-079-a" data-back="sum-h-l2_m2-079 sum-h-l2_m3-012 sum-h-l2_m4-031" data-zh-m2="兩次生物重複的相關係數 R = 0.66 (Spearman $R_s$ = 0.71)" data-pids-m2="h-l2_m2-079" data-zh-m3="(Pearson 相關係數 R) 是 0.66" data-pids-m3="h-l2_m3-012" data-zh-m4="把同一批細胞做兩次 patchMPRA 本來就不可能完全一樣" data-pids-m4="h-l2_m4-031">The correlation between replicate experiments was R = 0.66</mark> (Spearman correlation, R<sub>s</sub> = 0.71) (Fig. 2a), <mark class="hl hl-m2" id="h-l2_m2-086-a" data-back="sum-h-l2_m2-086 sum-h-l2_m3-017" data-zh-m2="R = 0.66 已夠分辨「位置內」與「位置間」的差異" data-pids-m2="h-l2_m2-086" data-zh-m3="後面要比的是「同一條 CRS 換不同位置」的相對大小" data-pids-m3="h-l2_m3-017">which allowed us to make quantitative comparisons between CRSs within and between landing pads</mark>. <mark class="hl hl-m3" id="h-l2_m2-087-a" data-back="sum-h-l2_m2-087 sum-h-l2_m3-046 sum-h-l2_m3-047" data-zh-m2="相隔幾個月再做一遍仍重現同一個 pattern (Supp Fig 3)" data-pids-m2="h-l2_m2-087" data-zh-m3="作者特別挑了 4 個位置效應差很多的 landing pad，幾個月後完整重做一次 ／ 活性模式跟第一次一致 (Supp. Fig. 3)" data-pids-m3="h-l2_m3-046 h-l2_m3-047">Replicate experiments conducted months apart produced the same patterns of CRS activity across four landing pads subject to drastically different position effects (Supplementary Fig. 3)</mark>, <mark class="hl hl-m2" id="h-l2_m2-088-a" data-back="sum-h-l2_m2-088" data-zh-m2="支持後續所有跨位置比較" data-pids-m2="h-l2_m2-088">demonstrating the robustness of our assay</mark>.</p>
+    <p><mark class="hl hl-summary" id="h-l2_m3-018-b" data-back="sum-h-l2_m3-018 sum-h-l2_m4-029 sum-h-l2_m3-021 sum-h-l1-001 sum-h-l2_m3-002 sum-h-l2_m3-022" data-zh-summary="同一個 DNA 開關（cis-regulatory sequence, CRS）放在基因組不同位置會表現出非常不同的活性" data-pids-summary="h-l1-001" data-zh-m3="第一個視覺結果是位置整體效應有多強 ／ 8 個位置的箱子並排畫成 Fig. 2b ／ 位置整體會把所有 CRS 推高或壓低很多 ／ 整個箱子的高度在不同位置會明顯往上或往下移" data-pids-m3="h-l2_m3-018 h-l2_m3-021 h-l2_m3-002 h-l2_m3-022" data-zh-m4="對基因表現來說「你被放在哪」比「你是誰」更能決定最終的音量" data-pids-m4="h-l2_m4-029">The genomic location of landing pads had large effects on reporter gene levels (Fig. 2b)</mark>. For example, <mark class="hl hl-summary" id="h-l1-007-b" data-back="sum-h-l1-007 sum-h-l1-020 sum-h-l2_m3-002 sum-h-l2_m3-023 sum-h-l2_m3-024" data-zh-summary="同一個開關放到基因組不同位置，活性可能差好幾個數量級 ／ 不同位置的整體音量差異很大，例如位置 3 整體就比位置 4 響亮" data-pids-summary="h-l1-007 h-l1-020" data-zh-m3="位置整體會把所有 CRS 推高或壓低很多 ／ 搬到 landing pad 3 整批的活性就明顯高過搬到 landing pad 4 的同一批 ／ 不是某幾條變強，是整箱子都被往上推" data-pids-m3="h-l2_m3-002 h-l2_m3-023 h-l2_m3-024">the entire collection of CRSs at landing pad 3 had higher levels of activity than the same CRSs integrated at landing pad 4</mark>. These data are <mark class="hl hl-m3" id="h-l2_m3-025-a" data-back="sum-h-l2_m3-025 sum-h-l2_m5-046" data-zh-m3="作者刻意沒在 landing pad 兩端加上「擋住外部影響」的隔絕元件 (insulator)" data-pids-m3="h-l2_m3-025" data-zh-m5="insulator 的本職就是擋住旁邊染色質的影響滲透過來" data-pids-m5="h-l2_m5-046">consistent with the absence of antirepressor and insulator elements in the landing pads that would mitigate chromosome position effects</mark><sup>46</sup>, as well as with data demonstrating position effects of CRSs integrated with inverted-repeat-containing PiggyBac vectors<sup>6</sup>. Thus, <mark class="hl hl-m3" id="h-l2_m3-026-a" data-back="sum-h-l2_m3-026" data-zh-m3="每個 landing pad 等於完全裸露在它落地的染色質環境裡" data-pids-m3="h-l2_m3-026">there are strong chromosomal position effects in our experiment, which are not insulated by the transcriptionally inert long terminal repeats</mark><sup>47</sup> flanking the landing pads.</p>
+
+    <figure id="figure-3">
+      <img src="figures/Figure_3.png" alt="Figure 3">
+      <figcaption><strong>Figure 3 <mark class="hl hl-m3" id="h-l2_m3-003-a" data-back="sum-h-l2_m3-003 sum-h-l2_m3-027" data-zh-m3="但同一批 CRS 的高/中/低排名在每個位置幾乎都被保留下來 ／ 進到 Fig. 3a 馬上會看到另一層訊息" data-pids-m3="h-l2_m3-003 h-l2_m3-027">Intrinsic CRS activity is linearly scaled by genomic position</mark>.</strong> (a) <mark class="hl hl-summary" id="h-l1-021-b" data-back="sum-h-l1-021 sum-h-l2_m3-029 sum-h-l2_m3-031 sum-h-l2_m3-030" data-zh-summary="但如果在位置 1 把 310 個開關依強度分成高、中、低三組，搬到其他位置之後，這個高中低排序大致還在" data-pids-summary="h-l1-021" data-zh-m3="作者拿 landing pad 1 當基準，把 310 個 CRS 依活性切成「上 1/3、中 1/3、下 1/3」三組 ／ 把同一批 CRS 在其他 landing pad 的活性也用同一套顏色畫出來 ／ 分別塗成橘、灰、藍" data-pids-m3="h-l2_m3-029 h-l2_m3-031 h-l2_m3-030">CRSs are determined to have low, medium or high activity at landing pad 1 and plotted for each landing pad according to their classification at landing pad 1</mark> (high, orange; medium, gray; low, blue). (b) <mark class="hl hl-m3" id="h-l2_m3-034-a" data-back="sum-h-l2_m3-034 sum-h-l2_m3-035" data-zh-m3="另一種看法是兩個位置兩兩配對畫散布圖 (Fig. 3b) ／ 把每條 CRS 在 landing pad 1 的活性放 x 軸、在 landing pad 4 的活性放 y 軸" data-pids-m3="h-l2_m3-034 h-l2_m3-035">CRS expression data at landing pads 1 and 4 (left) and landing pads 1 and 6 (right) are shown</mark> (<mark class="hl hl-m3" id="h-l2_m3-036-a" data-back="sum-h-l2_m3-036 sum-h-l2_m3-037 sum-h-l2_m3-039" data-zh-m3="結果點群排成一條斜線——R = 0.71、$R_s$ = 0.65 ／ LP1 vs LP6 也類似 (R = 0.65、$R_s$ = 0.60) ／ 把這個 R = 0.71 拿來跟前面兩次重做的 R = 0.66 比" data-pids-m3="h-l2_m3-036 h-l2_m3-037 h-l2_m3-039">Pearson product-moment correlation R = 0.71 and 0.65, respectively</mark>, and <mark class="hl hl-m3" id="h-l2_m3-036-b" data-back="sum-h-l2_m3-036" data-zh-m3="結果點群排成一條斜線——R = 0.71、$R_s$ = 0.65" data-pids-m3="h-l2_m3-036">Spearman's rank correlation coefficient R</mark><sub>s</sub> = <mark class="hl hl-m3" id="h-l2_m3-037-b" data-back="sum-h-l2_m3-037" data-zh-m3="LP1 vs LP6 也類似 (R = 0.65、$R_s$ = 0.60)" data-pids-m3="h-l2_m3-037">0.65 and 0.60, respectively</mark>). Box plot elements: center line, median; limits, 25% quartile (Q1) and 75% quartile (Q3); whiskers, from Q1 - 1.5 × IQR to Q3 + 1.5 × IQR, where IQR is the interquartile range.</figcaption>
+    </figure>
+
+    <p><mark class="hl hl-summary" id="h-l1-022-a" data-back="sum-h-l1-022 sum-h-l2_m3-028 sum-h-l2_m4-029 sum-h-l2_m3-003 sum-h-l2_m3-038" data-zh-summary="換句話說，房間在變、絕對音量也在變，但歌與歌之間的相對大小保持穩定" data-pids-summary="h-l1-022" data-zh-m3="位置雖然會整體上下平移，但 CRS 彼此之間的排名幾乎沒亂 ／ 但同一批 CRS 的高/中/低排名在每個位置幾乎都被保留下來 ／ 位置雖然把整條斜線整體往上或往下平移，但沒有把點打散" data-pids-m3="h-l2_m3-028 h-l2_m3-003 h-l2_m3-038" data-zh-m4="對基因表現來說「你被放在哪」比「你是誰」更能決定最終的音量" data-pids-m4="h-l2_m4-029">Although genomic location had a large effect on average CRS activity, we also found that relative CRS activities were largely preserved between landing pad locations</mark>. <mark class="hl hl-summary" id="h-l1-021-a" data-back="sum-h-l1-021 sum-h-l2_m3-029 sum-h-l2_m3-003 sum-h-l2_m3-027 sum-h-l2_m3-032 sum-h-l2_m3-043" data-zh-summary="但如果在位置 1 把 310 個開關依強度分成高、中、低三組，搬到其他位置之後，這個高中低排序大致還在" data-pids-summary="h-l1-021" data-zh-m3="作者拿 landing pad 1 當基準，把 310 個 CRS 依活性切成「上 1/3、中 1/3、下 1/3」三組 ／ 但同一批 CRS 的高/中/低排名在每個位置幾乎都被保留下來 ／ 進到 Fig. 3a 馬上會看到另一層訊息 ／ 三色分層幾乎沒有打亂 ／ 在被狠狠壓低的那個 landing pad 內部，原本的高活性還是比中等強、中等還是比低活性強" data-pids-m3="h-l2_m3-029 h-l2_m3-003 h-l2_m3-027 h-l2_m3-032 h-l2_m3-043">When we divided the 300 CRSs into low, medium and high groups based on their activity at landing pad 1, we found that these designations were largely preserved at all locations</mark> (Fig. 3a). <mark class="hl hl-m3" id="h-l2_m3-033-a" data-back="sum-h-l2_m3-033" data-zh-m3="換哪個 landing pad 當基準切三組結論都一樣 (Supp. Fig. 4)" data-pids-m3="h-l2_m3-033">Activity designations were preserved regardless of which landing pad was used as the reference (Supplementary Fig. 4)</mark>. This was true <mark class="hl hl-m3" id="h-l2_m3-042-a" data-back="sum-h-l2_m3-042" data-zh-m3="連這批裡公認的「高活性」CRS 被壓下去後，都比另一個位置的「低活性」CRS 還弱" data-pids-m3="h-l2_m3-042">even when the position effect was strong enough to suppress high-activity CRSs below the levels of low-activity CRSs at other genomic locations</mark>. In several cases <mark class="hl hl-m3" id="h-l2_m3-034-b" data-back="sum-h-l2_m3-034 sum-h-l2_m3-039 sum-h-l2_m3-041" data-zh-m3="另一種看法是兩個位置兩兩配對畫散布圖 (Fig. 3b) ／ 把這個 R = 0.71 拿來跟前面兩次重做的 R = 0.66 比 ／ 現在把 CRS 從 landing pad 1 搬到 landing pad 4，得到的 R = 0.71 已經貼近這個天花板" data-pids-m3="h-l2_m3-034 h-l2_m3-039 h-l2_m3-041">the correlation between CRSs at different landing pads approached the correlation between replicate experiments (Fig. 3b and Supplementary Fig. 5)</mark>.</p>
+
+    <figure id="figure-4">
+      <img src="figures/Figure_4.png" alt="Figure 4">
+      <figcaption><strong>Figure 4 A linear model captures the effects of local and regional cis-regulatory effects.</strong> (a) <mark class="hl hl-summary" id="h-l1-026-a" data-back="sum-h-l1-026 sum-h-l2_m4-016 sum-h-l2_m4-018" data-zh-summary="實際擬合的吻合度非常高（相關係數約 0.9）" data-pids-summary="h-l1-026" data-zh-m4="作者把每個 (開關, 位置) 配對畫成一個點：橫軸是公式算出的預測值、縱軸是實驗量到的真值 (Fig. 4a) ／ 實際畫出來幾千個點確實緊貼在一條斜線上，相關係數 R = 0.90" data-pids-m4="h-l2_m4-016 h-l2_m4-018">CRS expression data across landing pads are described by a linear model (R = 0.90;</mark> R<sub>s</sub> = 0.91). (b) Coefficients (C<sub>i</sub>) for each CRS from the linear model fit on CRS expression data across landing pads <mark class="hl hl-m5" id="h-l2_m5-014-a" data-back="sum-h-l2_m5-014 sum-h-l2_m5-013" data-zh-m5="plasmid 上歸為高活性的開關，在 patchMPRA 算出來的 $C_i$ 也顯著比較高 (P &lt; 0.05) ／ Wilcoxon test" data-pids-m5="h-l2_m5-014 h-l2_m5-013">are plotted according to the CRS ENCODE segmentation (R, repressed; SE, strong enhancer; WE, weak enhancer) and the activity of the CRS in episomal MPRA. Wilcoxon test between groups (*P &lt; 0.1, **P &lt; 0.05)</mark>. (c) Activities of 11 previously tested CRSs are shown at 7 more landing pads (LP9–LP15) (high, orange; low, blue) (d) <mark class="hl hl-m5" id="h-l2_m5-018-b" data-back="sum-h-l2_m5-018" data-zh-m5="第一輪用一款叫 Hsp68 的版本，第二輪換成另一款叫 MinP 的版本" data-pids-m5="h-l2_m5-018">24 CRSs were assayed with either the Hsp68 or MinP promoter across landing pad locations</mark>. (e) <mark class="hl hl-summary" id="h-l1-033-b" data-back="sum-h-l1-033 sum-h-l2_m5-026 sum-h-l2_m5-033" data-zh-summary="他們又把幾段更長、學界已驗證過的增強子加進來測" data-pids-summary="h-l1-033" data-zh-m5="第三道檢驗是「把長版 enhancer 加進來測也一樣被同倍率縮放」 ／ 把長短版的活性分佈擺在一起" data-pids-m5="h-l2_m5-026 h-l2_m5-033">Comparison of longer, literature-validated enhancers to shorter cis-regulatory sequences</mark>. <mark class="hl hl-m5" id="h-l2_m5-027-b" data-back="sum-h-l2_m5-027 sum-h-l2_m5-029" data-zh-m5="第一輪實驗測的全是 130 bp 左右的短序列 ／ 作者把過去文獻已驗證過、長度超過 130 bp 的長版加進來測" data-pids-m5="h-l2_m5-027 h-l2_m5-029">All sequences greater than 130 bp are literature-validated enhancers</mark>. Box plot elements: center line, median; limits, 25% quartile (Q1) and 75% quartile (Q3); whiskers, from Q1 - 1.5 × IQR to Q3 + 1.5 × IQR, where IQR is the interquartile range.</figcaption>
+    </figure>
+
+    <p>These results suggest that <mark class="hl hl-m3" id="h-l2_m3-045-a" data-back="sum-h-l2_m3-045 sum-h-l2_m4-005" data-zh-m3="反過來支持「位置只是個整齊倍數」的解讀" data-pids-m3="h-l2_m3-045" data-zh-m4="把前面看到的「位置整齊縮放、不挑開關」這個直覺寫成公式" data-pids-m4="h-l2_m4-005">the local DNA sequence of a CRS determines its intrinsic cis-regulatory activity and that this intrinsic activity is then scaled up or down by the regional chromosome environment, independent of the specific CRS sequence</mark>. To test this prediction, <mark class="hl hl-summary" id="h-l1-023-a" data-back="sum-h-l1-023 sum-h-l2_m4-001 sum-h-l2_m4-007 sum-h-l2_m4-015" data-zh-summary="假設每個開關在每個位置的活性，可以拆成「開關自己的固有強度」乘上「位置的環境倍數」" data-pids-summary="h-l1-023" data-zh-m4="作者把這個現象寫成 $E_{ij} = C_i L_j + \varepsilon$ ／ 整條式子寫成 $E_{ij} = C_i L_j + \varepsilon$ ／ 骨子裡擬合的就是這條乘法假設" data-pids-m4="h-l2_m4-001 h-l2_m4-007 h-l2_m4-015">we fit a model in which gene expression is the product of intrinsic activity and chromosome position effect</mark>. We fit the model</p>
+    <div class="equation"><mark class="hl hl-summary" id="h-l1-024-a" data-back="sum-h-l1-024 sum-h-l2_m5-041" data-zh-summary="即 $E_{ij} = C_i \times L_j$" data-pids-summary="h-l1-024" data-zh-m5="公式 $E_{ij} = C_i \times L_j$ 的「相乘」結構" data-pids-m5="h-l2_m5-041">$$E_{ij} = C_i L_j + \varepsilon,\ \varepsilon \sim N(0,\sigma^2)$$</mark></div>
+    <p><mark class="hl hl-m4" id="h-l2_m4-010-a" data-back="sum-h-l2_m4-010" data-zh-m4="把每對 (開關, 位置) 量到的活性都丟進去" data-pids-m4="h-l2_m4-010">to our patchMPRA data, averaged across replicates</mark>. Here E<sub>ij</sub> <mark class="hl hl-m4" id="h-l2_m4-001-b" data-back="sum-h-l2_m4-001 sum-h-l2_m4-006" data-zh-m4="作者把這個現象寫成 $E_{ij} = C_i L_j + \varepsilon$ ／ 某段開關 i 放在某位置 j 量到的活性，等於這段開關自己的固有強度 ($C_i$) 乘上這個位置的環境倍數 ($L_j$)" data-pids-m4="h-l2_m4-001 h-l2_m4-006">is the expression of CRS i at genomic location j</mark>, C<sub>i</sub> <mark class="hl hl-summary" id="h-l1-023-b" data-back="sum-h-l1-023 sum-h-l2_m4-006 sum-h-l2_m5-008" data-zh-summary="假設每個開關在每個位置的活性，可以拆成「開關自己的固有強度」乘上「位置的環境倍數」" data-pids-summary="h-l1-023" data-zh-m4="某段開關 i 放在某位置 j 量到的活性，等於這段開關自己的固有強度 ($C_i$) 乘上這個位置的環境倍數 ($L_j$)" data-pids-m4="h-l2_m4-006" data-zh-m5="模型算出來的開關固有強度 ($C_i$)" data-pids-m5="h-l2_m5-008">is the intrinsic activity of CRS i,</mark> L<sub>j</sub> <mark class="hl hl-summary" id="h-l1-023-c" data-back="sum-h-l1-023 sum-h-l2_m4-006" data-zh-summary="假設每個開關在每個位置的活性，可以拆成「開關自己的固有強度」乘上「位置的環境倍數」" data-pids-summary="h-l1-023" data-zh-m4="某段開關 i 放在某位置 j 量到的活性，等於這段開關自己的固有強度 ($C_i$) 乘上這個位置的環境倍數 ($L_j$)" data-pids-m4="h-l2_m4-006">is the multiplicative scaling effect of genomic location j</mark>, and <mark class="hl hl-m4" id="h-l2_m4-008-a" data-back="sum-h-l2_m4-008" data-zh-m4="其中 $\varepsilon$ 是隨機誤差" data-pids-m4="h-l2_m4-008">ε is random error</mark>. <mark class="hl hl-summary" id="h-l1-026-b" data-back="sum-h-l1-026 sum-h-l2_m4-002 sum-h-l2_m4-018" data-zh-summary="實際擬合的吻合度非常高（相關係數約 0.9）" data-pids-summary="h-l1-026" data-zh-m4="並擬合得到 R = 0.9 與 cross-validated R = 0.83 ／ 實際畫出來幾千個點確實緊貼在一條斜線上，相關係數 R = 0.90" data-pids-m4="h-l2_m4-002 h-l2_m4-018">The fitted model explained our data with R = 0.9</mark> and R<sub>s</sub> = 0.9 (Fig. 4a) and <mark class="hl hl-m4" id="h-l2_m4-002-b" data-back="sum-h-l2_m4-002 sum-h-l2_m4-022 sum-h-l2_m4-023" data-zh-m4="並擬合得到 R = 0.9 與 cross-validated R = 0.83 ／ 為此作者再做 cross-validation：把資料切兩半，只用一半的點算出 $C_i$ 和 $L_j$，再拿這組數字去預測沒看過的另一半 (Supp Fig. 6a, b) ／ 新題上的 R = 0.83，比訓練時只低 0.07" data-pids-m4="h-l2_m4-002 h-l2_m4-022 h-l2_m4-023">cross-validated correlations of R = 0.83</mark> and R<sub>s</sub> = 0.87 (Supplementary Fig. 6a,b) <mark class="hl hl-summary" id="h-l2_m4-003-a" data-back="sum-h-l2_m4-003 sum-h-l2_m4-025 sum-h-l2_m4-027 sum-h-l2_m4-032 sum-h-l2_m4-026 sum-h-l2_m5-024 sum-h-l1-028" data-zh-summary="位置自己貢獻六成多，開關序列貢獻一成多，剩下兩成大致來自實驗雜訊" data-pids-summary="h-l1-028" data-zh-m4="ANOVA 顯示位置貢獻 64%、CRS 16%、雜訊 20% ／ 作者再用一個叫 ANOVA 的工具，把「資料為什麼這麼分散」拆給各個來源負責 ／ 算出來位置自己一個就佔 64%、開關序列佔 16%、批次重複間的實驗雜訊 (replicate variance) 約 20% ／ 模型沒抓到的那 20%，剛好等於這個雜訊地板 ／ 也就是把總變異 (variance) 切成幾塊餅 (Supp Fig. 6c, d)" data-pids-m4="h-l2_m4-003 h-l2_m4-025 h-l2_m4-027 h-l2_m4-032 h-l2_m4-026" data-zh-m5="比第一輪 (位置 64%、開關 16%) 變動" data-pids-m5="h-l2_m5-024">An ANOVA of this model suggested that genomic location explains 64% of the total variance in gene expression and that CRS sequence explains another 16%, with roughly 20% attributable to biological replicate variance (Supplementary Fig. 6c,d)</mark>. <mark class="hl hl-m4" id="h-l2_m4-034-a" data-back="sum-h-l2_m4-034 sum-h-l2_m4-035" data-zh-m4="「位置和某段開關特殊合拍才出現」的搭配效果 (interaction term) 還有沒有藏身之處 ／ 理論上這項要藏在「模型沒解釋」的那塊餅裡" data-pids-m4="h-l2_m4-034 h-l2_m4-035">Part of the unexplained variance could also be attributed to specific interactions between CRS and genomic location</mark>; however, <mark class="hl hl-summary" id="h-l2_m4-004-a" data-back="sum-h-l2_m4-004 sum-h-l2_m4-033 sum-h-l2_m4-036 sum-h-l2_m4-039 sum-h-l1-029 sum-h-l2_m4-037 sum-h-l2_m4-038" data-zh-summary="幾乎沒留下空間給「特定位置與特定開關之間的特殊化學反應」" data-pids-summary="h-l1-029" data-zh-m4="幾乎沒有空間留給特定的位置-序列交互作用 ／ 模型已經貼到實驗能達到的精度極限 ／ 這塊餅一共只剩 20%，又幾乎全部被實驗雜訊地板吃掉，沒留下任何明顯空間給特殊搭配 ／ 實驗雜訊本身就有 20%，要把比這還小的訊號從雜訊裡撈出來，超出這套方法的解析力 ／ 原文寫的是「就算有特殊搭配效應，它的大小相對於位置和開關各自的主效應，也一定很小」 ／ 只主張交互作用「相對於主效應微不足道」，不能斷言完全為零" data-pids-m4="h-l2_m4-004 h-l2_m4-033 h-l2_m4-036 h-l2_m4-039 h-l2_m4-037 h-l2_m4-038">given the replicate variance, the contribution of any specific chromatin-CRS interactions to activity must be small compared to the independent effects of genomic location or CRS sequence</mark>. <mark class="hl hl-summary" id="h-l1-027-a" data-back="sum-h-l1-027 sum-h-l2_m4-020 sum-h-l1-025 sum-h-l2_m4-009" data-zh-summary="這個簡單假設幾乎抓住了所有訊號 ／ 如果這個簡單的乘法分解成立，就表示位置真的只是個整齊放大或縮小的旋鈕，跟開關是誰無關" data-pids-summary="h-l1-027 h-l1-025" data-zh-m4="0.9 代表只用「開關固有強度 × 位置倍數」這兩個獨立因子就幾乎能把所有點預測得很準 ／ 寫成乘法的意思是位置只是個整齊縮放的旋鈕，不會挑開關、不會跟某些開關合拍才放大" data-pids-m4="h-l2_m4-020 h-l2_m4-009">The close agreement between the model and the data supports the hypothesis that regional properties of the chromosome scale the activity of CRSs in a sequence-independent manner</mark>.</p>
+    <p><mark class="hl hl-m5" id="h-l2_m5-008-b" data-back="sum-h-l2_m5-008" data-zh-m5="模型算出來的開關固有強度 ($C_i$)" data-pids-m5="h-l2_m5-008">The values of intrinsic activity factors</mark> C<sub>i</sub> <mark class="hl hl-m4" id="h-l2_m4-011-a" data-back="sum-h-l2_m4-011 sum-h-l2_m5-008" data-zh-m4="請電腦找一組數字——每段開關一個 $C_i$、每個位置一個 $L_j$——讓 $C_i \times L_j$ 算出來的預測值跟實驗實際量到的值差距最小" data-pids-m4="h-l2_m4-011" data-zh-m5="模型算出來的開關固有強度 ($C_i$)" data-pids-m5="h-l2_m5-008">are estimated from the fitted model as the average activity of each element across all locations</mark>. These values are estimated without the use of episomal MPRA data. Nevertheless, the C<sub>i</sub> <mark class="hl hl-summary" id="h-l2_m5-007-a" data-back="sum-h-l2_m5-007 sum-h-l1-035 sum-h-l2_m5-002" data-zh-summary="把模型推算出的「固有強度」拿去跟「只放在游離 DNA 圈圈（質體）上測得的活性」對照，兩者方向一致" data-pids-summary="h-l1-035" data-zh-m5="第一道檢驗是「擬合出的 $C_i$ 對得起 plasmid 活性」這件事 ／ 擬合出的 $C_i$ 對得起 plasmid 活性" data-pids-m5="h-l2_m5-007 h-l2_m5-002">values we fit from patchMPRA data corresponded well to the expression values we measured from plasmid-based MPRA, with more active CRSs having higher</mark> C<sub>i</sub> values (Fig. 4b). Overall, <mark class="hl hl-m5" id="h-l2_m5-010-a" data-back="sum-h-l2_m5-010 sum-h-l2_m5-009" data-zh-m5="整體點對點的相關係數只有 0.35 ／ 同一批開關放在游離 DNA 圈 (plasmid) 上、完全不插進基因組量出來的活性" data-pids-m5="h-l2_m5-010 h-l2_m5-009">the expression on plasmids was moderately correlated to expression at genomic landing pads (average R = 0.35, data not shown)</mark>, but <mark class="hl hl-m5" id="h-l2_m5-011-a" data-back="sum-h-l2_m5-011" data-zh-m5="把 plasmid 上的活性切成高、中、低三組" data-pids-m5="h-l2_m5-011">groups of CRSs defined as having low, medium or high activity on the basis of plasmid expression</mark> <mark class="hl hl-m5" id="h-l2_m5-012-a" data-back="sum-h-l2_m5-012" data-zh-m5="每個位置都還是保留這個排序" data-pids-m5="h-l2_m5-012">maintained their relative activity levels across all landing pads (Supplementary Fig. 7)</mark>. This result suggests that <mark class="hl hl-summary" id="h-l1-036-a" data-back="sum-h-l1-036 sum-h-l2_m5-015" data-zh-summary="這支持「開關固有強度」是一個獨立、可被移植判讀的屬性" data-pids-summary="h-l1-036" data-zh-m5="plasmid 上量到的活性大致就反映了開關沒有染色質環境干擾時的本性" data-pids-m5="h-l2_m5-015">the activity of a CRS measured on a plasmid, in the absence of regional chromosome effects, is a reasonable representation of its intrinsic cis-regulatory activity</mark>.</p>
+    <p>The fitted values L<sub>j</sub> represent the modular effects of different chromatin regions on the activity of CRSs. Because we only assayed a small number of landing pads from different ENCODE segmentation classes, <mark class="hl hl-m5" id="h-l2_m5-047-a" data-back="sum-h-l2_m5-047" data-zh-m5="一個位置到底是因為哪些染色質特徵才被分到大倍率或小倍率？" data-pids-m5="h-l2_m5-047">we cannot yet draw general conclusions about what specific chromosomal properties associate with permissive versus restrictive landing pad sites</mark>. We do note, however, that in our experiment some genomic regions annotated by ENCODE as 'repressed' permitted high landing pad activity and that some genomic regions annotated as 'transcribed' restricted activity (Supplementary Table 1). <mark class="hl hl-m1" id="h-l2_m1-028-b" data-back="sum-h-l2_m1-028 sum-h-l2_m5-048" data-zh-m1="近年 TRIP (Akhtar et al. 2013) 可以一次把一個報導基因散到上千個位置、用條碼標位置" data-pids-m1="h-l2_m1-028" data-zh-m5="只測 15 個位置實在不夠，前人用上千個位置也只找出「靠近核膜那圈整體被壓低」這條規律" data-pids-m5="h-l2_m5-048">In an experiment wherein a single reporter gene was integrated at thousands of different genomic locations</mark>, Akhtar et al.<sup>6</sup> <mark class="hl hl-m5" id="h-l2_m5-048-b" data-back="sum-h-l2_m5-048" data-zh-m5="只測 15 個位置實在不夠，前人用上千個位置也只找出「靠近核膜那圈整體被壓低」這條規律" data-pids-m5="h-l2_m5-048">also failed to identify a strong relationship between reporter activity and specific chromatin states or topological domains, but did note attenuated reporter gene activity in chromosomal regions associated with the nuclear lamina</mark>. While the specific chromatin features that dictate permissiveness remain to be identified, our data strongly support a model in which chromatin functions independently of local CRSs.</p>
+    <p><mark class="hl hl-summary" id="h-l2_m4-041-a" data-back="sum-h-l2_m4-041 sum-h-l2_m5-021 sum-h-l2_m5-006 sum-h-l2_m5-043 sum-h-l1-041" data-zh-summary="目前只在一種人類白血病細胞（K562 細胞）的 15 個位置上驗證" data-pids-summary="h-l1-041" data-zh-m4="作者在另一輪實驗把位置擴到 15 個" data-pids-m4="h-l2_m4-041" data-zh-m5="把位置從 8 個擴到 15 個、換 promoter、加進長版 enhancer ／ 誠實標出 K562 單一細胞與 15 個位點的適用邊界 ／ 又只測了 15 個基因組位置" data-pids-m5="h-l2_m5-021 h-l2_m5-006 h-l2_m5-043">We performed a second patchMPRA experiment in which we pooled all 15 mapped landing pad cell lines to determine whether the independence we observed between local and regional effects holds across other genomic locations</mark>. <mark class="hl hl-summary" id="h-l1-031-a" data-back="sum-h-l1-031 sum-h-l2_m4-042 sum-h-l2_m5-016 sum-h-l2_m5-018" data-zh-summary="第一輪用其中一款，第二輪換成另一款" data-pids-summary="h-l1-031" data-zh-m4="把開關下游的小型啟動子換成另一款" data-pids-m4="h-l2_m4-042" data-zh-m5="第二道檢驗是換 minimal promoter ／ 第一輪用一款叫 Hsp68 的版本，第二輪換成另一款叫 MinP 的版本" data-pids-m5="h-l2_m5-016 h-l2_m5-018">We also included library members in which the Hsp68 minimal promoter was swapped for the MinP promoter</mark><sup>40,45</sup> to test whether linear scaling depends on the specific promoter present in the local CRS. Finally, <mark class="hl hl-summary" id="h-l2_m4-043-a" data-back="sum-h-l2_m4-043 sum-h-l1-033 sum-h-l2_m5-021" data-zh-summary="他們又把幾段更長、學界已驗證過的增強子加進來測" data-pids-summary="h-l1-033" data-zh-m4="再加入文獻已驗證的長版增強子" data-pids-m4="h-l2_m4-043" data-zh-m5="把位置從 8 個擴到 15 個、換 promoter、加進長版 enhancer" data-pids-m5="h-l2_m5-021">we included new library members representing full length, literature-validated enhancer sequences (Supplementary Table 4) to test whether linear scaling holds when longer enhancer sequences are present</mark>.</p>
+    <p>We observed several clear trends (Supplementary Table 5). Local CRSs that drove either high or low expression in our first experiment maintained their relative activities in the new landing pad locations (Fig. 4c). <mark class="hl hl-m4" id="h-l2_m4-045-a" data-back="sum-h-l2_m4-045" data-zh-m4="這條規律不是這次取樣的偶然" data-pids-m4="h-l2_m4-045">This suggests that modularity of local CRSs is a general property of many chromosomal locations</mark>. <mark class="hl hl-summary" id="h-l2_m4-044-a" data-back="sum-h-l2_m4-044 sum-h-l1-032 sum-h-l2_m5-003" data-zh-summary="整體音量會變，但開關的相對排序不變" data-pids-summary="h-l1-032" data-zh-m4="乘法關係仍然成立 (詳見 module 5)" data-pids-m4="h-l2_m4-044" data-zh-m5="把 Hsp68 換成 MinP minimal promoter 後排序不變" data-pids-m5="h-l2_m5-003">Linear scaling of CRS activity was also preserved across genomic locations when the Hsp68 promoter was swapped with the MinP promoter (Fig. 4d)</mark>. <mark class="hl hl-summary" id="h-l1-032-a" data-back="sum-h-l1-032 sum-h-l2_m5-019 sum-h-l2_m5-020" data-zh-summary="整體音量會變，但開關的相對排序不變" data-pids-summary="h-l1-032" data-zh-m5="Hsp68 整體就是比 MinP 響亮 ／ 同一段開關不管掛哪款 promoter，在不同位置之間的相對強弱完全一致" data-pids-m5="h-l2_m5-019 h-l2_m5-020">At all locations the Hsp68 promoter drove higher expression than the MinP promoter, but CRSs with both promoters showed the same relative strengths across genomic locations</mark>. <mark class="hl hl-m5" id="h-l2_m5-022-a" data-back="sum-h-l2_m5-022" data-zh-m5="整體吻合度仍有 0.82" data-pids-m5="h-l2_m5-022">A linear model including terms for local CRS, regional chromosome effect and promoter identity explains the data well (R = 0.82)</mark>. An ANOVA of this model shows that <mark class="hl hl-m5" id="h-l2_m5-023-a" data-back="sum-h-l2_m5-023" data-zh-m5="位置佔 26%、promoter 佔 26%、開關自己佔 9%" data-pids-m5="h-l2_m5-023">the local CRS explains 9.0%, the regional chromosome effect explains 26%, and the promoter identity explains 26%</mark>. This result suggests that <mark class="hl hl-m5" id="h-l2_m5-025-a" data-back="sum-h-l2_m5-025" data-zh-m5="「位置主導 + 各因子模組化、彼此獨立」的結構沒變" data-pids-m5="h-l2_m5-025">promoters are strong but modular elements that function independently of their local CRS and regional chromosome environment</mark>.</p>
+    <p>We also directly compared the activities of full length, literature-validated enhancers against the activities of CRSs in our original library. <mark class="hl hl-summary" id="h-l1-034-a" data-back="sum-h-l1-034 sum-h-l2_m5-030 sum-h-l2_m5-004 sum-h-l2_m4-044 sum-h-l2_m5-031" data-zh-summary="這些增強子既沒有特別強，也沒辦法把自己跟位置效應隔離開" data-pids-summary="h-l1-034" data-zh-m4="乘法關係仍然成立 (詳見 module 5)" data-pids-m4="h-l2_m4-044" data-zh-m5="長版沒有比短版更強 ／ 把長版 literature-validated enhancer 加進來測也一樣被同倍率縮放 ／ 搬到不同位置時被乘的倍數和短版完全一樣" data-pids-m5="h-l2_m5-030 h-l2_m5-004 h-l2_m5-031">Although the literature-validated enhancers were generally longer than the CRSs in our first library, they did not show higher cis-regulatory activities, and they showed the same scaling across landing pad locations</mark> (Fig. 4e). <mark class="hl hl-summary" id="h-l1-034-b" data-back="sum-h-l1-034 sum-h-l2_m5-028 sum-h-l2_m5-032" data-zh-summary="這些增強子既沒有特別強，也沒辦法把自己跟位置效應隔離開" data-pids-summary="h-l1-034" data-zh-m5="「真正完整的長版開關 (literature-validated enhancer)」可能自帶某些抗壓元件 ／ 沒有任何證據顯示長度自帶對抗位置效應的本領" data-pids-m5="h-l2_m5-028 h-l2_m5-032">Literature-validated enhancers do not appear to carry additional sequences that buffer them from chromosome position effects</mark>. Taken together, our results suggest a modular organization of the genome in which the effects of promoters, enhancers and regional chromatin all contribute independently to set levels of gene expression.</p>
+    <p>Here we have presented a method to jointly study the contributions of local DNA sequences and regional genomic features to gene expression. We demonstrated that local DNA sequences determine the intrinsic activity of genome-integrated CRSs and that <mark class="hl hl-summary" id="h-l1-005-a" data-back="sum-h-l1-005" data-zh-summary="發現後者成立——位置只是個倍數放大器" data-pids-summary="h-l1-005">genomic position acts as a multiplicative amplifier of gene expression that scales the entire collection of CRSs equally</mark>. <mark class="hl hl-summary" id="h-l2_m5-006-b" data-back="sum-h-l2_m5-006 sum-h-l1-042 sum-h-l2_m5-044 sum-h-l1-043 sum-h-l2_m5-045" data-zh-summary="且選到的開關偏向少數幾類轉錄因子辨識的序列 ／ 其他類型的開關（例如把基因隔開的「絕緣子」）是否也乖乖被同一個倍數縮放，還是未解的問題" data-pids-summary="h-l1-042 h-l1-043" data-zh-m5="誠實標出 K562 單一細胞與 15 個位點的適用邊界 ／ 測過的開關大多偏向 K562 細胞特別愛用的三類轉錄因子辨識的序列（叫做 AP-1、ETS-1、GATA-1） ／ 專門把不同基因區段隔開的開關 (insulator) 會不會還乖乖被等比例縮放" data-pids-m5="h-l2_m5-006 h-l2_m5-044 h-l2_m5-045">The CRSs we assayed in K562 cells tended to be enriched for binding sites for transcription factors such as AP-1, ETS-1 and GATA-1. Whether CRSs with other types of motifs (for example, insulator binding sites) or promoters show the same scaling effects is an important open question.</mark></p>
+    <p>While <mark class="hl hl-m3" id="h-l2_m3-040-a" data-back="sum-h-l2_m3-040" data-zh-m3="「同一個位置自己跟自己重做」能達到的天花板" data-pids-m3="h-l2_m3-040">the current reproducibility of individual replicates in patchMPRA is good</mark> (R<sub>s</sub> = 0.71), <mark class="hl hl-m2" id="h-l2_m2-080-a" data-back="sum-h-l2_m2-080 sum-h-l2_m3-014" data-zh-m2="這個數字比 episomal MPRA 低一截" data-pids-m2="h-l2_m2-080" data-zh-m3="這比把 CRS 放在游離 DNA 圈圈上量到的重現性差一截" data-pids-m3="h-l2_m3-014">it is not as high as the reproducibility of episomal MPRA</mark>. Currently this limits the number of CRSs and landing pads that can be assayed in a single experiment because <mark class="hl hl-m3" id="h-l2_m3-008-b" data-back="sum-h-l2_m3-008 sum-h-l2_m4-031" data-zh-m3="這 11 個讀數可以平均掉單次測量的雜訊" data-pids-m3="h-l2_m3-008" data-zh-m4="把同一批細胞做兩次 patchMPRA 本來就不可能完全一樣" data-pids-m4="h-l2_m4-031">it is important to average over several barcodes per CRS</mark>. One reason for this is that <mark class="hl hl-m2" id="h-l2_m2-081-a" data-back="sum-h-l2_m2-081 sum-h-l2_m3-015" data-zh-m2="patchMPRA 每顆細胞只整合一份、DNA 讀數本身就少" data-pids-m2="h-l2_m2-081" data-zh-m3="patchMPRA 為了確保「一個位置只塞一份」，每個細胞只整合一份拷貝" data-pids-m3="h-l2_m3-015">patchMPRA measures DNA and RNA barcodes produced from a single integration per cell</mark>. <mark class="hl hl-m2" id="h-l2_m2-081-b" data-back="sum-h-l2_m2-081" data-zh-m2="patchMPRA 每顆細胞只整合一份、DNA 讀數本身就少" data-pids-m2="h-l2_m2-081">Measurement error is primarily driven by difficulty in quantifying barcodes from the DNA fraction</mark> and by <mark class="hl hl-m2" id="h-l2_m3-016-a" data-back="sum-h-l2_m3-016 sum-h-l2_m2-051 sum-h-l2_m2-082" data-zh-m2="重組效率其實只有 12% ／ Cre 重組效率只有 12%" data-pids-m2="h-l2_m2-051 h-l2_m2-082" data-zh-m3="把 CRS 精準塞進 landing pad 的剪接酵素 (Cre 重組酶) 效率只有 12%" data-pids-m3="h-l2_m3-016">the low efficiency of Cre-lox recombination (12%)</mark>. As a result, <mark class="hl hl-m2" id="h-l2_m2-083-a" data-back="sum-h-l2_m2-083" data-zh-m2="FACS 撿過的 GFP 陰性裡也只有 30% 真重組成功" data-pids-m2="h-l2_m2-083">most FACS-sorted landing pad cells (~70%) have not recombined</mark>, <mark class="hl hl-m2" id="h-l2_m2-084-a" data-back="sum-h-l2_m2-084" data-zh-m2="DNA 訊號被進一步稀釋" data-pids-m2="h-l2_m2-084">further complicating the quantification of DNA barcodes</mark>. Counterselection methods could be used to increase the fraction of cells with recombinations, or in vitro transcription could be used to linearly amplify DNA barcodes before sequencing. Additional gains in throughput could also come by allowing multiple landing pad integrations per cell. Finally, if linear scaling is a general property of most genomic regions, throughput could be increased by reducing the number of CRSs per library and increasing the number of locations assayed. This approach could also be combined with TRIP<sup>6</sup>, <mark class="hl hl-m1" id="h-l2_m1-029-a" data-back="sum-h-l2_m1-029" data-zh-m1="TRIP 每次實驗仍只放一種 CRS，序列那條軸只有一個點" data-pids-m1="h-l2_m1-029">which assays a single CRS at many thousands of locations</mark>.</p>
+    <p>The multiplicative scaling relationship we observe suggests that <mark class="hl hl-m5" id="h-l2_m5-005-a" data-back="sum-h-l2_m5-005 sum-h-l2_m5-039" data-zh-m5="支持「local CRS 與 regional chromatin 影響同一步驟、彼此獨立」的模組化模型 ／ 兩個因子都在影響同一件事——蛋白質實際黏上 DNA 的機率" data-pids-m5="h-l2_m5-005 h-l2_m5-039">local and regional cis-regulatory elements are modular and affect the same step in gene expression</mark>. For example, <mark class="hl hl-summary" id="h-l2_m5-039-b" data-back="sum-h-l2_m5-039 sum-h-l1-038 sum-h-l2_m5-036 sum-h-l1-037 sum-h-l2_m5-035" data-zh-summary="周圍的染色質決定「轉錄機器能不能擠進來」 ／ 開關本身決定「能不能吸引到對的轉錄機器」" data-pids-summary="h-l1-038 h-l1-037" data-zh-m5="兩個因子都在影響同一件事——蛋白質實際黏上 DNA 的機率 ／ 周圍染色質決定「這些蛋白質有沒有辦法擠進來」 ／ 開關自己決定「能不能吸引到對的蛋白質來啟動轉錄」" data-pids-m5="h-l2_m5-039 h-l2_m5-036 h-l2_m5-035">local CRSs might influence transcription factor occupancy by carrying transcription factor binding sites with different affinities for transcription factors, whereas the regional chromatin environment might influence transcription factor occupancy by determining the accessibility of CRSs</mark>. <mark class="hl hl-summary" id="h-l1-040-a" data-back="sum-h-l1-040 sum-h-l2_m5-038" data-zh-summary="所以一個區域如果整體比較緻密，所有開關就一起被等比例壓低" data-pids-summary="h-l1-040" data-zh-m5="一個區域只要整體比較緻密，所有開關就一起被等比例壓低" data-pids-m5="h-l2_m5-038">A chromosomal region that is relatively inaccessible scales the activity of all CRSs down by the same amount, regardless of which particular transcription factors they bind</mark>, because <mark class="hl hl-summary" id="h-l1-039-a" data-back="sum-h-l1-039 sum-h-l2_m5-037" data-zh-summary="所有轉錄機器都要穿過同一團蛋白質網路才能接觸 DNA" data-pids-summary="h-l1-039" data-zh-m5="所有要啟動轉錄的蛋白質都得穿過同一張染色質網才能碰到 DNA" data-pids-m5="h-l2_m5-037">all transcription factors must diffuse through the same densely packed chromatin</mark>. <mark class="hl hl-m5" id="h-l2_m5-049-a" data-back="sum-h-l2_m5-049" data-zh-m5="緻密度、長距離 looping、histone 化學修飾都可能造成同樣現象" data-pids-m5="h-l2_m5-049">Other molecular mechanisms that affect chromatin, such as long-range looping or histone modifications, might also account for the regional effect if they influence the diffusion of all transcription factors to the same degree</mark>. <mark class="hl hl-m5" id="h-l2_m5-050-a" data-back="sum-h-l2_m5-050" data-zh-m5="整套結論能否定的只是「某段特定序列搬到某個特定位置才會冒出來的特殊化學反應」" data-pids-m5="h-l2_m5-050">This model does not, therefore, suggest sequence-specific or protein-specific interactions between regional chromatin and local CRSs</mark>.</p>
+    <p><mark class="hl hl-m5" id="h-l2_m5-047-b" data-back="sum-h-l2_m5-047" data-zh-m5="一個位置到底是因為哪些染色質特徵才被分到大倍率或小倍率？" data-pids-m5="h-l2_m5-047">A future direction of this work will be to determine the chromosomal features that determine the regional scaling factors of genomic locations</mark>. Addressing this question will require assaying a larger number of landing pad locations that cover a diverse set of chromatin environments and using the CRISPR-Cas9 system to direct landing pads to genomic regions with particular epigenetic properties.</p>
+
+    <h2>Methods</h2>
+    <p>Methods, including statements of data availability and any associated accession codes and references, are available in the online version of the paper.</p>
+    <p class="note">Note: Any Supplementary Information and Source Data files are available in the online version of the paper.</p>
+
+    <h2>Acknowledgments</h2>
+    <p>We thank S. Elgin and members of the Cohen laboratory for their critical feedback on the manuscript. We thank J. Hoisington-Lopez for assistance with high-throughput sequencing. We also thank the Alvin J. Siteman Cancer Center at Washington University School of Medicine and Barnes-Jewish Hospital in St. Louis, Missouri, for the use of the Siteman Flow Cytometry Core, which provided single-cell sorting services. The Siteman Cancer Center is supported in part by NCI Cancer Center Support Grant P30-CA91842. This work was also supported by the Hope Center Viral Vectors Core at Washington University School of Medicine and by grants to B.A.C. from the National Institutes of Health, R01-GM092910 and R01-HG008687.</p>
+
+    <h2>Author Contributions</h2>
+    <p>B.B.M., H.G.C. and B.A.C. conceived the landing pad system. B.B.M. and H.G.C. designed and conducted all the experiments. B.B.M., H.G.C. and B.A.C. wrote the manuscript.</p>
+
+    <h2>Competing Interests</h2>
+    <p>The authors declare no competing interests.</p>
+    <p class="note">Reprints and permissions information is available online at http://www.nature.com/reprints/index.html. Publisher's note: Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.</p>
+
+    <ol class="references">
+      <li>Myers, R.M., Tilly, K. &amp; Maniatis, T. Fine structure genetic analysis of a beta-globin promoter. Science 232, 613-618 (1986).</li>
+      <li>Maston, G.A., Evans, S.K. &amp; Green, M.R. Transcriptional regulatory elements in the human genome. Annu. Rev. Genomics Hum. Genet. 7, 29-59 (2006).</li>
+      <li>Ghirlando, R. &amp; Felsenfeld, G. CTCF: making the right connections. Genes Dev. 30, 881-891 (2016).</li>
+      <li>Henikoff, S. A reconsideration of the mechanism of position effect. Genetics 138, 1-5 (1994).</li>
+      <li><mark class="hl hl-m1" id="h-l2_m1-008-b" data-back="sum-h-l2_m1-008" data-zh-m1="1979 年人們就在果蠅身上看到，光換位置就讓基因時開時關 (position-effect variegation, PEV)" data-pids-m1="h-l2_m1-008">Elgin, S.C.R. &amp; Reuter, G. Position-effect variegation, heterochromatin formation, and gene silencing in Drosophila</mark>. Cold Spring Harb. Perspect. Biol. 5, a017780 (2013).</li>
+      <li><mark class="hl hl-m1" id="h-l2_m1-028-a" data-back="sum-h-l2_m1-028 sum-h-l2_m2-028" data-zh-m1="近年 TRIP (Akhtar et al. 2013) 可以一次把一個報導基因散到上千個位置、用條碼標位置" data-pids-m1="h-l2_m1-028" data-zh-m2="標準流程改自 Akhtar 2013 與 Wang 2012 的 calling cards 協議" data-pids-m2="h-l2_m2-028">Akhtar, W. et al. Chromatin position effects assayed by thousands of reporters integrated in parallel. Cell 154, 914-927 (2013)</mark>.</li>
+      <li>Visel, A. et al. ChIP-seq accurately predicts tissue-specific activity of enhancers. Nature 457, 854-858 (2009).</li>
+      <li>Kwasnieski, J.C., Mogno, I., Myers, C.A., Corbo, J.C. &amp; Cohen, B.A. Complex effects of nucleotide variants in a mammalian cis-regulatory element. Proc. Natl. Acad. Sci. USA 109, 19498-19503 (2012).</li>
+      <li>Kheradpour, P. et al. Systematic dissection of regulatory motifs in 2000 predicted human enhancers using a massively parallel reporter assay. Genome Res. 23, 800-811 (2013).</li>
+      <li>Visel, A. et al. A high-resolution enhancer atlas of the developing telencephalon. Cell 152, 895-908 (2013).</li>
+      <li>White, M.A. Understanding how cis-regulatory function is encoded in DNA sequence using massively parallel reporter assays and designed sequences. Genomics 106, 165-170 (2015).</li>
+      <li>Grossman, S.R., Zhang, X. &amp; Wang, L. Systematic dissection of genomic features determining transcription factor binding and enhancer function. Proc. Natl. Acad. Sci. USA 114, E1291-E1300 (2017).</li>
+      <li><mark class="hl hl-m1" id="h-l2_m1-008-a" data-back="sum-h-l2_m1-008" data-zh-m1="1979 年人們就在果蠅身上看到，光換位置就讓基因時開時關 (position-effect variegation, PEV)" data-pids-m1="h-l2_m1-008">Henikoff, S. Position effects and variegation enhancers in an autosomal region of Drosophila melanogaster. Genetics 93, 105-115 (1979)</mark>.</li>
+      <li>Wakimoto, B.T. &amp; Hearn, M.G. The effects of chromosome rearrangements on the expression of heterochromatic genes in chromosome 2L of Drosophila melanogaster. Genetics 125, 141-154 (1990).</li>
+      <li>Eissenberg, J.C. et al. Mutation in a heterochromatin-specific chromosomal protein is associated with suppression of position-effect variegation in Drosophila melanogaster. Proc. Natl. Acad. Sci. USA 87, 9923-9927 (1990).</li>
+      <li>Hearn, M.G., Hedrick, A., Grigliatti, T.A. &amp; Wakimoto, B.T. The effect of modifiers of position-effect variegation on the variegation of heterochromatic genes of Drosophila melanogaster. Genetics 128, 785-797 (1991).</li>
+      <li>Geyer, P.K. &amp; Corces, V.G. DNA position-specific repression of transcription by a Drosophila zinc finger protein. Genes Dev. 6, 1865-1873 (1992).</li>
+      <li>Roseman, R.R., Pirrotta, V. &amp; Geyer, P.K. The su(Hw) protein insulates expression of the Drosophila melanogaster white gene from chromosomal position-effects. EMBO J. 12, 435-442 (1993).</li>
+      <li>Gerasimova, T.I., Gdula, D.A., Gerasimov, D.V., Simonova, O. &amp; Corces, V.G. A Drosophila protein that imparts directionality on a chromatin insulator is an enhancer of position-effect variegation. Cell 82, 587-597 (1995).</li>
+      <li>Wallrath, L.L. &amp; Elgin, S.C. Position effect variegation in Drosophila is associated with an altered chromatin structure. Genes Dev. 9, 1263-1277 (1995).</li>
+      <li>Howe, M., Dimitri, P., Berloco, M. &amp; Wakimoto, B.T. Cis-effects of heterochromatin on heterochromatic and euchromatic gene activity in Drosophila melanogaster. Genetics 140, 1033-1045 (1995).</li>
+      <li>Sass, G.L. &amp; Henikoff, S. Comparative analysis of position-effect variegation mutations in Drosophila melanogaster delineates the targets of modifiers. Genetics 148, 733-741 (1998).</li>
+      <li>Cryderman, D.E., Cuaycong, M.H., Elgin, S.C. &amp; Wallrath, L.L. Characterization of sequences associated with position-effect variegation at pericentric sites in Drosophila heterochromatin. Chromosoma 107, 277-285 (1998).</li>
+      <li>Talbert, P.B. &amp; Henikoff, S. A reexamination of spreading of position-effect variegation in the white-roughest region of Drosophila melanogaster. Genetics 154, 259-272 (2000).</li>
+      <li>Weiler, K.S. &amp; Wakimoto, B.T. Suppression of heterochromatic gene variegation can be used to distinguish and characterize E(var) genes potentially important for chromosome structure in Drosophila melanogaster. Mol. Genet. Genomics 266, 922-932 (2002).</li>
+      <li>ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. Nature 489, 57-74 (2012).</li>
+      <li>Gerstein, M.B. et al. Architecture of the human regulatory network derived from ENCODE data. Nature 489, 91-100 (2012).</li>
+      <li>Neph, S. et al. An expansive human regulatory lexicon encoded in transcription factor footprints. Nature 489, 83-90 (2012).</li>
+      <li>Sanyal, A., Lajoie, B.R., Jain, G. &amp; Dekker, J. The long-range interaction landscape of gene promoters. Nature 489, 109-113 (2012).</li>
+      <li>Kundaje, A., et al. &amp; Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317-330 (2015).</li>
+      <li>Ernst, J. &amp; Kellis, M. Large-scale imputation of epigenomic datasets for systematic annotation of diverse human tissues. Nat. Biotechnol. 33, 364-376 (2015).</li>
+      <li>Skupsky, R., Burnett, J.C., Foley, J.E., Schaffer, D.V. &amp; Arkin, A.P. HIV promoter integration site primarily modulates transcriptional burst size rather than frequency. PLoS Comput. Biol. 6, e1000952 (2010).</li>
+      <li>Schultz, J. Variegation in Drosophila and the inert chromosome regions. Proc. Natl. Acad. Sci. USA 22, 27-33 (1936).</li>
+      <li>Sinclair, D.A.R., Mottus, R.C. &amp; Grigliatti, T.A. Genes which suppress position-effect variegation in Drosophila melanogaster are clustered. Mol. Gen. Genet. 191, 326-333 (1983).</li>
+      <li>Ebert, A. et al. Su(var) genes regulate the balance between euchromatin and heterochromatin in Drosophila. Genes Dev. 18, 2973-2983 (2004).</li>
+      <li>Girton, J.R. &amp; Johansen, K.M. Chromatin structure and the regulation of gene expression: the lessons of PEV in Drosophila. Adv. Genet. 61, 1-43 (2008).</li>
+      <li>Kinney, J.B., Murugan, A., Callan, C.G. Jr. &amp; Cox, E.C. Using deep sequencing to characterize the biophysical mechanism of a transcriptional regulatory sequence. Proc. Natl. Acad. Sci. USA 107, 9158-9163 (2010).</li>
+      <li>Melnikov, A. et al. Systematic dissection and optimization of inducible enhancers in human cells using a massively parallel reporter assay. Nat. Biotechnol. 30, 271-277 (2012).</li>
+      <li>Sharon, E. et al. Inferring gene regulatory logic from high-throughput measurements of thousands of systematically designed promoters. Nat. Biotechnol. 30, 521-530 (2012).</li>
+      <li>Patwardhan, R.P. et al. Massively parallel functional dissection of mammalian enhancers in vivo. Nat. Biotechnol. 30, 265-270 (2012).</li>
+      <li>Arnold, C.D. et al. Genome-wide quantitative enhancer activity maps identified by STARR-seq. Science 339, 1074-1077 (2013).</li>
+      <li><mark class="hl hl-m2" id="h-l2_m2-050-a" data-back="sum-h-l2_m2-050" data-zh-m2="Lanza 2012 Biotechnol J 提出的不對稱 lox 配對策略" data-pids-m2="h-l2_m2-050">Lanza, A.M., Dyess, T.J. &amp; Alper, H.S. Using the Cre/lox system for targeted integration into the human genome: loxFAS-loxP pairing and delayed introduction of Cre DNA improve gene swapping efficiency. Biotechnol. J. 7, 898-908 (2012)</mark>.</li>
+      <li>Hoffman, M.M. et al. Integrative annotation of chromatin elements from ENCODE data. Nucleic Acids Res. 41, 827-841 (2013).</li>
+      <li>Ernst, J. &amp; Kellis, M. ChromHMM: automating chromatin-state discovery and characterization. Nat. Methods 9, 215-216 (2012).</li>
+      <li><mark class="hl hl-m2" id="h-l2_m2-060-a" data-back="sum-h-l2_m2-060" data-zh-m2="Kwasnieski 2014 Genome Res" data-pids-m2="h-l2_m2-060">Kwasnieski, J.C., Fiore, C., Chaudhari, H.G. &amp; Cohen, B.A. High-throughput functional testing of ENCODE segmentation predictions. Genome Res. 24, 1595-1602 (2014)</mark>.</li>
+      <li>Inoue, F. et al. A systematic comparison reveals substantial differences in chromosomal versus episomal encoding of enhancer activity. Genome Res. 27, 38-52 (2017).</li>
+      <li>Ramezani, A. &amp; Hawley, R.G. Strategies to insulate lentiviral vector-expressed transgenes. Methods Mol. Biol. 614, 77-100 (2010).</li>
+    </ol>
+
+    <h2>Online Methods</h2>
+    <h3>Lentiviral landing pad vector construction.</h3>
+    <p>The lentiviral landing pad vector was constructed as follows. A synthetic DNA fragment, referred to as the "landing pad cassette," was inserted between the long terminal repeats of a modified, self-inactivating lentiviral construct using NheI and BamHI restriction sites. The self-inactivating nature of this lentiviral construct ensures that the flanking long terminal repeats are transcriptionally inert after integration. The landing pad cassette itself is composed of the following components. As a transcription unit for imaging and selection of transduced cells, we used <mark class="hl hl-m2" id="h-l2_m2-017-b" data-back="sum-h-l2_m2-017" data-zh-m2="GFP 是 landing pad 卡帶裡 CMV 啟動子驅動的 eGFP" data-pids-m2="h-l2_m2-017">a bicistronic gene encoding a Hyg/TK fusion protein</mark><sup>48</sup> (RV-L3-HyTK-2L, Addgene 11684) and green fluorescent protein (eGFP), linked by a P2A sequence<sup>49</sup> and driven by a CMV promoter. This cassette is flanked by a loxFAS site<sup>42</sup> <mark class="hl hl-m2" id="h-l2_m2-041-b" data-back="sum-h-l2_m2-041 sum-h-l2_m2-049" data-zh-m2="landing pad 兩端帶兩種不同的 lox 接口 (loxFAS + loxP) ／ 整段只能從 transfer vector 單向走進 landing pad" data-pids-m2="h-l2_m2-041 h-l2_m2-049">on the 5' end and a loxP site on the 3' end for unidirectional recombination using Cre recombinase</mark>. <mark class="hl hl-m2" id="h-l2_m2-018-a" data-back="sum-h-l2_m2-018" data-zh-m2="挑 GFP 陽性等於先過濾掉沒整合好的細胞" data-pids-m2="h-l2_m2-018">Hyg/TK provides positive selection when transduced cells are treated with hygromycin</mark>, and counterselection following Cre-lox recombination when cells are treated with ganciclovir. <mark class="hl hl-m2" id="h-l2_m2-068-a" data-back="sum-h-l2_m2-068 sum-h-l2_m2-020" data-zh-m2="下游緊接著 landing pad 原本留在那邊的 gBC (loxP 下游、WPRE 之前) ／ 每個 landing pad 旁邊都掛了一段 12 bp 的位置條碼 (gBC)" data-pids-m2="h-l2_m2-068 h-l2_m2-020">A library of 12-bp DNA sequence barcodes (gBC) was cloned immediately downstream of the loxP site</mark>. <mark class="hl hl-m2" id="h-l2_m2-021-a" data-back="sum-h-l2_m2-021" data-zh-m2="這串隨機字串本身不會告訴你它落在哪條染色體哪個位置" data-pids-m2="h-l2_m2-021">These barcodes serve as unique identifiers for mapping the genomic locations of landing pad integrations</mark>. <mark class="hl hl-m2" id="h-l2_m2-068-b" data-back="sum-h-l2_m2-068" data-zh-m2="下游緊接著 landing pad 原本留在那邊的 gBC (loxP 下游、WPRE 之前)" data-pids-m2="h-l2_m2-068">A WHP post-transcriptional response element (WPRE) was included downstream of the loxP site in the 3' UTR</mark>. This lentiviral landing pad library was used to produce high-titer lentiviral library for transduction of mammalian cells.</p>
+    <h3>K562 cell culture and generation of landing pad cell lines.</h3>
+    <p>K562 cells (see Life Sciences Reporting Summary) were maintained in Iscove's Modified Dulbecco's Medium (IMDM) + 10% FBS + 1% non-essential amino acids. <mark class="hl hl-m2" id="h-l2_m2-011-b" data-back="sum-h-l2_m2-011" data-zh-m2="把 landing pad 卡帶包進一種會把 DNA 永久插進細胞染色體的病毒 (lentivirus)" data-pids-m2="h-l2_m2-011">The lentiviral library carrying the barcoded landing pad cassettes was used to transduce K562 cells</mark> <mark class="hl hl-m2" id="h-l2_m2-012-b" data-back="sum-h-l2_m2-012" data-zh-m2="用很低的感染劑量 (MOI = 1) 感染 K562 細胞" data-pids-m2="h-l2_m2-012">at a multiplicity of infection of one</mark>. 2.5 × 10<sup>4</sup> K562 cells were exposed to 2.5 × 10<sup>4</sup> infectious units of viral particles in suspension for 20 h. After 20 h, cells were collected by gentle centrifugation (100g for 5 min) and the medium was replaced with fresh, supplemented IMDM. <mark class="hl hl-m2" id="h-l2_m2-018-b" data-back="sum-h-l2_m2-018" data-zh-m2="挑 GFP 陽性等於先過濾掉沒整合好的細胞" data-pids-m2="h-l2_m2-018">Cells were expanded for 7 d under selection with hygromycin, resulting in a relatively pure population of transduced K562 cells</mark>. To obtain clonal cell lines harboring distinct landing pad locations, <mark class="hl hl-m2" id="h-l2_m2-014-b" data-back="sum-h-l2_m2-014" data-zh-m2="用 FACS 把帶有 landing pad 的 GFP 陽性細胞一顆一顆分到 96 孔盤裡" data-pids-m2="h-l2_m2-014">we used FACS to sort single GFP-positive K562 cells into 96-well plates</mark>. <mark class="hl hl-m2" id="h-l2_m2-015-a" data-back="sum-h-l2_m2-015" data-zh-m2="每孔長成一株純系細胞" data-pids-m2="h-l2_m2-015">Individual clones were then expanded in culture for 10-14 d</mark>.</p>
+    <h3>Mapping genomic locations of landing pads.</h3>
+    <p><mark class="hl hl-m2" id="h-l2_m2-003-b" data-back="sum-h-l2_m2-003 sum-h-l2_m2-022" data-zh-m2="用 inverse PCR 把每個 gBC 對到基因組座標 ／ 作者用反向 PCR (inverse PCR) 把門牌號碼對到基因組座標" data-pids-m2="h-l2_m2-003 h-l2_m2-022">We modified an inverse PCR-based protocol</mark><sup>6,50</sup> to map the genomic locations of landing pad integration sites. Briefly, <mark class="hl hl-m2" id="h-l2_m2-023-a" data-back="sum-h-l2_m2-023" data-zh-m2="先用一支會在特定四鹼基處剪 DNA 的限制酶 (Csp6I) 把基因組剪成碎片" data-pids-m2="h-l2_m2-023">2 µg of genomic DNA from landing pad cell lines was digested with Csp6I (Thermo Fisher) in a volume of 50 µl for 3 h at 37 °C</mark>. <mark class="hl hl-m2" id="h-l2_m2-024-a" data-back="sum-h-l2_m2-024" data-zh-m2="在稀釋條件下讓碎片頭尾自己接成圓圈" data-pids-m2="h-l2_m2-024">Purified, digested DNA was ligated in a volume of 400 µl at 4 °C for 16 h to promote self-ligation</mark>. Ligation reactions were concentrated down to 50 µl and purified using Amicon Ultra concentrator tubes (Millipore), and 25 µl was used as the template for inverse PCR. <mark class="hl hl-m2" id="h-l2_m2-025-a" data-back="sum-h-l2_m2-025" data-zh-m2="用兩支從 landing pad 朝外的引子 (LP01、LP02)" data-pids-m2="h-l2_m2-025">We performed inverse PCR with primers LP01 5'-TTAAGGCGCGCCCCCTCAGACCCTTTTAGTCAGTGTGG-3' and LP02 5'-TTAAGCATGCCGATAAGCTTGATATCGAATTC-3'</mark> (Supplementary Table 6), which <mark class="hl hl-m2" id="h-l2_m2-026-a" data-back="sum-h-l2_m2-026" data-zh-m2="產物會同時帶著 gBC 與緊鄰的基因組 DNA" data-pids-m2="h-l2_m2-026">amplified a fragment containing the landing pad barcode and a region of genomic DNA flanking the insertion</mark>, and added AscI and SphI restriction sites for Illumina library preparation. Inverse PCR products were purified (Qiagen PCR Purification kit), digested with AscI and SphI, subjected to ligation with Illumina sequencing adapters (Supplementary Table 6), and used as the template for Illumina enrichment PCR (Supplementary Table 6). PCR fragments were purified (Qiagen PCR Purification kit), diluted to 10 nM, and sequenced on the Illumina MiSeq machine.</p>
+    <h3>Selection and validation of landing pad locations.</h3>
+    <p><mark class="hl hl-m2" id="h-l2_m2-027-a" data-back="sum-h-l2_m2-027" data-zh-m2="定序比對到 hg19 就能知道每個 gBC 落在哪" data-pids-m2="h-l2_m2-027">Genomic sites of landing pads were identified by aligning sequenced genomic fragments from inverse PCR to the human reference genome (hg19)</mark>. <mark class="hl hl-m2" id="h-l2_m2-037-a" data-back="sum-h-l2_m2-037" data-zh-m2="挑選依據是 ENCODE 對該位置的染色質狀態註解" data-pids-m2="h-l2_m2-037">ENCODE segmentation data were used to select landing pad cell lines with a diverse set of integration locations</mark> (Supplementary Table 1). <mark class="hl hl-m2" id="h-l2_m2-034-a" data-back="sum-h-l2_m2-034 sum-h-l2_m2-035" data-zh-m2="反推出來的座標還會用第二支引子做位點特異性 PCR 互相驗證 ／ 一支落在 landing pad 內部、一支落在推測的座標位置" data-pids-m2="h-l2_m2-034 h-l2_m2-035">For validation, we used genomic DNA from each clonal cell line as the template for PCR with an internal landing pad primer and a location-specific primer</mark> (Supplementary Table 6).</p>
+    <h3>pGL transfer vector construction.</h3>
+    <p>The pGL transfer vector for MPRA cassette exchange was constructed as follows. The landing pad cassette was subcloned into the pGL4.23 vector backbone using NheI and BamHI restriction sites. <mark class="hl hl-m2" id="h-l2_m2-042-b" data-back="sum-h-l2_m2-042 sum-h-l2_m2-061 sum-h-l2_m2-056" data-zh-m2="同樣兩端帶同款 lox 的中介質體 (transfer vector) 上預先接好「CRS + cBC-dsRed」整段 ／ dsRed 的 3&#x27; UTR 裡藏一段隨機合成的身分條碼 (cBC) ／ 統一方向接到中介質體上 Hsp68 minimal promoter 上游、dsRed 報導基因下游" data-pids-m2="h-l2_m2-042 h-l2_m2-061 h-l2_m2-056">Cis-regulatory elements, the Hsp68 minimal promoter and a dsRed open reading frame containing cotranscribed sequence barcodes (cBC) were cloned between the loxFAS and loxP sites using XhoI and AgeI restriction sites</mark>.</p>
+    <h3>Library design.</h3>
+    <p><mark class="hl hl-m2" id="h-l2_m2-057-a" data-back="sum-h-l2_m2-057" data-zh-m2="這 310 個 CRS 來自前一篇 episomal MPRA 已測過的元件" data-pids-m2="h-l2_m2-057">Our library of regulatory DNA sequences was previously studied using episome-based MPRA</mark><sup>45</sup>. <mark class="hl hl-m2" id="h-l2_m2-059-a" data-back="sum-h-l2_m2-059" data-zh-m2="再從強增強子、弱增強子、被抑制三類各挑高低活性" data-pids-m2="h-l2_m2-059">Each sequence is predicted to be a strong enhancer, weak enhancer or repressed region in K562 cells</mark> based on extensive chromatin profiling data<sup>43</sup>. Kwasnieski et al.<sup>45</sup> measured the activity of 600 sequences from the strong enhancer and weak enhancer classes and 300 from the repressed class in K562 cells. We <mark class="hl hl-m2" id="h-l2_m2-058-a" data-back="sum-h-l2_m2-058" data-zh-m2="先過濾掉測量誤差大的 (保留 s.e.m. &lt; 0.1)" data-pids-m2="h-l2_m2-058">filtered this set for sequences whose cis-regulatory activities were tightly measured (s.e.m. &lt; 0.1)</mark>. Within each class <mark class="hl hl-m2" id="h-l2_m2-059-b" data-back="sum-h-l2_m2-059" data-zh-m2="再從強增強子、弱增強子、被抑制三類各挑高低活性" data-pids-m2="h-l2_m2-059">we selected a set of sequences with high activity and a set of sequences with low activity</mark> (Supplementary Table 3). We also included control sequences that we expected to drive high or low reporter expression. <mark class="hl hl-m2" id="h-l2_m2-062-b" data-back="sum-h-l2_m2-062 sum-h-l2_m3-009" data-zh-m2="每個 CRS 平均掛 25 條不同 cBC 當技術重複" data-pids-m2="h-l2_m2-062" data-zh-m3="當初設計時把每條 CRS 各掛上 25 個不同身分條碼 (cBC) 的原因" data-pids-m3="h-l2_m3-009">Each sequence was tagged by 25 unique cBCs</mark>. <mark class="hl hl-m2" id="h-l2_m2-055-b" data-back="sum-h-l2_m2-055 sum-h-l2_m5-027" data-zh-m2="作者把 310 個 130 bp 的 CRS 合成成 oligo pool" data-pids-m2="h-l2_m2-055" data-zh-m5="第一輪實驗測的全是 130 bp 左右的短序列" data-pids-m5="h-l2_m5-027">The library was synthesized by Agilent Technologies through a limited licensing agreement as a pool of 130-bp oligonucleotides</mark> and <mark class="hl hl-m2" id="h-l2_m2-056-b" data-back="sum-h-l2_m2-056" data-zh-m2="統一方向接到中介質體上 Hsp68 minimal promoter 上游、dsRed 報導基因下游" data-pids-m2="h-l2_m2-056">cloned directionally into the pGL transfer vector in the same orientation as assayed in Kwasnieski et al</mark>.<sup>8</sup>.</p>
+    <p>For the second library, <mark class="hl hl-m5" id="h-l2_m5-029-a" data-back="sum-h-l2_m5-029" data-zh-m5="作者把過去文獻已驗證過、長度超過 130 bp 的長版加進來測" data-pids-m5="h-l2_m5-029">we cloned 13 literature-validated CRSs amplified from K562 genome (primers LP34-LP59)</mark> and 11 CRSs amplified from the first library (primers LP60-LP81) into a pGL transfer vector using HiFi DNA Assembly (NEB) (Supplementary Tables 4 and 5). We amplified Hsp68:dsRed and MinP:dsRed minimal promoter cassettes<sup>45</sup> from plasmid constructs with a 10-bp barcode in the reverse primer (four fixed bases, six random bases; primers LP82-LP85). Barcoded promoter-reporter fragments were then cloned 3' of CRSs in the pGL transfer vector with restriction-ligation cloning. 25 colonies per construct were pooled to create the second library, so that each CRS-promoter combination was tagged by 25 cBCs. The library was sequenced on the Illumina MiSeq platform (2 × 150 bp, 300× coverage per cBC) to associate every barcode to a unique combination of CRS and promoter.</p>
+    <h3>Cre recombinase-mediated genomic integration and cell sorting.</h3>
+    <p><mark class="hl hl-m2" id="h-l2_m2-067-a" data-back="sum-h-l2_m2-067 sum-h-l2_m2-045 sum-h-l2_m2-040" data-zh-m2="Cre 重組會把 transfer vector 上的「CRS-Hsp68-dsRed-cBC」整段裝進 landing pad 位置 ／ 跟 transfer vector 上兩個 lox 之間的「CRS + cBC-dsRed」整段對調 ／ 作者用的是 Cre/lox 位點特異性整合系統" data-pids-m2="h-l2_m2-067 h-l2_m2-045 h-l2_m2-040">Libraries of barcoded reporter genes were integrated into pools of landing pad cell lines using Cre recombinase, which enabled reporter gene libraries to recombine with multiple landing pad locations in the K562 genome</mark>. <mark class="hl hl-m2" id="h-l2_m2-043-a" data-back="sum-h-l2_m2-043" data-zh-m2="把 transfer vector 跟一種專門認 lox 接口的酵素 (Cre 重組酶) 一起電穿孔進細胞" data-pids-m2="h-l2_m2-043">We electroporated 4 µg of transfer vector library with 1 µg of plasmid encoding Cre recombinase (pBS185 CMV-Cre, Addgene 11916) into 1.2 million K562 cells representing eight unique landing pad lines using the Neon Transfection System (Life Technologies)</mark>. <mark class="hl hl-m3" id="h-l2_m3-010-b" data-back="sum-h-l2_m3-010" data-zh-m3="作者把整個實驗從頭做第二次 (biological replicate)" data-pids-m3="h-l2_m3-010">We performed four replicate electroporations and pooled two of them into each of two replicates to assess the biological reproducibility of expression measurements</mark>. For this experiment, we estimated we needed to transfect 0.9 million cells to observe an average of 10 barcodes for each of 300 regulatory elements at each of 8 landing pads. Cells were cultured for 1 week after electroporation to allow eGFP signal from the landing pad cassette to degrade before sorting. <mark class="hl hl-m2" id="h-l2_m2-052-b" data-back="sum-h-l2_m2-052" data-zh-m2="重組成功會把原本的 GFP 卡帶替換掉、細胞從 GFP 陽性變陰性" data-pids-m2="h-l2_m2-052">We used FACS to remove cells that did not undergo Cre-lox recombination by setting a threshold on the lower tail of eGFP expression</mark> in landing pad cells that were not exposed to reporter gene libraries or Cre recombinase, and excluding cells with higher eGFP signal than this threshold. 28% of landing pad cells had eGFP levels below the empirically established threshold before Cre-lox recombination. After recombination, 40% of cells had eGFP levels below the threshold. <mark class="hl hl-m2" id="h-l2_m3-016-b" data-back="sum-h-l2_m3-016 sum-h-l2_m2-051 sum-h-l2_m2-082" data-zh-m2="重組效率其實只有 12% ／ Cre 重組效率只有 12%" data-pids-m2="h-l2_m2-051 h-l2_m2-082" data-zh-m3="把 CRS 精準塞進 landing pad 的剪接酵素 (Cre 重組酶) 效率只有 12%" data-pids-m3="h-l2_m3-016">We estimate 12% efficiency of Cre-lox recombination for the pool of landing pads used in this study</mark>. Thus, <mark class="hl hl-m2" id="h-l2_m2-053-a" data-back="sum-h-l2_m2-053 sum-h-l2_m2-083 sum-h-l2_m2-054" data-zh-m2="用 FACS 撿 GFP 陰性 (eGFP-low) 的細胞可以把成功率從 12% 富集到 30% ／ FACS 撿過的 GFP 陰性裡也只有 30% 真重組成功 ／ 做了 2.5 倍純化" data-pids-m2="h-l2_m2-053 h-l2_m2-083 h-l2_m2-054">FACS provided a 2.5-fold enrichment of the landing pad cells that underwent recombination (30% of sorted cells vs. 12% of total cells)</mark>.</p>
+    <p>For the second library, we electroporated transfer vector library and Cre recombinase into 1.2 million K562 cells representing 14 unique landing pad lines. We performed six replicate electroporations and pooled two of them into each of three replicates.</p>
+    <h3>Expression measurements for integrated cis-regulatory element libraries.</h3>
+    <p>After sorting, cells were grown for 5 d to increase the number of cells containing regulatory elements at landing pads. <mark class="hl hl-m2" id="h-l2_m2-070-a" data-back="sum-h-l2_m2-070" data-zh-m2="作者同時抓 RNA 和基因組 DNA" data-pids-m2="h-l2_m2-070">RNA and gDNA were harvested from 17.5 million cells for each replicate</mark> following manufacturer's protocols (ToTALLY RNA kit, Ambion). RNA was treated with two rounds of DNase following the "Rigorous DNase treatment" procedure in the manufacturer's protocol (Turbo DNase, Ambion). cDNA was synthesized in four replicates using oligo(dT) primers (SuperScript III First-Strand Synthesis System, Invitrogen). <mark class="hl hl-m2" id="h-l2_m2-071-a" data-back="sum-h-l2_m2-071" data-zh-m2="兩邊各做 PCR 擴 cBC-gBC 配對、分別定序" data-pids-m2="h-l2_m2-071">CRS barcodes (cBC) and landing pad barcodes (gBC) were then amplified from cDNA (2 replicates per sample) and gDNA</mark> (10 replicates with 700 ng, 40 replicates with 75 ng and 40 replicates with 500 ng) using primers LP32 and LP33 (98 °C for 1 min, 20 cycles: 98 °C for 30 s, 57 °C for 30 s, 72 °C for 30 s, and 72 °C for 5 min; NEB HF Phusion MM). All replicates were pooled and digested with EcoRI and SphI. We then ligated Illumina adapters containing multiplexing barcodes. Ligated fragments were further amplified using LP31 and LP30 (98 °C for 1 min, 20 cycles: 98 °C for 30 s, 57 °C for 30 s, 72 °C for 30 s, and 72 °C for 5 min; NEB HF Phusion MM) and gel purified. Barcodes were sequenced on the Illumina NextSeq platform (1 × 150 bp). <mark class="hl hl-m2" id="h-l2_m2-071-b" data-back="sum-h-l2_m2-071" data-zh-m2="兩邊各做 PCR 擴 cBC-gBC 配對、分別定序" data-pids-m2="h-l2_m2-071">Reads that contained both a cBC and gBC in the proper sequence context were included in subsequent analysis</mark>. Sequencing resulted in an average of 40.04 million reads for two replicates of DNA and an average of 12.25 million reads for two replicates of RNA. <mark class="hl hl-m2" id="h-l2_m2-072-a" data-back="sum-h-l2_m2-072" data-zh-m2="每個格子的表現量是 $\log_2(\text{RNA 讀數}/\text{DNA 讀數})$" data-pids-m2="h-l2_m2-072">The expression of each barcode at each landing pad is calculated as</mark> \(\log_2(\mathrm{RNA\ reads}/\mathrm{DNA\ reads})\). <mark class="hl hl-m2" id="h-l2_m2-075-a" data-back="sum-h-l2_m2-075" data-zh-m2="同一段 CRS 同一位置的 25 條 cBC 讀數再取平均" data-pids-m2="h-l2_m2-075">We averaged all the cBC measurements for each regulatory element at a given landing pad for both replicates</mark> and used these averages to compare expression across landing pads.</p>
+    <h3>Modeling of MPRA data.</h3>
+    <p>We fit log<sub>2</sub><mark class="hl hl-m4" id="h-l2_m4-012-a" data-back="sum-h-l2_m4-012 sum-h-l2_m4-014" data-zh-m4="實際上作者先對活性取 $\log_2$ ／ 所以程式跑的是 R 語言裡一行 `lm` (linear model) 的加法擬合" data-pids-m4="h-l2_m4-012 h-l2_m4-014">-transformed expression with an additive linear model of CRS and landing pad identities using the lm function in R</mark>. Coefficients were fit in reference to CRS1 and LP1.</p>
+    <h3>Reporting Summary.</h3>
+    <p>Further information on research design is available in the Nature Research Reporting Summary linked to this article.</p>
+    <h3>Data availability.</h3>
+    <p>The raw barcode counts for each library are available in Supplementary Tables 3 and 5. Illumina sequencing data are deposited in the NCBI Short Read Archive (SRA) under accession code PRJNA394868.</p>
+    <ol class="references" start="48">
+      <li>Wong, E.T. et al. Reproducible doxycycline-inducible transgene expression at specific loci generated by Cre-recombinase mediated cassette exchange. Nucleic Acids Res. 33, e147 (2005).</li>
+      <li>Kim, J.H. et al. High cleavage efficiency of a 2A peptide derived from porcine teschovirus-1 in human cell lines, zebrafish and mice. PLoS One 6, e18556 (2011).</li>
+      <li><mark class="hl hl-m2" id="h-l2_m2-028-b" data-back="sum-h-l2_m2-028" data-zh-m2="標準流程改自 Akhtar 2013 與 Wang 2012 的 calling cards 協議" data-pids-m2="h-l2_m2-028">Wang, H., Mayhew, D., Chen, X., Johnston, M. &amp; Mitra, R.D. "Calling cards" for DNA-binding proteins in mammalian cells. Genetics 190, 941-949 (2012)</mark>.</li>
+    </ol>
+
+    <h2>Life Sciences Reporting Summary</h2>
+    <p class="meta">Corresponding author(s): Barak Cohen</p>
+    <p class="meta">Initial submission &nbsp;&nbsp; Revised version &nbsp;&nbsp; Final submission</p>
+    <p>Nature Research wishes to improve the reproducibility of the work that we publish. This form is intended for publication with all accepted life science papers and provides structure for consistency and transparency in reporting. Every life science submission will use this form; some list items might not apply to an individual manuscript, but all fields must be completed for clarity.</p>
+    <p>For further information on the points included in this form, see Reporting Life Sciences Research. For further information on Nature Research policies, including our data availability policy, see Authors &amp; Referees and the Editorial Policy Checklist.</p>
+
+    <h3>Experimental design</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Prompt</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>1. Sample size</td><td>Describe how sample size was determined.</td><td>We did not compute a sample size prior to experimentation. In these experiments, an appropriate sample size is determined by the reproducibility of biological replicate experiments. We can conduct an arbitrary number of replicates to detect smaller and smaller effect sizes. This is limited by the number of cells and the number of sequencing reads.</td></tr>
+        <tr><td>2. Data exclusions</td><td>Describe any data exclusions.</td><td>No data were excluded from our analysis.</td></tr>
+        <tr><td>3. Replication</td><td>Describe whether the experimental findings were reliably reproduced.</td><td>All attempts at replication were successful.</td></tr>
+        <tr><td>4. Randomization</td><td>Describe how samples/organisms/participants were allocated into experimental groups.</td><td>This is not relevant to the study. cis-regulatory sequences are the subject of our study. These sequences comprised six groups based on previously published functional genomics data.</td></tr>
+        <tr><td>5. Blinding</td><td>Describe whether the investigators were blinded to group allocation during data collection and/or analysis.</td><td>This is not relevant to the study.</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Note: all studies involving animals and/or human research participants must disclose whether blinding and randomization were used.</p>
+    <h3>6. Statistical parameters</h3>
+    <p>For all figures and tables that use statistical methods, confirm that the following items are present in relevant figure legends (or in the Methods section if additional space is needed).</p>
+    <p class="meta">n/a Confirmed</p>
+    <table class="checklist">
+      <tbody>
+        <tr><td>The exact sample size (n) for each experimental group/condition, given as a discrete number and unit of measurement (animals, litters, cultures, etc.)</td></tr>
+        <tr><td>A description of how samples were collected, noting whether measurements were taken from distinct samples or whether the same sample was measured repeatedly</td></tr>
+        <tr><td>A statement indicating how many times each experiment was replicated</td></tr>
+        <tr><td>The statistical test(s) used and whether they are one- or two-sided (note: only common tests should be described solely by name; more complex techniques should be described in the Methods section)</td></tr>
+        <tr><td>A description of any assumptions or corrections, such as an adjustment for multiple comparisons</td></tr>
+        <tr><td>The test results (e.g. P values) given as exact values whenever possible and with confidence intervals noted</td></tr>
+        <tr><td>A clear description of statistics including central tendency (e.g. median, mean) and variation (e.g. standard deviation, interquartile range)</td></tr>
+        <tr><td>Clearly defined error bars</td></tr>
+      </tbody>
+    </table>
+    <p class="note">See the web collection on statistics for biologists for further resources and guidance.</p>
+
+    <h3>Software</h3>
+    <p class="note">Policy information about availability of computer code</p>
+    <table>
+      <thead><tr><th>Item</th><th>Prompt</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>7. Software</td><td>Describe the software used to analyze the data in this study.</td><td>All code used in this study was custom built. All code is available from authors upon request.</td></tr>
+      </tbody>
+    </table>
+    <p class="note">For manuscripts utilizing custom algorithms or software that are central to the paper but not yet described in the published literature, software must be made available to editors and reviewers upon request. We strongly encourage code deposition in a community repository (e.g. GitHub). Nature Methods guidance for providing algorithms and software for publication provides further information on this topic.</p>
+
+    <h3>Materials and reagents</h3>
+    <p class="note">Policy information about availability of materials</p>
+    <table>
+      <thead><tr><th>Item</th><th>Prompt</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>8. Materials availability</td><td>Indicate whether there are restrictions on availability of unique materials or if these materials are only available for distribution by a for-profit company.</td><td>All unique materials are readily available from authors or from standard commercial sources.</td></tr>
+        <tr><td>9. Antibodies</td><td>Describe the antibodies used and how they were validated for use in the system under study (i.e. assay and species).</td><td>No antibodies were used.</td></tr>
+        <tr><td>10. Eukaryotic cell lines</td><td>a. State the source of each eukaryotic cell line used.</td><td>Human K562 cells were obtained from the Genome Engineering &amp; iPSC Center at Washington University School of Medicine.</td></tr>
+        <tr><td></td><td>b. Describe the method of cell line authentication used.</td><td>None of the cell lines used have been authenticated.</td></tr>
+        <tr><td></td><td>c. Report whether the cell lines were tested for mycoplasma contamination.</td><td>Cell lines were not tested for mycoplasma contamination.</td></tr>
+        <tr><td></td><td>d. If any of the cell lines used are listed in the database of commonly misidentified cell lines maintained by ICLAC, provide a scientific rationale for their use.</td><td>No commonly misidentified cell lines were used.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Animals and human research participants</h3>
+    <p class="note">Policy information about studies involving animals; when reporting animal research, follow the ARRIVE guidelines.</p>
+    <table>
+      <thead><tr><th>Item</th><th>Prompt</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>11. Description of research animals</td><td>Provide details on animals and/or animal-derived materials used in the study.</td><td>No animals were used.</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Policy information about studies involving human research participants</p>
+    <table>
+      <thead><tr><th>Item</th><th>Prompt</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>12. Description of human research participants</td><td>Describe the covariate-relevant population characteristics of the human research participants.</td><td>The study did not involve human research participants.</td></tr>
+      </tbody>
+    </table>
+  </article>
+</main>
+</body>
+</html>
