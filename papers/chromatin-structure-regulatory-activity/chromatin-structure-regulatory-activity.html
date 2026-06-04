@@ -181,7 +181,7 @@
   .color-toggle .ct-item:hover { background: rgba(31,37,43,0.06); }
   .color-toggle .ct-item.is-off { color: #9aa3ad; }
   .ct-swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid currentColor; flex: 0 0 auto; }
-  .ct-swatch-notes { background: #f8fafc; border-color: #6b7280; }
+  .ct-swatch-notes { background: #30363d; border-color: #30363d; }
   .ct-item.is-off .ct-swatch { background: transparent !important; border-style: dashed; }
   .reader-panel details.version.c-summary > summary { background: #FFF3B033; color: #7a5a00; border-left-color: #E8C75A; }
   .reader-panel .module-block.c-summary { background: #FFF3B026; border-left-color: #E8C75A; }
@@ -263,29 +263,31 @@
   @media (max-width: 1100px) {
     main { width: min(980px, calc(100% - 36px)) !important; padding-right: 28px !important; }
     .margin-rail {
-      position: fixed;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      top: auto;
-      width: auto;
-      max-height: 42vh;
-      overflow-y: auto;
+      position: absolute;
+      left: 0;
+      right: auto;
+      top: 0;
+      bottom: auto;
+      width: 100%;
+      height: 0;
+      overflow: visible;
       pointer-events: auto;
       z-index: 90;
-      padding: 4px 0;
-      border: 1px solid rgba(31,37,43,0.16);
-      border-radius: 10px;
-      background: rgba(255,255,255,0.96);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.16);
-      -webkit-overflow-scrolling: touch;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
     .margin-note {
-      position: static !important;
-      width: auto;
+      position: absolute !important;
       right: auto;
-      margin: 8px;
+      width: min(300px, calc(100vw - 28px));
+      max-width: calc(100vw - 28px);
+      margin: 0;
       font-size: 12.5px;
+      z-index: 91;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
     }
     .color-toggle { right: 10px; top: 10px; }
   }
@@ -536,6 +538,9 @@
     function isNarrowViewport() {
       return window.matchMedia ? window.matchMedia('(max-width: 1100px)').matches : window.innerWidth <= 1100;
     }
+    function colorIsOn(colorKey) {
+      return !!(colorKey && enabled && enabled.has(colorKey) && !document.body.classList.contains('off-' + colorKey));
+    }
 
     var notesByMark = new Map();
     var phraseTargets = new Map();
@@ -605,7 +610,7 @@
         anchorCycle.set(key, (idx + 1) % ids.length);
         if (!target) return;
         target.scrollIntoView({behavior: 'smooth', block: 'center'});
-        if (colorKey && document.body.classList.contains('off-' + colorKey)) {
+        if (colorKey && !colorIsOn(colorKey)) {
           clearSelection();
           return;
         }
@@ -619,8 +624,14 @@
       mark.addEventListener('click', function(ev) {
         ev.preventDefault();
         ev.stopPropagation();
-        var backs = (mark.getAttribute('data-back') || '').split(/\s+/).filter(Boolean);
-        if (!backs.length) return;
+        var backs = (mark.getAttribute('data-back') || '').split(/\s+/).filter(function(id) {
+          var anchor = document.getElementById(id);
+          return colorIsOn(classColor(anchor, 'hl-'));
+        });
+        if (!backs.length) {
+          clearSelection();
+          return;
+        }
         var idx = markCycle.get(mark.id) || 0;
         var anchor = document.getElementById(backs[idx % backs.length]);
         markCycle.set(mark.id, (idx + 1) % backs.length);
@@ -629,10 +640,6 @@
         while (parent) { parent.open = true; parent = parent.parentElement ? parent.parentElement.closest('details') : null; }
         anchor.scrollIntoView({behavior: 'smooth', block: 'center'});
         var colorKey = classColor(anchor, 'hl-');
-        if (colorKey && document.body.classList.contains('off-' + colorKey)) {
-          clearSelection();
-          return;
-        }
         var note = colorKey ? noteForMarkColor(mark, colorKey) : null;
         selectPair(mark, note);
       });
@@ -665,11 +672,35 @@
       inLayout = true;
       try {
         resetRailPads();
+        var mainRect = main.getBoundingClientRect();
         if (isNarrowViewport()) {
-          rail.querySelectorAll('.margin-note').forEach(function(note) { note.style.top = ''; });
+          var stackByMark = new Map();
+          rail.querySelectorAll('.margin-note').forEach(function(note) {
+            note.style.top = '';
+            note.style.left = '';
+            note.style.right = '';
+          });
+          marks.forEach(function(mark) {
+            var row = notesByMark.get(mark) || {};
+            COLORS.forEach(function(color) {
+              var note = row[color];
+              if (!note || !noteVisible(note)) return;
+              var markRect = mark.getBoundingClientRect();
+              var noteWidth = note.offsetWidth || Math.min(300, window.innerWidth - 28);
+              var maxLeft = Math.max(0, main.clientWidth - noteWidth);
+              var left = Math.min(Math.max(0, markRect.left - mainRect.left), maxLeft);
+              var stack = stackByMark.get(mark) || 0;
+              note.style.left = left + 'px';
+              note.style.top = (markRect.bottom - mainRect.top + 4 + stack) + 'px';
+              stackByMark.set(mark, stack + note.offsetHeight + 6);
+            });
+          });
           return;
         }
-        var mainRect = main.getBoundingClientRect();
+        rail.querySelectorAll('.margin-note').forEach(function(note) {
+          note.style.left = '';
+          note.style.right = '';
+        });
         var blockEntries = new Map();
         marks.forEach(function(mark) {
           var block = blockForMark(mark);
