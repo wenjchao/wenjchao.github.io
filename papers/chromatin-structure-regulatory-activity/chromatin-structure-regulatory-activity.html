@@ -170,9 +170,11 @@
   mark.hl.hl-none { background: transparent !important; box-shadow: none !important; outline: 0 !important; cursor: default; padding: 0; border-radius: 0; }
   .margin-rail { position: absolute; top: 0; right: 16px; width: 308px; pointer-events: none; font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
   body.notes-closed .margin-rail { display: none !important; }
-  .margin-note { position: absolute; right: 0; width: 296px; box-sizing: border-box; pointer-events: auto; cursor: pointer; padding: 8px 10px; border: 1px solid rgba(31,37,43,0.15); border-left-width: 3px; border-radius: 6px; font-size: 12px; line-height: 1.5; color: #20262d; background: #fff; transition: top .18s ease, box-shadow .14s ease, border-color .14s ease, opacity .14s ease; }
+  body.notes-closed .margin-note { display: none !important; }
+  .margin-note { display: block; position: absolute; right: 0; width: 296px; box-sizing: border-box; pointer-events: auto; cursor: pointer; padding: 8px 10px; border: 1px solid rgba(31,37,43,0.15); border-left-width: 3px; border-radius: 6px; font-size: 12px; line-height: 1.5; color: #20262d; background: #fff; transition: top .18s ease, box-shadow .14s ease, border-color .14s ease, opacity .14s ease; }
   .margin-note.is-active { border-color: rgba(31,37,43,0.32); }
   .margin-note.is-selected { z-index: 3; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+  .mobile-note-slot { display: none; }
   .note-next { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: rgba(255,255,255,0.72); font-size: 11px; white-space: nowrap; }
   .note-next:hover { background: rgba(255,255,255,0.96); }
   .color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; width: 148px; padding: 10px 10px 8px; box-sizing: border-box; border: 1px solid rgba(31,37,43,0.16); border-radius: 8px; background: rgba(255,255,255,0.94); box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
@@ -280,15 +282,16 @@
       box-shadow: none;
     }
     .margin-note {
-      position: absolute !important;
+      position: static !important;
       right: auto;
       width: min(300px, calc(100vw - 28px));
       max-width: calc(100vw - 28px);
-      margin: 0;
+      margin: 5px 0 9px;
       font-size: 12.5px;
-      z-index: 91;
       box-shadow: 0 6px 20px rgba(0,0,0,0.18);
     }
+    .mobile-note-slot { display: block; clear: both; }
+    body.notes-closed .mobile-note-slot { display: none !important; }
     .color-toggle { right: 10px; top: 10px; }
   }
 </style>
@@ -552,6 +555,57 @@
     rail.className = 'margin-rail';
     main.appendChild(rail);
     var marks = Array.from(main.querySelectorAll('mark.hl[data-back]'));
+    var mobileSlotByMark = new Map();
+    var notesInFlow = false;
+    function slotForMark(mark) {
+      var slot = mobileSlotByMark.get(mark);
+      if (!slot) {
+        slot = document.createElement('span');
+        slot.className = 'mobile-note-slot';
+        var next = mark.nextSibling;
+        if (next && next.nodeType === Node.TEXT_NODE) {
+          var punct = next.nodeValue.match(/^[，。！？；：、,.!?;:)\]）？」』》]+/);
+          if (punct) {
+            next.splitText(punct[0].length);
+            mark.parentNode.insertBefore(slot, next.nextSibling);
+          } else {
+            mark.insertAdjacentElement('afterend', slot);
+          }
+        } else {
+          mark.insertAdjacentElement('afterend', slot);
+        }
+        mobileSlotByMark.set(mark, slot);
+      }
+      return slot;
+    }
+    function moveNotesToFlow() {
+      if (notesInFlow) return;
+      marks.forEach(function(mark) {
+        var slot = slotForMark(mark);
+        var row = notesByMark.get(mark) || {};
+        COLORS.forEach(function(color) {
+          var note = row[color];
+          if (!note) return;
+          note.style.top = '';
+          note.style.left = '';
+          note.style.right = '';
+          slot.appendChild(note);
+        });
+      });
+      notesInFlow = true;
+    }
+    function moveNotesToRail() {
+      if (!notesInFlow) return;
+      marks.forEach(function(mark) {
+        var row = notesByMark.get(mark) || {};
+        COLORS.forEach(function(color) {
+          var note = row[color];
+          if (!note) return;
+          rail.appendChild(note);
+        });
+      });
+      notesInFlow = false;
+    }
     marks.forEach(function(mark) {
       var row = {};
       notesByMark.set(mark, row);
@@ -559,7 +613,7 @@
         var match = attr.name.match(/^data-zh-([a-z0-9]+)$/);
         if (!match) return;
         var colorKey = match[1];
-        var note = document.createElement('div');
+        var note = document.createElement('span');
         note.className = 'margin-note n-' + colorKey;
         note.innerHTML = convertMath(escapeHtml(attr.value));
         note.addEventListener('click', function(ev) {
@@ -672,31 +726,12 @@
       inLayout = true;
       try {
         resetRailPads();
-        var mainRect = main.getBoundingClientRect();
         if (isNarrowViewport()) {
-          var stackByMark = new Map();
-          rail.querySelectorAll('.margin-note').forEach(function(note) {
-            note.style.top = '';
-            note.style.left = '';
-            note.style.right = '';
-          });
-          marks.forEach(function(mark) {
-            var row = notesByMark.get(mark) || {};
-            COLORS.forEach(function(color) {
-              var note = row[color];
-              if (!note || !noteVisible(note)) return;
-              var markRect = mark.getBoundingClientRect();
-              var noteWidth = note.offsetWidth || Math.min(300, window.innerWidth - 28);
-              var maxLeft = Math.max(0, main.clientWidth - noteWidth);
-              var left = Math.min(Math.max(0, markRect.left - mainRect.left), maxLeft);
-              var stack = stackByMark.get(mark) || 0;
-              note.style.left = left + 'px';
-              note.style.top = (markRect.bottom - mainRect.top + 4 + stack) + 'px';
-              stackByMark.set(mark, stack + note.offsetHeight + 6);
-            });
-          });
+          moveNotesToFlow();
           return;
         }
+        moveNotesToRail();
+        var mainRect = main.getBoundingClientRect();
         rail.querySelectorAll('.margin-note').forEach(function(note) {
           note.style.left = '';
           note.style.right = '';
@@ -770,8 +805,8 @@
       if (!window.MathJax) return;
       var ready = (MathJax.startup && MathJax.startup.promise) || Promise.resolve();
       ready.then(function() {
-        if (MathJax.typesetPromise) return MathJax.typesetPromise([panel, rail]).then(scheduleReposition);
-        if (MathJax.typeset) { MathJax.typeset([panel, rail]); scheduleReposition(); }
+        if (MathJax.typesetPromise) return MathJax.typesetPromise([main]).then(scheduleReposition);
+        if (MathJax.typeset) { MathJax.typeset([main]); scheduleReposition(); }
       }).catch(function() { scheduleReposition(); });
     }
     typesetRailAndPanel();
