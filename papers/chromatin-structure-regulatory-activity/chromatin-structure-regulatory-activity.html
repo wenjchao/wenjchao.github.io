@@ -169,17 +169,19 @@
   a.hl.is-selected { box-shadow: 0 0 0 2.5px var(--sel-color, #444), 0 4px 12px rgba(0,0,0,0.18); border-radius: 3px; position: relative; z-index: 2; }
   mark.hl.hl-none { background: transparent !important; box-shadow: none !important; outline: 0 !important; cursor: default; padding: 0; border-radius: 0; }
   .margin-rail { position: absolute; top: 0; right: 16px; width: 308px; pointer-events: none; font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
+  body.notes-closed .margin-rail { display: none !important; }
   .margin-note { position: absolute; right: 0; width: 296px; box-sizing: border-box; pointer-events: auto; cursor: pointer; padding: 8px 10px; border: 1px solid rgba(31,37,43,0.15); border-left-width: 3px; border-radius: 6px; font-size: 12px; line-height: 1.5; color: #20262d; background: #fff; transition: top .18s ease, box-shadow .14s ease, border-color .14s ease, opacity .14s ease; }
   .margin-note.is-active { border-color: rgba(31,37,43,0.32); }
   .margin-note.is-selected { z-index: 3; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
   .note-next { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: rgba(255,255,255,0.72); font-size: 11px; white-space: nowrap; }
   .note-next:hover { background: rgba(255,255,255,0.96); }
-  .color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; width: 136px; padding: 10px 10px 8px; box-sizing: border-box; border: 1px solid rgba(31,37,43,0.16); border-radius: 8px; background: rgba(255,255,255,0.94); box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
+  .color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; width: 148px; padding: 10px 10px 8px; box-sizing: border-box; border: 1px solid rgba(31,37,43,0.16); border-radius: 8px; background: rgba(255,255,255,0.94); box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; }
   .color-toggle .ct-title { margin: 0 0 6px; font-size: 12px; font-weight: 760; color: #30363d; }
   .color-toggle .ct-item { display: flex; align-items: center; gap: 7px; width: 100%; padding: 4px 3px; border: 0; background: transparent; cursor: pointer; color: #30363d; font-size: 12px; text-align: left; border-radius: 5px; }
   .color-toggle .ct-item:hover { background: rgba(31,37,43,0.06); }
   .color-toggle .ct-item.is-off { color: #9aa3ad; }
   .ct-swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid currentColor; flex: 0 0 auto; }
+  .ct-swatch-notes { background: #f8fafc; border-color: #6b7280; }
   .ct-item.is-off .ct-swatch { background: transparent !important; border-style: dashed; }
   .reader-panel details.version.c-summary > summary { background: #FFF3B033; color: #7a5a00; border-left-color: #E8C75A; }
   .reader-panel .module-block.c-summary { background: #FFF3B026; border-left-color: #E8C75A; }
@@ -192,8 +194,6 @@
   .margin-note.n-summary.is-selected { border-color: #7a5a00; background: #FFF3B066; }
   .ct-swatch-summary { background: #FFF3B0; border-color: #E8C75A; }
   body.off-summary .margin-note.n-summary { display: none; }
-  body.off-summary a.hl.hl-summary { opacity: .4; pointer-events: none; }
-  body.off-summary .reader-panel details.version.c-summary { opacity: .35; pointer-events: none; }
   .reader-panel details.version.c-m1 > summary { background: #FFB3BA33; color: #8a2330; border-left-color: #E08594; }
   .reader-panel .module-block.c-m1 { background: #FFB3BA26; border-left-color: #E08594; }
   .reader-panel .module-block.c-m1 .module-thesis strong { color: #8a2330; }
@@ -205,8 +205,6 @@
   .margin-note.n-m1.is-selected { border-color: #8a2330; background: #FFB3BA66; }
   .ct-swatch-m1 { background: #FFB3BA; border-color: #E08594; }
   body.off-m1 .margin-note.n-m1 { display: none; }
-  body.off-m1 a.hl.hl-m1 { opacity: .4; pointer-events: none; }
-  body.off-m1 .reader-panel .module-block.c-m1 { opacity: .35; pointer-events: none; }
   .reader-panel details.version.c-m2 > summary { background: #C8E6C933; color: #1f5c2e; border-left-color: #88BF8B; }
   .reader-panel .module-block.c-m2 { background: #C8E6C926; border-left-color: #88BF8B; }
   .reader-panel .module-block.c-m2 .module-thesis strong { color: #1f5c2e; }
@@ -218,8 +216,6 @@
   .margin-note.n-m2.is-selected { border-color: #1f5c2e; background: #C8E6C966; }
   .ct-swatch-m2 { background: #C8E6C9; border-color: #88BF8B; }
   body.off-m2 .margin-note.n-m2 { display: none; }
-  body.off-m2 a.hl.hl-m2 { opacity: .4; pointer-events: none; }
-  body.off-m2 .reader-panel .module-block.c-m2 { opacity: .35; pointer-events: none; }
   .reader-panel details.version.c-m3 > summary { background: #B3D9FF33; color: #1b4d80; border-left-color: #7AB2E0; }
   .reader-panel .module-block.c-m3 { background: #B3D9FF26; border-left-color: #7AB2E0; }
   .reader-panel .module-block.c-m3 .module-thesis strong { color: #1b4d80; }
@@ -231,8 +227,6 @@
   .margin-note.n-m3.is-selected { border-color: #1b4d80; background: #B3D9FF66; }
   .ct-swatch-m3 { background: #B3D9FF; border-color: #7AB2E0; }
   body.off-m3 .margin-note.n-m3 { display: none; }
-  body.off-m3 a.hl.hl-m3 { opacity: .4; pointer-events: none; }
-  body.off-m3 .reader-panel .module-block.c-m3 { opacity: .35; pointer-events: none; }
   .reader-panel details.version.c-m4 > summary { background: #FFD9B333; color: #7a3d00; border-left-color: #E0A66E; }
   .reader-panel .module-block.c-m4 { background: #FFD9B326; border-left-color: #E0A66E; }
   .reader-panel .module-block.c-m4 .module-thesis strong { color: #7a3d00; }
@@ -244,8 +238,6 @@
   .margin-note.n-m4.is-selected { border-color: #7a3d00; background: #FFD9B366; }
   .ct-swatch-m4 { background: #FFD9B3; border-color: #E0A66E; }
   body.off-m4 .margin-note.n-m4 { display: none; }
-  body.off-m4 a.hl.hl-m4 { opacity: .4; pointer-events: none; }
-  body.off-m4 .reader-panel .module-block.c-m4 { opacity: .35; pointer-events: none; }
   .reader-panel details.version.c-m5 > summary { background: #E1BEE733; color: #5a2a6e; border-left-color: #B287B9; }
   .reader-panel .module-block.c-m5 { background: #E1BEE726; border-left-color: #B287B9; }
   .reader-panel .module-block.c-m5 .module-thesis strong { color: #5a2a6e; }
@@ -257,8 +249,6 @@
   .margin-note.n-m5.is-selected { border-color: #5a2a6e; background: #E1BEE766; }
   .ct-swatch-m5 { background: #E1BEE7; border-color: #B287B9; }
   body.off-m5 .margin-note.n-m5 { display: none; }
-  body.off-m5 a.hl.hl-m5 { opacity: .4; pointer-events: none; }
-  body.off-m5 .reader-panel .module-block.c-m5 { opacity: .35; pointer-events: none; }
   .reader-panel details.version.c-m6 > summary { background: #B2EBF233; color: #1d5d68; border-left-color: #7DC6CF; }
   .reader-panel .module-block.c-m6 { background: #B2EBF226; border-left-color: #7DC6CF; }
   .reader-panel .module-block.c-m6 .module-thesis strong { color: #1d5d68; }
@@ -270,11 +260,33 @@
   .margin-note.n-m6.is-selected { border-color: #1d5d68; background: #B2EBF266; }
   .ct-swatch-m6 { background: #B2EBF2; border-color: #7DC6CF; }
   body.off-m6 .margin-note.n-m6 { display: none; }
-  body.off-m6 a.hl.hl-m6 { opacity: .4; pointer-events: none; }
-  body.off-m6 .reader-panel .module-block.c-m6 { opacity: .35; pointer-events: none; }
   @media (max-width: 1100px) {
     main { width: min(980px, calc(100% - 36px)) !important; padding-right: 28px !important; }
-    .margin-rail { display: none; }
+    .margin-rail {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      top: auto;
+      width: auto;
+      max-height: 42vh;
+      overflow-y: auto;
+      pointer-events: auto;
+      z-index: 90;
+      padding: 4px 0;
+      border: 1px solid rgba(31,37,43,0.16);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+      -webkit-overflow-scrolling: touch;
+    }
+    .margin-note {
+      position: static !important;
+      width: auto;
+      right: auto;
+      margin: 8px;
+      font-size: 12.5px;
+    }
     .color-toggle { right: 10px; top: 10px; }
   }
 </style>
@@ -521,6 +533,9 @@
     function convertMath(t) {
       return String(t).replace(/(^|[^\\])\$([^$]*?[^\\])\$/g, function(m, lead, body) { return lead + '\\(' + body + '\\)'; });
     }
+    function isNarrowViewport() {
+      return window.matchMedia ? window.matchMedia('(max-width: 1100px)').matches : window.innerWidth <= 1100;
+    }
 
     var notesByMark = new Map();
     var phraseTargets = new Map();
@@ -582,7 +597,6 @@
       a.addEventListener('click', function(ev) {
         ev.preventDefault();
         var colorKey = classColor(a, 'hl-');
-        if (colorKey && document.body.classList.contains('off-' + colorKey)) return;
         var ids = (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean);
         if (!ids.length) return;
         var key = a.getAttribute('data-id') || a.id;
@@ -591,6 +605,10 @@
         anchorCycle.set(key, (idx + 1) % ids.length);
         if (!target) return;
         target.scrollIntoView({behavior: 'smooth', block: 'center'});
+        if (colorKey && document.body.classList.contains('off-' + colorKey)) {
+          clearSelection();
+          return;
+        }
         var note = colorKey ? noteForMarkColor(target, colorKey) : null;
         selectPair(target, note);
       });
@@ -611,6 +629,10 @@
         while (parent) { parent.open = true; parent = parent.parentElement ? parent.parentElement.closest('details') : null; }
         anchor.scrollIntoView({behavior: 'smooth', block: 'center'});
         var colorKey = classColor(anchor, 'hl-');
+        if (colorKey && document.body.classList.contains('off-' + colorKey)) {
+          clearSelection();
+          return;
+        }
         var note = colorKey ? noteForMarkColor(mark, colorKey) : null;
         selectPair(mark, note);
       });
@@ -643,6 +665,10 @@
       inLayout = true;
       try {
         resetRailPads();
+        if (isNarrowViewport()) {
+          rail.querySelectorAll('.margin-note').forEach(function(note) { note.style.top = ''; });
+          return;
+        }
         var mainRect = main.getBoundingClientRect();
         var blockEntries = new Map();
         marks.forEach(function(mark) {
@@ -721,8 +747,9 @@
 
     var toggle = document.createElement('div');
     toggle.className = 'color-toggle';
-    toggle.innerHTML = '<div class="ct-title">顯示主題</div>';
-    var enabled = new Set(COLORS);
+    toggle.innerHTML = '<div class="ct-title">顯示</div>';
+    var enabled = new Set(isNarrowViewport() ? ['summary'] : COLORS);
+    var notesOpen = true;
     function chooseBase(mark) {
       if (enabled.has('summary') && (mark.getAttribute('data-pids-summary') || '').trim()) return 'summary';
       var best = null;
@@ -745,6 +772,20 @@
         mark.classList.add(base ? 'hl-' + base : 'hl-none');
       });
     }
+    var notesItem = document.createElement('button');
+    notesItem.type = 'button';
+    notesItem.className = 'ct-item';
+    notesItem.setAttribute('data-action', 'notes');
+    notesItem.innerHTML = '<span class="ct-swatch ct-swatch-notes"></span><span>開啟卡片</span>';
+    notesItem.addEventListener('click', function(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      notesOpen = !notesOpen;
+      document.body.classList.toggle('notes-closed', !notesOpen);
+      notesItem.classList.toggle('is-off', !notesOpen);
+      scheduleReposition();
+    });
+    toggle.appendChild(notesItem);
     COLORS.forEach(function(color) {
       var item = document.createElement('button');
       item.type = 'button';
@@ -766,9 +807,15 @@
         rebaseMarks();
         scheduleReposition();
       });
+      if (!enabled.has(color)) {
+        document.body.classList.add('off-' + color);
+        item.classList.add('is-off');
+      }
       toggle.appendChild(item);
     });
     document.body.appendChild(toggle);
+    rebaseMarks();
+    scheduleReposition();
 
     document.addEventListener('click', function(ev) {
       if (ev.target.closest('.hl, .margin-note, .note-next, .color-toggle')) return;
