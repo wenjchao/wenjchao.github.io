@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Build index.html from papers/<folder>/<folder>_summary.md files.
+"""Update papers/index.html cards section from <folder>/<folder>_summary.md.
 
-Each paper folder must contain:
-  - <folder>.html          the paper HTML (link target)
-  - <folder>_summary.md    YAML frontmatter with `title:` + a `# 主線` section
+papers/index.html is hand-maintained (layout, CSS, header, etc. all yours).
+This script only replaces content between the markers:
+
+    <!-- BEGIN PAPERS -->
+    ...cards generated from each paper folder's _summary.md...
+    <!-- END PAPERS -->
 """
 import html
 import re
@@ -12,6 +15,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PAPERS_DIR = ROOT / "papers"
+INDEX_HTML = PAPERS_DIR / "index.html"
+
+BEGIN = "<!-- BEGIN PAPERS -->"
+END = "<!-- END PAPERS -->"
 
 FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.DOTALL)
 TITLE_RE = re.compile(r"^title\s*:\s*(.+?)\s*$", re.MULTILINE)
@@ -71,77 +78,62 @@ def find_papers():
     return items
 
 
-def render(items):
-    if items:
-        cards = []
-        for it in items:
-            title_h = html.escape(it["title"])
-            href_h = html.escape(it["href"])
-            summary_block = ""
-            if it["summary"]:
-                summary_block = f'        <p class="summary">{html.escape(it["summary"])}</p>\n'
-            cards.append(
-                f'    <li class="paper">\n'
-                f'      <a href="{href_h}">\n'
-                f'        <h2>{title_h}</h2>\n'
-                f'{summary_block}'
-                f'      </a>\n'
-                f'    </li>'
+def render_cards(items, indent="      "):
+    if not items:
+        return f'{indent}<li class="empty">尚未有 paper。</li>'
+    cards = []
+    for it in items:
+        title_h = html.escape(it["title"])
+        href_h = html.escape(it["href"])
+        summary_block = ""
+        if it["summary"]:
+            summary_block = (
+                f'{indent}    <p class="summary">'
+                f'{html.escape(it["summary"])}</p>\n'
             )
-        body = "\n".join(cards)
-    else:
-        body = '    <li class="empty">尚未有 paper。</li>'
-
-    return f"""<!doctype html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Papers — wenjchao</title>
-  <style>
-    :root {{ --ink:#1f252b; --muted:#5c6670; --rule:#d8dde3; }}
-    * {{ box-sizing: border-box; }}
-    body {{
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
-      color: var(--ink);
-      background: #fff;
-      line-height: 1.55;
-    }}
-    main {{ max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }}
-    header h1 {{ font-size: 28px; margin: 0 0 8px; letter-spacing: -0.01em; }}
-    header p {{ color: var(--muted); margin: 0 0 40px; font-size: 14px; }}
-    ul.papers {{ list-style: none; padding: 0; margin: 0; }}
-    li.paper {{ border-top: 1px solid var(--rule); }}
-    li.paper:last-child {{ border-bottom: 1px solid var(--rule); }}
-    li.paper a {{ display: block; padding: 22px 4px; color: inherit; text-decoration: none; }}
-    li.paper a:hover {{ background: #f6f8fa; }}
-    li.paper h2 {{ font-size: 17px; font-weight: 600; margin: 0 0 6px; line-height: 1.35; }}
-    li.paper .summary {{ margin: 0; color: var(--muted); font-size: 14px; }}
-    li.empty {{ color: var(--muted); padding: 22px 4px; }}
-  </style>
-</head>
-<body>
-  <main>
-    <header>
-      <h1>Papers</h1>
-      <p>Reading notes by wenjchao.</p>
-    </header>
-    <ul class="papers">
-{body}
-    </ul>
-  </main>
-</body>
-</html>
-"""
+        cards.append(
+            f'{indent}<li class="paper">\n'
+            f'{indent}  <a href="{href_h}">\n'
+            f'{indent}    <h2>{title_h}</h2>\n'
+            f'{summary_block}'
+            f'{indent}  </a>\n'
+            f'{indent}</li>'
+        )
+    return "\n".join(cards)
 
 
 def main():
     items = find_papers()
-    out = PAPERS_DIR / "index.html"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(render(items), encoding="utf-8")
-    print(f"wrote {out.relative_to(ROOT)} ({len(items)} paper(s))")
+
+    if not INDEX_HTML.exists():
+        sys.exit(
+            f"error: {INDEX_HTML.relative_to(ROOT)} does not exist.\n"
+            f"Create it with {BEGIN} and {END} markers where the paper list should go."
+        )
+
+    text = INDEX_HTML.read_text(encoding="utf-8")
+    if BEGIN not in text or END not in text:
+        sys.exit(
+            f"error: {INDEX_HTML.relative_to(ROOT)} is missing the {BEGIN} or {END} marker."
+        )
+
+    cards = render_cards(items)
+    pattern = re.compile(
+        re.escape(BEGIN) + r".*?" + re.escape(END),
+        re.DOTALL,
+    )
+    # Match the indent that precedes the END marker so it stays aligned.
+    m = re.search(r"([ \t]*)" + re.escape(END), text)
+    end_indent = m.group(1) if m else "    "
+    replacement = f"{BEGIN}\n{cards}\n{end_indent}{END}"
+    new_text = pattern.sub(replacement, text, count=1)
+
+    if new_text == text:
+        print(f"no change ({len(items)} paper(s))")
+        return
+
+    INDEX_HTML.write_text(new_text, encoding="utf-8")
+    print(f"updated {INDEX_HTML.relative_to(ROOT)} ({len(items)} paper(s))")
 
 
 if __name__ == "__main__":
