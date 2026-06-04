@@ -814,7 +814,7 @@
     var toggle = document.createElement('div');
     toggle.className = 'color-toggle';
     toggle.innerHTML = '<div class="ct-title">顯示</div>';
-    var enabled = new Set(isNarrowViewport() ? ['summary'] : COLORS);
+    var enabled = new Set(['summary']);
     var notesOpen = true;
     function chooseBase(mark) {
       if (enabled.has('summary') && (mark.getAttribute('data-pids-summary') || '').trim()) return 'summary';
