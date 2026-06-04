@@ -64,7 +64,7 @@ def find_papers():
             continue
         title, main_line = parse_summary(summary_path)
         items.append({
-            "href": html_path.relative_to(ROOT).as_posix(),
+            "href": html_path.relative_to(PAPERS_DIR).as_posix(),
             "title": title or sub.name,
             "summary": main_line,
         })
@@ -138,8 +138,10 @@ def render(items):
 
 def main():
     items = find_papers()
-    (ROOT / "index.html").write_text(render(items), encoding="utf-8")
-    print(f"wrote index.html ({len(items)} paper(s))")
+    out = PAPERS_DIR / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(render(items), encoding="utf-8")
+    print(f"wrote {out.relative_to(ROOT)} ({len(items)} paper(s))")
 
 
 if __name__ == "__main__":
