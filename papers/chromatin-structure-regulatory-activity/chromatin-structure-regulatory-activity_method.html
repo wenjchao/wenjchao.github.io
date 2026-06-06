@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Method Toolchain Breakdown – chromatin-structure-regulatory-activity</title>
+<style>
+:root {
+  --bg: #fafaf7;
+  --fg: #1f2933;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #d8d4c8;
+  --accent: #2b6cb0;
+  --accent-soft: #e9f0f7;
+  --mech: #fff3d6;
+  --design: #e3f3e9;
+  --fail: #fde7e0;
+  --highlight: #fff0b3;
+  --source-hl: #d6ebff;
+}
+* { box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang TC", "Noto Sans CJK TC", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--fg); margin: 0; line-height: 1.65; font-size: 15px; }
+main { max-width: 1240px; margin: 0 auto; padding: 32px 24px 64px; }
+h1 { font-size: 22px; margin: 0; }
+h2 { font-size: 18px; margin: 24px 0 12px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); }
+.module-section { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin-bottom: 36px; background: #fffefb; }
+.module-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.subitem-badge { background: var(--accent); color: white; font-weight: 600; padding: 4px 10px; border-radius: 12px; font-size: 13px; letter-spacing: 0.5px; }
+thinking_process { display: block; }
+.step-section { margin: 20px 0; }
+.node-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; }
+.trace-node { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; transition: background 0.15s, border-color 0.15s, box-shadow 0.15s; }
+.trace-node.is-active { background: var(--highlight); border-color: #c9a700; box-shadow: 0 0 0 2px rgba(255, 200, 0, 0.18); }
+.trace-node.is-source { background: var(--source-hl); border-color: var(--accent); }
+.node-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.node-id { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 6px; border-radius: 3px; }
+.tag { font-size: 11px; padding: 2px 6px; border-radius: 3px; background: #ede9d9; color: #5a4a1a; }
+.tag[data-cat="mech"] { background: var(--mech); color: #6b4a00; }
+.tag[data-cat="design"] { background: var(--design); color: #1a5a3a; }
+.tag[data-cat="fail"] { background: var(--fail); color: #8a3020; }
+.node-body { margin: 0; font-size: 14px; }
+.question-text { display: block; font-weight: 600; margin-bottom: 4px; color: #2b4365; }
+.answer-text { margin: 4px 0; }
+.source-links { display: flex; gap: 6px; align-items: center; margin-top: 6px; font-size: 11px; color: var(--muted); }
+.source-label { font-size: 10px; }
+.source-link, .final-source { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 11px; color: var(--accent); text-decoration: none; background: var(--accent-soft); padding: 1px 5px; border-radius: 3px; }
+.source-link:hover, .final-source:hover { text-decoration: underline; }
+.baseline-known-terms { background: #f5f1e6; border: 1px dashed #c8bd99; border-radius: 6px; padding: 10px 14px; margin: 20px 0; }
+.baseline-known-terms header { font-weight: 600; font-size: 13px; color: #6a5a20; margin-bottom: 6px; }
+.baseline-known-terms ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.baseline-term-chip { background: #fff8e0; border: 1px solid #d4c178; color: #5a4a10; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.baseline-term-chip.is-empty { background: transparent; border-style: dashed; color: var(--muted); }
+.final-output { margin-top: 24px; padding-top: 16px; border-top: 2px solid var(--border); }
+.final-output h2 { border-bottom: none; }
+.final-para { display: grid; grid-template-columns: 60px 1fr; gap: 12px; margin-bottom: 14px; align-items: start; }
+.final-map { display: flex; flex-direction: column; gap: 4px; padding-top: 2px; }
+.final-para p { margin: 0; padding: 8px 12px; background: #fbf9f1; border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0; }
+</style>
+</head>
+<body>
+<main>
+<header style="margin-bottom: 32px;">
+  <h1 style="font-size: 26px;">方法論工具箱拆解</h1>
+  <p style="color: var(--muted); margin: 4px 0 0;">A massively parallel reporter assay dissects the influence of chromatin structure on cis-regulatory activity (patchMPRA)</p>
+</header>
+<article class="module-section" id="module_1_landing-pad">
+<header class="module-header">
+  <span class="subitem-badge">2-A</span>
+  <h1>慢病毒載體與 Landing Pad (插槽) 建立</h1>
+</header>
+<thinking_process>
+<section class="step-section" id="step-1">
+<h2>Step 1：主線、比喻與核心名詞鷹架</h2>
+<div class="node-grid">
+<article class="trace-node" id="s1-a">
+  <div class="node-top"><span class="node-id">S1-A</span><span class="tag">主線</span></div>
+  <p class="node-body">在細胞基因組中隨機且單一地插入帶有條碼的「插槽」，作為後續實驗的基礎。</p>
+</article>
+<article class="trace-node" id="s1-b">
+  <div class="node-top"><span class="node-id">S1-B</span><span class="tag">核心名詞鷹架</span></div>
+  <p class="node-body">慢病毒 (Lentivirus)；自己關機的長重複片段 (self-inactivating LTR)；不對稱的辨識位點 (loxFAS / loxP)；可正可負篩選的兩用蛋白 (Hyg/TK fusion)；一鏈翻譯出兩蛋白的拆解碼 (P2A peptide)；綠色螢光蛋白 (eGFP)；篩選用抗生素 (Hygromycin)；殺 TK+ 細胞的藥 (Ganciclovir)；病毒對細胞的比例 (MOI)；螢光細胞分選 (FACS)；單一細胞長出的純系細胞株 (clonal cell line)。</p>
+</article>
+<article class="trace-node" id="s1-c">
+  <div class="node-top"><span class="node-id">S1-C</span><span class="tag">全局比喻</span></div>
+  <p class="node-body">先在牆上裝好標準規格的插座，之後想換什麼電器都能直接插上去——預埋通用接口，比每次拉新線實在；後續 Cre-lox 卡匣置換、雙條碼定序都會回到這個比喻。</p>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-2">
+<h2>Step 2：深度迭代展開 (針對外行人)</h2>
+<div class="node-grid">
+<article class="trace-node" id="s2-a1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S2-A1</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「在細胞基因組中隨機插入帶有條碼的插槽」具體是在做什麼？</span>
+    <p class="answer-text">答（原始）：作者把一段精心設計的 DNA 片段（包含篩選標記、loxP 位點、12-bp barcode）透過 lentivirus 包裝後感染 K562 細胞，讓這段 DNA 隨機嵌進細胞基因組，並用 barcode 標記每個插入位置。</p>
+    <p class="answer-text">答（精修）：作者要在 K562 細胞的染色體上「先預埋插槽」，之後才能精準替換內容。他們把一段事先設計好的 DNA 片段裝進慢病毒 (Lentivirus) 這個運輸工具，讓病毒把 DNA 隨機塞進細胞基因組的某個位置；DNA 裡帶著一個 12 個鹼基的位置條碼 (gBC)，當作這個插槽「在基因組哪裡」的身分證。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s2-a2" data-source="s2-a1">
+  <div class="node-top"><span class="node-id">S2-A2</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「慢病毒」是什麼？為什麼選慢病毒，不用其他方法把 DNA 塞進去？</span>
+    <p class="answer-text">答（原始）：Lentivirus 屬 retrovirus 家族，能將其攜帶的基因穩定整合到分裂與非分裂細胞的基因組中。</p>
+    <p class="answer-text">答（精修）：慢病毒 (Lentivirus) 是一種改造過的病毒外殼，能像快遞員把外來 DNA「永久黏」進細胞自己的染色體上，分裂中和不分裂的細胞都能感染。比起電穿孔或一般質體轉染，慢病毒的優點是「整合進染色體」——細胞分裂後也不會丟掉這段 DNA，這對「建立純系細胞株後長期培養」是必要條件。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s2-a1">S2-A1</a></div>
+</article>
+<article class="trace-node" id="s2-a3" data-source="s2-a2">
+  <div class="node-top"><span class="node-id">S2-A3</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：論文寫 "modified, self-inactivating" lentivirus，self-inactivating 是什麼意思？為什麼要這個性質？</span>
+    <p class="answer-text">答（原始）：Self-inactivating (SIN) lentivirus 的 3' LTR U3 區被刪除，整合後 5' LTR 失去 promoter 活性。</p>
+    <p class="answer-text">答（精修）：慢病毒兩端有一段叫「長重複片段 (LTR)」的序列，原本自帶啟動子會把附近的基因吵醒；作者把它的啟動子拆掉，整合進染色體後 LTR 就「自己關機」(self-inactivating LTR)。為什麼要這樣？因為這個實驗要量「每個位置對開關的影響力」，如果 LTR 自己一直在 broadcast，量到的訊號會被它污染。(終點：LTR 自己關機的功能性原因講清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s2-a2">S2-A2</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-3">
+<h2>Step 3：機制原理 + 設計理由 + 失敗模式</h2>
+<div class="node-grid">
+<article class="trace-node" id="s3-b1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-B1</span><span class="tag" data-cat="mech">機制原理:三段構造</span></div>
+  <div class="node-body">
+    <span class="question-text">問：插槽核心 `CMV - Hyg/TK fusion - P2A - eGFP` 這串元件為什麼這樣串？</span>
+    <p class="answer-text">答（原始）：CMV promoter 驅動轉錄；Hyg/TK fusion 同時具有 Hygromycin resistance 與 HSV thymidine kinase 活性；P2A 是 self-cleaving peptide，讓上下游 ORF 在轉譯時分成兩個蛋白；eGFP 提供螢光篩選。</p>
+    <p class="answer-text">答（精修）：這串元件其實是「一個強啟動子 (CMV promoter) 一次驅動三個功能」的精巧設計。Hyg/TK fusion 把抗 Hygromycin 的酵素和 HSV 的 thymidine kinase 縫成同一條蛋白，等於同一支鑰匙正反兩面都能用：加 Hygromycin 時 Hyg/TK+ 細胞活下來（正向篩選），之後若想反過來殺掉這群細胞，加 Ganciclovir 就能透過 TK 把細胞變成毒（負向篩選）。中間的 P2A peptide 是一段「拆解碼」，讓同一條 mRNA 翻譯出來自動拆成兩個獨立蛋白——前段是 Hyg/TK、後段是 eGFP 綠色螢光蛋白。eGFP 留給後續 FACS 挑選用。靠這個三合一構造，作者用一條 mRNA 同時拿到「正負向篩選 + 螢光標記」三種能力。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-b2" data-source="s3-b1">
+  <div class="node-top"><span class="node-id">S3-B2</span><span class="tag" data-cat="mech">機制原理:P2A</span></div>
+  <div class="node-body">
+    <span class="question-text">問：P2A 真的能把一條 mRNA 翻譯出來的蛋白「斷成兩個」嗎？分子層面是什麼機制？</span>
+    <p class="answer-text">答（原始）：P2A 屬 2A self-cleaving peptide 家族，源自 picornavirus；機制是 ribosome 在 P2A 序列尾端的 Gly-Pro 鍵發生 ribosomal skipping。</p>
+    <p class="answer-text">答（精修）：嚴格說起來 P2A peptide 不是真的「切」蛋白，而是讓核糖體翻譯到 P2A 尾巴某個位置時「跳過一個鍵」(ribosomal skipping)：前段蛋白直接從核糖體掉出來、後段繼續被翻譯。結果就是同一條 mRNA 翻譯出兩個獨立蛋白。(終點：機制清楚，更細的化學鍵讀者不需要)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-b1">S3-B1</a></div>
+</article>
+<article class="trace-node" id="s3-c1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-C1</span><span class="tag" data-cat="design">設計理由:MOI</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼作者特別強調 MOI = 1（細胞數 = 病毒顆粒數）？這個比例是隨便挑的嗎？</span>
+    <p class="answer-text">答（原始）：MOI = 1 旨在控制每個細胞接收到的病毒顆粒數，根據 Poisson 分布，多數成功感染的細胞會只有一份整合。</p>
+    <p class="answer-text">答（精修）：MOI (multiplicity of infection) 是「平均一顆細胞分到幾顆病毒」。MOI = 1 看起來是 1:1，但病毒顆粒隨機分配（服從 Poisson 分布——很多顆病毒各自獨立找細胞、每顆命中機率很低時的計數模式），實際上多數能成功感染的細胞只會收到一份病毒，少數收到兩份以上。MOI 拉高（例如 5）會讓一顆細胞收到好幾份、染色體出現多個插槽，後續量化時根本分不清哪個訊號對應哪個位置；MOI 拉太低（例如 0.1），成功感染的細胞太少、下游樣本不夠。MOI = 1 是「單一插入率最高、樣本量還夠」的折衷點。(終點：參數背後的取捨講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-D1</span><span class="tag" data-cat="fail">失敗模式:MOI過高</span></div>
+  <div class="node-body">
+    <span class="question-text">問：假設作者沒控制 MOI，讓病毒多打進去（例如 MOI = 5），最後的實驗會壞在哪？</span>
+    <p class="answer-text">答（原始）：MOI 過高會導致大部分細胞含多個整合事件，每顆細胞同時帶多個 gBC，測 RNA 表現量時無法區分到底是哪個位置的開關貢獻的訊號。</p>
+    <p class="answer-text">答（精修）：MOI 拉高的話，一顆細胞會帶好幾個插槽——後續定序看到「這顆細胞表現量很高」時，根本分不清是位置 A、位置 B 還是位置 C 的功勞。整條「位置對活性的影響」資料全部洗成糊的，作者的核心結論直接報廢。(終點：失敗的因果鏈完整)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d2" data-source="s3-d1">
+  <div class="node-top"><span class="node-id">S3-D2</span><span class="tag" data-cat="fail">失敗模式:跳過FACS</span></div>
+  <div class="node-body">
+    <span class="question-text">問：如果跳過 FACS 單細胞分選，直接用 Hygromycin 篩出來的混合細胞群跑下游，會出什麼問題？</span>
+    <p class="answer-text">答（原始）：Hygromycin 只能篩出至少有一份整合的細胞，但不保證單一拷貝；也不能確保所有細胞屬於同一個 clonal 起源。</p>
+    <p class="answer-text">答（精修）：Hygromycin 只能告訴你「這顆細胞至少接到了一份病毒」，不能保證「只接到一份」，也不能保證「同一群細胞共享同一個插槽位置」。如果直接用 Hygromycin 篩完的混合細胞群跑下游定序，會看到 gBC 條碼 a、b、c、d 全部混在一起、每個條碼又對應到不同位置——根本不知道「位置」這個變數是什麼。FACS（螢光細胞分選）把細胞一顆顆挑進 96 孔盤，每孔只長一顆細胞的後代 (clonal cell line)，這個孔的所有細胞才共享同一個 gBC、同一個位置，後續才能拿來做位置 vs. 活性的關聯分析。(終點：跳過這一步會壞的因果完整)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-d1">S3-D1</a></div>
+</article>
+<article class="trace-node" id="s3-d3" data-source="s3-d1">
+  <div class="node-top"><span class="node-id">S3-D3</span><span class="tag" data-cat="fail">失敗模式:負向篩選預留</span></div>
+  <div class="node-body">
+    <span class="question-text">問：Hyg/TK fusion 的負向篩選功能在這個 Landing Pad 步驟有用到嗎？沒用到的話為什麼還要設計進去？</span>
+    <p class="answer-text">答（原始）：負向篩選 (Ganciclovir + TK) 保留供後續 Cre-lox 卡匣置換步驟使用；置換後 Hyg/TK 整段被換成 dsRed。</p>
+    <p class="answer-text">答（精修）：在 Landing Pad 階段只用到正向篩選 (Hygromycin)；負向篩選 (Ganciclovir) 是為後續 Cre-lox 卡匣置換步驟保留的——置換成功後 Hyg/TK 整段被換成 dsRed，剩下沒置換的細胞還帶著 Hyg/TK，可以再用 Ganciclovir 殺乾淨。所以 Hyg/TK fusion 不是這一步用，而是預留的「反向開關」。(終點：未來步驟的伏筆說清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-d1">S3-D1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-4">
+<h2>Step 4：濾渣剪枝後的散文卡片</h2>
+<div class="node-grid">
+<article class="trace-node" id="s4-a" data-source="s2-a1 s2-a2 s2-a3">
+  <div class="node-top"><span class="node-id">S4-A</span><span class="tag">操作骨架</span></div>
+  <p class="node-body">作者要在 K562 細胞的染色體上「先預埋插槽 (landing pad)」，之後才能精準替換內容。他們把一段事先設計好的 DNA 片段裝進慢病毒 (Lentivirus)——一種能像快遞員把外來 DNA 永久黏進細胞染色體的病毒外殼，分裂中和不分裂的細胞都能感染，細胞分裂後也不會丟掉這段 DNA。病毒把 DNA 隨機塞進細胞基因組的某個位置；這段 DNA 帶著一個 12 個鹼基的位置條碼 (gBC)，當作每個插槽「在基因組哪裡」的身分證。慢病毒兩端的長重複片段 (LTR) 原本自帶啟動子會吵醒附近基因，作者把它的啟動子拆掉變成「自己關機」(self-inactivating LTR)，整合進染色體後不會污染後續訊號量測。</p>
+</article>
+<article class="trace-node" id="s4-b" data-source="s3-b1 s3-b2">
+  <div class="node-top"><span class="node-id">S4-B</span><span class="tag" data-cat="mech">構造機制</span></div>
+  <p class="node-body">插槽核心 `CMV - Hyg/TK fusion - P2A - eGFP` 其實是「一個強啟動子 (CMV promoter) 一次驅動三個功能」的精巧設計。Hyg/TK fusion 把抗 Hygromycin 的酵素和 HSV 的 thymidine kinase 縫成同一條蛋白，等於同一支鑰匙正反兩面都能用：加 Hygromycin 時 Hyg/TK+ 細胞活下來（正向篩選），之後若想反過來殺掉這群細胞，加 Ganciclovir 就能透過 TK 把細胞變成毒（負向篩選）。中間的 P2A peptide 是一段拆解碼：核糖體翻譯到 P2A 尾巴某個位置時「跳過一個鍵」(ribosomal skipping)，前段蛋白直接從核糖體掉出來、後段繼續被翻譯，結果就是同一條 mRNA 翻譯出 Hyg/TK 與 eGFP 兩個獨立蛋白。eGFP 是綠色螢光蛋白，留給後續 FACS 挑選用。靠這個三合一構造，作者用一條 mRNA 同時拿到「正負向篩選 + 螢光標記」三種能力。</p>
+</article>
+<article class="trace-node" id="s4-c" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S4-C</span><span class="tag" data-cat="design">參數設計理由</span></div>
+  <p class="node-body">為什麼作者特別強調 MOI = 1？MOI (multiplicity of infection) 是「平均一顆細胞分到幾顆病毒」。看起來是 1:1，但病毒顆粒隨機分配（服從 Poisson 分布——很多顆病毒各自獨立找細胞、每顆命中機率很低時的計數模式），實際上多數能成功感染的細胞只會收到一份病毒，少數收到兩份以上。MOI 拉高（例如 5）會讓一顆細胞收到好幾份、染色體出現多個插槽，後續量化時根本分不清哪個訊號對應哪個位置；MOI 拉太低（例如 0.1），成功感染的細胞太少、下游樣本不夠。MOI = 1 是「單一插入率最高、樣本量還夠」的折衷點。</p>
+</article>
+<article class="trace-node" id="s4-d" data-source="s3-d1 s3-d2 s3-d3">
+  <div class="node-top"><span class="node-id">S4-D</span><span class="tag" data-cat="fail">失敗模式與純系建立</span></div>
+  <p class="node-body">光靠 Hygromycin 篩選還不夠：Hygromycin 只能告訴你「這顆細胞至少接到了一份病毒」，不能保證「只接到一份」也不能保證「同一群細胞共享同一個插槽位置」。直接用混合細胞群跑下游定序，會看到 gBC 條碼 a、b、c、d 全部混在一起、每個條碼對應到不同位置，根本不知道「位置」這個變數是什麼。所以作者再用 FACS（螢光細胞分選）把細胞一顆顆挑進 96 孔盤，每孔只長一顆細胞的後代 (clonal cell line)——這個孔的所有細胞共享同一個 gBC、同一個位置，後續才能拿來做位置 vs. 活性的關聯分析。順帶一提，Hyg/TK fusion 的負向篩選功能在這個步驟還沒用到——是為後續 Cre-lox 卡匣置換預留的「反向開關」。</p>
+</article>
+</div>
+</section>
+</thinking_process>
+
+<aside class="baseline-known-terms" aria-label="已沿用 baseline 詞彙">
+  <header>已沿用 baseline summary 詞彙，不再鋪墊</header>
+  <ul>
+<li class="baseline-term-chip">K562</li>
+<li class="baseline-term-chip">landing pad</li>
+<li class="baseline-term-chip">gBC</li>
+  </ul>
+</aside>
+
+<section class="final-output">
+<h2>最終散文（refined）</h2>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-a">S4-A</a></aside>
+  <p>作者要在 K562 細胞的染色體上「先預埋插槽 (landing pad)」，之後才能精準替換內容。他們把一段事先設計好的 DNA 片段裝進慢病毒 (Lentivirus)——一種能像快遞員把外來 DNA 永久黏進細胞染色體的病毒外殼，分裂中和不分裂的細胞都能感染，細胞分裂後也不會丟掉這段 DNA。病毒把 DNA 隨機塞進細胞基因組的某個位置；這段 DNA 帶著一個 12 個鹼基的位置條碼 (gBC)，當作每個插槽「在基因組哪裡」的身分證。值得注意的是慢病毒兩端原本有一段叫長重複片段 (LTR) 的序列，自帶啟動子會把附近基因吵醒；作者把它的啟動子拆掉變成「自己關機」(self-inactivating LTR)，這樣整合進染色體後 LTR 不會自己 broadcast 訊號去污染後續的量測。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-b">S4-B</a></aside>
+  <p>插槽核心 `CMV - Hyg/TK fusion - P2A - eGFP` 其實是「一個強啟動子 (CMV promoter) 一次驅動三個功能」的精巧設計。Hyg/TK fusion 把抗 Hygromycin 的酵素和 HSV 的 thymidine kinase 縫成同一條蛋白，等於同一支鑰匙正反兩面都能用：加 Hygromycin 時 Hyg/TK+ 細胞活下來（正向篩選），之後若想反過來殺掉這群細胞，加 Ganciclovir 就能透過 TK 把細胞變成毒（負向篩選）。中間的 P2A peptide 是一段拆解碼：核糖體翻譯到 P2A 尾巴某個位置時「跳過一個鍵」(ribosomal skipping)，前段蛋白直接從核糖體掉出來、後段繼續被翻譯，結果就是同一條 mRNA 翻譯出 Hyg/TK 與 eGFP 兩個獨立蛋白。eGFP 是綠色螢光蛋白，留給後續 FACS 挑選用。靠這個三合一構造，作者用一條 mRNA 同時拿到「正負向篩選 + 螢光標記」三種能力。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-c">S4-C</a></aside>
+  <p>整個感染過程裡，作者特別強調 MOI = 1，這背後的考量是什麼？MOI (multiplicity of infection) 是「平均一顆細胞分到幾顆病毒」。看起來是 1:1，但病毒顆粒隨機分配（服從 Poisson 分布——很多顆病毒各自獨立找細胞、每顆命中機率很低時的計數模式），實際上多數能成功感染的細胞只會收到一份病毒，少數收到兩份以上。MOI 拉高（例如 5）會讓一顆細胞收到好幾份、染色體出現多個插槽，後續量化時根本分不清哪個訊號對應哪個位置；MOI 拉太低（例如 0.1）成功感染的細胞太少、下游樣本不夠。MOI = 1 是「單一插入率最高、樣本量還夠」的折衷點。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-d">S4-D</a></aside>
+  <p>不過光是把 MOI 壓到 1，再加上 Hygromycin 篩選還是不夠：Hygromycin 只能告訴你「這顆細胞至少接到了一份病毒」，不能保證「只接到一份」也不能保證「同一群細胞共享同一個插槽位置」。直接用混合細胞群跑下游定序，會看到 gBC 條碼 a、b、c、d 全部混在一起、每個條碼對應到不同位置，根本分不清「位置」這個變數是什麼。所以作者再用 FACS（螢光細胞分選）把細胞一顆顆挑進 96 孔盤，每孔只長一顆細胞的後代 (clonal cell line)——這個孔的所有細胞共享同一個 gBC、同一個位置，後續才能拿來做位置 vs. 活性的關聯分析。順帶一提，Hyg/TK fusion 的負向篩選功能在這個步驟還沒用到——是為後續 Cre-lox 卡匣置換預留的「反向開關」。</p>
+</div>
+</section>
+</article>
+<article class="module-section" id="module_2_inverse-pcr">
+<header class="module-header">
+  <span class="subitem-badge">2-B</span>
+  <h1>Inverse PCR (反向 PCR) 定位法</h1>
+</header>
+<thinking_process>
+<section class="step-section" id="step-1">
+<h2>Step 1：主線、比喻與核心名詞鷹架</h2>
+<div class="node-grid">
+<article class="trace-node" id="s1-a">
+  <div class="node-top"><span class="node-id">S1-A</span><span class="tag">主線</span></div>
+  <p class="node-body">解碼上述隨機插入的 `gBC` 究竟落在基因組的哪個絕對座標。</p>
+</article>
+<article class="trace-node" id="s1-b">
+  <div class="node-top"><span class="node-id">S1-B</span><span class="tag">核心名詞鷹架</span></div>
+  <p class="node-body">反向式定位 PCR (Inverse PCR)；只在特定四鹼基序列切開 DNA 的限制酶 (Csp6I)；DNA 強迫自己接成一圈的反應 (self-ligation)；定序機要黏的接頭 (Illumina adapter)；高通量定序機 (Illumina MiSeq)；標準參考 protocol (Akhtar et al. 2013 Cell)。</p>
+</article>
+<article class="trace-node" id="s1-c">
+  <div class="node-top"><span class="node-id">S1-C</span><span class="tag">全局比喻</span></div>
+  <p class="node-body">你知道自己身上的條碼貼紙寫什麼，但不知道家在地圖上哪裡。把整本街區地圖剪成小塊、每塊強迫自己捲成一圈，再從你的條碼往兩邊讀出去，就會讀到隔壁鄰居的門牌。</p>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-2">
+<h2>Step 2：深度迭代展開 (針對外行人)</h2>
+<div class="node-grid">
+<article class="trace-node" id="s2-a1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S2-A1</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「解碼 gBC 落在基因組哪個絕對座標」這件事在做什麼？為什麼需要做？</span>
+    <p class="answer-text">答（原始）：前一步 lentivirus 隨機把 landing pad 嵌進基因組，我們只知道 gBC 條碼但不知道它的染色體位置；定位這一步是把每個 gBC 對應到 hg19 上的染色體座標，後續才能跟 ENCODE 染色質狀態資料對照。</p>
+    <p class="answer-text">答（精修）：前一步慢病毒只是把帶 gBC 的插槽隨機塞進細胞基因組，我們手上只拿到「條碼 ATGCAGTCGCAA」這種字串，完全不知道它落在第幾號染色體、哪個鄰里。這一步要把每個 gBC 對應回人類基因組 (hg19) 上的精確座標，後續才能拿這個位置去查 ENCODE 標註的染色質狀態，知道這個插槽是落在鬆的還是緊的環境。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s2-a2" data-source="s2-a1">
+  <div class="node-top"><span class="node-id">S2-A2</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「反向式定位 PCR (Inverse PCR)」跟一般 PCR 差在哪？為什麼能讀到「條碼旁邊的鄰居 DNA」？</span>
+    <p class="answer-text">答（原始）：一般 PCR 用兩個朝向彼此的引子，擴增引子之間的片段；Inverse PCR 把目標 DNA 切成片段、自我環化後，用兩個朝外的引子擴增環化片段中「不知道序列」的那一段。</p>
+    <p class="answer-text">答（精修）：一般 PCR 需要兩根引子分別指向中間，擴增「兩根引子之間」的 DNA；但定位這個情境裡，「條碼是已知、旁邊的基因組 DNA 是未知」，需求剛好相反。Inverse PCR 的招式是：先把基因組 DNA 切碎、強迫每段自己接成一圈，再讓兩根引子分別從條碼往兩邊朝外指——擴增出來的就是「條碼到兩側切點之間」那段未知的鄰居 DNA。定序這段就能讀出基因組座標。(終點：方法論的反向直覺講清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s2-a1">S2-A1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-3">
+<h2>Step 3：機制原理 + 設計理由 + 失敗模式</h2>
+<div class="node-grid">
+<article class="trace-node" id="s3-b1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-B1</span><span class="tag" data-cat="mech">機制原理:環化定位</span></div>
+  <div class="node-body">
+    <span class="question-text">問：把 DNA 切碎再強迫每段自己環起來，為什麼就能從條碼讀到鄰居 DNA 的位置？</span>
+    <p class="answer-text">答（原始）：限制酶在條碼附近的基因組 DNA 上產生切點；自我環化把切點兩端接起來，使原本相距遠的「條碼下游切點」與「條碼上游切點」變得相鄰；Inverse PCR 從條碼往外擴增的就是這段接合區，定序後比對 hg19 即得到絕對位置。</p>
+    <p class="answer-text">答（精修）：想像你把一條很長的繩子（基因組 DNA）每隔一段距離剪一刀，那麼每段繩子上的「條碼」與其「兩個切點」就會在同一段裡。接著強迫這段繩子自己頭尾接成一圈——本來離條碼很遠的「下游切點」與「上游切點」現在變成一個接合點。Inverse PCR 從條碼兩端朝外讀，讀出來的就是「條碼到切點」這段未知鄰居 DNA。把這段定序、比對人類基因組 (hg19)，就知道條碼落在第幾號染色體、哪個座標。(終點：環化讓「未知變鄰居」的因果完整)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-b2" data-source="s3-b1">
+  <div class="node-top"><span class="node-id">S3-B2</span><span class="tag" data-cat="mech">機制原理:Csp6I切點</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼用 Csp6I 這個限制酶切？換成別的限制酶會怎樣？</span>
+    <p class="answer-text">答（原始）：Csp6I 是 4-cutter，識別序列 `G^TAC` 在基因組中分佈密集，平均每 256 bp 出現一次；切點密、產生的環化片段短，提高 Inverse PCR 擴增與定序的效率。</p>
+    <p class="answer-text">答（精修）：Csp6I 屬於只認四個鹼基 `G^TAC` 的限制酶（4-cutter）。基因組中每 256 個鹼基平均就會出現一個 GTAC，所以 Csp6I 切點很密，從條碼往兩邊不會等太遠就遇到切點，產生的環化片段就短——短片段的環化效率高、Inverse PCR 也容易擴增。如果換成只認六個鹼基的限制酶（6-cutter），平均要每 4096 個鹼基才切一刀，環化片段太長，效率掉得很厲害。(終點：切酶選擇的物理直覺講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-b1">S3-B1</a></div>
+</article>
+<article class="trace-node" id="s3-c1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-C1</span><span class="tag" data-cat="design">設計理由:大體積低溫長時間ligation</span></div>
+  <div class="node-body">
+    <span class="question-text">問：ligation 的條件很奇怪——400 µl 大體積、4°C 低溫、16 小時長時間。為什麼挑這三個怪參數？</span>
+    <p class="answer-text">答（原始）：Ligation 的成敗看「兩端 DNA 是先接到自己尾巴 (self-ligation) 還是接到其他分子 (intermolecular ligation)」；大體積稀釋 DNA 濃度、降低不同分子相遇機率，迫使每段 DNA 找自己尾巴；低溫減少 DNA 自由運動、穩定環化的中間態；16 小時補償低溫導致的反應速率慢。</p>
+    <p class="answer-text">答（精修）：Ligation 接 DNA 就像給每段 DNA 兩端配對：可能接到「自己另一端」(self-ligation，需要的結果) 或「另一段 DNA」(不要的結果)。要強迫每段都接到自己，三個怪參數其實是同一招——稀釋。**400 µl 大體積**把 DNA 濃度沖很淡，不同片段擦肩而過的機率變很低；同一段 DNA 的兩端因為已經串在一起，永遠是最近的鄰居，所以「自己接自己」的相對機率被推高。**4°C 低溫**讓 DNA 分子運動慢下來，環化的中間態（兩端剛靠近時）比較不會散掉。**16 小時長時間**是為了補償低溫導致反應變慢——溫度低、酵素活性低，所以給更多時間累積反應量。三條合起來確保大部分 DNA 真的環成圈，而不是黏成長串。(終點：三個怪參數的共同目的講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d1" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S3-D1</span><span class="tag" data-cat="fail">失敗模式:濃度沒控好</span></div>
+  <div class="node-body">
+    <span class="question-text">問：如果 ligation 沒做稀釋、用一般 20 µl 體積會怎樣？最後實驗會出什麼錯？</span>
+    <p class="answer-text">答（原始）：高濃度下 intermolecular ligation 機率變高，產物大量是「兩段不同基因組 DNA 接在一起」的嵌合分子；Inverse PCR 從條碼擴增到的不是條碼旁邊真實鄰居，而是來自基因組其他位置的隨機 DNA；定位結果完全錯亂。</p>
+    <p class="answer-text">答（精修）：高濃度下，DNA 段彼此擦肩而過的機率變很高——很多段會「接到別人」(intermolecular ligation) 而不是「接到自己」(self-ligation)。產物就是一堆「條碼 + 來自基因組其他位置的隨機 DNA」的嵌合分子。Inverse PCR 從條碼往兩邊讀出來的「鄰居」根本不是真正的鄰居，是隨機其他位置的 DNA；把這段比對 hg19 後得到的「絕對座標」是錯的。整批 landing pad 的定位資料變成垃圾，後續位置 vs. 活性分析全部失準。(終點：稀釋失敗的因果鏈完整)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-c1">S3-C1</a></div>
+</article>
+<article class="trace-node" id="s3-d2" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S3-D2</span><span class="tag" data-cat="fail">失敗模式:條碼引子不夠專一</span></div>
+  <div class="node-body">
+    <span class="question-text">問：如果 Inverse PCR 用的引子不夠專一、隨便就附在基因組別處會怎樣？</span>
+    <p class="answer-text">答（原始）：PCR 從非條碼位置擴增的產物會混入定序結果，造成大量背景 reads，使真正的條碼-基因組對應訊號被稀釋甚至被誤判到其他位置。</p>
+    <p class="answer-text">答（精修）：Inverse PCR 的兩根引子（論文用 LP01、LP02）必須只認得條碼兩側的固定序列。如果它們不夠專一、也能附到基因組其他像它們的位置，就會擴增出一堆「不是從條碼出發的鄰居 DNA」。定序結果裡，真正的條碼-座標訊號被這些背景 reads 稀釋，甚至有些條碼會被誤判到完全錯的染色體位置。(終點：引子設計上限說清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-c1">S3-C1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-4">
+<h2>Step 4：濾渣剪枝後的散文卡片</h2>
+<div class="node-grid">
+<article class="trace-node" id="s4-a" data-source="s2-a1 s2-a2">
+  <div class="node-top"><span class="node-id">S4-A</span><span class="tag">操作骨架</span></div>
+  <p class="node-body">前一步慢病毒只是把帶 gBC 的插槽隨機塞進細胞基因組，現在手上只拿到「條碼 ATGCAGTCGCAA」這樣的字串，完全不知道它落在第幾號染色體、哪個鄰里。這一步要把每個 gBC 對應回人類基因組 (hg19) 上的精確座標，後續才能拿這個位置去查 ENCODE 標註的染色質狀態。作者用一種「反向式定位 PCR」(Inverse PCR，protocol 改自 Akhtar et al. 2013 Cell)：一般 PCR 是兩根引子分別指向中間擴增「引子之間」的 DNA，但這裡需求剛好相反——條碼是已知、旁邊的基因組 DNA 是未知。Inverse PCR 反過來：先把基因組 DNA 切碎、強迫每段自己接成一圈，再讓兩根引子分別從條碼往兩邊朝外指，擴增出來的就是「條碼到兩側切點之間」那段未知鄰居 DNA。定序這段、比對 hg19 就讀出絕對座標。</p>
+</article>
+<article class="trace-node" id="s4-b" data-source="s3-b1 s3-b2">
+  <div class="node-top"><span class="node-id">S4-B</span><span class="tag">切酶與環化機制</span></div>
+  <p class="node-body">為什麼這套手法能讓「未知變鄰居」？想像基因組 DNA 是一條很長的繩子，作者每隔一段距離剪一刀（用 Csp6I 限制酶——只認四個鹼基 `G^TAC`，平均每 256 個鹼基就出現一次，切點很密），每段繩子上條碼與兩個切點會落在同一段裡。再強迫這段繩子頭尾自己接成圈，本來離條碼很遠的「下游切點」與「上游切點」現在變成同一個接合點。Inverse PCR 從條碼兩端朝外讀出去的就是「條碼到切點」這段鄰居 DNA。為什麼挑 4-cutter 而不挑只認 6 個鹼基的酶？因為 6-cutter 平均要 4096 個鹼基才切一刀，環化片段太長、效率掉得很厲害；Csp6I 切得密、環化效率高、Inverse PCR 也容易擴增。</p>
+</article>
+<article class="trace-node" id="s4-c" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S4-C</span><span class="tag" data-cat="design">Ligation 條件設計理由</span></div>
+  <p class="node-body">Ligation 的條件乍看很奇怪——400 µl 大體積、4°C 低溫、16 小時長時間——其實這三個怪參數都在做同一件事：強迫 DNA 接自己尾巴 (self-ligation)，不要接到別段。每段 DNA 都有兩端，可能接到「自己另一端」（要的結果）或「別段 DNA」（不要的結果）。**400 µl 大體積**把 DNA 濃度沖很淡，不同片段擦肩而過的機率變很低；但同一段 DNA 的兩端永遠是最近的鄰居，「自己接自己」的相對機率被推高。**4°C 低溫**讓 DNA 分子運動慢下來，環化的中間態比較不會散掉。**16 小時長時間**補償低溫導致的反應速率變慢。三條合起來確保大部分 DNA 真的環成圈，而不是黏成長串。</p>
+</article>
+<article class="trace-node" id="s4-d" data-source="s3-d1 s3-d2">
+  <div class="node-top"><span class="node-id">S4-D</span><span class="tag" data-cat="fail">失敗模式</span></div>
+  <p class="node-body">稀釋這件事如果沒做好，後果很慘。假設用一般 20 µl 體積跑 ligation，高濃度下 DNA 段彼此擦肩而過的機率很高，很多段會「接到別人」而不是「接到自己」(intermolecular ligation)。產物就是一堆「條碼 + 來自基因組其他位置的隨機 DNA」的嵌合分子；Inverse PCR 從條碼往兩邊讀出來的「鄰居」根本不是真正的鄰居，比對 hg19 後得到的絕對座標是錯的，整批 landing pad 定位資料變成垃圾。另一個容易失手的地方是引子專一性：Inverse PCR 的引子如果不夠專一、也能附到基因組其他像它們的位置，就會擴增出非條碼出發的 DNA，定序結果裡真正的條碼-座標訊號被背景稀釋，部分條碼甚至會被誤判到完全錯的染色體位置。</p>
+</article>
+</div>
+</section>
+</thinking_process>
+
+<aside class="baseline-known-terms" aria-label="已沿用 baseline 詞彙">
+  <header>已沿用 baseline summary 詞彙，不再鋪墊</header>
+  <ul>
+<li class="baseline-term-chip">gBC</li>
+<li class="baseline-term-chip">landing pad</li>
+  </ul>
+</aside>
+
+<section class="final-output">
+<h2>最終散文（refined）</h2>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-a">S4-A</a></aside>
+  <p>前一步慢病毒只是把帶 gBC 的插槽隨機塞進細胞基因組，現在手上只拿到「條碼 ATGCAGTCGCAA」這樣的字串，完全不知道它落在第幾號染色體、哪個鄰里。這一步要把每個 gBC 對應回人類基因組 (hg19) 上的精確座標，後續才能拿這個位置去查 ENCODE 標註的染色質狀態。作者用一種「反向式定位 PCR」(Inverse PCR，protocol 改自 Akhtar et al. 2013 Cell)：一般 PCR 是兩根引子分別指向中間擴增「引子之間」的 DNA，但這裡需求剛好相反——條碼是已知、旁邊的基因組 DNA 是未知。Inverse PCR 反過來：先把基因組 DNA 切碎、強迫每段自己接成一圈，再讓兩根引子分別從條碼往兩邊朝外指，擴增出來的就是「條碼到兩側切點之間」那段未知鄰居 DNA。定序這段、比對 hg19 就讀出絕對座標。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-b">S4-B</a></aside>
+  <p>為什麼這套手法能讓「未知變鄰居」？想像基因組 DNA 是一條很長的繩子，作者每隔一段距離剪一刀（用 Csp6I 限制酶——只認四個鹼基 `G^TAC`，平均每 256 個鹼基就出現一次，切點很密），每段繩子上條碼與兩個切點會落在同一段裡。再強迫這段繩子頭尾自己接成圈，本來離條碼很遠的「下游切點」與「上游切點」現在變成同一個接合點。Inverse PCR 從條碼兩端朝外讀出去的就是「條碼到切點」這段鄰居 DNA。為什麼挑 4-cutter 而不挑只認 6 個鹼基的酶？6-cutter 平均要 4096 個鹼基才切一刀，環化片段太長、效率掉得很厲害；Csp6I 切得密、環化效率高、Inverse PCR 也容易擴增。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-c">S4-C</a></aside>
+  <p>Ligation 的條件乍看很奇怪——400 µl 大體積、4°C 低溫、16 小時長時間——其實這三個怪參數都在做同一件事：強迫 DNA 接自己尾巴 (self-ligation)，不要接到別段。每段 DNA 都有兩端，可能接到「自己另一端」（要的結果）或「別段 DNA」（不要的結果）。400 µl 大體積把 DNA 濃度沖很淡，不同片段擦肩而過的機率變得很低；但同一段 DNA 的兩端原本就串在一起，距離永遠是固定的——稀釋只會打壓「跨分子相接」的機率，「自己接自己」相對勝出。4°C 低溫讓 DNA 分子運動慢下來，環化的中間態比較不會散掉。16 小時長時間補償低溫導致的反應速率變慢。三條合起來確保大部分 DNA 真的環成圈，而不是黏成長串。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-d">S4-D</a></aside>
+  <p>稀釋這件事如果沒做好，後果很慘。假設用一般 20 µl 體積跑 ligation，高濃度下 DNA 段彼此擦肩而過的機率很高，很多段會「接到別人」而不是「接到自己」(intermolecular ligation)。產物就是一堆「條碼 + 來自基因組其他位置的隨機 DNA」的嵌合分子；Inverse PCR 從條碼往兩邊讀出來的「鄰居」根本不是真正的鄰居，比對 hg19 後得到的絕對座標是錯的，整批 landing pad 定位資料變成垃圾。另一個容易失手的地方是引子專一性：Inverse PCR 的引子如果不夠專一、也能附到基因組其他像它們的位置，就會擴增出非條碼出發的 DNA，定序結果裡真正的條碼-座標訊號被背景稀釋，部分條碼甚至會被誤判到完全錯的染色體位置。</p>
+</div>
+</section>
+</article>
+<article class="module-section" id="module_3_cre-lox-exchange">
+<header class="module-header">
+  <span class="subitem-badge">2-C</span>
+  <h1>Cre-lox 定點卡匣置換 (Cassette Exchange)</h1>
+</header>
+<thinking_process>
+<section class="step-section" id="step-1">
+<h2>Step 1：主線、比喻與核心名詞鷹架</h2>
+<div class="node-grid">
+<article class="trace-node" id="s1-a">
+  <div class="node-top"><span class="node-id">S1-A</span><span class="tag">主線</span></div>
+  <p class="node-body">將含有大量不同開關 (`cBC`) 的庫，精準替換到已標定的 Landing Pad 中。</p>
+</article>
+<article class="trace-node" id="s1-b">
+  <div class="node-top"><span class="node-id">S1-B</span><span class="tag">核心名詞鷹架</span></div>
+  <p class="node-body">Cre 重組酶切換 lox 位點 (Cre-lox cassette exchange)；兩種不對稱辨識位點 (loxFAS / loxP)；放在開關後面的最小啟動子 (Hsp68 minimal promoter)；紅色螢光蛋白報告基因 (dsRed)；高效率打洞的電穿孔 (Neon Transfection / electroporation)；表達 Cre 的質體 (pBS185 CMV-Cre, Addgene 11916)；置換效率約 12%；FACS 反向篩選變暗的細胞 (lose GFP fluorescence sorting)。</p>
+</article>
+<article class="trace-node" id="s1-c">
+  <div class="node-top"><span class="node-id">S1-C</span><span class="tag">全局比喻</span></div>
+  <p class="node-body">插槽好比牆上裝好的特殊插座，不對稱的卡榫只接受同樣不對稱的插頭；Cre 重組酶是把舊插頭拔走、新插頭裝上去的工人。</p>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-2">
+<h2>Step 2：深度迭代展開 (針對外行人)</h2>
+<div class="node-grid">
+<article class="trace-node" id="s2-a1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S2-A1</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「精準替換到已標定的 Landing Pad」具體在做什麼？跟前面把整套東西塞進去差在哪？</span>
+    <p class="answer-text">答（原始）：前面 lentivirus 步驟把帶 gBC 的 CMV-Hyg/TK-P2A-eGFP 卡匣放進基因組；現在要用 Cre 重組酶把這段卡匣換成「CRS + Hsp68 minimal promoter + dsRed-cBC」這套 reporter cassette，使新的開關落在已知位置上。</p>
+    <p class="answer-text">答（精修）：前一步建立插槽時，插槽裡裝的是 CMV-Hyg/TK-P2A-eGFP 這套「篩選與標記用」的內容；現在要把這套內容整段拔掉，換成「待測開關 (CRS) + 最小啟動子 (Hsp68) + dsRed 報告基因 + 開關身分條碼 (cBC)」這套「測量用」的卡匣。關鍵是這套替換要精準落在已標定位置的插槽——不是隨機插別處，而是只進入兩端有正確 lox 卡榫的那個位置。這樣一來，新開關坐在的位置 (gBC) 已經被前一步定位過了，每組「開關 + 位置」都明確。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s2-a2" data-source="s2-a1">
+  <div class="node-top"><span class="node-id">S2-A2</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「loxFAS 和 loxP」兩個都是 lox 位點，為什麼要用兩個不一樣的？一個不夠嗎？</span>
+    <p class="answer-text">答（原始）：Cre 重組酶在兩個相同方向的 lox 位點之間進行 cassette exchange；若兩端 lox 位點完全相同，置換之後反向交換也會繼續發生，結果是動態平衡而非單向替換。loxFAS 是 mutant lox site，跟 loxP 配對只能單向交換、不會反過來。</p>
+    <p class="answer-text">答（精修）：Cre 重組酶會在兩個 lox 位點之間重新接合 DNA。如果插槽兩端和傳入的卡匣兩端都是同一種 lox 位點（兩個 loxP），Cre 不只會把新卡匣裝進去，下一秒也會把它再切出來、塞回舊卡匣，結果是「裝進去 ↔ 拔出來」的動態平衡，無法穩定下來。作者用一對「不對稱的 lox 位點」——一端是 loxFAS、一端是 loxP（loxFAS 是 loxP 的突變版，跟 loxP 不互通），於是 Cre 只能單向把新卡匣裝進去、不能反過來——置換變成單行道。(終點：不對稱 lox 的單向性原因講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s2-a1">S2-A1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-3">
+<h2>Step 3：機制原理 + 設計理由 + 失敗模式</h2>
+<div class="node-grid">
+<article class="trace-node" id="s3-b1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-B1</span><span class="tag" data-cat="mech">機制原理:Cre-lox 切接</span></div>
+  <div class="node-body">
+    <span class="question-text">問：Cre 重組酶具體是怎麼把舊卡匣切下來、把新卡匣接上去的？</span>
+    <p class="answer-text">答（原始）：Cre 是 site-specific recombinase，識別 34-bp 的 lox 序列；它會切斷 lox 中間，把兩個 lox 位點之間的 DNA 鏈交換並重新接合。</p>
+    <p class="answer-text">答（精修）：Cre 是一種「認準位點才切」的特異剪接酶 (site-specific recombinase)，它認的是 34 個鹼基的 lox 序列。當細胞裡同時有「染色體上的舊卡匣（兩端各有一個 lox）」與「外來新卡匣（兩端也各有一個 lox）」時，Cre 把兩邊的 lox 序列拉近、在中間切開、再把兩條 DNA 鏈交換重接——結果是舊卡匣被換掉、新卡匣插進染色體裡，而 lox 位點本身留在原處。整個過程一支酵素就完成「切 + 接」兩個動作，不需要外加任何模板。(終點：Cre 一支酶完成切接的機制清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-c1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-C1</span><span class="tag" data-cat="design">設計理由:電穿孔Neon</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼用電穿孔 (Neon Transfection) 把 4 µg transfer vector + 1 µg pBS185 CMV-Cre 打進去？為什麼不用一般的脂質體 (lipofection)？</span>
+    <p class="answer-text">答（原始）：K562 是懸浮生長的白血病細胞，貼附性差，lipofection 對 K562 效率很低；Neon Transfection 是電穿孔系統，對血液細胞株效率高、容易把大質體與 mRNA 帶進細胞。</p>
+    <p class="answer-text">答（精修）：K562 是漂在培養液裡長的白血病細胞，不貼附盤子；一般脂質體 (lipofection) 在 K562 上效率很差，幾乎打不進去。電穿孔 (electroporation) 的原理是瞬間高壓電讓細胞膜暫時打開一堆小洞，質體 DNA 直接從培養液擠進細胞質，對血液系細胞效率高很多。作者用 Neon Transfection System (一台桌上型電穿孔機) 一次打 4 µg transfer vector library（裝著 310 種開關的庫）+ 1 µg pBS185 CMV-Cre（表達 Cre 蛋白的質體）進 120 萬顆 K562 細胞。為什麼這個比例？vector 是要被裝進染色體的「貨物」，量要大才能涵蓋 310 種開關；Cre 質體只是要進去細胞核暫時表達 Cre 酵素就好，1 µg 足夠。(終點：電穿孔的選擇與比例設計講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-D1</span><span class="tag" data-cat="fail">失敗模式:置換效率僅12%</span></div>
+  <div class="node-body">
+    <span class="question-text">問：作者測出 Cre-lox 置換效率只有 12%，這代表什麼？為什麼會這麼低？如果不處理會怎樣？</span>
+    <p class="answer-text">答（原始）：12% 表示電穿孔後實際發生 Cre-lox 置換的細胞只有 12%；其餘 88% 細胞仍帶有 CMV-Hyg/TK-P2A-eGFP，下游做 mRNA 定序時這些細胞表達 eGFP 而非 dsRed，會稀釋 dsRed-cBC 訊號。</p>
+    <p class="answer-text">答（精修）：12% 的意思是：電穿孔之後，120 萬顆 K562 細胞裡只有 12 萬顆真的成功被 Cre 把舊卡匣換成新卡匣。為什麼這麼低？Cre 要同時找到「染色體上的舊 lox 對」與「剛打進來的新 lox 對」並把兩邊拉到一起進行交換，過程隨機、不保證每顆細胞都能成功；加上電穿孔本身就會打死或重創一些細胞，剩下能用的就更少。如果不處理，剩下 88% 沒置換的細胞還是表達著舊卡匣裡的 eGFP，下游做 mRNA 定序時這 88% 的 cell 會貢獻一堆「不是新開關產生的 mRNA」，把真正的 dsRed-cBC 訊號稀釋掉。(終點：低效率的原因和不處理的後果講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d2" data-source="s3-d1">
+  <div class="node-top"><span class="node-id">S3-D2</span><span class="tag" data-cat="fail">失敗模式:FACS反向挑救低效率</span></div>
+  <div class="node-body">
+    <span class="question-text">問：作者怎麼解決 12% 效率低落？跳過這一步會怎樣？</span>
+    <p class="answer-text">答（原始）：作者用 FACS 排除仍然表達 eGFP 的細胞——舊卡匣裡的 eGFP 沒置換掉的細胞還會綠，置換成功的細胞 eGFP 被換成 dsRed 變暗。挑「變暗」的細胞把成功置換比例濃縮到約 30%。若跳過這一步，後續定序裡 88% 的 reads 都是未置換細胞的雜訊。</p>
+    <p class="answer-text">答（精修）：作者的招式是「反過來挑」：FACS 不挑亮綠色的，而是挑變暗的——置換成功的細胞 eGFP 被整段換成 dsRed，不再表達綠色螢光；沒置換的細胞還是綠的。把綠的丟掉、留下變暗的，成功置換的比例從 12% 濃縮到 30%（約 2.5 倍）。如果跳過這一步直接做定序，每抽 100 條 mRNA 裡只有 12 條是「真的有開關訊號」，剩下 88 條都是還在表達舊卡匣 eGFP 的細胞的背景；訊號雜訊比慘到根本無法可靠量化每個開關的活性。(終點：反向挑為什麼解決問題的因果完整)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-d1">S3-D1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-4">
+<h2>Step 4：濾渣剪枝後的散文卡片</h2>
+<div class="node-grid">
+<article class="trace-node" id="s4-a" data-source="s2-a1 s2-a2">
+  <div class="node-top"><span class="node-id">S4-A</span><span class="tag">操作骨架</span></div>
+  <p class="node-body">前一步建立插槽時，插槽裡裝的是 CMV-Hyg/TK-P2A-eGFP 這套「篩選與標記用」的內容；現在要把這套內容整段拔掉，換成「待測開關 (CRS) + 最小啟動子 (Hsp68 minimal promoter) + dsRed 報告基因 + 開關身分條碼 (cBC)」這套「測量用」的卡匣。關鍵是這套替換要精準落在已標定位置的插槽，不是隨機插別處。Cre 重組酶會在兩個 lox 位點之間重新接合 DNA——如果兩端都是同一種 loxP，Cre 不只裝進去也會切出來，變成動態平衡而非單向替換。作者用一對「不對稱的 lox 位點」——一端是 loxFAS、一端是 loxP（loxFAS 是 loxP 的突變版，跟 loxP 不互通），於是 Cre 只能單向把新卡匣裝進去、不能反過來，置換變成單行道。</p>
+</article>
+<article class="trace-node" id="s4-b" data-source="s3-b1">
+  <div class="node-top"><span class="node-id">S4-B</span><span class="tag" data-cat="mech">Cre 切接機制</span></div>
+  <p class="node-body">Cre 重組酶具體在做什麼？它是一種「認準位點才切」的特異剪接酶 (site-specific recombinase)，認的是 34 個鹼基的 lox 序列。當細胞裡同時有「染色體上的舊卡匣（兩端各有一個 lox）」與「外來新卡匣（兩端也各有一個 lox）」時，Cre 把兩邊的 lox 拉近、在中間切開、再把兩條 DNA 鏈交換重接——結果是舊卡匣被換掉、新卡匣插進染色體裡，lox 位點本身留在原處。整個過程一支酵素就完成「切 + 接」兩個動作，不需要外加任何模板。</p>
+</article>
+<article class="trace-node" id="s4-c" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S4-C</span><span class="tag">電穿孔參數設計</span></div>
+  <p class="node-body">為什麼用電穿孔把卡匣打進細胞？K562 是漂在培養液裡長的白血病細胞，不貼附盤子；一般脂質體 (lipofection) 在 K562 上效率很差，幾乎打不進去。電穿孔 (Neon Transfection) 的原理是瞬間高壓電讓細胞膜暫時打開一堆小洞，質體 DNA 直接從培養液擠進細胞質，對血液系細胞效率高很多。作者一次打 4 µg transfer vector library（裝著 310 種開關的庫）+ 1 µg pBS185 CMV-Cre（表達 Cre 蛋白的質體）進 120 萬顆 K562。為什麼這個比例？vector 是要被裝進染色體的「貨物」，量要大才能涵蓋 310 種開關；Cre 質體只是要進去細胞核暫時表達 Cre 酵素就好，1 µg 足夠。</p>
+</article>
+<article class="trace-node" id="s4-d" data-source="s3-d1 s3-d2">
+  <div class="node-top"><span class="node-id">S4-D</span><span class="tag" data-cat="fail">失敗模式 + FACS反向挑</span></div>
+  <p class="node-body">可是 Cre 自己沒那麼神：作者測出實際只有 12% 的細胞真的成功被置換。原因是 Cre 要同時找到「染色體上的舊 lox 對」與「剛打進來的新 lox 對」並把兩邊拉到一起進行交換，過程隨機；加上電穿孔本身就會打死或重創一些細胞，剩下能用的就更少。如果不處理，剩下 88% 沒置換的細胞還是表達舊卡匣裡的 eGFP，下游 mRNA 定序時這 88% 會貢獻一堆背景 reads，把真正的 dsRed-cBC 訊號稀釋掉。作者的招式是「反過來挑」：FACS 不挑亮綠色的，而是挑變暗的——置換成功的細胞 eGFP 被整段換成 dsRed，不再表達綠色螢光；沒置換的細胞還是綠的。把綠的丟掉、留下變暗的，成功置換的比例從 12% 濃縮到 30%（約 2.5 倍）。</p>
+</article>
+</div>
+</section>
+</thinking_process>
+
+<aside class="baseline-known-terms" aria-label="已沿用 baseline 詞彙">
+  <header>已沿用 baseline summary 詞彙，不再鋪墊</header>
+  <ul>
+<li class="baseline-term-chip">cBC</li>
+<li class="baseline-term-chip">Cre 重組酶</li>
+<li class="baseline-term-chip">K562</li>
+<li class="baseline-term-chip">報告基因</li>
+<li class="baseline-term-chip">最小啟動子</li>
+  </ul>
+</aside>
+
+<section class="final-output">
+<h2>最終散文（refined）</h2>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-a">S4-A</a></aside>
+  <p>前一步建立插槽時，插槽裡裝的是 CMV-Hyg/TK-P2A-eGFP 這套「篩選與標記用」的內容；現在要把這套內容整段拔掉，換成「待測開關 (CRS) + 最小啟動子 (Hsp68 minimal promoter) + dsRed 報告基因 + 開關身分條碼 (cBC)」這套「測量用」的卡匣。關鍵是這套替換要精準落在已標定位置的插槽，不是隨機插別處。Cre 重組酶會在兩個 lox 位點之間重新接合 DNA——如果兩端都是同一種 loxP，Cre 不只裝進去也會切出來，變成動態平衡而非單向替換。作者用一對「不對稱的 lox 位點」——一端是 loxFAS、一端是 loxP（loxFAS 是 loxP 的突變版，跟 loxP 不互通），於是 Cre 只能單向把新卡匣裝進去、不能反過來，置換變成單行道。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-b">S4-B</a></aside>
+  <p>Cre 重組酶具體在做什麼？它是一種「認準位點才切」的特異剪接酶 (site-specific recombinase)，認的是 34 個鹼基的 lox 序列。當細胞裡同時有「染色體上的舊卡匣（兩端各有一個 lox）」與「外來新卡匣（兩端也各有一個 lox）」時，Cre 把兩邊的 lox 拉近、在中間切開、再把兩條 DNA 鏈交換重接——結果是舊卡匣被換掉、新卡匣插進染色體裡，lox 位點本身留在原處。整個過程一支酵素就完成「切 + 接」兩個動作，不需要外加任何模板。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-c">S4-C</a></aside>
+  <p>為什麼用電穿孔把卡匣打進細胞？K562 是漂在培養液裡長的白血病細胞，不貼附盤子；一般脂質體 (lipofection) 在 K562 上效率很差，幾乎打不進去。電穿孔 (Neon Transfection) 的原理是瞬間高壓電讓細胞膜暫時打開一堆小洞，質體 DNA 直接從培養液擠進細胞質，對血液系細胞效率高很多。作者一次打 4 µg transfer vector library（裝著 310 種開關的庫）+ 1 µg pBS185 CMV-Cre（表達 Cre 蛋白的質體）進 120 萬顆 K562。為什麼這個比例？vector 是要被裝進染色體的「貨物」，量要大才能涵蓋 310 種開關；Cre 質體只是要進去細胞核暫時表達 Cre 酵素就好，1 µg 足夠。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-d">S4-D</a></aside>
+  <p>可是 Cre 自己沒那麼神：作者測出實際只有 12% 的細胞真的成功被置換。原因是 Cre 要同時找到「染色體上的舊 lox 對」與「剛打進來的新 lox 對」並把兩邊拉到一起進行交換，過程隨機；加上電穿孔本身就會打死或重創一些細胞，剩下能用的就更少。如果不處理，剩下 88% 沒置換的細胞還是表達舊卡匣裡的 eGFP，下游 mRNA 定序時這 88% 會貢獻一堆背景 reads，把真正的 dsRed-cBC 訊號稀釋掉。作者的招式是「反過來挑」：FACS 不挑亮綠色的，而是挑變暗的——置換成功的細胞 eGFP 被整段換成 dsRed，不再表達綠色螢光；沒置換的細胞還是綠的。把綠的丟掉、留下變暗的，成功置換的比例從 12% 濃縮到 30%（約 2.5 倍）。</p>
+</div>
+</section>
+</article>
+<article class="module-section" id="module_4_dual-barcode-seq">
+<header class="module-header">
+  <span class="subitem-badge">3-A</span>
+  <h1>雙條碼定序與表現量化</h1>
+</header>
+<thinking_process>
+<section class="step-section" id="step-1">
+<h2>Step 1：主線、比喻與核心名詞鷹架</h2>
+<div class="node-grid">
+<article class="trace-node" id="s1-a">
+  <div class="node-top"><span class="node-id">S1-A</span><span class="tag">主線</span></div>
+  <p class="node-body">用 Illumina 高通量定序機讀出 `cBC`-`gBC` 配對條碼，並以 $\log_2(\text{RNA reads}/\text{DNA reads})$ 計算每個開關在每個位置的活性。</p>
+</article>
+<article class="trace-node" id="s1-b">
+  <div class="node-top"><span class="node-id">S1-B</span><span class="tag">核心名詞鷹架</span></div>
+  <p class="node-body">RNA 萃取套組 (ToTALLY RNA kit)；分解殘留 DNA 的酵素 (Turbo DNase)；嚴格的兩回合 DNase 處理；反轉錄酶 (SuperScript III) 把 mRNA 變回 cDNA；認 polyA 尾巴的引子 (oligo(dT) primer)；高通量定序平台 (Illumina NextSeq)；同一條 mRNA 上配對讀到的 cBC-gBC 條碼；$\log_2(\text{RNA reads}/\text{DNA reads})$ 表現量公式。</p>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-2">
+<h2>Step 2：深度迭代展開 (針對外行人)</h2>
+<div class="node-grid">
+<article class="trace-node" id="s2-a1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S2-A1</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「讀條碼算 log2(RNA/DNA)」具體在做什麼？哪些步驟串起來才得到這個數字？</span>
+    <p class="answer-text">答（原始）：從細胞萃取 RNA 和 gDNA、合成 cDNA、用 primer 從 cDNA 與 gDNA 中擴增 cBC-gBC 條碼區、Illumina 定序、計算每對 (cBC, gBC) 在 RNA 和 DNA 樣本中的 read 數、取 log2(RNA reads/DNA reads) 作為該開關在該位置的活性。</p>
+    <p class="answer-text">答（精修）：整個流程像是「秤每個插槽生產 mRNA 的工廠效率」：從一池細胞裡同時抽出 RNA（產品）和基因組 DNA（工廠的數量），用 Illumina 高通量定序機分別讀 cBC-gBC 條碼配對在 RNA 和 DNA 兩邊各出現多少次，最後拿 RNA 的次數除以 DNA 的次數，再取 $\log_2$ 當作活性。為什麼要除以 DNA reads？因為不同 landing pad 的細胞數可能不一樣，光看 RNA reads 高不一定是「開關強」，可能只是「這個插槽的細胞比較多」。除以 DNA reads 就是把「工廠數量」校正掉，剩下的純粹是「每座工廠的單位產量」。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s2-a2" data-source="s2-a1">
+  <div class="node-top"><span class="node-id">S2-A2</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「讀的是 cBC-gBC 配對條碼」是什麼意思？為什麼要配對讀、不獨立讀？</span>
+    <p class="answer-text">答（原始）：每條 mRNA 在 3' UTR 同時帶 cBC（開關身分）與 gBC（位置身分）；定序時讀同一條 mRNA 上的兩個條碼能直接知道「是哪個開關、放在哪個位置」。若分別獨立讀就無法配對。</p>
+    <p class="answer-text">答（精修）：每條成功表達的 mRNA 在 3' UTR 同時帶兩段條碼——cBC 是「我來自哪個開關」、gBC 是「我從哪個位置出生」。Illumina 在同一次讀取裡把這兩段條碼一起讀出來，等於每條 reads 都自帶「身分證 + 地址」。如果分別獨立定序就配不起來，根本不知道哪個開關坐在哪個位置；配對讀才是 patchMPRA 解開「開關 × 位置」二維資料的關鍵。(終點：配對讀的價值講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s2-a1">S2-A1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-3">
+<h2>Step 3：機制原理 + 設計理由 + 失敗模式</h2>
+<div class="node-grid">
+<article class="trace-node" id="s3-b1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-B1</span><span class="tag" data-cat="mech">機制原理:DNA reads 當分母</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼 DNA reads 能當「分母」標準化？背後的生物學意義是什麼？</span>
+    <p class="answer-text">答（原始）：每顆細胞基因組裡的 landing pad 是單一拷貝，gDNA 中某個 gBC 的 reads 數正比於「該位置的細胞數」；用 RNA reads 除以 DNA reads 等於「每個拷貝模板平均產出多少 mRNA」，校正細胞數和拷貝數差異。</p>
+    <p class="answer-text">答（精修）：前面的 Landing Pad 步驟確保每顆細胞只帶一份插槽，所以 gDNA 裡某個 gBC 條碼的 reads 數量，正比於「帶這個 gBC 的細胞數」。RNA reads 則正比於「這群細胞總共產了多少對應的 mRNA」。RNA reads 除以 DNA reads 等於「每一份模板平均產出多少 mRNA」——這正是我們想要的「開關活性」的純粹定義，跟細胞多寡無關。沒有這個校正，A 位置看起來 reads 比 B 位置高，可能只是「A 位置的純系細胞長得比較快、樣本裡細胞數多」，跟開關強弱無關。(終點：分母的生物學意義講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-b2" data-source="s3-b1">
+  <div class="node-top"><span class="node-id">S3-B2</span><span class="tag" data-cat="mech">機制原理:取 log2</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼要取 $\log_2$？直接用 RNA/DNA 不行嗎？</span>
+    <p class="answer-text">答（原始）：表現量在數量級上分佈很廣（可跨幾個 order of magnitude），取 log 能將乘性差異轉成可比較的加性距離，方便線性模型與 fold-change 解讀。</p>
+    <p class="answer-text">答（精修）：開關之間的表現量差距常常跨好幾個數量級——A 開關可能比 B 開關強 100 倍。如果直接畫 RNA/DNA，圖上強的點會把弱的點壓在底下看不見；統計上也不適合線性比較。取 $\log_2$ 把「100 倍 → 6.6」、「10 倍 → 3.3」這樣壓縮，所有開關都落在差不多的尺度。另一個好處是 $\log_2$ 值的「差距」直接代表 fold change（差 1 就是兩倍、差 2 就是四倍），跟後面的線性模型 $\log(E_{ij}) = C_i + L_j$ 完全吻合。(終點：取 log 的兩個動機講清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-b1">S3-B1</a></div>
+</article>
+<article class="trace-node" id="s3-c1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-C1</span><span class="tag" data-cat="design">設計理由:兩回合 DNase</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼 RNA 萃取後要做「兩回合」嚴格 DNase 處理？做一回不夠嗎？</span>
+    <p class="answer-text">答（原始）：ToTALLY RNA kit 萃取出的 RNA 通常會殘留少量 gDNA 污染；一回合 DNase（Turbo DNase）處理可能無法完全清掉。殘留 gDNA 在反轉錄後會被當成 cDNA 一起擴增，產生假的 RNA reads，使表現量被高估。</p>
+    <p class="answer-text">答（精修）：RNA 萃取套組 (ToTALLY RNA kit) 雖然名字叫「Totally RNA」，但實際萃取出的 RNA 樣本永遠會殘留一點點基因組 DNA (gDNA)。做一回 Turbo DNase 處理可能還是有些零星 gDNA 沒被分解掉。問題在於這些殘留 gDNA 也帶著 cBC-gBC 條碼，後面反轉錄步驟雖然只該轉換 mRNA、但 PCR 擴增不管模板是 cDNA 還是 gDNA 都會放大，定序時就會被當成「RNA reads」算進去，假高表現量。所以做「兩回合」嚴格 DNase 處理（按廠商 Rigorous DNase 流程）是一種「以防萬一」的保險，把背景污染壓到接近零。(終點：兩回合的保險理由講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d1" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S3-D1</span><span class="tag" data-cat="fail">失敗模式:DNase 沒做乾淨</span></div>
+  <div class="node-body">
+    <span class="question-text">問：如果 DNase 處理不夠乾淨、RNA 樣本裡還殘留 gDNA 污染，最後的活性數字會出什麼錯？</span>
+    <p class="answer-text">答（原始）：殘留 gDNA 中的 cBC-gBC 條碼被反轉錄與擴增後混入 RNA reads，使 RNA reads 被人為抬高，計算出的 log2(RNA/DNA) 系統性偏高；且每個位置的污染比例不同，連「位置間的相對排序」也會被打亂。</p>
+    <p class="answer-text">答（精修）：殘留的 gDNA 也帶著一樣的 cBC-gBC 條碼。雖然 SuperScript III 只反轉錄 mRNA，但下游 PCR 擴增不挑模板——cDNA 也會、殘留 gDNA 也會。定序時這些「來自 gDNA 的條碼 reads」會被當成 RNA reads 算進去，每個開關的 RNA reads 被人為灌高，算出的 $\log_2(\text{RNA/DNA})$ 系統性偏高。更慘的是：不同位置的污染比例可能不一樣——A 位置 gDNA 殘留得多、B 位置殘留得少——結果連「位置間的相對排序」都被打亂，作者最重要的「位置只是同倍率放大器」結論根本支撐不住。(終點：DNase 沒做乾淨的影響從訊號偏差講到結論失準)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-c1">S3-C1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-4">
+<h2>Step 4：濾渣剪枝後的散文卡片</h2>
+<div class="node-grid">
+<article class="trace-node" id="s4-a" data-source="s2-a1 s2-a2">
+  <div class="node-top"><span class="node-id">S4-A</span><span class="tag">操作骨架</span></div>
+  <p class="node-body">雙條碼定序量化的整個流程，可以看成「秤每個插槽生產 mRNA 的工廠效率」。作者從一池細胞同時抽出 RNA（產品）和基因組 DNA（工廠的數量），用 Illumina 高通量定序機 (NextSeq) 分別讀 cBC-gBC 條碼配對在 RNA 和 DNA 兩邊各出現多少次。為什麼要「配對」讀？因為每條成功表達的 mRNA 在 3' UTR 同時帶 cBC（「我來自哪個開關」）和 gBC（「我從哪個位置出生」），同一次讀取裡兩段條碼一起讀出來，每條 reads 都自帶「身分證 + 地址」；如果分別獨立定序就配不起來，根本不知道哪個開關坐在哪個位置。最後活性就是 $\log_2(\text{RNA reads}/\text{DNA reads})$。</p>
+</article>
+<article class="trace-node" id="s4-b" data-source="s3-b1 s3-b2">
+  <div class="node-top"><span class="node-id">S4-B</span><span class="tag">公式機制</span></div>
+  <p class="node-body">為什麼公式要這樣寫？前面的 Landing Pad 步驟確保每顆細胞只帶一份插槽，所以 gDNA 裡某個 gBC 條碼的 reads 數量，正比於「帶這個 gBC 的細胞數」。RNA reads 則正比於「這群細胞總共產了多少對應的 mRNA」。RNA 除以 DNA 等於「每一份模板平均產出多少 mRNA」——這正是「開關活性」的純粹定義，跟細胞多寡無關。沒有這個校正，A 位置看起來 reads 比 B 位置高，可能只是 A 的純系長得快、樣本裡細胞多，跟開關強弱無關。再來，為什麼取 $\log_2$？開關之間的表現量差距常常跨好幾個數量級——A 可能比 B 強 100 倍。取 $\log_2$ 把 100 倍壓成 6.6、10 倍壓成 3.3，所有開關落在差不多的尺度；而且 $\log_2$ 值的「差距」直接代表 fold change，跟後續線性模型 $\log(E_{ij}) = C_i + L_j$ 完全吻合。</p>
+</article>
+<article class="trace-node" id="s4-c" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S4-C</span><span class="tag" data-cat="design">DNase 兩回合設計理由</span></div>
+  <p class="node-body">RNA 樣本的純度為什麼這麼斤斤計較？RNA 萃取套組 (ToTALLY RNA kit) 雖然名字叫 Totally RNA，但實際萃取出來的樣本永遠會殘留一點點基因組 DNA (gDNA)。做一回 Turbo DNase 處理可能還有零星 gDNA 沒被分解掉。問題是這些殘留 gDNA 也帶著一樣的 cBC-gBC 條碼，PCR 擴增不挑模板，殘留 gDNA 的條碼會被當成 RNA reads 算進去。所以做「兩回合」嚴格 DNase 處理（按廠商 Rigorous DNase 流程）是一種「以防萬一」的保險，把背景污染壓到接近零。</p>
+</article>
+<article class="trace-node" id="s4-d" data-source="s3-d1">
+  <div class="node-top"><span class="node-id">S4-D</span><span class="tag" data-cat="fail">失敗模式</span></div>
+  <p class="node-body">如果 DNase 沒做乾淨，後果不是「數字稍微高一點」這麼輕。雖然 SuperScript III 反轉錄酶只把 mRNA 變成 cDNA，但下游 PCR 擴增不挑模板——殘留 gDNA 也會被放大。定序時這些「來自 gDNA 的條碼 reads」混進 RNA reads，每個開關的 RNA reads 被人為灌高，算出的 $\log_2(\text{RNA/DNA})$ 系統性偏高。更慘的是：不同位置的污染比例可能不一樣——A 位置 gDNA 殘留得多、B 位置殘留得少——結果連「位置間的相對排序」都被打亂。「位置只是同倍率放大器」這個 patchMPRA 最關鍵的結論根本支撐不住。</p>
+</article>
+</div>
+</section>
+</thinking_process>
+
+<aside class="baseline-known-terms" aria-label="已沿用 baseline 詞彙">
+  <header>已沿用 baseline summary 詞彙，不再鋪墊</header>
+  <ul>
+<li class="baseline-term-chip">cBC</li>
+<li class="baseline-term-chip">gBC</li>
+<li class="baseline-term-chip">landing pad</li>
+<li class="baseline-term-chip">patchMPRA</li>
+  </ul>
+</aside>
+
+<section class="final-output">
+<h2>最終散文（refined）</h2>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-a">S4-A</a></aside>
+  <p>雙條碼定序量化的整個流程，可以看成「秤每個插槽生產 mRNA 的工廠效率」。作者從一池細胞同時抽出 RNA（產品）和基因組 DNA（工廠的數量），用 Illumina 高通量定序機 (NextSeq) 分別讀 cBC-gBC 條碼配對在 RNA 和 DNA 兩邊各出現多少次。為什麼要「配對」讀？因為每條成功表達的 mRNA 在 3' UTR 同時帶 cBC（「我來自哪個開關」）和 gBC（「我從哪個位置出生」），同一次讀取裡兩段條碼一起讀出來，每條 reads 都自帶「身分證 + 地址」；如果分別獨立定序就配不起來，根本不知道哪個開關坐在哪個位置。最後活性就是 $\log_2(\text{RNA reads}/\text{DNA reads})$。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-b">S4-B</a></aside>
+  <p>為什麼公式要這樣寫？前面的 Landing Pad 步驟確保每顆細胞只帶一份插槽，所以 gDNA 裡某個 gBC 條碼的 reads 數量，正比於「帶這個 gBC 的細胞數」。RNA reads 則正比於「這群細胞總共產了多少對應的 mRNA」。RNA 除以 DNA 等於「每一份模板平均產出多少 mRNA」——這正是「開關活性」的純粹定義，跟細胞多寡無關。沒有這個校正，A 位置看起來 reads 比 B 位置高，可能只是 A 的純系長得快、樣本裡細胞多，跟開關強弱無關。再來，為什麼取 $\log_2$？開關之間的表現量差距常常跨好幾個數量級——A 可能比 B 強 100 倍。取 $\log_2$ 把 100 倍壓成 6.6、10 倍壓成 3.3，所有開關落在差不多的尺度；而且 $\log_2$ 值的「差距」直接代表 fold change，跟後續線性模型 $\log(E_{ij}) = C_i + L_j$ 完全吻合。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-c">S4-C</a></aside>
+  <p>RNA 樣本的純度為什麼這麼斤斤計較？RNA 萃取套組 (ToTALLY RNA kit) 雖然名字叫 Totally RNA，但實際萃取出來的樣本永遠會殘留一點點基因組 DNA (gDNA)。做一回 Turbo DNase 處理可能還有零星 gDNA 沒被分解掉。問題是這些殘留 gDNA 也帶著一樣的 cBC-gBC 條碼，PCR 擴增不挑模板，殘留 gDNA 的條碼會被當成 RNA reads 算進去。所以做「兩回合」嚴格 DNase 處理（按廠商 Rigorous DNase 流程）是一種「以防萬一」的保險，把背景污染壓到接近零。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-d">S4-D</a></aside>
+  <p>如果 DNase 沒做乾淨，後果不是「數字稍微高一點」這麼輕。雖然 SuperScript III 反轉錄酶只把 mRNA 變成 cDNA，但下游 PCR 擴增不挑模板——殘留 gDNA 也會被放大。定序時這些「來自 gDNA 的條碼 reads」混進 RNA reads，每個開關的 RNA reads 被人為灌高，算出的 $\log_2(\text{RNA/DNA})$ 系統性偏高。更慘的是：不同位置的污染比例可能不一樣——A 位置 gDNA 殘留得多、B 位置殘留得少——結果連「位置間的相對排序」都被打亂。「位置只是同倍率放大器」這個 patchMPRA 最關鍵的結論根本支撐不住。</p>
+</div>
+</section>
+</article>
+<article class="module-section" id="module_5_linear-model">
+<header class="module-header">
+  <span class="subitem-badge">3-B</span>
+  <h1>統計與線性建模</h1>
+</header>
+<thinking_process>
+<section class="step-section" id="step-1">
+<h2>Step 1：主線、比喻與核心名詞鷹架</h2>
+<div class="node-grid">
+<article class="trace-node" id="s1-a">
+  <div class="node-top"><span class="node-id">S1-A</span><span class="tag">主線</span></div>
+  <p class="node-body">把實驗資料套進對數空間的加法模型（即原始空間的乘法模型）$\log(E_{ij}) = C_i + L_j + \varepsilon$，再用 ANOVA 拆解總變異，看位置、開關、交互作用各佔多少。</p>
+</article>
+<article class="trace-node" id="s1-b">
+  <div class="node-top"><span class="node-id">S1-B</span><span class="tag">核心名詞鷹架</span></div>
+  <p class="node-body">對數加法 = 原始乘法的等價關係 (log-additive ⇔ multiplicative)；R 語言裡擬合線性模型的函數 (lm function)；變異數分析 (ANOVA)；開關固有強度係數 ($C_i$)；位置環境倍數係數 ($L_j$)；交互作用項 (interaction term)；模型未解釋的隨機誤差 ($\varepsilon$)。</p>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-2">
+<h2>Step 2：深度迭代展開 (針對外行人)</h2>
+<div class="node-grid">
+<article class="trace-node" id="s2-a1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S2-A1</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「擬合線性模型再 ANOVA」具體在做什麼？把哪些數字放進哪個盒子？</span>
+    <p class="answer-text">答（原始）：把每組 (開關 i, 位置 j) 的 $\log_2(\text{RNA/DNA})$ 表現量當依變數，把「開關身分」與「位置身分」當解釋變數，用 R 的 lm 函數擬合加法模型，得到每個開關的 $C_i$ 和每個位置的 $L_j$。ANOVA 把總變異分配到「位置」「開關」「交互」「殘差」四個來源，看誰佔多少 %。</p>
+    <p class="answer-text">答（精修）：想像一張試算表：每一列是一組「開關 i × 位置 j」、最後一欄是該組量到的 $\log_2(\text{RNA/DNA})$ 活性。線性模型 (lm function) 在 R 裡做的事是：「假設每筆活性等於『開關自己貢獻的 $C_i$』+『位置自己貢獻的 $L_j$』，找出最佳的一組 $C_i$、$L_j$ 把所有資料解釋掉。」擬合完後，ANOVA 接著把總變異拆進四個盒子——「位置貢獻」「開關貢獻」「兩者特殊搭配的交互」「沒解釋掉的殘差」——看哪個盒子最大。</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s2-a2" data-source="s2-a1">
+  <div class="node-top"><span class="node-id">S2-A2</span><span class="tag">追問</span></div>
+  <div class="node-body">
+    <span class="question-text">問：「對數空間加法 = 原始空間相乘」是什麼意思？為什麼這兩個說法等價？</span>
+    <p class="answer-text">答（原始）：對 $E_{ij} = C_i \times L_j$ 兩邊取 log 得到 $\log E_{ij} = \log C_i + \log L_j$；在 log 空間裡，相乘變成相加，相加變成簡單的線性疊加，能用 lm 線性模型擬合。</p>
+    <p class="answer-text">答（精修）：假設真實世界裡，「開關 i 在位置 j 的活性」是「開關固有強度」乘以「位置倍數」，也就是 $E_{ij} = C_i \times L_j$。對等號兩邊取 log，乘法被翻譯成加法：$\log E_{ij} = \log C_i + \log L_j$。所以「乘法模型」和「對數加法模型」其實是同一個假設，只是表達方式不同；用對數加法的好處是可以直接套進 lm 線性回歸函數（R 的 lm 只認加法形式），擬合難度大幅降低。(終點：等價性的數學翻譯講清楚)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s2-a1">S2-A1</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-3">
+<h2>Step 3：機制原理 + 設計理由 + 失敗模式</h2>
+<div class="node-grid">
+<article class="trace-node" id="s3-b1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-B1</span><span class="tag" data-cat="mech">機制原理:ANOVA 拆變異</span></div>
+  <div class="node-body">
+    <span class="question-text">問：ANOVA 為什麼能告訴你「位置 vs 開關 vs 交互作用 各佔多少 %」？背後在算什麼？</span>
+    <p class="answer-text">答（原始）：ANOVA 計算每組樣本平均與全體平均的偏差平方和；把總偏差平方和 (Total SS) 分解成「位置間平方和 (SS_L)」「開關間平方和 (SS_C)」「交互平方和 (SS_int)」「殘差平方和 (SS_residual)」，每個來源佔總 SS 的比例就是「解釋百分比」。</p>
+    <p class="answer-text">答（精修）：ANOVA 的核心邏輯：把所有資料點與「全體平均」的距離取平方加總（總變異 SS）；然後問每個來源（位置、開關、交互、雜訊）各自貢獻了多少這個總距離。具體做法：先把「每個位置內部的平均」減掉「全體平均」、平方加總——這就是「位置貢獻的變異 SS_L」；同樣對開關算 SS_C；剩下「分位置分開關都解釋不掉」的就是交互作用 SS_int；最後純雜訊是 SS_residual。每個盒子的比例（SS_X / SS_total）就是「這個來源解釋了 X%」。所以作者最後得到「位置 64%、開關 16%、其他 20%」是 ANOVA 算出來的客觀分配，不是猜的。(終點：ANOVA 機制與百分比來源講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-b2" data-source="s3-b1">
+  <div class="node-top"><span class="node-id">S3-B2</span><span class="tag" data-cat="mech">機制原理:小交互項=獨立</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼「位置 64% + 開關 16% + 雜訊 20%、交互項幾乎 0」就能下「兩者獨立」的結論？</span>
+    <p class="answer-text">答（原始）：如果位置與開關有真正的交互作用（例：某個開關在某些位置會有額外的化學反應），ANOVA 的交互項應該吸走一部分變異；交互項幾乎 0 就表示資料完全可以用「開關 + 位置」的簡單加法解釋，等於兩者獨立。</p>
+    <p class="answer-text">答（精修）：假設位置和開關真的會「彼此挑」——例如某個開關在 A 位置會額外被特定染色質結構激活、在 B 位置反而被消音——那 ANOVA 的「交互項」盒子就會分到一塊很大的變異。但實際擬合下來，這個盒子裡幾乎沒東西（剩下的 20% 又主要是實驗雜訊），這就強烈支持「沒有特定開關 × 特定位置的特殊化學反應」。所有資料用一個簡單加法 $\log E = C_i + L_j$ 就解釋掉了，正是「兩者獨立解耦」的數學定義。(終點：小交互項 = 獨立的邏輯講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-b1">S3-B1</a></div>
+</article>
+<article class="trace-node" id="s3-c1" data-source="s1-a">
+  <div class="node-top"><span class="node-id">S3-C1</span><span class="tag" data-cat="design">設計理由:從最簡單模型開始</span></div>
+  <div class="node-body">
+    <span class="question-text">問：為什麼挑「最簡單的加法模型」而不直接用更複雜的模型（例如 random forest 或 hierarchical model）？</span>
+    <p class="answer-text">答（原始）：若最簡單的可加性模型已能解釋大部分變異 (R = 0.9)，引入更複雜的模型不會帶來新的解釋力，反而增加 overfitting 風險；而簡單模型的好處是參數有明確生物學意義（$C_i$ = 固有強度、$L_j$ = 位置倍數），能直接拿來和獨立實驗對照。</p>
+    <p class="answer-text">答（精修）：這背後是一個重要的研究策略：先用最簡單的模型試試看。如果簡單模型 (lm 加法) 已經能解釋 R = 0.9 的變異，就沒理由再加複雜度——多塞參數通常會 overfit，反而學到雜訊。更重要的是，簡單模型的每個參數都有明確生物學意義：$C_i$ 就是「這個開關的固有強度」、$L_j$ 就是「這個位置的環境倍數」——作者後面才能把 $C_i$ 拿去跟質體 MPRA 的活性對照，驗證它真的代表「沒有染色質干擾時的開關本性」。如果一開始就用 random forest，得到的權重沒有可解釋的物理意義，整個論證就垮了。(終點：簡單模型的策略價值講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s1-a">S1-A</a></div>
+</article>
+<article class="trace-node" id="s3-d1" data-source="s3-b2">
+  <div class="node-top"><span class="node-id">S3-D1</span><span class="tag" data-cat="fail">失敗模式:反例假設</span></div>
+  <div class="node-body">
+    <span class="question-text">問：假設換一個情境——位置與開關真的會交互作用，ANOVA 結果會長什麼樣？讀者怎麼分辨「真的獨立」vs「資料不夠所以看不出來」？</span>
+    <p class="answer-text">答（原始）：若真有交互作用，交互項應該分到顯著比例的變異（例如 20%-40%）；如果樣本不足以解析交互（每組重複數太少），交互可能會被殘差吸收。判斷依據是：殘差是否異常大、replicate 之間 R 是否仍高（後者衡量量測上限）。</p>
+    <p class="answer-text">答（精修）：假如位置真的會挑開關，ANOVA 的交互項應該吸走顯著的變異——可能 20%-40%。但「交互項幾乎 0」也有兩種可能解釋：（甲）真的獨立；（乙）資料太少，每組 (i, j) 只測一次，交互作用無法被解析，被誤算進雜訊。怎麼分辨？看「殘差」對比「重複實驗之間的相關」（reproducibility ceiling）。本文 replicate 之間 R = 0.66、ANOVA 殘差約 20%，這 20% 跟 replicate 的「量測噪音上限」很接近，意味著殘差主要是實驗噪音、而不是「藏起來的交互」。如果殘差遠大於 replicate noise，就要懷疑（乙）。所以作者的結論之所以站得住腳，是因為殘差大小剛好被獨立的 replicate 量測上限框住了。(終點：怎麼分辨真獨立 vs 樣本不足的判準講透)</p>
+  </div>
+  <div class="source-links"><span class="source-label">承接</span><a class="source-link" href="#s3-b2">S3-B2</a></div>
+</article>
+</div>
+</section>
+<section class="step-section" id="step-4">
+<h2>Step 4：濾渣剪枝後的散文卡片</h2>
+<div class="node-grid">
+<article class="trace-node" id="s4-a" data-source="s2-a1 s2-a2">
+  <div class="node-top"><span class="node-id">S4-A</span><span class="tag">操作骨架</span></div>
+  <p class="node-body">想像一張試算表：每一列是一組「開關 i × 位置 j」、最後一欄是該組量到的 $\log_2(\text{RNA/DNA})$ 活性。線性模型 (R 語言裡的 lm function) 在做的事是：「假設每筆活性等於『開關自己貢獻的 $C_i$』+『位置自己貢獻的 $L_j$』，找出最佳的一組 $C_i$、$L_j$ 把所有資料解釋掉。」這個「加法」其實是「乘法」的對數版本——對 $E_{ij} = C_i \times L_j$ 兩邊取 log，乘法被翻譯成加法 $\log E_{ij} = \log C_i + \log L_j$。所以「乘法假設」與「對數加法模型」是同一件事，只是 lm 只認加法形式所以用對數寫。擬合完後，ANOVA 接著把總變異拆進四個盒子——「位置貢獻」「開關貢獻」「兩者特殊搭配的交互」「沒解釋掉的殘差」——看哪個盒子最大。</p>
+</article>
+<article class="trace-node" id="s4-b" data-source="s3-b1 s3-b2">
+  <div class="node-top"><span class="node-id">S4-B</span><span class="tag" data-cat="mech">ANOVA 拆變異的機制與獨立性結論</span></div>
+  <p class="node-body">ANOVA 的核心邏輯：把所有資料點與全體平均的距離取平方加總（總變異 SS），然後問每個來源各自貢獻了多少。先把「每個位置內部的平均」減掉全體平均、平方加總——這就是「位置貢獻的變異 SS_L」；同樣對開關算 SS_C；剩下「分位置分開關都解釋不掉」的就是交互作用 SS_int；最後純雜訊是 SS_residual。每個盒子佔總 SS 的比例就是「這個來源解釋了 X%」。作者得到的「位置 64%、開關 16%、其他 20%、交互幾乎 0」是 ANOVA 算出來的客觀分配。為什麼這就能下「兩者獨立」的結論？假設位置和開關真的會彼此挑——例如某個開關在 A 位置會額外被激活、在 B 位置反而被消音——交互項盒子就該分到一大塊。實際幾乎沒有，意味著「沒有特定開關 × 特定位置的特殊化學反應」，所有資料用一個簡單加法 $\log E = C_i + L_j$ 就解釋掉，正是兩者獨立解耦的數學定義。</p>
+</article>
+<article class="trace-node" id="s4-c" data-source="s3-c1">
+  <div class="node-top"><span class="node-id">S4-C</span><span class="tag" data-cat="design">從簡單模型開始的設計理由</span></div>
+  <p class="node-body">為什麼挑最簡單的加法模型而不直接上 random forest 或 hierarchical model？這背後是一個重要的研究策略：先用最簡單的模型試試看。如果簡單模型 (lm 加法) 已經能解釋 R = 0.9 的變異，就沒理由再加複雜度——多塞參數通常會 overfit，反而學到雜訊。更重要的是，簡單模型的每個參數都有明確生物學意義：$C_i$ 就是「這個開關的固有強度」、$L_j$ 就是「這個位置的環境倍數」。作者後面才能把擬合出來的 $C_i$ 拿去跟質體 MPRA 的活性對照，驗證它真的代表「沒有染色質干擾時的開關本性」。如果一開始就用 random forest，得到的權重沒有可解釋的物理意義，整個論證就垮了。</p>
+</article>
+<article class="trace-node" id="s4-d" data-source="s3-d1">
+  <div class="node-top"><span class="node-id">S4-D</span><span class="tag">怎麼分辨真獨立 vs 樣本不足</span></div>
+  <p class="node-body">怎麼確定「交互項幾乎 0」是「真的獨立」而不是「資料太少所以看不出來」？這是個關鍵分辨問題。交互項幾乎 0 有兩種可能：（甲）真的獨立；（乙）資料太少、每組 (i, j) 只測一次，交互作用無法解析、被誤算進雜訊。分辨的方法是看「殘差」對比「重複實驗之間的相關」(reproducibility ceiling)。本文 replicate 之間 R = 0.66、ANOVA 殘差約 20%，這 20% 跟 replicate 的量測噪音上限很接近，意味著殘差主要是實驗噪音、而不是藏起來的交互。如果殘差遠大於 replicate noise，就要懷疑（乙）。所以作者的「兩者獨立」結論之所以站得住腳，是因為殘差大小剛好被獨立的 replicate 量測上限框住了。</p>
+</article>
+</div>
+</section>
+</thinking_process>
+
+<aside class="baseline-known-terms" aria-label="已沿用 baseline 詞彙">
+  <header>已沿用 baseline summary 詞彙，不再鋪墊</header>
+  <ul>
+<li class="baseline-term-chip">E_{ij}</li>
+<li class="baseline-term-chip">C_i</li>
+<li class="baseline-term-chip">L_j</li>
+<li class="baseline-term-chip">ANOVA</li>
+<li class="baseline-term-chip">MPRA</li>
+<li class="baseline-term-chip">質體</li>
+  </ul>
+</aside>
+
+<section class="final-output">
+<h2>最終散文（refined）</h2>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-a">S4-A</a></aside>
+  <p>想像一張試算表：每一列是一組「開關 i × 位置 j」、最後一欄是該組量到的 $\log_2(\text{RNA/DNA})$ 活性。線性模型 (R 語言裡的 lm function) 在做的事是：「假設每筆活性等於『開關自己貢獻的 $C_i$』+『位置自己貢獻的 $L_j$』，找出最佳的一組 $C_i$、$L_j$ 把所有資料解釋掉。」這個「加法」其實是「乘法」的對數版本——對 $E_{ij} = C_i \times L_j$ 兩邊取 log，乘法被翻譯成加法 $\log E_{ij} = \log C_i + \log L_j$。所以「乘法假設」與「對數加法模型」是同一件事，只是 lm 只認加法形式所以用對數寫。擬合完後，ANOVA 接著把總變異拆進四個盒子——「位置貢獻」「開關貢獻」「兩者特殊搭配的交互」「沒解釋掉的殘差」——看哪個盒子最大。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-b">S4-B</a></aside>
+  <p>ANOVA 的核心邏輯：把所有資料點與全體平均的距離取平方加總（總變異 SS），然後問每個來源各自貢獻了多少。先把「每個位置內部的平均」減掉全體平均、平方加總——這就是「位置貢獻的變異 SS_L」；同樣對開關算 SS_C；剩下「分位置分開關都解釋不掉」的就是交互作用 SS_int；最後純雜訊是 SS_residual。每個盒子佔總 SS 的比例就是「這個來源解釋了 X%」。作者得到的「位置 64%、開關 16%、其他 20%、交互幾乎 0」是 ANOVA 算出來的客觀分配。為什麼這就能下「兩者獨立」的結論？假設位置和開關真的會彼此挑——例如某個開關在 A 位置會額外被激活、在 B 位置反而被消音——交互項盒子就該分到一大塊。實際幾乎沒有，意味著「沒有特定開關 × 特定位置的特殊化學反應」，所有資料用一個簡單加法 $\log E = C_i + L_j$ 就解釋掉，正是兩者獨立解耦的數學定義。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-c">S4-C</a></aside>
+  <p>為什麼挑最簡單的加法模型而不直接上 random forest 或 hierarchical model？這背後是一個重要的研究策略：先用最簡單的模型試試看。如果簡單模型 (lm 加法) 已經能解釋 R = 0.9 的變異，就沒理由再加複雜度——多塞參數通常會 overfit，反而學到雜訊。更重要的是，簡單模型的每個參數都有明確生物學意義：$C_i$ 就是「這個開關的固有強度」、$L_j$ 就是「這個位置的環境倍數」。作者後面才能把擬合出來的 $C_i$ 拿去跟質體 MPRA 的活性對照，驗證它真的代表「沒有染色質干擾時的開關本性」。如果一開始就用 random forest，得到的權重沒有可解釋的物理意義，整個論證就垮了。</p>
+</div>
+<div class="final-para">
+  <aside class="final-map"><a class="final-source" href="#s4-d">S4-D</a></aside>
+  <p>怎麼確定「交互項幾乎 0」是「真的獨立」而不是「資料太少所以看不出來」？這是個關鍵分辨問題。交互項幾乎 0 有兩種可能：（甲）真的獨立；（乙）資料太少、每組 (i, j) 只測一次，交互作用無法解析、被誤算進雜訊。分辨的方法是看「殘差」對比「重複實驗之間的相關」(reproducibility ceiling)。本文 replicate 之間 R = 0.66、ANOVA 殘差約 20%，這 20% 跟 replicate 的量測噪音上限很接近，意味著殘差主要是實驗噪音、而不是藏起來的交互。如果殘差遠大於 replicate noise，就要懷疑（乙）。所以作者的「兩者獨立」結論之所以站得住腳，是因為殘差大小剛好被獨立的 replicate 量測上限框住了。</p>
+</div>
+</section>
+</article>
+</main>
+<script>
+(function () {
+  const nodes = document.querySelectorAll('.trace-node[data-source]');
+  function activate(node) {
+    node.classList.add('is-active');
+    const srcStr = node.getAttribute('data-source') || '';
+    srcStr.split(/\s+/).filter(Boolean).forEach(id => {
+      const t = document.getElementById(id);
+      if (t) t.classList.add('is-source');
+    });
+  }
+  function clearAll() {
+    document.querySelectorAll('.is-active, .is-source').forEach(n => {
+      n.classList.remove('is-active');
+      n.classList.remove('is-source');
+    });
+  }
+  nodes.forEach(n => {
+    n.addEventListener('mouseenter', () => { clearAll(); activate(n); });
+    n.addEventListener('focusin', () => { clearAll(); activate(n); });
+  });
+  document.querySelectorAll('thinking_process').forEach(tp => {
+    tp.addEventListener('mouseleave', clearAll);
+  });
+})();
+</script>
+</body>
+</html>
