@@ -187,7 +187,11 @@ body.notes-closed .margin-note { display: none !important; }
 .mobile-note-slot { display: none; }
 
 .color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; background: rgba(255,255,255,0.95); border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 8px 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.10); font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-size: 12.5px; max-height: 80vh; overflow-y: auto; }
-.color-toggle .ct-title { font-weight: 600; margin-bottom: 4px; color: #555; }
+.color-toggle .ct-title { font-weight: 600; margin-bottom: 4px; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; user-select: none; }
+.color-toggle .ct-label { font-weight: 600; color: #555; }
+.color-toggle .ct-caret { transition: transform 0.15s ease; font-size: 11px; color: #666; }
+.color-toggle.is-collapsed .ct-items { display: none; }
+.color-toggle.is-collapsed .ct-caret { transform: rotate(-90deg); }
 .color-toggle .ct-item { display: flex; align-items: center; gap: 6px; padding: 3px 4px; border-radius: 5px; cursor: pointer; user-select: none; }
 .color-toggle .ct-item:hover { background: rgba(0,0,0,0.05); }
 .color-toggle .ct-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid transparent; flex-shrink: 0; }
@@ -866,7 +870,16 @@ body.off-m18 .margin-note.n-m18 { display: none !important; }
 
     var ct = document.createElement('div');
     ct.className = 'color-toggle';
-    ct.innerHTML = '<div class="ct-title">顯示</div>';
+    var ctTitle = document.createElement('div');
+    ctTitle.className = 'ct-title';
+    ctTitle.innerHTML = '<span class="ct-label">顯示</span><span class="ct-caret">▾</span>';
+    ctTitle.addEventListener('click', function(){
+      ct.classList.toggle('is-collapsed');
+    });
+    ct.appendChild(ctTitle);
+    var ctItems = document.createElement('div');
+    ctItems.className = 'ct-items';
+    ct.appendChild(ctItems);
     var notesItem = document.createElement('div');
     notesItem.className = 'ct-item';
     notesItem.setAttribute('data-action', 'notes');
@@ -876,7 +889,7 @@ body.off-m18 .margin-note.n-m18 { display: none !important; }
       notesItem.classList.toggle('is-off', off);
       reposition();
     });
-    ct.appendChild(notesItem);
+    ctItems.appendChild(notesItem);
 
     var labels = {'summary':'全文摘要','m1':'主題一','m2':'主題二','m3':'主題三','m4':'主題四','m5':'主題五','m6':'主題六','m7':'主題七','m8':'主題八','m9':'主題九','m10':'主題十','m11':'主題十一','m12':'主題十二','m13':'主題十三','m14':'主題十四','m15':'主題十五','m16':'主題十六','m17':'主題十七','m18':'主題十八'};
     COLOR_KEYS.forEach(function(ck){
@@ -901,7 +914,7 @@ body.off-m18 .margin-note.n-m18 { display: none !important; }
         rebaseMarks();
         reposition();
       });
-      ct.appendChild(item);
+      ctItems.appendChild(item);
     });
     document.body.appendChild(ct);
 

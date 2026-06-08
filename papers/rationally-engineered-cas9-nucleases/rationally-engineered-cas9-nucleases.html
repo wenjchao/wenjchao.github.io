@@ -70,7 +70,10 @@ body.notes-closed .margin-note { display: none !important; }
 .mobile-note-slot { display: none; }
 
 .color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; background: rgba(255,255,255,0.95); border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 8px 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.10); font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-size: 12.5px; }
-.color-toggle .ct-title { font-weight: 600; margin-bottom: 4px; color: #555; }
+.color-toggle .ct-title { cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; user-select: none; font-weight: 600; color: #555; margin-bottom: 4px; }
+.color-toggle .ct-caret { transition: transform 0.15s ease; font-size: 11px; color: #666; }
+.color-toggle.is-collapsed .ct-items { display: none; }
+.color-toggle.is-collapsed .ct-caret { transform: rotate(-90deg); }
 .color-toggle .ct-item { display: flex; align-items: center; gap: 6px; padding: 3px 4px; border-radius: 5px; cursor: pointer; user-select: none; }
 .color-toggle .ct-item:hover { background: rgba(0,0,0,0.05); }
 .color-toggle .ct-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid transparent; flex-shrink: 0; }
@@ -605,7 +608,12 @@ body.off-m8 .margin-note.n-m8 { display: none !important; }
 
     var ct = document.createElement('div');
     ct.className = 'color-toggle';
-    ct.innerHTML = '<div class="ct-title">顯示</div>';
+    ct.innerHTML = '<div class="ct-title"><span class="ct-label">顯示</span><span class="ct-caret">▾</span></div><div class="ct-items"></div>';
+    var ctTitle = ct.querySelector('.ct-title');
+    var ctItems = ct.querySelector('.ct-items');
+    ctTitle.addEventListener('click', function(){
+      ct.classList.toggle('is-collapsed');
+    });
     var notesItem = document.createElement('div');
     notesItem.className = 'ct-item';
     notesItem.setAttribute('data-action', 'notes');
@@ -615,7 +623,7 @@ body.off-m8 .margin-note.n-m8 { display: none !important; }
       notesItem.classList.toggle('is-off', off);
       reposition();
     });
-    ct.appendChild(notesItem);
+    ctItems.appendChild(notesItem);
 
     var labels = {
       'summary':'全文摘要',
@@ -644,7 +652,7 @@ body.off-m8 .margin-note.n-m8 { display: none !important; }
         rebaseMarks();
         reposition();
       });
-      ct.appendChild(item);
+      ctItems.appendChild(item);
     });
     document.body.appendChild(ct);
 
