@@ -139,7 +139,7 @@
   <details>
     <summary>說明與需求</summary>
     <ul>
-      <li>模型：<a href="https://huggingface.co/onnx-community/gemma-3n-E2B-it-ONNX" target="_blank">Gemma-3n-E2B-it</a>（4.9 GB，品質與中文最好）與 <a href="https://huggingface.co/onnx-community/LFM2-VL-450M-ONNX" target="_blank">LFM2-VL-450M</a>（0.42 GB，輕量、英文為主）。皆免登入下載。推論引擎：<a href="https://huggingface.co/docs/transformers.js" target="_blank">Transformers.js</a> v4。</li>
+      <li>模型：<a href="https://huggingface.co/onnx-community/gemma-3n-E2B-it-ONNX" target="_blank">Gemma-3n-E2B-it</a>（4.9 GB，品質與中文最好）與 <a href="https://huggingface.co/onnx-community/LFM2-VL-450M-ONNX" target="_blank">LFM2-VL-450M</a>（0.55 GB，輕量、英文為主，量化組合與 Liquid AI 官方 WebGPU demo 相同）。皆免登入下載。推論引擎：<a href="https://huggingface.co/docs/transformers.js" target="_blank">Transformers.js</a> v4。</li>
       <li>瀏覽器：建議 Chrome / Edge 最新版。WebGPU 模式需要 GPU；WASM(CPU) 模式 LFM2 可順跑、Gemma-3n 會超過 wasm 4 GB 上限而失敗。</li>
       <li>記憶體：Gemma-3n 載入峰值約 7–9 GB、穩定 5–7 GB（建議 16 GB 機器）；LFM2-VL 約 1 GB 內。</li>
       <li>下載與選資料夾使用 File System Access API（Chrome / Edge）。Firefox / Safari 只能用「選擇資料夾」備援載入，無法網頁內下載。</li>
@@ -169,11 +169,11 @@ self.fetch = async (input, init) => {
 };
 
 let TF = null, processor = null, model = null, stopper = null;
-let cfg = null; // { repoId, dtype, hasAudio, genOpts }
+let cfg = null; // { repoId, dtype, procStyle, genOpts }
 let generating = false;
 
 async function load(msg) {
-  cfg = { repoId: msg.repoId, dtype: msg.dtype, hasAudio: msg.hasAudio, genOpts: msg.genOpts || {} };
+  cfg = { repoId: msg.repoId, dtype: msg.dtype, procStyle: msg.procStyle, genOpts: msg.genOpts || {} };
   PREFIX = "https://huggingface.co/" + cfg.repoId + "/resolve/main/";
   localFiles.clear();
   for (const { path, file } of msg.files) localFiles.set(path, file);
@@ -234,9 +234,10 @@ async function generate(history, maxTokens) {
     }
   }
   const opts = { add_special_tokens: false };
-  const inputs = cfg.hasAudio
-    ? await processor(prompt, images, null, opts)
-    : await processor(prompt, images, opts);
+  // 不同模型的 processor 參數順序不同（依各自官方範例）
+  const inputs = cfg.procStyle === "gemma3n"
+    ? await processor(prompt, images, null, opts)   // Gemma-3n: (文字, 圖片, 音訊)
+    : await processor(images, prompt, opts);        // LFM2-VL: (圖片, 文字)
   urls.forEach((u) => URL.revokeObjectURL(u));
 
   let numTokens = 0, startTime = 0, firstToken = 0;
@@ -293,7 +294,7 @@ const MODELS = {
     dirName: "gemma-3n-E2B-it-ONNX",
     label: "Gemma-3n-E2B-it（4.9 GB · 品質/中文最好 · 需 GPU）",
     sizeText: "約 4.9 GB",
-    hasAudio: true,
+    procStyle: "gemma3n", // Gemma 的 processor 是 (文字, 圖片, 音訊)
     cpuViable: false,
     dtype: { embed_tokens: "q4", decoder_model_merged: "q4", vision_encoder: "fp32", audio_encoder: "q4" },
     genOpts: {},
@@ -319,12 +320,13 @@ const MODELS = {
   "lfm2-vl-450m": {
     repoId: "onnx-community/LFM2-VL-450M-ONNX",
     dirName: "LFM2-VL-450M-ONNX",
-    label: "LFM2-VL-450M（0.42 GB · 輕量快速 · CPU 可跑 · 英文為主）",
-    sizeText: "約 0.42 GB",
-    hasAudio: false,
+    label: "LFM2-VL-450M（0.55 GB · 輕量快速 · 英文為主）",
+    sizeText: "約 0.55 GB",
+    procStyle: "img-first", // LFM2 的 processor 是 (圖片, 文字)，依官方 demo
     cpuViable: true,
-    dtype: { embed_tokens: "q4", decoder_model_merged: "q4", vision_encoder: "quantized" },
-    genOpts: { repetition_penalty: 1.05 },
+    // 與 Liquid AI 官方 WebGPU demo 完全相同的組合
+    dtype: { vision_encoder: "fp16", embed_tokens: "fp16", decoder_model_merged: "q4f16" },
+    genOpts: { repetition_penalty: 1.08 },
     files: [
       ["config.json", 2545],
       ["generation_config.json", 136],
@@ -333,12 +335,12 @@ const MODELS = {
       ["preprocessor_config.json", 1004],
       ["processor_config.json", 1164],
       ["chat_template.jinja", 434],
-      ["onnx/embed_tokens_q4.onnx", 853],
-      ["onnx/embed_tokens_q4.onnx_data", 42991616],
-      ["onnx/decoder_model_merged_q4.onnx", 187231],
-      ["onnx/decoder_model_merged_q4.onnx_data", 260075520],
-      ["onnx/vision_encoder_quantized.onnx", 187439],
-      ["onnx/vision_encoder_quantized.onnx_data", 112325632],
+      ["onnx/embed_tokens_fp16.onnx", 637],
+      ["onnx/embed_tokens_fp16.onnx_data", 134217728],
+      ["onnx/decoder_model_merged_q4f16.onnx", 187052],
+      ["onnx/decoder_model_merged_q4f16.onnx_data", 221411328],
+      ["onnx/vision_encoder_fp16.onnx", 152458],
+      ["onnx/vision_encoder_fp16.onnx_data", 192677376],
     ],
   },
 };
@@ -464,22 +466,7 @@ $("btnDownload").onclick = async () => {
   try {
     for (const [path, size] of plan) {
       $("dlFileLabel").textContent = path;
-      const resp = await fetch(cfg.remote + path, { signal: dlAbort.signal });
-      if (!resp.ok) throw new Error("下載失敗（HTTP " + resp.status + "）：" + path);
-      const fh = await getFileHandleCreating(dir, path);
-      const writable = await fh.createWritable();
-      const reader = resp.body.getReader();
-      let written = 0;
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          await writable.write(value);
-          written += value.byteLength;
-          tick(written);
-        }
-        await writable.close();
-      } catch (e) { await writable.abort().catch(() => {}); throw e; }
+      await downloadOneFile(cfg, dir, path, size, tick, status);
       doneBytes += size;
     }
     $("dlFileLabel").textContent = "";
@@ -512,6 +499,58 @@ async function getFileHandleCreating(dir, path) {
   let d = dir;
   for (let i = 0; i < parts.length - 1; i++) d = await d.getDirectoryHandle(parts[i], { create: true });
   return d.getFileHandle(parts[parts.length - 1], { create: true });
+}
+
+// 單檔下載：串流逾時自動重連，並以 HTTP Range 從中斷的位元組續傳（同一工作階段內）
+async function downloadOneFile(cfg, dir, path, size, tick, status) {
+  const fh = await getFileHandleCreating(dir, path);
+  const writable = await fh.createWritable();
+  let written = 0;
+  const MAX_ATTEMPTS = 6;
+  try {
+    for (let attempt = 1; written < size; attempt++) {
+      if (attempt > MAX_ATTEMPTS) throw new Error("多次重試仍失敗：" + path + "（請檢查網路後再按一次下載即可續傳其餘檔案）");
+      try {
+        const headers = written > 0 ? { Range: "bytes=" + written + "-" } : {};
+        const resp = await fetch(cfg.remote + path, { signal: dlAbort.signal, headers, cache: "no-store" });
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        if (written > 0 && resp.status !== 206) { // 伺服器未回應續傳範圍 → 重頭下載此檔
+          await writable.seek(0); await writable.truncate(0); written = 0;
+        }
+        const reader = resp.body.getReader();
+        while (true) {
+          const { done, value } = await readWithTimeout(reader, 45000);
+          if (done) break;
+          await writable.write(value);
+          written += value.byteLength;
+          tick(written);
+        }
+        if (written < size) throw new Error("連線提前結束");
+      } catch (e) {
+        if (e.name === "AbortError" || (dlAbort && dlAbort.signal.aborted)) throw e;
+        if (written >= size) break;
+        status.textContent = "⚠ " + path + " 中斷（" + (e && e.message || e) + "），第 " + attempt + " 次重試，從 " + fmtMB(written) + " 續傳…";
+        status.className = "status-line warn";
+        await new Promise((r) => setTimeout(r, Math.min(2000 * attempt, 8000)));
+      }
+    }
+    await writable.close();
+    status.textContent = ""; status.className = "status-line";
+  } catch (e) {
+    await writable.abort().catch(() => {});
+    throw e;
+  }
+}
+async function readWithTimeout(reader, ms) {
+  let timer;
+  try {
+    return await Promise.race([
+      reader.read(),
+      new Promise((_, rej) => {
+        timer = setTimeout(() => { reader.cancel().catch(() => {}); rej(new Error("逾時無回應")); }, ms);
+      }),
+    ]);
+  } finally { clearTimeout(timer); }
 }
 
 /* ---------- 步驟 2：載入 ---------- */
@@ -598,7 +637,7 @@ async function loadFromFileMap(map) {
   const files = cfg.files.map(([p]) => ({ path: p, file: map.get(p) }));
   worker.postMessage({
     type: "load", files, device,
-    repoId: cfg.repoId, dtype: cfg.dtype, hasAudio: cfg.hasAudio, genOpts: cfg.genOpts,
+    repoId: cfg.repoId, dtype: cfg.dtype, procStyle: cfg.procStyle, genOpts: cfg.genOpts,
   });
 }
 
@@ -607,8 +646,11 @@ function onWorkerMessage(ev) {
   if (m.type === "load-progress") {
     loadProgressByFile.set(m.file, m.loaded || 0);
     let loaded = 0; for (const v of loadProgressByFile.values()) loaded += v;
-    $("loadProgress").value = Math.min(100, (loaded / currentCfg().totalBytes) * 100);
-    $("loadFileLabel").textContent = m.file || "";
+    const ratio = loaded / currentCfg().totalBytes;
+    $("loadProgress").value = Math.min(100, ratio * 100);
+    $("loadFileLabel").textContent = ratio >= 0.999
+      ? "建立運算圖／編譯 shader 中…（首次載入較久，請稍候）"
+      : (m.file || "");
   } else if (m.type === "ready") {
     modelReady = true; canStop = !!m.canStop;
     $("loadProgress").value = 100;
