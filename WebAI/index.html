@@ -39,7 +39,6 @@
   .status-line.ok{color:var(--ok)} .status-line.err{color:var(--err)} .status-line.warn{color:var(--warn)}
   label.radio{display:inline-flex;align-items:center;gap:6px;margin-right:14px;cursor:pointer;font-size:.92rem}
   /* chat */
-  #chatCard{display:none}
   #chatBox{background:var(--bg);border:1px solid var(--border);border-radius:10px;height:420px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
   .msg{max-width:85%;padding:10px 13px;border-radius:12px;white-space:pre-wrap;word-break:break-word;font-size:.95rem}
   .msg.user{background:var(--user);align-self:flex-end;border-bottom-right-radius:4px}
@@ -117,13 +116,14 @@
   <!-- 步驟 3：聊天 -->
   <div class="card" id="chatCard">
     <h2><span class="step-num">3</span>開始對話</h2>
+    <div id="chatLock" class="hint" style="color:var(--warn)">⏳ 完成步驟 2 載入模型後，這裡就能開始對話。</div>
     <div id="chatBox"></div>
     <div id="imgPreview"></div>
     <div id="inputBar">
-      <button id="btnImg" class="ghost" title="附加圖片">🖼</button>
+      <button id="btnImg" class="ghost" title="附加圖片" disabled>🖼</button>
       <input type="file" id="imgInput" accept="image/*" multiple style="display:none">
-      <textarea id="promptInput" rows="1" placeholder="輸入訊息…（Enter 送出，Shift+Enter 換行）"></textarea>
-      <button id="btnSend">送出</button>
+      <textarea id="promptInput" rows="1" placeholder="輸入訊息…（Enter 送出，Shift+Enter 換行）" disabled></textarea>
+      <button id="btnSend" disabled>送出</button>
       <button id="btnStop" class="danger" style="display:none">停止</button>
     </div>
     <div class="row" style="margin-top:10px;justify-content:space-between">
@@ -551,8 +551,10 @@ function onWorkerMessage(ev) {
     $("loadFileLabel").textContent = "";
     setLoadStatus("✅ 模型已就緒（" + document.querySelector('input[name="device"]:checked').value + "）", "ok");
     $("btnLoad").disabled = false; $("btnLoadLast").disabled = false;
-    $("chatCard").style.display = "";
+    $("chatLock").style.display = "none";
+    $("promptInput").disabled = false; $("btnSend").disabled = false; $("btnImg").disabled = false;
     $("chatCard").scrollIntoView({ behavior: "smooth" });
+    $("promptInput").focus();
   } else if (m.type === "error") {
     setLoadStatus("❌ " + m.error, "err");
     $("btnLoad").disabled = false; $("btnLoadLast").disabled = false;
