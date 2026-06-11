@@ -77,7 +77,7 @@
   <!-- 步驟 1：下載 -->
   <div class="card">
     <h2><span class="step-num">1</span>下載模型到你的電腦</h2>
-    <div class="hint">按下後選擇一個資料夾，模型檔（約 4.9 GB，共 16 個檔案）會直接寫入該資料夾。中斷後再按一次會自動跳過已完成的檔案（續傳）。已經下載過就可直接跳到步驟 2。</div>
+    <div class="hint">按下後選擇一個位置，會自動在裡面建立「gemma-3n-E2B-it-ONNX」資料夾並寫入 16 個模型檔（約 4.9 GB）。中斷後再按一次會自動跳過已完成的檔案（續傳）。已經下載過就可直接跳到步驟 2。</div>
     <div class="row">
       <button id="btnDownload">⬇ 一鍵下載模型</button>
       <button id="btnCancelDl" class="ghost" style="display:none">取消</button>
@@ -100,7 +100,7 @@
     <div class="row" style="margin-bottom:10px">
       <span class="small">運算裝置：</span>
       <label class="radio"><input type="radio" name="device" value="webgpu" checked> WebGPU（GPU，快）</label>
-      <label class="radio"><input type="radio" name="device" value="wasm"> WASM（CPU，慢但相容性高）</label>
+      <label class="radio"><input type="radio" name="device" value="wasm"> WASM（CPU，⚠ 此模型 4.9 GB 超過 wasm 4 GB 上限，極可能載入失敗）</label>
     </div>
     <div class="row">
       <button id="btnLoad">📂 選擇資料夾並載入</button>
@@ -139,7 +139,7 @@
       <li>量化組合：decoder q4 ＋ embeddings q4 ＋ vision fp32 ＋ audio q4（依官方模型卡建議；本介面只用文字與圖片輸入）。</li>
       <li>瀏覽器：建議 Chrome / Edge 最新版。WebGPU 模式需要 GPU 與較新驅動；WASM 模式任何電腦可跑但速度慢很多。</li>
       <li>下載與選資料夾使用 File System Access API（Chrome / Edge）。Firefox / Safari 只能用「選擇資料夾」的備援方式載入，無法網頁內下載。</li>
-      <li>記憶體：載入後約佔 5–7 GB RAM，建議關閉其他大型分頁。</li>
+      <li>記憶體：WebGPU 模式載入峰值約 7–9 GB、穩定後約 5–7 GB RAM，建議 16 GB 機器並關閉其他大型分頁。WASM(CPU) 模式受 wasm 4 GB 上限限制，此模型實際上難以使用。</li>
       <li>所有推論都在本地進行；除了第一次從 Hugging Face 下載模型外，不會傳送任何資料到網路。</li>
     </ul>
   </details>
@@ -284,6 +284,7 @@ self.onmessage = async (ev) => {
 <script type="module">
 const MODEL_ID = "onnx-community/gemma-3n-E2B-it-ONNX";
 const REMOTE = "https://huggingface.co/" + MODEL_ID + "/resolve/main/";
+const MODEL_DIR_NAME = "gemma-3n-E2B-it-ONNX"; // 下載時自動建立的子資料夾
 
 // 需要的檔案清單（路徑、位元組大小）— 來自 HF API，用於下載、續傳檢查與載入
 const FILES = [
@@ -359,7 +360,18 @@ let dlAbort = null;
 $("btnDownload").onclick = async () => {
   let dir;
   try { dir = await showDirectoryPicker({ mode: "readwrite" }); }
-  catch (e) { return; } // 使用者取消
+  catch (e) {
+    if (e.name === "AbortError") return; // 使用者取消
+    const s = $("dlStatus");
+    s.textContent = "❌ 無法存取資料夾：" + e.message + "（請選一般資料夾，例如自建的子資料夾；系統資料夾如「下載」「桌面」根目錄可能被 Chrome 封鎖）";
+    s.className = "status-line err";
+    return;
+  }
+  // 若選的不是模型資料夾本身，就在裡面建立／沿用專用子資料夾，避免檔案散落
+  try {
+    const alreadyModelRoot = dir.name === MODEL_DIR_NAME || !!(await getFileIfExists(dir, "config.json"));
+    if (!alreadyModelRoot) dir = await dir.getDirectoryHandle(MODEL_DIR_NAME, { create: true });
+  } catch (e) {}
   await idbSet("modelDir", dir).catch(() => {});
   $("btnLoadLast").style.display = "";
 
@@ -460,7 +472,6 @@ $("btnLoad").onclick = async () => {
   if (hasFS) {
     let dir;
     try { dir = await showDirectoryPicker({ mode: "read" }); } catch (e) { return; }
-    await idbSet("modelDir", dir).catch(() => {});
     loadFromDirHandle(dir);
   } else {
     $("dirFallback").click(); // Firefox / Safari 備援
@@ -470,10 +481,16 @@ $("dirFallback").onchange = () => {
   const files = [...$("dirFallback").files];
   if (!files.length) return;
   // webkitdirectory 給的是整個資料夾的檔案，relativePath 去掉最上層資料夾名稱
-  const map = new Map();
+  let map = new Map();
   for (const f of files) {
     const rel = (f.webkitRelativePath || f.name).split("/").slice(1).join("/") || f.name;
     map.set(rel, f);
+  }
+  if (!map.has("config.json")) { // 選到上層資料夾時，自動剝掉模型子資料夾前綴
+    const pre = MODEL_DIR_NAME + "/";
+    const m2 = new Map();
+    for (const [k, v] of map) if (k.startsWith(pre)) m2.set(k.slice(pre.length), v);
+    if (m2.has("config.json")) map = m2;
   }
   loadFromFileMap(map);
 };
@@ -489,6 +506,11 @@ $("btnLoadLast").onclick = async () => {
 };
 
 async function loadFromDirHandle(dir) {
+  // 若選到的是上層資料夾，自動進入模型子資料夾
+  if (!(await getFileIfExists(dir, "config.json"))) {
+    try { dir = await dir.getDirectoryHandle(MODEL_DIR_NAME); } catch (e) {}
+  }
+  await idbSet("modelDir", dir).catch(() => {});
   const map = new Map();
   for (const [path] of FILES) {
     const f = await getFileIfExists(dir, path);
