@@ -28,6 +28,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r papers _site/
+          cp -r WebAI _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
