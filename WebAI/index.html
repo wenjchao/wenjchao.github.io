@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebAI — Gemma-3n-E2B-it 本地瀏覽器推論</title>
+<title>WebAI — 本地瀏覽器 LLM 推論</title>
 <style>
   :root{
     --bg:#0f1115; --card:#181b22; --card2:#1f232c; --border:#2a2f3a;
@@ -29,6 +29,7 @@
   button.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
   button.ghost:hover:not(:disabled){border-color:var(--accent)}
   button.danger{background:#7c3a36}
+  select{font:inherit;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;max-width:100%}
   .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   progress{width:100%;height:10px;border-radius:6px;appearance:none;-webkit-appearance:none}
   progress::-webkit-progress-bar{background:var(--card2);border-radius:6px}
@@ -44,7 +45,6 @@
   .msg.user{background:var(--user);align-self:flex-end;border-bottom-right-radius:4px}
   .msg.bot{background:var(--bot);align-self:flex-start;border-bottom-left-radius:4px}
   .msg img{max-width:200px;max-height:200px;border-radius:8px;display:block;margin-bottom:6px}
-  .msg .meta{font-size:.72rem;color:var(--muted);margin-top:6px}
   .cursor::after{content:"▍";animation:blink 1s infinite;color:var(--accent)}
   @keyframes blink{50%{opacity:0}}
   #inputBar{display:flex;gap:8px;margin-top:12px;align-items:flex-end}
@@ -63,20 +63,24 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>WebAI · Gemma-3n-E2B-it</h1>
+  <h1>WebAI · 本地瀏覽器 LLM</h1>
   <div class="sub">完全在你的瀏覽器本地執行 — 文字＋圖片輸入、逐字串流輸出，資料不離開你的電腦。</div>
 
   <div class="pills">
     <span id="pillGPU" class="pill">WebGPU 偵測中…</span>
     <span id="pillFS" class="pill">檔案系統 API 偵測中…</span>
-    <span class="pill">模型總大小約 4.9 GB</span>
+    <span id="pillSize" class="pill"></span>
   </div>
   <div id="protoBanner" class="banner">⚠️ 你正用 file:// 直接開啟此頁，部分 API 會失效。請改用本機伺服器（如 <span class="mono">python3 -m http.server</span>）或 GitHub Pages 開啟。</div>
 
   <!-- 步驟 1：下載 -->
   <div class="card">
-    <h2><span class="step-num">1</span>下載模型到你的電腦</h2>
-    <div class="hint">按下後選擇一個位置，會自動在裡面建立「gemma-3n-E2B-it-ONNX」資料夾並寫入 16 個模型檔（約 4.9 GB）。中斷後再按一次會自動跳過已完成的檔案（續傳）。已經下載過就可直接跳到步驟 2。</div>
+    <h2><span class="step-num">1</span>選擇模型並下載到你的電腦</h2>
+    <div class="row" style="margin-bottom:10px">
+      <span class="small">模型：</span>
+      <select id="modelSelect"></select>
+    </div>
+    <div class="hint" id="dlHint"></div>
     <div class="row">
       <button id="btnDownload">⬇ 一鍵下載模型</button>
       <button id="btnCancelDl" class="ghost" style="display:none">取消</button>
@@ -95,11 +99,11 @@
   <!-- 步驟 2：載入 -->
   <div class="card">
     <h2><span class="step-num">2</span>選擇模型資料夾並載入</h2>
-    <div class="hint">指到步驟 1 下載的資料夾。模型會從你的磁碟讀入瀏覽器記憶體（建議 16 GB RAM、Chrome / Edge）。</div>
+    <div class="hint">指到步驟 1 下載的資料夾（選它的上層資料夾也可以，會自動找到）。模型會從你的磁碟讀入瀏覽器記憶體。</div>
     <div class="row" style="margin-bottom:10px">
       <span class="small">運算裝置：</span>
       <label class="radio"><input type="radio" name="device" value="webgpu" checked> WebGPU（GPU，快）</label>
-      <label class="radio"><input type="radio" name="device" value="wasm"> WASM（CPU，⚠ 此模型 4.9 GB 超過 wasm 4 GB 上限，極可能載入失敗）</label>
+      <label class="radio"><input type="radio" name="device" value="wasm"> WASM（CPU<span id="wasmNote"></span>）</label>
     </div>
     <div class="row">
       <button id="btnLoad">📂 選擇資料夾並載入</button>
@@ -135,12 +139,11 @@
   <details>
     <summary>說明與需求</summary>
     <ul>
-      <li>模型：<a href="https://huggingface.co/onnx-community/gemma-3n-E2B-it-ONNX" target="_blank">onnx-community/gemma-3n-E2B-it-ONNX</a>（免登入即可下載），推論引擎：<a href="https://huggingface.co/docs/transformers.js" target="_blank">Transformers.js</a> v4。</li>
-      <li>量化組合：decoder q4 ＋ embeddings q4 ＋ vision fp32 ＋ audio q4（依官方模型卡建議；本介面只用文字與圖片輸入）。</li>
-      <li>瀏覽器：建議 Chrome / Edge 最新版。WebGPU 模式需要 GPU 與較新驅動；WASM 模式任何電腦可跑但速度慢很多。</li>
-      <li>下載與選資料夾使用 File System Access API（Chrome / Edge）。Firefox / Safari 只能用「選擇資料夾」的備援方式載入，無法網頁內下載。</li>
-      <li>記憶體：WebGPU 模式載入峰值約 7–9 GB、穩定後約 5–7 GB RAM，建議 16 GB 機器並關閉其他大型分頁。WASM(CPU) 模式受 wasm 4 GB 上限限制，此模型實際上難以使用。</li>
-      <li>所有推論都在本地進行；除了第一次從 Hugging Face 下載模型外，不會傳送任何資料到網路。</li>
+      <li>模型：<a href="https://huggingface.co/onnx-community/gemma-3n-E2B-it-ONNX" target="_blank">Gemma-3n-E2B-it</a>（4.9 GB，品質與中文最好）與 <a href="https://huggingface.co/onnx-community/LFM2-VL-450M-ONNX" target="_blank">LFM2-VL-450M</a>（0.42 GB，輕量、英文為主）。皆免登入下載。推論引擎：<a href="https://huggingface.co/docs/transformers.js" target="_blank">Transformers.js</a> v4。</li>
+      <li>瀏覽器：建議 Chrome / Edge 最新版。WebGPU 模式需要 GPU；WASM(CPU) 模式 LFM2 可順跑、Gemma-3n 會超過 wasm 4 GB 上限而失敗。</li>
+      <li>記憶體：Gemma-3n 載入峰值約 7–9 GB、穩定 5–7 GB（建議 16 GB 機器）；LFM2-VL 約 1 GB 內。</li>
+      <li>下載與選資料夾使用 File System Access API（Chrome / Edge）。Firefox / Safari 只能用「選擇資料夾」備援載入，無法網頁內下載。</li>
+      <li>所有推論都在本地進行；除了第一次下載模型外，不傳送任何資料到網路。</li>
     </ul>
   </details>
 </div>
@@ -148,15 +151,14 @@
 <!-- ============ Worker 程式碼（以 Blob 方式啟動，保持單一檔案） ============ -->
 <script type="text/worker" id="workerCode">
 const CDN = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0";
-const MODEL_ID = "onnx-community/gemma-3n-E2B-it-ONNX";
-const PREFIX = "https://huggingface.co/" + MODEL_ID + "/resolve/main/";
 
 const localFiles = new Map(); // path -> File
+let PREFIX = "";              // 目前模型的 HF resolve 前綴
 const realFetch = self.fetch.bind(self);
 // 攔截 transformers.js 對 Hugging Face 的請求，改從使用者磁碟上的檔案回應
 self.fetch = async (input, init) => {
   const url = typeof input === "string" ? input : input.url;
-  if (url.startsWith(PREFIX)) {
+  if (PREFIX && url.startsWith(PREFIX)) {
     const path = decodeURIComponent(url.slice(PREFIX.length).split("?")[0]);
     const f = localFiles.get(path);
     if (f) return new Response(f, { status: 200, headers: {
@@ -167,10 +169,15 @@ self.fetch = async (input, init) => {
 };
 
 let TF = null, processor = null, model = null, stopper = null;
+let cfg = null; // { repoId, dtype, hasAudio, genOpts }
 let generating = false;
 
-async function load(files, device) {
-  for (const { path, file } of files) localFiles.set(path, file);
+async function load(msg) {
+  cfg = { repoId: msg.repoId, dtype: msg.dtype, hasAudio: msg.hasAudio, genOpts: msg.genOpts || {} };
+  PREFIX = "https://huggingface.co/" + cfg.repoId + "/resolve/main/";
+  localFiles.clear();
+  for (const { path, file } of msg.files) localFiles.set(path, file);
+
   if (!TF) TF = await import(CDN);
   try { TF.env.useBrowserCache = false; } catch (e) {}
   try { TF.env.allowLocalModels = false; } catch (e) {}
@@ -178,20 +185,13 @@ async function load(files, device) {
   const progress_callback = (p) => {
     if (p.status === "progress") {
       postMessage({ type: "load-progress", file: p.file, loaded: p.loaded, total: p.total });
-    } else if (p.status === "done") {
-      postMessage({ type: "load-file-done", file: p.file });
     }
   };
 
-  processor = await TF.AutoProcessor.from_pretrained(MODEL_ID, { progress_callback });
-  model = await TF.AutoModelForImageTextToText.from_pretrained(MODEL_ID, {
-    dtype: {
-      embed_tokens: "q4",
-      decoder_model_merged: "q4",
-      vision_encoder: "fp32",
-      audio_encoder: "q4",
-    },
-    device,
+  processor = await TF.AutoProcessor.from_pretrained(cfg.repoId, { progress_callback });
+  model = await TF.AutoModelForImageTextToText.from_pretrained(cfg.repoId, {
+    dtype: cfg.dtype,
+    device: msg.device,
     progress_callback,
   });
 
@@ -233,7 +233,10 @@ async function generate(history, maxTokens) {
       images.push(await TF.load_image(u));
     }
   }
-  const inputs = await processor(prompt, images, null, { add_special_tokens: false });
+  const opts = { add_special_tokens: false };
+  const inputs = cfg.hasAudio
+    ? await processor(prompt, images, null, opts)
+    : await processor(prompt, images, opts);
   urls.forEach((u) => URL.revokeObjectURL(u));
 
   let numTokens = 0, startTime = 0, firstToken = 0;
@@ -253,6 +256,7 @@ async function generate(history, maxTokens) {
       ...inputs,
       max_new_tokens: maxTokens || 1024,
       do_sample: false,
+      ...cfg.genOpts,
       streamer,
       ...(stopper ? { stopping_criteria: stopper } : {}),
     });
@@ -271,7 +275,7 @@ async function generate(history, maxTokens) {
 self.onmessage = async (ev) => {
   const msg = ev.data;
   try {
-    if (msg.type === "load") await load(msg.files, msg.device);
+    if (msg.type === "load") await load(msg);
     else if (msg.type === "generate") await generate(msg.history, msg.maxTokens);
     else if (msg.type === "interrupt") { if (stopper && generating) stopper.interrupt(); }
   } catch (e) {
@@ -282,34 +286,89 @@ self.onmessage = async (ev) => {
 
 <!-- ============ 主程式 ============ -->
 <script type="module">
-const MODEL_ID = "onnx-community/gemma-3n-E2B-it-ONNX";
-const REMOTE = "https://huggingface.co/" + MODEL_ID + "/resolve/main/";
-const MODEL_DIR_NAME = "gemma-3n-E2B-it-ONNX"; // 下載時自動建立的子資料夾
-
-// 需要的檔案清單（路徑、位元組大小）— 來自 HF API，用於下載、續傳檢查與載入
-const FILES = [
-  ["config.json", 5274],
-  ["generation_config.json", 244],
-  ["tokenizer.json", 20366294],
-  ["tokenizer_config.json", 2644],
-  ["special_tokens_map.json", 769],
-  ["preprocessor_config.json", 1124],
-  ["processor_config.json", 2262],
-  ["chat_template.jinja", 1626],
-  ["onnx/embed_tokens_q4.onnx", 3413],
-  ["onnx/embed_tokens_q4.onnx_data", 1634017280],
-  ["onnx/decoder_model_merged_q4.onnx", 1686685],
-  ["onnx/decoder_model_merged_q4.onnx_data", 1620499456],
-  ["onnx/vision_encoder.onnx", 705406],
-  ["onnx/vision_encoder.onnx_data", 1193290496],
-  ["onnx/audio_encoder_q4.onnx", 432414],
-  ["onnx/audio_encoder_q4.onnx_data", 450682368],
-];
-const TOTAL_BYTES = FILES.reduce((s, f) => s + f[1], 0);
+/* ---------- 模型設定 ---------- */
+const MODELS = {
+  "gemma-3n-e2b": {
+    repoId: "onnx-community/gemma-3n-E2B-it-ONNX",
+    dirName: "gemma-3n-E2B-it-ONNX",
+    label: "Gemma-3n-E2B-it（4.9 GB · 品質/中文最好 · 需 GPU）",
+    sizeText: "約 4.9 GB",
+    hasAudio: true,
+    cpuViable: false,
+    dtype: { embed_tokens: "q4", decoder_model_merged: "q4", vision_encoder: "fp32", audio_encoder: "q4" },
+    genOpts: {},
+    files: [
+      ["config.json", 5274],
+      ["generation_config.json", 244],
+      ["tokenizer.json", 20366294],
+      ["tokenizer_config.json", 2644],
+      ["special_tokens_map.json", 769],
+      ["preprocessor_config.json", 1124],
+      ["processor_config.json", 2262],
+      ["chat_template.jinja", 1626],
+      ["onnx/embed_tokens_q4.onnx", 3413],
+      ["onnx/embed_tokens_q4.onnx_data", 1634017280],
+      ["onnx/decoder_model_merged_q4.onnx", 1686685],
+      ["onnx/decoder_model_merged_q4.onnx_data", 1620499456],
+      ["onnx/vision_encoder.onnx", 705406],
+      ["onnx/vision_encoder.onnx_data", 1193290496],
+      ["onnx/audio_encoder_q4.onnx", 432414],
+      ["onnx/audio_encoder_q4.onnx_data", 450682368],
+    ],
+  },
+  "lfm2-vl-450m": {
+    repoId: "onnx-community/LFM2-VL-450M-ONNX",
+    dirName: "LFM2-VL-450M-ONNX",
+    label: "LFM2-VL-450M（0.42 GB · 輕量快速 · CPU 可跑 · 英文為主）",
+    sizeText: "約 0.42 GB",
+    hasAudio: false,
+    cpuViable: true,
+    dtype: { embed_tokens: "q4", decoder_model_merged: "q4", vision_encoder: "quantized" },
+    genOpts: { repetition_penalty: 1.05 },
+    files: [
+      ["config.json", 2545],
+      ["generation_config.json", 136],
+      ["tokenizer.json", 3297552],
+      ["tokenizer_config.json", 1419],
+      ["preprocessor_config.json", 1004],
+      ["processor_config.json", 1164],
+      ["chat_template.jinja", 434],
+      ["onnx/embed_tokens_q4.onnx", 853],
+      ["onnx/embed_tokens_q4.onnx_data", 42991616],
+      ["onnx/decoder_model_merged_q4.onnx", 187231],
+      ["onnx/decoder_model_merged_q4.onnx_data", 260075520],
+      ["onnx/vision_encoder_quantized.onnx", 187439],
+      ["onnx/vision_encoder_quantized.onnx_data", 112325632],
+    ],
+  },
+};
+for (const cfg of Object.values(MODELS)) {
+  cfg.remote = "https://huggingface.co/" + cfg.repoId + "/resolve/main/";
+  cfg.totalBytes = cfg.files.reduce((s, f) => s + f[1], 0);
+}
 
 const $ = (id) => document.getElementById(id);
 const fmtGB = (b) => (b / 1e9).toFixed(2) + " GB";
 const fmtMB = (b) => (b / 1e6).toFixed(1) + " MB";
+const currentCfg = () => MODELS[$("modelSelect").value];
+
+/* ---------- 模型選單 ---------- */
+const sel = $("modelSelect");
+for (const [key, cfg] of Object.entries(MODELS)) {
+  const opt = document.createElement("option");
+  opt.value = key; opt.textContent = cfg.label;
+  sel.append(opt);
+}
+sel.onchange = onModelChange;
+
+async function onModelChange() {
+  const cfg = currentCfg();
+  $("pillSize").textContent = "模型大小 " + cfg.sizeText;
+  $("dlHint").textContent = "按下後選擇一個位置，會自動在裡面建立「" + cfg.dirName + "」資料夾並寫入模型檔（" + cfg.sizeText + "，共 " + cfg.files.length + " 個檔案）。中斷後再按一次會自動續傳。已下載過可直接跳到步驟 2。";
+  $("wasmNote").textContent = cfg.cpuViable ? "，此模型可用、速度較慢" : "，⚠ 此模型超過 wasm 4 GB 上限，極可能失敗";
+  $("btnLoadLast").style.display = "none";
+  try { if (await idbGet("modelDir:" + sel.value)) $("btnLoadLast").style.display = ""; } catch (e) {}
+}
 
 /* ---------- 環境偵測 ---------- */
 const hasFS = "showDirectoryPicker" in window;
@@ -326,7 +385,7 @@ $("pillFS").className = "pill " + (hasFS ? "ok" : "bad");
 if (location.protocol === "file:") $("protoBanner").style.display = "block";
 if (!hasFS) $("btnDownload").disabled = true;
 
-/* ---------- IndexedDB：記住資料夾授權 ---------- */
+/* ---------- IndexedDB：記住各模型的資料夾授權 ---------- */
 function idb() {
   return new Promise((res, rej) => {
     const r = indexedDB.open("webai-llm", 1);
@@ -351,13 +410,12 @@ async function idbGet(key) {
     rq.onsuccess = () => res(rq.result); rq.onerror = () => rej(rq.error);
   });
 }
-(async () => {
-  try { if (await idbGet("modelDir")) $("btnLoadLast").style.display = ""; } catch (e) {}
-})();
+onModelChange(); // 初始化文字與「上次的資料夾」按鈕
 
 /* ---------- 步驟 1：下載 ---------- */
 let dlAbort = null;
 $("btnDownload").onclick = async () => {
+  const cfg = currentCfg();
   let dir;
   try { dir = await showDirectoryPicker({ mode: "readwrite" }); }
   catch (e) {
@@ -369,22 +427,21 @@ $("btnDownload").onclick = async () => {
   }
   // 若選的不是模型資料夾本身，就在裡面建立／沿用專用子資料夾，避免檔案散落
   try {
-    const alreadyModelRoot = dir.name === MODEL_DIR_NAME || !!(await getFileIfExists(dir, "config.json"));
-    if (!alreadyModelRoot) dir = await dir.getDirectoryHandle(MODEL_DIR_NAME, { create: true });
+    const alreadyModelRoot = dir.name === cfg.dirName || !!(await getFileIfExists(dir, "config.json"));
+    if (!alreadyModelRoot) dir = await dir.getDirectoryHandle(cfg.dirName, { create: true });
   } catch (e) {}
-  await idbSet("modelDir", dir).catch(() => {});
+  await idbSet("modelDir:" + sel.value, dir).catch(() => {});
   $("btnLoadLast").style.display = "";
 
   dlAbort = new AbortController();
-  $("btnDownload").disabled = true;
+  $("btnDownload").disabled = true; sel.disabled = true;
   $("btnCancelDl").style.display = "";
   $("dlProgressWrap").style.display = "";
-  const status = $("dlStatus"); status.className = "status-line";
+  const status = $("dlStatus"); status.className = "status-line"; status.textContent = "";
 
   let doneBytes = 0;
-  // 先計算已完成的檔案
   const plan = [];
-  for (const [path, size] of FILES) {
+  for (const [path, size] of cfg.files) {
     const existing = await getFileIfExists(dir, path);
     if (existing && existing.size === size) { doneBytes += size; continue; }
     plan.push([path, size]);
@@ -393,8 +450,8 @@ $("btnDownload").onclick = async () => {
   let lastT = performance.now(), lastB = doneBytes;
   const tick = (extra) => {
     const cur = doneBytes + (extra || 0);
-    $("dlProgress").value = (cur / TOTAL_BYTES) * 100;
-    $("dlPct").textContent = fmtGB(cur) + " / " + fmtGB(TOTAL_BYTES) + "（" + ((cur / TOTAL_BYTES) * 100).toFixed(1) + "%）";
+    $("dlProgress").value = (cur / cfg.totalBytes) * 100;
+    $("dlPct").textContent = fmtGB(cur) + " / " + fmtGB(cfg.totalBytes) + "（" + ((cur / cfg.totalBytes) * 100).toFixed(1) + "%）";
     const now = performance.now();
     if (now - lastT > 1000) {
       const speed = (cur - lastB) / ((now - lastT) / 1000);
@@ -407,7 +464,7 @@ $("btnDownload").onclick = async () => {
   try {
     for (const [path, size] of plan) {
       $("dlFileLabel").textContent = path;
-      const resp = await fetch(REMOTE + path, { signal: dlAbort.signal });
+      const resp = await fetch(cfg.remote + path, { signal: dlAbort.signal });
       if (!resp.ok) throw new Error("下載失敗（HTTP " + resp.status + "）：" + path);
       const fh = await getFileHandleCreating(dir, path);
       const writable = await fh.createWritable();
@@ -434,7 +491,7 @@ $("btnDownload").onclick = async () => {
     if (e.name === "AbortError") { status.textContent = "已取消。再按一次可從中斷處續傳。"; status.className = "status-line warn"; }
     else { status.textContent = "❌ " + e.message; status.className = "status-line err"; }
   } finally {
-    $("btnDownload").disabled = false;
+    $("btnDownload").disabled = false; sel.disabled = false;
     $("btnCancelDl").style.display = "none";
     dlAbort = null;
   }
@@ -462,6 +519,7 @@ let worker = null, modelReady = false, canStop = false;
 
 function makeWorker() {
   if (worker) worker.terminate();
+  modelReady = false;
   const code = document.getElementById("workerCode").textContent;
   worker = new Worker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), { type: "module" });
   worker.onmessage = onWorkerMessage;
@@ -487,7 +545,7 @@ $("dirFallback").onchange = () => {
     map.set(rel, f);
   }
   if (!map.has("config.json")) { // 選到上層資料夾時，自動剝掉模型子資料夾前綴
-    const pre = MODEL_DIR_NAME + "/";
+    const pre = currentCfg().dirName + "/";
     const m2 = new Map();
     for (const [k, v] of map) if (k.startsWith(pre)) m2.set(k.slice(pre.length), v);
     if (m2.has("config.json")) map = m2;
@@ -496,7 +554,7 @@ $("dirFallback").onchange = () => {
 };
 $("btnLoadLast").onclick = async () => {
   try {
-    const dir = await idbGet("modelDir");
+    const dir = await idbGet("modelDir:" + sel.value);
     if (!dir) return;
     let perm = await dir.queryPermission({ mode: "read" });
     if (perm !== "granted") perm = await dir.requestPermission({ mode: "read" });
@@ -508,56 +566,63 @@ $("btnLoadLast").onclick = async () => {
 async function loadFromDirHandle(dir) {
   // 若選到的是上層資料夾，自動進入模型子資料夾
   if (!(await getFileIfExists(dir, "config.json"))) {
-    try { dir = await dir.getDirectoryHandle(MODEL_DIR_NAME); } catch (e) {}
+    try { dir = await dir.getDirectoryHandle(currentCfg().dirName); } catch (e) {}
   }
-  await idbSet("modelDir", dir).catch(() => {});
+  await idbSet("modelDir:" + sel.value, dir).catch(() => {});
   const map = new Map();
-  for (const [path] of FILES) {
+  for (const [path] of currentCfg().files) {
     const f = await getFileIfExists(dir, path);
     if (f) map.set(path, f);
   }
   loadFromFileMap(map);
 }
 
+const loadProgressByFile = new Map();
 async function loadFromFileMap(map) {
-  const missing = FILES.filter(([p, size]) => {
+  const cfg = currentCfg();
+  const missing = cfg.files.filter(([p, size]) => {
     const f = map.get(p);
     return !f || f.size !== size;
   });
   if (missing.length) {
-    setLoadStatus("❌ 資料夾缺少檔案或大小不符（可能下載未完成）：" + missing.map((m) => m[0]).join("、"), "err");
+    setLoadStatus("❌ 資料夾缺少檔案或大小不符（可能下載未完成，或這是另一個模型的資料夾）：" + missing.map((m) => m[0]).join("、"), "err");
     return;
   }
   const device = document.querySelector('input[name="device"]:checked').value;
-  $("btnLoad").disabled = true; $("btnLoadLast").disabled = true;
+  $("btnLoad").disabled = true; $("btnLoadLast").disabled = true; sel.disabled = true;
   $("loadProgressWrap").style.display = "";
+  loadProgressByFile.clear();
+  $("loadProgress").value = 0;
   setLoadStatus("讀取模型到記憶體中…（依硬體約需 10 秒～數分鐘）");
   makeWorker();
-  const files = FILES.map(([p]) => ({ path: p, file: map.get(p) }));
-  worker.postMessage({ type: "load", files, device });
+  const files = cfg.files.map(([p]) => ({ path: p, file: map.get(p) }));
+  worker.postMessage({
+    type: "load", files, device,
+    repoId: cfg.repoId, dtype: cfg.dtype, hasAudio: cfg.hasAudio, genOpts: cfg.genOpts,
+  });
 }
 
-const loadProgressByFile = new Map();
 function onWorkerMessage(ev) {
   const m = ev.data;
   if (m.type === "load-progress") {
     loadProgressByFile.set(m.file, m.loaded || 0);
     let loaded = 0; for (const v of loadProgressByFile.values()) loaded += v;
-    $("loadProgress").value = Math.min(100, (loaded / TOTAL_BYTES) * 100);
+    $("loadProgress").value = Math.min(100, (loaded / currentCfg().totalBytes) * 100);
     $("loadFileLabel").textContent = m.file || "";
   } else if (m.type === "ready") {
     modelReady = true; canStop = !!m.canStop;
     $("loadProgress").value = 100;
     $("loadFileLabel").textContent = "";
-    setLoadStatus("✅ 模型已就緒（" + document.querySelector('input[name="device"]:checked').value + "）", "ok");
-    $("btnLoad").disabled = false; $("btnLoadLast").disabled = false;
+    setLoadStatus("✅ 模型已就緒：" + currentCfg().dirName + "（" + document.querySelector('input[name="device"]:checked').value + "）", "ok");
+    $("btnLoad").disabled = false; $("btnLoadLast").disabled = false; sel.disabled = false;
+    clearChat(); // 換模型時清空對話（不同 tokenizer 不能共用歷史）
     $("chatLock").style.display = "none";
     $("promptInput").disabled = false; $("btnSend").disabled = false; $("btnImg").disabled = false;
     $("chatCard").scrollIntoView({ behavior: "smooth" });
     $("promptInput").focus();
   } else if (m.type === "error") {
     setLoadStatus("❌ " + m.error, "err");
-    $("btnLoad").disabled = false; $("btnLoadLast").disabled = false;
+    $("btnLoad").disabled = false; $("btnLoadLast").disabled = false; sel.disabled = false;
   } else if (m.type === "token") {
     appendToken(m.text);
   } else if (m.type === "done") {
@@ -575,6 +640,13 @@ function setLoadStatus(text, cls) {
 const history = []; // {role, text, images:[File]}
 let pendingImages = [];
 let currentBotEl = null;
+
+function clearChat() {
+  history.length = 0;
+  $("chatBox").innerHTML = "";
+  $("genStats").textContent = "";
+  currentBotEl = null;
+}
 
 $("btnImg").onclick = () => $("imgInput").click();
 $("imgInput").onchange = () => {
@@ -603,7 +675,7 @@ promptInput.addEventListener("input", () => {
 });
 $("btnSend").onclick = send;
 $("btnStop").onclick = () => worker && worker.postMessage({ type: "interrupt" });
-$("btnClear").onclick = () => { history.length = 0; $("chatBox").innerHTML = ""; $("genStats").textContent = ""; };
+$("btnClear").onclick = clearChat;
 
 function send() {
   if (!modelReady || currentBotEl) return;
@@ -621,10 +693,7 @@ function send() {
   if (canStop) $("btnStop").style.display = "";
   $("genStats").textContent = "思考中…";
 
-  worker.postMessage({ type: "generate", history: serializeHistory(), maxTokens: 1024 });
-}
-function serializeHistory() {
-  return history.map((h) => ({ role: h.role, text: h.text, images: h.images }));
+  worker.postMessage({ type: "generate", history: history.map((h) => ({ role: h.role, text: h.text, images: h.images })), maxTokens: 1024 });
 }
 function addMsg(role, text, images) {
   const el = document.createElement("div");
