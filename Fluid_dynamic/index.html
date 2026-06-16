@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Navier-Stokes 球體繞流動畫</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #202124;
+      --muted: #646a73;
+      --panel: #f7f7f2;
+      --panel-strong: #ffffff;
+      --line: #d8d9d0;
+      --stage: #17191d;
+      --stage-2: #20242a;
+      --teal: #0f9f9b;
+      --blue: #3478f6;
+      --coral: #e85c43;
+      --amber: #d89a22;
+      --green: #4f9f52;
+      --shadow: rgba(0, 0, 0, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--stage);
+      color: var(--ink);
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      height: 100dvh;
+      min-height: 0;
+    }
+
+    .stage {
+      position: relative;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 42%),
+        var(--stage);
+    }
+
+    #flowCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .hud {
+      position: absolute;
+      left: 20px;
+      top: 18px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: calc(100% - 40px);
+      color: #f3f4f6;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hud-title {
+      font-size: 1.1rem;
+      font-weight: 720;
+      line-height: 1.2;
+    }
+
+    .hud-chip {
+      min-width: 74px;
+      padding: 5px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      background: rgba(20, 22, 25, 0.72);
+      font-size: 0.82rem;
+      text-align: center;
+      color: #d9dde4;
+    }
+
+    .legend {
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 92%;
+      color: #f4f5f6;
+      user-select: none;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(16, 17, 19, 0.68);
+      font-size: 0.82rem;
+    }
+
+    .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .swatch.stream {
+      background: #75d9ff;
+    }
+
+    .swatch.pressure-high {
+      background: var(--coral);
+    }
+
+    .swatch.pressure-low {
+      background: var(--blue);
+    }
+
+    .swatch.wake {
+      background: var(--amber);
+    }
+
+    .panel {
+      height: 100dvh;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      background: var(--panel);
+      border-left: 1px solid var(--line);
+      box-shadow: -12px 0 32px var(--shadow);
+    }
+
+    .panel-inner {
+      display: grid;
+      gap: 18px;
+      padding: 22px 22px 28px;
+    }
+
+    .title h1 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      line-height: 1.16;
+    }
+
+    .title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .equation {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+    }
+
+    .formula {
+      margin: 0 0 12px;
+      overflow-x: auto;
+      color: #111318;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.91rem;
+      line-height: 1.6;
+      white-space: nowrap;
+    }
+
+    .term-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .term {
+      min-height: 66px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfbf8;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .term.is-active {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(15, 159, 155, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .term b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.88rem;
+    }
+
+    .term span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .controls {
+      display: grid;
+      gap: 13px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+    }
+
+    .control-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .control-label strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--teal);
+    }
+
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .toggle {
+      display: grid;
+      gap: 5px;
+      align-items: center;
+      justify-items: center;
+      min-height: 62px;
+      padding: 8px 6px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfbf8;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toggle-mark {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #b5b8b0;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .toggle input:checked + .toggle-mark {
+      border-color: var(--teal);
+      background:
+        linear-gradient(135deg, transparent 0 42%, #fff 42% 57%, transparent 57%),
+        var(--teal);
+    }
+
+    .toggle span:last-child {
+      font-size: 0.82rem;
+      color: var(--ink);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(3, 44px) 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .icon-button {
+      width: 44px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfbf8;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .icon-button:hover,
+    .toggle:hover {
+      border-color: #b4b7ad;
+      background: #fff;
+    }
+
+    .readout {
+      min-height: 40px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      background: #202124;
+      color: #f4f5f6;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 9px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+    }
+
+    .step-index {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #202124;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .step b {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.91rem;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .metric {
+      min-height: 76px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 7px;
+    }
+
+    .metric b {
+      display: block;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .stage {
+        height: 58dvh;
+        min-height: 360px;
+      }
+
+      #flowCanvas {
+        min-height: 360px;
+      }
+
+      .panel {
+        height: auto;
+        min-height: auto;
+        overflow: visible;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .panel-inner {
+        padding: 18px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hud {
+        left: 12px;
+        top: 12px;
+        gap: 7px;
+      }
+
+      .hud-title {
+        font-size: 0.95rem;
+      }
+
+      .hud-chip {
+        min-width: 60px;
+        padding: 4px 7px;
+      }
+
+      .legend {
+        left: 12px;
+        bottom: 12px;
+      }
+
+      .term-grid,
+      .status {
+        grid-template-columns: 1fr;
+      }
+
+      .toggle-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="stage" aria-label="球體繞流動畫">
+      <canvas id="flowCanvas"></canvas>
+      <div class="hud" aria-hidden="true">
+        <div class="hud-title">球體繞流</div>
+        <div class="hud-chip" id="hudU">u 1.00</div>
+        <div class="hud-chip" id="hudMu">μ 0.025</div>
+        <div class="hud-chip" id="hudRn">Rn 80</div>
+        <div class="hud-chip" id="hudMode">分離尾流</div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="swatch stream"></i>速度流線</span>
+        <span><i class="swatch pressure-high"></i>高壓</span>
+        <span><i class="swatch pressure-low"></i>低壓</span>
+        <span><i class="swatch wake"></i>尾流流線</span>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-inner">
+        <section class="title">
+          <h1>Navier-Stokes 方程式如何繞過球體</h1>
+          <p>把球放在均勻流場中，流體同時受慣性、壓力梯度、黏性擴散與不可壓縮條件限制。調整 u、p 與 μ 會改變分離位置、尾流強度與壓力色場。</p>
+        </section>
+
+        <section class="equation">
+          <pre class="formula">ρ(∂u/∂t + (u · ∇)u) = -∇p + μ∇²u
+∇ · u = 0</pre>
+          <div class="term-grid">
+            <div class="term" data-term="0">
+              <b>局部變化 ∂u/∂t</b>
+              <span>非定常尾流會讓速度場隨時間擺動。</span>
+            </div>
+            <div class="term" data-term="1">
+              <b>慣性 (u · ∇)u</b>
+              <span>高速流體轉彎時保留動量，容易在球後分離。</span>
+            </div>
+            <div class="term" data-term="2">
+              <b>壓力 -∇p</b>
+              <span>迎風面壓力升高，側面與尾流區壓力降低。</span>
+            </div>
+            <div class="term" data-term="3">
+              <b>黏性 μ∇²u</b>
+              <span>μ 把速度差抹平；μ 越大，分離與渦街越被抑制。</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="controls" aria-label="動畫控制">
+          <div class="control-row">
+            <label class="control-label" for="uSlider">
+              <span>速度 u</span>
+              <strong id="uValue">1.00</strong>
+            </label>
+            <input id="uSlider" type="range" min="30" max="180" value="100" step="1">
+          </div>
+
+          <div class="control-row">
+            <label class="control-label" for="pressureSlider">
+              <span>壓力 p</span>
+              <strong id="pressureValue">1.20</strong>
+            </label>
+            <input id="pressureSlider" type="range" min="60" max="220" value="120" step="1">
+          </div>
+
+          <div class="control-row">
+            <label class="control-label" for="muSlider">
+              <span>動力黏度 μ</span>
+              <strong id="muValue">0.025</strong>
+            </label>
+            <input id="muSlider" type="range" min="5" max="120" value="25" step="1">
+          </div>
+
+          <div class="toggle-grid">
+            <label class="toggle" title="顯示壓力色場">
+              <input id="pressureToggle" type="checkbox" checked>
+              <span class="toggle-mark"></span>
+              <span>壓力</span>
+            </label>
+            <label class="toggle" title="顯示固定種子流線">
+              <input id="streamToggle" type="checkbox" checked>
+              <span class="toggle-mark"></span>
+              <span>流線</span>
+            </label>
+            <label class="toggle" title="顯示尾流中隨時間變化的流線">
+              <input id="wakeToggle" type="checkbox" checked>
+              <span class="toggle-mark"></span>
+              <span>尾流</span>
+            </label>
+          </div>
+
+          <div class="button-row">
+            <button class="icon-button" id="pauseButton" type="button" aria-label="暫停或播放" title="暫停或播放">⏸</button>
+            <button class="icon-button" id="resetButton" type="button" aria-label="重置粒子" title="重置粒子">↻</button>
+            <button class="icon-button" id="slowButton" type="button" aria-label="慢速切換" title="慢速切換">◷</button>
+            <div class="readout" id="readout">黏性與慣性接近平衡，球後會出現穩定的低壓尾流。</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>流動順序</h2>
+          <div class="steps">
+            <div class="step">
+              <span class="step-index">1</span>
+              <div>
+                <b>迎風停滯點</b>
+                <span>流體接近球體前方時速度下降，動壓轉成較高靜壓。</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-index">2</span>
+              <div>
+                <b>繞流加速</b>
+                <span>不可壓縮條件使流線擠密，球側速度升高、壓力下降。</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-index">3</span>
+              <div>
+                <b>邊界層與分離</b>
+                <span>球面無滑移讓近壁速度接近零；當逆壓梯度夠強，邊界層會離開表面。</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-index">4</span>
+              <div>
+                <b>尾流與阻力</b>
+                <span>分離後方形成低壓尾流，流線會隨時間擺動與捲入。</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>目前狀態</h2>
+          <div class="status">
+            <div class="metric">
+              <span>流態</span>
+              <b id="regimeText">穩定分離尾流</b>
+            </div>
+            <div class="metric">
+              <span>μ 與分離強度</span>
+              <b id="muText">0.025</b>
+            </div>
+          </div>
+          <p class="note">這是定性教學模型，不是完整 CFD 求解；它把球體勢流、近壁黏性阻尼、壓力場與尾流渦動合成，並由 u 與 μ 推估流態。</p>
+        </section>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("flowCanvas");
+    const ctx = canvas.getContext("2d", { alpha: false });
+    const pressureBuffer = document.createElement("canvas");
+    const pressureCtx = pressureBuffer.getContext("2d", { alpha: true });
+
+    const els = {
+      uSlider: document.getElementById("uSlider"),
+      pressureSlider: document.getElementById("pressureSlider"),
+      muSlider: document.getElementById("muSlider"),
+      uValue: document.getElementById("uValue"),
+      pressureValue: document.getElementById("pressureValue"),
+      muValue: document.getElementById("muValue"),
+      readout: document.getElementById("readout"),
+      hudU: document.getElementById("hudU"),
+      hudMu: document.getElementById("hudMu"),
+      hudRn: document.getElementById("hudRn"),
+      hudMode: document.getElementById("hudMode"),
+      regimeText: document.getElementById("regimeText"),
+      muText: document.getElementById("muText"),
+      pressureToggle: document.getElementById("pressureToggle"),
+      streamToggle: document.getElementById("streamToggle"),
+      wakeToggle: document.getElementById("wakeToggle"),
+      pauseButton: document.getElementById("pauseButton"),
+      resetButton: document.getElementById("resetButton"),
+      slowButton: document.getElementById("slowButton"),
+      terms: Array.from(document.querySelectorAll(".term")),
+    };
+
+    const state = {
+      width: 0,
+      height: 0,
+      dpr: 1,
+      scale: 88,
+      centerX: 0,
+      centerY: 0,
+      radius: 1,
+      time: 0,
+      last: 0,
+      paused: false,
+      slow: false,
+      particles: [],
+      particleCount: 520,
+      re: 80,
+      speed: 1,
+      pressureScale: 1.2,
+      mu: 0.025,
+      density: 1,
+      bounds: { left: -4.6, right: 6.2, top: -3.1, bottom: 3.1 },
+    };
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function smoothstep(edge0, edge1, value) {
+      const t = clamp((value - edge0) / (edge1 - edge0), 0, 1);
+      return t * t * (3 - 2 * t);
+    }
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function keepOutsideSphere(x, y, margin = 1.035) {
+      const minR = state.radius * margin;
+      const r = Math.hypot(x, y);
+      if (r >= minR) return { x, y };
+      const angle = r < 0.0001 ? 0 : Math.atan2(y, x);
+      return {
+        x: Math.cos(angle) * minR,
+        y: Math.sin(angle) * minR,
+      };
+    }
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      state.dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      state.width = Math.max(320, Math.floor(rect.width));
+      state.height = Math.max(300, Math.floor(rect.height));
+      canvas.width = Math.floor(state.width * state.dpr);
+      canvas.height = Math.floor(state.height * state.dpr);
+      ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+      state.scale = Math.max(46, Math.min(state.width / 9.7, state.height / 6.4));
+      state.centerX = state.width * (state.width < 620 ? 0.42 : 0.38);
+      state.centerY = state.height * 0.52;
+      state.bounds.left = screenToWorld(0, 0).x - 0.8;
+      state.bounds.right = screenToWorld(state.width, 0).x + 0.8;
+      state.bounds.top = screenToWorld(0, 0).y - 0.6;
+      state.bounds.bottom = screenToWorld(0, state.height).y + 0.6;
+      ensureParticles();
+    }
+
+    function worldToScreen(x, y) {
+      return {
+        x: state.centerX + x * state.scale,
+        y: state.centerY + y * state.scale,
+      };
+    }
+
+    function screenToWorld(x, y) {
+      return {
+        x: (x - state.centerX) / state.scale,
+        y: (y - state.centerY) / state.scale,
+      };
+    }
+
+    function formatMu(mu) {
+      return mu < 0.01 ? mu.toExponential(2) : mu.toFixed(3);
+    }
+
+    function formatRn(rn) {
+      if (rn < 10) return rn.toFixed(1);
+      if (rn < 100) return rn.toFixed(0);
+      return Math.round(rn).toString();
+    }
+
+    function regimeFor(re) {
+      if (re < 1) {
+        return {
+          label: "Stokes 蠕動流",
+          short: "蠕動",
+          text: "黏性主導，流線前後近似對稱，幾乎沒有慣性尾流。",
+        };
+      }
+      if (re < 35) {
+        return {
+          label: "貼附層流",
+          short: "貼附",
+          text: "黏性仍能抑制分離，球後只有很弱的速度虧損。",
+        };
+      }
+      if (re < 180) {
+        return {
+          label: "穩定分離尾流",
+          short: "分離尾流",
+          text: "慣性開始勝過黏性，球後形成穩定低壓區與回流。",
+        };
+      }
+      return {
+        label: "非定常渦尾流",
+        short: "渦尾流",
+        text: "分離剪切層在尾流中擺動，壓力場與速度場隨時間變化。",
+      };
+    }
+
+    function updateControls() {
+      state.speed = Number(els.uSlider.value) / 100;
+      state.pressureScale = Number(els.pressureSlider.value) / 100;
+      state.mu = Number(els.muSlider.value) / 1000;
+      state.re = (state.density * state.speed * 2 * state.radius) / Math.max(state.mu, 0.001);
+      const regime = regimeFor(state.re);
+
+      els.uValue.textContent = state.speed.toFixed(2);
+      els.pressureValue.textContent = state.pressureScale.toFixed(2);
+      els.muValue.textContent = formatMu(state.mu);
+      els.hudU.textContent = `u ${state.speed.toFixed(2)}`;
+      els.hudMu.textContent = `μ ${formatMu(state.mu)}`;
+      els.hudRn.textContent = `Rn ${formatRn(state.re)}`;
+      els.hudMode.textContent = regime.short;
+      els.regimeText.textContent = regime.label;
+      els.muText.textContent = `${formatMu(state.mu)} / ${regime.short}`;
+      els.readout.textContent = regime.text;
+    }
+
+    function wakeParameters() {
+      const re = state.re;
+      const wake = smoothstep(28, 150, re);
+      const unsteady = smoothstep(160, 380, re);
+      const viscosity = clamp(1.4 / Math.sqrt(Math.max(re, 0.2)), 0.08, 1.2);
+      return { wake, unsteady, viscosity };
+    }
+
+    function vortexStreet(time) {
+      const params = wakeParameters();
+      if (params.wake < 0.16) return [];
+
+      const a = state.radius;
+      const spacing = lerp(0.88, 0.56, params.unsteady);
+      const drift = time * state.speed * (0.36 + params.unsteady * 0.5);
+      const phase = (drift / spacing) % 1;
+      const lateral = lerp(0.2, 0.66, params.wake);
+      const vortices = [];
+
+      for (let i = 0; i < 18; i++) {
+        const age = i + phase;
+        const x = a * 1.08 + age * spacing;
+        if (x > state.bounds.right + 0.9) continue;
+
+        const sign = i % 2 === 0 ? -1 : 1;
+        const grow = smoothstep(0.35, 3.5, age);
+        const decay = Math.exp(-age * 0.07);
+        const y =
+          sign * lateral * grow +
+          Math.sin(time * (0.55 + params.unsteady * 0.35) + age * 0.72) * params.unsteady * 0.07;
+
+        vortices.push({
+          x,
+          y,
+          sign,
+          age,
+          core: lerp(0.14, 0.34, params.wake) * (1 + age * 0.025),
+          strength: sign * state.speed * params.wake * (0.22 + params.unsteady * 0.46) * decay,
+          alpha: params.wake * decay * (0.34 + params.unsteady * 0.46),
+        });
+      }
+
+      return vortices;
+    }
+
+    function vortexVelocityAt(x, y, time) {
+      const params = wakeParameters();
+      if (params.wake < 0.16 || x < state.radius * 0.8) return { x: 0, y: 0 };
+
+      let ux = 0;
+      let uy = 0;
+      for (const vortex of vortexStreet(time)) {
+        const dx = x - vortex.x;
+        const dy = y - vortex.y;
+        const core2 = vortex.core * vortex.core;
+        const d2 = dx * dx + dy * dy + core2;
+        const envelope = Math.exp(-Math.max(0, Math.abs(y) - 1.75) * 2.2);
+        const gamma = vortex.strength * envelope;
+        ux += (-gamma * dy) / d2;
+        uy += (gamma * dx) / d2;
+      }
+
+      return { x: ux * 0.14, y: uy * 0.14 };
+    }
+
+    function velocityAt(x, y, time) {
+      const a = state.radius;
+      const U = state.speed;
+      const eps = 0.0001;
+      const r = Math.max(Math.hypot(x, y), eps);
+
+      if (r < a * 1.01) {
+        return { x: 0, y: 0, speed: 0 };
+      }
+
+      const cos = x / r;
+      const sin = y / r;
+      const ar3 = (a * a * a) / (r * r * r);
+
+      let ur = U * (1 - ar3) * cos;
+      let ut = -U * (1 + 0.5 * ar3) * sin;
+      let ux = ur * cos - ut * sin;
+      let uy = ur * sin + ut * cos;
+
+      const params = wakeParameters();
+      const boundary = smoothstep(0, 0.18 + params.viscosity * 0.16, r - a);
+      ux = lerp(0, ux, boundary);
+      uy = lerp(0, uy, boundary);
+
+      if (x > a * 0.62) {
+        const tailX = x - a * 0.62;
+        const length = lerp(1.0, 3.8, params.wake);
+        const width = a * (0.54 + 0.56 * params.wake + 0.12 * tailX);
+        const core = Math.exp(-tailX / length) * Math.exp(-(y * y) / (width * width));
+        const oscillation = Math.sin(time * (1.6 + params.unsteady * 2.2) - tailX * 2.1);
+        const recirculation = params.wake * core;
+
+        ux -= U * (0.48 + 0.72 * params.wake) * recirculation;
+        uy += U * recirculation * (0.52 * params.unsteady * oscillation - 0.22 * y);
+
+        if (params.wake > 0.18 && tailX < length * 0.68 && Math.abs(y) < width * 0.8) {
+          const swirl = params.wake * Math.exp(-tailX / (length * 0.65)) * Math.exp(-(y * y) / (width * width * 0.62));
+          ux -= U * swirl * 0.42;
+          uy += U * swirl * Math.sin(time * 1.2 + tailX * 2.7) * 0.22;
+        }
+      }
+
+      const vortex = vortexVelocityAt(x, y, time);
+      ux += vortex.x;
+      uy += vortex.y;
+
+      const wallBlend = 1 - smoothstep(a * 1.02, a * 1.2, r);
+      if (wallBlend > 0) {
+        const inward = ux * cos + uy * sin;
+        if (inward < 0) {
+          ux -= inward * cos * wallBlend;
+          uy -= inward * sin * wallBlend;
+        }
+      }
+
+      const cap = U * 2.8;
+      const mag = Math.hypot(ux, uy);
+      if (mag > cap) {
+        ux *= cap / mag;
+        uy *= cap / mag;
+      }
+
+      return { x: ux, y: uy, speed: Math.hypot(ux, uy) };
+    }
+
+    function pressureAt(x, y, time) {
+      const a = state.radius;
+      const params = wakeParameters();
+      const dynamicPressure = state.pressureScale * (0.66 + state.speed * state.speed * 0.34);
+      const front = Math.exp(-((x + a * 0.92) ** 2) / 0.16 - (y * y) / 0.68);
+      const sides = Math.exp(-(x * x) / 0.38 - ((Math.abs(y) - a * 0.92) ** 2) / 0.075);
+      const tail = Math.max(0, x - a * 0.5);
+      const wake = Math.exp(-tail / lerp(0.85, 4.2, params.wake)) * Math.exp(-(y * y) / (0.34 + params.wake * 1.05));
+      const wave =
+        params.unsteady *
+        0.2 *
+        Math.sin(time * 2.6 - x * 1.9 + y * 1.25) *
+        Math.exp(-Math.max(0, x - a) / 2.6) *
+        Math.exp(-(y * y) / 2.8);
+      const base = 1.05 * front - 0.62 * sides - params.wake * 0.9 * wake + wave;
+      return base * dynamicPressure;
+    }
+
+    function resetParticle(p) {
+      const b = state.bounds;
+      p.x = b.left + Math.random() * 0.35;
+      p.y = lerp(b.top * 0.82, b.bottom * 0.82, Math.random());
+      p.age = Math.random() * 120;
+      p.hueShift = Math.random();
+    }
+
+    function ensureParticles() {
+      const target = Math.round(clamp((state.width * state.height) / 1900, 260, state.particleCount));
+      while (state.particles.length < target) {
+        const p = { x: 0, y: 0, age: 0, hueShift: Math.random() };
+        resetParticle(p);
+        state.particles.push(p);
+      }
+      if (state.particles.length > target) {
+        state.particles.length = target;
+      }
+    }
+
+    function resetParticles() {
+      state.particles.forEach(resetParticle);
+    }
+
+    function drawBackground() {
+      ctx.fillStyle = "#17191d";
+      ctx.fillRect(0, 0, state.width, state.height);
+
+      ctx.save();
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.055)";
+      ctx.lineWidth = 1;
+      const grid = Math.max(36, state.scale * 0.5);
+      const offsetX = state.centerX % grid;
+      const offsetY = state.centerY % grid;
+
+      for (let x = offsetX; x < state.width; x += grid) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, state.height);
+        ctx.stroke();
+      }
+
+      for (let y = offsetY; y < state.height; y += grid) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(state.width, y);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawPressureField() {
+      if (!els.pressureToggle.checked) return;
+
+      const sample = state.width * state.height > 950000 ? 3 : 2;
+      const bufferWidth = Math.max(180, Math.ceil(state.width / sample));
+      const bufferHeight = Math.max(140, Math.ceil(state.height / sample));
+      if (pressureBuffer.width !== bufferWidth || pressureBuffer.height !== bufferHeight) {
+        pressureBuffer.width = bufferWidth;
+        pressureBuffer.height = bufferHeight;
+      }
+
+      const image = pressureCtx.createImageData(bufferWidth, bufferHeight);
+      const data = image.data;
+
+      for (let py = 0; py < bufferHeight; py++) {
+        for (let px = 0; px < bufferWidth; px++) {
+          const sx = (px + 0.5) * state.width / bufferWidth;
+          const sy = (py + 0.5) * state.height / bufferHeight;
+          const w = screenToWorld(sx, sy);
+          const offset = (py * bufferWidth + px) * 4;
+
+          if (Math.hypot(w.x, w.y) < state.radius * 1.01) {
+            data[offset + 3] = 0;
+            continue;
+          }
+
+          const p = clamp(pressureAt(w.x, w.y, state.time), -1.35, 1.35);
+          const intensity = smoothstep(0.035, 1.15, Math.abs(p));
+          const alpha = Math.round(18 + intensity * 178);
+
+          if (p >= 0) {
+            data[offset] = Math.round(255);
+            data[offset + 1] = Math.round(126 - intensity * 72);
+            data[offset + 2] = Math.round(68 - intensity * 36);
+            data[offset + 3] = alpha;
+          } else {
+            data[offset] = Math.round(46 - intensity * 25);
+            data[offset + 1] = Math.round(150 - intensity * 62);
+            data[offset + 2] = Math.round(255);
+            data[offset + 3] = alpha;
+          }
+        }
+      }
+
+      pressureCtx.putImageData(image, 0, 0);
+      ctx.save();
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(pressureBuffer, 0, 0, state.width, state.height);
+      ctx.restore();
+    }
+
+    function traceFlowLine(seedX, seedY, time, steps, ds, streakLag = 0) {
+      const b = state.bounds;
+      const seed = keepOutsideSphere(seedX, seedY, 1.045);
+      const wallR = state.radius * 1.035;
+      let x = seed.x;
+      let y = seed.y;
+      let travel = 0;
+      const points = [];
+
+      for (let step = 0; step < steps; step++) {
+        if (x > b.right || y < b.top || y > b.bottom) {
+          break;
+        }
+
+        points.push(worldToScreen(x, y));
+
+        const localTime = time - travel * streakLag;
+        const v1 = velocityAt(x, y, localTime);
+        const mag1 = Math.max(0.06, Math.hypot(v1.x, v1.y));
+        const midX = x + (v1.x / mag1) * ds * 0.5;
+        const midY = y + (v1.y / mag1) * ds * 0.5;
+        const v2 = velocityAt(midX, midY, localTime + 0.018);
+        const mag2 = Math.max(0.06, Math.hypot(v2.x, v2.y));
+
+        let nextX = x + (v2.x / mag2) * ds;
+        let nextY = y + (v2.y / mag2) * ds;
+        const nextR = Math.hypot(nextX, nextY);
+        if (nextR < wallR) {
+          const r = Math.max(Math.hypot(x, y), 0.0001);
+          const nx = x / r;
+          const ny = y / r;
+          const tx = -ny;
+          const ty = nx;
+          const tangentSpeed = v2.x * tx + v2.y * ty;
+
+          if (Math.abs(tangentSpeed) < 0.025) {
+            break;
+          }
+
+          const direction = tangentSpeed > 0 ? 1 : -1;
+          const slide = ds * 0.72;
+          nextX = nx * wallR + tx * direction * slide;
+          nextY = ny * wallR + ty * direction * slide;
+        }
+
+        const safe = keepOutsideSphere(nextX, nextY, 1.035);
+        x = safe.x;
+        y = safe.y;
+        travel += ds / Math.max(mag2, 0.12);
+      }
+
+      return points;
+    }
+
+    function strokeFlowLine(points, strokeStyle, lineWidth) {
+      if (points.length < 2) return;
+
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        const prev = points[i - 1];
+        const point = points[i];
+        const midX = (prev.x + point.x) * 0.5;
+        const midY = (prev.y + point.y) * 0.5;
+        ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
+      }
+      const last = points[points.length - 1];
+      ctx.lineTo(last.x, last.y);
+      ctx.strokeStyle = strokeStyle;
+      ctx.lineWidth = lineWidth;
+      ctx.stroke();
+    }
+
+    function drawStreamlines() {
+      if (!els.streamToggle.checked) return;
+
+      const b = state.bounds;
+      const params = wakeParameters();
+      const count = state.height < 430 ? 14 : 21;
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      for (let i = 0; i < count; i++) {
+        const ratio = i / (count - 1);
+        const baseY = lerp(b.top * 0.78, b.bottom * 0.78, ratio);
+        const phase = state.time * (0.32 + params.unsteady * 0.45) + i * 0.63;
+        const unsteadySeed = Math.sin(phase) * params.unsteady * 0.075 * Math.exp(-Math.abs(baseY) * 0.25);
+        const y0 = baseY + unsteadySeed;
+        const points = traceFlowLine(b.left + 0.2, y0, state.time, 285, 0.045, params.unsteady * 0.055);
+        const tint = Math.abs(y0) < 1.35 ? 0.66 : 0.38;
+        strokeFlowLine(points, `rgba(126, 223, 255, ${tint})`, 1.25);
+      }
+
+      ctx.restore();
+    }
+
+    function drawWakeStreamlines() {
+      if (!els.wakeToggle.checked) return;
+
+      const params = wakeParameters();
+      if (params.wake < 0.12) return;
+
+      const a = state.radius;
+      const time = state.time;
+
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.globalCompositeOperation = "screen";
+
+      for (const side of [-1, 1]) {
+        for (let band = 0; band < 7; band++) {
+          const offset = band - 3;
+          const phase = time * (1.15 + params.unsteady * 1.15) + band * 0.78 + side * 0.6;
+          const angle = side * (0.72 + offset * 0.038 + Math.sin(phase) * params.unsteady * 0.035);
+          const seedR = a * 1.055;
+          const seedX = Math.cos(angle) * seedR;
+          const seedY = Math.sin(angle) * seedR;
+          const points = traceFlowLine(seedX, seedY, time, 150, 0.038, 0.09 + params.unsteady * 0.12);
+          const warm = side < 0;
+          const alpha = (0.13 + params.wake * 0.32) * (1 - Math.abs(offset) * 0.08);
+          const color = warm
+            ? `rgba(255, 184, 82, ${alpha})`
+            : `rgba(255, 112, 92, ${alpha})`;
+          strokeFlowLine(points, color, 1.05 + params.wake * 0.7);
+        }
+      }
+
+      for (let row = 0; row < 9; row++) {
+        const ratio = row / 8;
+        const yBase = lerp(-0.86, 0.86, ratio);
+        const phase = time * (1.55 + params.unsteady) - row * 0.72;
+        const seedY = yBase + Math.sin(phase) * params.unsteady * 0.11;
+        const rawSeedX = a * (1.08 + 0.08 * Math.cos(phase));
+        const seed = keepOutsideSphere(rawSeedX, seedY, 1.055);
+        const points = traceFlowLine(seed.x, seed.y, time - row * 0.035, 180, 0.04, 0.16 + params.unsteady * 0.08);
+        const centerWeight = 1 - Math.min(1, Math.abs(yBase) / 0.92);
+        const alpha = params.wake * (0.16 + centerWeight * 0.24);
+        strokeFlowLine(points, `rgba(170, 235, 255, ${alpha})`, 0.9 + centerWeight * 0.55);
+      }
+
+      ctx.restore();
+    }
+
+    function drawParticles(dt) {
+      ctx.save();
+      ctx.lineWidth = 1.4;
+      ctx.lineCap = "round";
+
+      const b = state.bounds;
+      const stepDt = dt * (state.slow ? 0.45 : 1);
+
+      for (const p of state.particles) {
+        const oldX = p.x;
+        const oldY = p.y;
+        const v1 = velocityAt(p.x, p.y, state.time);
+        p.x += v1.x * stepDt * 0.62;
+        p.y += v1.y * stepDt * 0.62;
+        p.age += 1;
+
+        const r = Math.hypot(p.x, p.y);
+        if (p.x > b.right || p.y < b.top || p.y > b.bottom || r < state.radius * 1.02 || p.age > 900) {
+          resetParticle(p);
+          continue;
+        }
+
+        const old = worldToScreen(oldX, oldY);
+        const next = worldToScreen(p.x, p.y);
+        const speedNorm = clamp(v1.speed / (state.speed * 1.9), 0, 1);
+        const red = Math.round(95 + speedNorm * 92);
+        const green = Math.round(184 + speedNorm * 48);
+        const blue = Math.round(215 + speedNorm * 20);
+        const alpha = 0.34 + speedNorm * 0.42;
+
+        ctx.beginPath();
+        ctx.moveTo(old.x, old.y);
+        ctx.lineTo(next.x, next.y);
+        ctx.strokeStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawSphere() {
+      const s = worldToScreen(0, 0);
+      const r = state.radius * state.scale;
+      const grad = ctx.createRadialGradient(s.x - r * 0.32, s.y - r * 0.34, r * 0.08, s.x, s.y, r);
+      grad.addColorStop(0, "#f4f0df");
+      grad.addColorStop(0.42, "#c3c7be");
+      grad.addColorStop(1, "#696f76");
+
+      ctx.save();
+      ctx.shadowColor = "rgba(0, 0, 0, 0.46)";
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetX = 8;
+      ctx.shadowOffsetY = 8;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r + 3, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.55)";
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+
+      const params = wakeParameters();
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r + 10 + params.viscosity * 8, -Math.PI * 0.72, Math.PI * 0.72);
+      ctx.strokeStyle = `rgba(15, 159, 155, ${0.28 + params.viscosity * 0.24})`;
+      ctx.lineWidth = 6;
+      ctx.stroke();
+
+      const front = worldToScreen(-state.radius * 1.03, 0);
+      ctx.beginPath();
+      ctx.arc(front.x, front.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#e85c43";
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawAnnotations() {
+      const labelStyle = "rgba(255, 255, 255, 0.86)";
+      const lineStyle = "rgba(255, 255, 255, 0.34)";
+      const font = "12px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+      const points = [
+        { text: "停滯高壓", from: worldToScreen(-1.08, 0), to: worldToScreen(-2.05, -0.75), color: "#e85c43" },
+        { text: "側面加速低壓", from: worldToScreen(0.1, -1.03), to: worldToScreen(0.72, -1.72), color: "#3478f6" },
+        { text: "分離尾流", from: worldToScreen(1.24, 0.16), to: worldToScreen(2.55, 0.88), color: "#d89a22" },
+      ];
+
+      ctx.save();
+      ctx.font = font;
+      ctx.textBaseline = "middle";
+      for (const item of points) {
+        ctx.beginPath();
+        ctx.moveTo(item.from.x, item.from.y);
+        ctx.lineTo(item.to.x, item.to.y);
+        ctx.strokeStyle = lineStyle;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(item.from.x, item.from.y, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = item.color;
+        ctx.fill();
+
+        const width = ctx.measureText(item.text).width + 14;
+        ctx.fillStyle = "rgba(18, 19, 22, 0.72)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
+        roundRect(ctx, item.to.x - 7, item.to.y - 13, width, 26, 7);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = labelStyle;
+        ctx.fillText(item.text, item.to.x, item.to.y);
+      }
+      ctx.restore();
+    }
+
+    function roundRect(context, x, y, width, height, radius) {
+      const r = Math.min(radius, width / 2, height / 2);
+      context.beginPath();
+      context.moveTo(x + r, y);
+      context.arcTo(x + width, y, x + width, y + height, r);
+      context.arcTo(x + width, y + height, x, y + height, r);
+      context.arcTo(x, y + height, x, y, r);
+      context.arcTo(x, y, x + width, y, r);
+      context.closePath();
+    }
+
+    function updateActiveTerm() {
+      const index = Math.floor(state.time / 2.6) % els.terms.length;
+      els.terms.forEach((term, i) => {
+        term.classList.toggle("is-active", i === index);
+      });
+    }
+
+    function frame(timestamp) {
+      if (!state.last) state.last = timestamp;
+      const rawDt = Math.min(0.04, (timestamp - state.last) / 1000);
+      state.last = timestamp;
+
+      updateControls();
+      if (!state.paused) {
+        state.time += rawDt * (state.slow ? 0.45 : 1);
+      }
+
+      drawBackground();
+      drawPressureField();
+      drawStreamlines();
+      drawWakeStreamlines();
+      drawParticles(state.paused ? 0 : rawDt);
+      drawSphere();
+      drawAnnotations();
+      updateActiveTerm();
+
+      requestAnimationFrame(frame);
+    }
+
+    els.uSlider.addEventListener("input", updateControls);
+    els.pressureSlider.addEventListener("input", updateControls);
+    els.muSlider.addEventListener("input", updateControls);
+    els.pauseButton.addEventListener("click", () => {
+      state.paused = !state.paused;
+      els.pauseButton.textContent = state.paused ? "▶" : "⏸";
+    });
+    els.resetButton.addEventListener("click", resetParticles);
+    els.slowButton.addEventListener("click", () => {
+      state.slow = !state.slow;
+      els.slowButton.style.borderColor = state.slow ? "var(--teal)" : "var(--line)";
+      els.slowButton.style.boxShadow = state.slow ? "0 0 0 3px rgba(15, 159, 155, 0.12)" : "none";
+    });
+
+    window.addEventListener("resize", resize);
+    resize();
+    updateControls();
+    resetParticles();
+    requestAnimationFrame(frame);
+  </script>
+</body>
+</html>
