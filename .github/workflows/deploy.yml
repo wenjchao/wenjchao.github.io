@@ -26,11 +26,26 @@ jobs:
         run: python scripts/build_index.py
       - name: Stage site
         run: |
+          set -euo pipefail
           mkdir -p _site
           cp index.html _site/
-          cp -r papers _site/
-          cp -r WebAI _site/
-          cp -r Fluid_dynamic _site/
+          # Auto-copy every top-level directory except the excluded ones below.
+          # Add a name here to keep it out of the deployed site.
+          excluded=( _site scripts 本地 )
+          shopt -s nullglob
+          for dir in */; do
+            name="${dir%/}"
+            skip=0
+            for ex in "${excluded[@]}"; do
+              if [ "$name" = "$ex" ]; then skip=1; break; fi
+            done
+            if [ "$skip" -eq 1 ]; then
+              echo "skip $name"
+              continue
+            fi
+            echo "copy $name"
+            cp -r "$name" "_site/$name"
+          done
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
