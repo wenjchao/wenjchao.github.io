@@ -2,7 +2,7 @@
 
 ## 目標
 
-把已 finalize 的 paper（`<paper_dir>/final/` 內全部產物）複製到本人 GitHub Pages 倉庫 `wenjchao.github.io/workspace/<paper_slug>/`，使其成為網站可訪問的論文頁。
+把已 finalize 的 paper（`<paper_dir>/final/` 內全部產物）複製到本人 GitHub Pages 倉庫 `wenjchao.github.io/papers/<paper_slug>/`，使其成為網站可訪問的論文頁。
 
 這是 mapping pipeline 之後、發佈前的最後一步（mechanical）。
 
@@ -17,7 +17,7 @@
 ## 路徑慣例
 
 - 來源：`<paper_dir>/final/`（mapping_merger 已寫好的 finalize 產物，含 HTML、figures/、summary.md 等）
-- 目的：`<github_io_root>/workspace/<paper_slug>/`（如不存在會建立）
+- 目的：`<github_io_root>/papers/<paper_slug>/`（如不存在會建立）
 - 對應關係：`final/` 內所有檔案 / 子目錄複製進 `<paper_slug>/`（**等同於把 `final/` 改名為 `<paper_slug>/`**）
 
 例：
@@ -32,7 +32,7 @@ workspace/pediatric-tri-tube-valved-conduit/final/
 
 複製後：
 ```
-wenjchao.github.io/workspace/pediatric-tri-tube-valved-conduit/
+wenjchao.github.io/papers/pediatric-tri-tube-valved-conduit/
   ├── pediatric-tri-tube-valved-conduit.html
   ├── pediatric-tri-tube-valved-conduit.md
   ├── pediatric-tri-tube-valved-conduit_summary.md
@@ -49,15 +49,15 @@ wenjchao.github.io/workspace/pediatric-tri-tube-valved-conduit/
 2. `<paper_dir>/final/<paper_slug>.html` 存在（mapping_merger 應已寫入；若無代表 mapping pipeline 未完成）
 
 確認目的端 root 存在：
-3. `<github_io_root>/workspace/` 存在（如不存在則 abort 並要求 user 確認 github.io 路徑）
+3. `<github_io_root>/papers/` 存在（如不存在則 abort 並要求 user 確認 github.io 路徑）
 
 ### Step 2：同步
 
 **[mechanical]** 對每個 paper 跑一次 rsync：
 
 ```bash
-mkdir -p <github_io_root>/workspace/<paper_slug>
-rsync -a <paper_dir>/final/ <github_io_root>/workspace/<paper_slug>/
+mkdir -p <github_io_root>/papers/<paper_slug>
+rsync -a <paper_dir>/final/ <github_io_root>/papers/<paper_slug>/
 ```
 
 注意：
@@ -80,16 +80,33 @@ for slug in <slug1> <slug2> ...; do
 done
 ```
 
-### Step 4：交還給 user
+### Step 4：Git commit（不 push）
 
-複製完成後**不要**自動 `git add` / `git commit` / `git push` 到 `wenjchao.github.io`——那是 user 自己的 deploy decision。回報：
+**前提**：Step 2 的 `rsync` 必須先成功完成；本步只負責把 rsync 帶進去的檔案 commit 起來，本身不複製任何檔案。
+
+**[mechanical]** 在 `<github_io_root>` 對剛同步進來的 paper 目錄做 `git add` 與 `git commit`：
+
+```bash
+cd <github_io_root>
+git add papers/<paper_slug>/
+git commit -m "Add paper: <paper_slug>"   # 或 "Update paper: <paper_slug>"
+```
+
+- **只 stage `papers/<paper_slug>/`**，避免誤加目的端 user 自己改的其他檔案（如 site theme、其他 paper 編輯中的差異）。
+- commit message 依目的端原本是否已存在同名 paper 目錄判斷：新增用 `Add paper: ...`、覆寫既有用 `Update paper: ...`。
+- **禁止**自動 `git push`，推送由 user 作最終決策。
+
+### Step 5：交還給 user
+
+回報：
 
 - 每篇 paper 在目的端的 item count 與 total size
 - 哪些 paper 是新增、哪些是覆蓋既有
 - 任何 rsync warning / error
+- 剛產生的 commit SHA 與 message，讓 user 確認後再 push
 
 ## 注意事項
 
 - `wenjchao.github.io` 是 user 個人的 GitHub Pages 倉庫，這支 SKILL 只負責「把 final/ 內容塞進去」這個 mechanical 步驟，**不負責** site-level 結構（`index.html`、navigation、CSS theme）——那些由 site 自身的 build 流程處理
-- 若 user 要把 paper 從 site 上下架，請 user 自行刪除 `<github_io_root>/workspace/<paper_slug>/`，這支 SKILL 沒有 reverse 操作
+- 若 user 要把 paper 從 site 上下架，請 user 自行刪除 `<github_io_root>/papers/<paper_slug>/`，這支 SKILL 沒有 reverse 操作
 - 若 source 端的 `final/<paper_slug>.html` 經過 `mapping_merger_script.py` 之後 self-check 沒有 11/11 PASS，請先回去修 mapping 而不是搬到網站

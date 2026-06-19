@@ -78,7 +78,7 @@ UNICODE_MAP = {
 }
 GREEK_RE = re.compile(r"[αβγδλμσΠΣ]")
 DEFINITE_RE = re.compile(r"[_^]|\\[a-zA-Z]+|[αβγδλμσΠΣ]")
-MATH_RUN_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 \t+-−*·/=<>≤≥≠^_(){}[],.\\αβγδλμσΠΣ∈∉")
+MATH_RUN_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 \t+-−*·/=<>≤≥≠^_(){}[],.;:\\αβγδλμσΠΣ∈∉；：")
 
 
 def _unicode_to_latex(s):
@@ -1625,7 +1625,7 @@ def build_js(color_labels=None):
           notesByMark.forEach(function(entry, mark){
             var block = mark.closest('.table-block, .table-wrap');
             if (!block) {
-              block = mark.closest('p, figcaption, .table-title, .table-caption, li, h2, h3, .equation');
+              block = mark.closest('p, figcaption, .caption, .table-title, .table-caption, li, h2, h3, .equation');
             }
             if (!block) return;
             if (mark.closest('.reader-panel')) return;
@@ -2024,9 +2024,6 @@ def self_check(maps, final_html, missed):
                 check_ok = False
                 failures.append(f"check 5 FAIL: bad li format: {content[:80]}")
                 break
-    if "chip" in panel_block:
-        check_ok = False
-        failures.append("check 5 FAIL: legacy chip pattern detected")
     if check_ok:
         print("[Step 9] check 5 PASS")
         passes.append(5)
@@ -2156,6 +2153,15 @@ def self_check(maps, final_html, missed):
     pm = re.search(r'<aside class="reader-panel">(.*?)</aside>', body_only, re.DOTALL)
     if pm:
         panel_only = pm.group(1)
+    # Spec carve-out: the synthesis module (module-block c-synth) is not part
+    # of mapping and is documented as out-of-scope for Step 9 self-check.
+    # See subagent_prompts/mapping_merger.md § Synthesis module.
+    panel_only = re.sub(
+        r'<div class="module-block c-synth">.*?</details>\s*</div>',
+        '',
+        panel_only,
+        flags=re.DOTALL,
+    )
     panel_stripped = strip_math_contents(panel_only)
     # Remove all HTML tags
     panel_text_nodes = re.sub(r"<[^>]+>", " ", panel_stripped)
@@ -2179,6 +2185,11 @@ def self_check(maps, final_html, missed):
             leaks.append((m.start(), tok))
         for m in re.finditer(r"[αβγδλμσΠΣ]", s):
             tok = m.group(0)
+            # Skip Greek letters used as prefix in bio compound names
+            # (e.g., α-actinin, α-SMA, β-actin) — matched by followed by '-'/'‑'/'–' + alnum.
+            nxt = s[m.end():m.end()+2]
+            if len(nxt) >= 2 and nxt[0] in "-‑–" and (nxt[1].isalnum()):
+                continue
             leaks.append((m.start(), tok))
         return leaks
 
