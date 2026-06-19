@@ -840,7 +840,7 @@ body.off-m30 .margin-note.n-m30 { display: none; }
           notesByMark.forEach(function(entry, mark){
             var block = mark.closest('.table-block, .table-wrap');
             if (!block) {
-              block = mark.closest('p, figcaption, .table-title, .table-caption, li, h2, h3, .equation');
+              block = mark.closest('p, figcaption, .caption, .table-title, .table-caption, li, h2, h3, .equation');
             }
             if (!block) return;
             if (mark.closest('.reader-panel')) return;
