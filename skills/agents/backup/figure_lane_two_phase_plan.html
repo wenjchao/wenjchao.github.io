@@ -1,0 +1,1048 @@
+<!DOCTYPE html>\n<html lang="zh-Hant"><head></head><body>\n
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure Lane Two-Phase Plan</title>
+<style>
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --text: #1f2937;
+  --text2: #6b7280;
+  --text3: #9ca3af;
+  --phase1: #fff7ed;
+  --phase1-border: #fed7aa;
+  --phase1-head: #ea580c;
+  --phase2: #eff6ff;
+  --phase2-border: #bfdbfe;
+  --phase2-head: #2563eb;
+  --notes: #f0fdf4;
+  --notes-border: #bbf7d0;
+  --claude: #eff6ff;
+  --claude-border: #bfdbfe;
+  --claude-head: #2563eb;
+  --notes-head: #16a34a;
+  --decision: #2563eb;
+  --todo: #d97706;
+  --defer: #7c3aed;
+  --done: #16a34a;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 12px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.topbar h1 { font-size: 16px; font-weight: 650; margin-right: auto; white-space: nowrap; }
+.progress { font-size: 13px; color: #94a3b8; white-space: nowrap; }
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn, .ctrl-btn {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.18);
+  background: transparent;
+  color: #cbd5e1;
+}
+.filter-btn { border-radius: 12px; }
+.filter-btn:hover, .ctrl-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+.filter-btn.active { background: rgba(255,255,255,.16); color: #fff; border-color: rgba(255,255,255,.4); }
+.save-btn { background: rgba(34,197,94,.2); color: #4ade80; border-color: rgba(34,197,94,.4); font-weight: 650; }
+.search-wrap { padding: 16px 24px 0; max-width: 1400px; margin: 0 auto; }
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--card);
+  outline: none;
+}
+.search-input:focus { border-color: #93c5fd; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+.container { max-width: 1400px; margin: 0 auto; padding: 16px 24px 80px; }
+.overview {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.overview-head {
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 650;
+  border-bottom: 1px solid var(--border);
+}
+.phase-grid { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .phase-grid { grid-template-columns: 1fr; } }
+.phase-col { padding: 16px 20px; font-size: 13px; }
+.phase-col:first-child { background: var(--phase1); border-right: 1px solid var(--border); }
+.phase-col:last-child { background: var(--phase2); }
+.phase-col h2 { font-size: 14px; margin-bottom: 8px; }
+.phase-col.phase1 h2 { color: var(--phase1-head); }
+.phase-col.phase2 h2 { color: var(--phase2-head); }
+.phase-col ul { margin-left: 18px; }
+.phase-col li { margin-bottom: 4px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+.card.hidden { display: none; }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.card-header:hover { background: #f9fafb; }
+.card-num {
+  font-size: 12px;
+  font-weight: 750;
+  color: #fff;
+  background: #64748b;
+  min-width: 34px;
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.card-num.phase1 { background: var(--phase1-head); }
+.card-num.phase2 { background: var(--phase2-head); }
+.card-title { font-size: 15px; font-weight: 650; flex: 1; }
+.card-arrow { font-size: 12px; color: var(--text3); transition: transform .2s; flex-shrink: 0; }
+.card.open .card-arrow { transform: rotate(90deg); }
+.badge {
+  font-size: 11px;
+  font-weight: 650;
+  padding: 2px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.badge[data-status="decision"] { background: #dbeafe; color: var(--decision); }
+.badge[data-status="todo"] { background: #fef3c7; color: var(--todo); }
+.badge[data-status="defer"] { background: #ede9fe; color: var(--defer); }
+.badge[data-status="done"] { background: #dcfce7; color: var(--done); }
+.status-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  min-width: 140px;
+}
+.status-menu.open { display: block; }
+.status-option {
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-option:hover { background: #f3f4f6; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.card-body { display: none; border-top: 1px solid var(--border); }
+.card.open .card-body { display: block; }
+.section-toggle {
+  padding: 10px 20px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+  background: #f9fafb;
+}
+.section-toggle:hover { color: var(--text); }
+.section-toggle .arrow { font-size: 10px; transition: transform .15s; }
+.section-toggle.open .arrow { transform: rotate(90deg); }
+.section-content {
+  display: none;
+  padding: 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text2);
+}
+.section-content.open { display: block; }
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; min-height: 120px; }
+@media (max-width: 1000px) { .plan-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .plan-grid { grid-template-columns: 1fr; } }
+.panel {
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.65;
+  border-right: 1px solid var(--border);
+}
+.panel:last-child { border-right: none; }
+.panel.phase1 { background: var(--phase1); }
+.panel.phase2 { background: var(--phase2); }
+.panel.notes { background: var(--notes); }
+.panel-head {
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.panel-head .dot { width: 6px; height: 6px; border-radius: 50%; }
+.panel-head.phase1 { color: var(--phase1-head); }
+.panel-head.phase1 .dot { background: var(--phase1-head); }
+.panel-head.phase2 { color: var(--phase2-head); }
+.panel-head.phase2 .dot { background: var(--phase2-head); }
+.panel-head.notes { color: var(--notes-head); }
+.panel-head.notes .dot { background: var(--notes-head); }
+.panel.claude { background: var(--claude); }
+.panel-head.claude { color: var(--claude-head); }
+.panel-head.claude .dot { background: var(--claude-head); }
+.panel p { margin-bottom: 8px; }
+.panel ul, .panel ol, .section-content ul, .section-content ol { margin: 6px 0 10px 18px; }
+.panel li, .section-content li { margin-bottom: 3px; }
+pre {
+  background: rgba(0,0,0,.05);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+  line-height: 1.5;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+}
+code {
+  background: rgba(0,0,0,.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+pre code { background: none; padding: 0; }
+.note {
+  width: 100%;
+  min-height: 92px;
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--notes-border);
+  border-radius: 6px;
+  background: #fff;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+.note:focus { outline: none; border-color: #86efac; box-shadow: 0 0 0 3px rgba(22,163,74,.1); }
+.save-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+  z-index: 200;
+}
+.save-toast.show { opacity: 1; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+
+
+
+<div class="topbar">
+  <h1>Figure Lane Two-Phase Plan</h1>
+  <div class="progress" id="progress">15 cards | 9 phase 1 | 6 phase 2 | 0 done</div>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="phase1">Phase 1</button>
+    <button class="filter-btn" data-filter="phase2">Phase 2</button>
+    <button class="filter-btn" data-filter="todo">Todo</button>
+    <button class="filter-btn" data-filter="defer">Deferred</button>
+  </div>
+  <button class="ctrl-btn" id="expandAll">Expand All</button>
+  <button class="ctrl-btn" id="collapseAll">Collapse All</button>
+  <button class="ctrl-btn save-btn" id="saveFile">Save to File</button>
+</div>
+
+<div class="search-wrap">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search plan...">
+</div>
+
+<div class="container" id="container"></div>
+
+    <div class="save-toast" id="saveToast">Saved</div>
+
+<script id="user-data">
+const EMBEDDED_USER_DATA = {
+  "statuses": {},
+  "notes": {
+    "P1-0": "create paper_dir and figure lane folders\n  copy source.pdf into input/\n  render pages and previews\n這些應該不是 figure lane 的事情。要放進去，但是要放在 figure lane 前面。這樣以後再擴充其他 lane 的時候才不會卡到",
+    "P1-1": "把所有需要用到的 script 放進 agents/scripts，不要直接調用 skills/_shared。這樣我們修改也方便",
+    "P1-2": "copy into canonical 就是 merge 應該做的事，應該給 parents",
+    "P1-4": "worker, reviewer, repair 都只閱讀 canonical 和 source 和 shared/\n    pages/ , shared/preview。parent 要把東西搬進 / merge 進 canonical",
+    "P1-5": "第一階段是 single worker，不 merge。直接檔案複製貼上改檔名即可。對 worker, reviewer, repair 皆是如此"
+  }
+};
+</script>
+
+<script>
+const STORAGE_KEY = 'figure_lane_two_phase_plan_v1';
+
+const STATUS_LABELS = {
+  decision: '決策',
+  todo: '待實作',
+  defer: 'Phase 2',
+  done: '完成'
+};
+
+const STATUS_META = {
+  decision: { color: '#2563eb' },
+  todo: { color: '#d97706' },
+  defer: { color: '#7c3aed' },
+  done: { color: '#16a34a' }
+};
+
+const cards = [
+{
+  id: 'P1-0',
+  phase: 'phase1',
+  status: 'decision',
+  title: 'Phase 1 Scope: 先跑起來',
+  context: `
+<p>這張卡定義第一階段的邊界。第一階段的目標不是架構完整，而是讓 figure lane 可以用最少修改跑完一篇短 PDF。</p>`,
+  plan: `
+<p><strong>Phase 1 固定為 single worker。</strong></p>
+<ul>
+  <li>figure lane 開始前，parent 已完成 global Step 0：建立 <code>paper_dir</code>、複製 PDF、render pages/previews</li>
+  <li>一個 extractor：<code>worker_01</code></li>
+  <li>一個 reviewer：<code>reviewer_01</code></li>
+  <li>每輪最多一個 repair worker：<code>repair_01</code></li>
+  <li>只跑 <code>figure_lane_only</code></li>
+  <li>parent 負責把 worker/repair output 搬進 <code>canonical/</code>，並保留 artifact-root-relative paths</li>
+</ul>
+<p><strong>第一階段不做 canonical validation。</strong>只要求每個 subagent 在回報前證明自己的 local output 合理。</p>`,
+  implementation: `
+<p><strong>最小修改：</strong>先改 <code>SKILL.md</code>，把 global Step 0 和 figure lane 分開，並把 figure lane 設為唯一 runnable lane。</p>
+<pre>global_step_0:
+  create paper_dir and figure lane folders
+  copy source.pdf into input/
+  render pages and previews
+
+figure_lane_only:
+  spawn figure_extractor worker_01
+  individual validate extractor output
+  parent copies worker output into canonical/
+  spawn figure_reviewer reviewer_01
+  individual validate visual_review.json
+  if fail: build repair_requests_merged.json
+  spawn figure_repair repair_01
+  individual validate repair_report.json
+  parent copies repair output into canonical/
+  rerun reviewer
+</pre>`,
+  claude: `
+<p><strong>收到。</strong>同意。Global Step 0（建資料夾、render pages）和 figure lane 分開寫，以後擴充其他 lane 不會卡到。</p>
+<p>Phase 1 不做 canonical validation，individual validate + 薄 gate 就夠。</p>
+<p>artifact-root-relative paths 是這版最大的設計改動——讓 Phase 1 的 parent copy 變成純搬運，不需要改 JSON。很好。</p>`,
+    notesPlaceholder: '你想調整 Phase 1 scope 的地方...'
+},
+{
+  id: 'P1-1',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Init / Render Pages',
+  context: `
+<p>Figure lane 需要先有 page PNG 和 preview PNG。這是 parent 的前置工作，不丟給 extractor 臨場補。</p>`,
+  plan: `
+<p>Parent 直接呼叫 hand-written pipeline 內的 scripts，不直接呼叫 <code>skills/_shared</code>。</p>
+<pre>mkdir -p &lt;paper_dir&gt;/{input,shared/pages,shared/previews,lanes/figures,trace}
+cp source.pdf &lt;paper_dir&gt;/input/source.pdf
+python3 agents/scripts/render_pages.py ...
+python3 agents/scripts/make_image_preview.py ...</pre>
+<p>Phase 1 可以先只寫必要 manifest，甚至先以目錄檔案存在為準。</p>`,
+  implementation: `
+<ul>
+  <li>在 <code>SKILL.md</code> 寫清楚 Step 0。</li>
+  <li>把需要用到的 helper scripts 放在 <code>agents/scripts/</code>。</li>
+  <li>第一版可以從 <code>skills/_shared/scripts/</code> 複製為起點，但後續修改發生在 local copy。</li>
+  <li>不要新增大型 <code>init_figure_lane.py</code>，避免 debug 被 wrapper 蓋住。</li>
+</ul>`,
+  claude: `
+<p><strong>收到。</strong>同意把 scripts 複製到 <code>hand-written-pipeline/scripts/</code>，不直接調用 <code>_shared</code>。</p>
+<p>需要複製：<code>render_pages.py</code>、<code>make_image_preview.py</code>、<code>crop_region.py</code>。先確認 dependencies（pymupdf / PIL）。</p>`,
+    notesPlaceholder: 'Init/render 的最小需求...'
+},
+{
+  id: 'P1-2',
+  phase: 'phase1',
+  status: 'decision',
+  title: 'Single Worker Output 是第一階段的 truth',
+  context: `
+<p>原本討論裡有 canonical directory、merge report、path rewrite。這些在長期正確，但不是第一階段必要條件。</p>`,
+  plan: `
+<p>Phase 1 的 downstream truth 是 <code>canonical/</code>。</p>
+<p>但 Phase 1 的 <code>canonical/</code> 只是 parent 從 single worker output 複製得到的工作目錄，不是多 worker merge 後的 canonical truth。所有 JSON path 欄位採用 <strong>artifact-root-relative paths</strong>：path 只相對於當前 artifact root 解讀，不包含 <code>worker_output/</code>、<code>canonical/</code> 或 absolute path。</p>
+<pre>allowed:
+  parent copies worker_output/worker_01/{figures.json,crops/,previews/,reports/} into canonical/
+  parent preserves the same relative artifact tree
+  reviewer/repair resolve JSON paths relative to canonical/
+
+not allowed in Phase 1:
+  JSON path rewrite
+  semantic JSON rewrite
+  reconcile duplicate ids
+  merge multiple workers
+  promote source_regions/edges
+  run parent canonical validation
+  write worker_output/ or canonical/ prefixes into JSON path fields</pre>`,
+  implementation: `
+<p>修改 prompts 時把這個 path contract 寫死：subagent 可以把檔案實際寫在自己的 output root，但 JSON 只寫相對 artifact root 的路徑。</p>
+<pre>OK:
+  crops/Figure_1.png
+  previews/Figure_1_preview.png
+  reports/Figure_1_edges.json
+
+Not OK:
+  lanes/figures/worker_output/worker_01/crops/Figure_1.png
+  lanes/figures/canonical/crops/Figure_1.png
+  /absolute/path/to/Figure_1.png</pre>
+<p>Parent 搬檔時只複製同一棵相對目錄樹；因為 JSON 沒有 output-root prefix，所以 copy 後不需要 string replace。</p>`,
+  claude: `
+<p><strong>收到。</strong>artifact-root-relative paths 是這版最重要的新設計。好處明確：parent copy 整棵 tree 就好，不需要 string replace JSON。</p>
+<p><strong>但這代表三份 prompt 都要改。</strong>目前 <code>figure_extractor.md</code> 的 JSON examples 寫的是：</p>
+<pre>"image_file": "lanes/figures/worker_output/worker_01/Figure_1.png"
+"preview": "lanes/figures/worker_output/worker_01/previews/Figure_1_preview.png"</pre>
+<p>改成 artifact-root-relative 後要變成：</p>
+<pre>"image_file": "Figure_1.png"
+"preview": "previews/Figure_1_preview.png"</pre>
+<p>這影響 extractor 的所有 4 份 JSON examples（figure_candidates、figure_index、figure_decisions、figures.json）。Reviewer 和 repair 的 JSON examples 也要同步改。這是 Phase 1 最大的 prompt 修改工作量。</p>
+<p>resolver contract：agent 寫檔時用 <code>artifact_root + relative_path</code>，JSON 只存 relative_path。parent dispatch 時告訴 agent 它的 artifact_root 是什麼。</p>`,
+    notesPlaceholder: '關於 truth / canonical 的看法...'
+},
+{
+  id: 'P1-3',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Extractor Prompt Minimal Contract',
+  context: `
+<p>Extractor 是 Phase 1 第一個真正的 worker。它要輸出完整、可 review 的 figure artifacts。</p>`,
+  plan: `
+<p><code>figure_extractor.md</code> 需要固定 single-worker path：</p>
+<pre>lanes/figures/worker_output/worker_01/</pre>
+<p>Extractor 實際寫檔在自己的 worker root，但 <code>figures.json</code> 內所有 artifact path 都必須是 artifact-root-relative。</p>
+<pre>image_path: crops/Figure_1.png
+preview_path: previews/Figure_1_preview.png</pre>
+<p>Extractor 必須在 final response 前做 individual validate。Validate 時以 <code>worker_output/worker_01/</code> 作為 artifact root；parent copy 後，reviewer 以 <code>canonical/</code> 作為 artifact root。</p>`,
+  implementation: `
+<p>Individual validate 只檢查 local output，並用 worker artifact root resolve JSON paths：</p>
+<ul>
+  <li>required JSON files exist and parse</li>
+  <li>referenced crop/preview files exist</li>
+  <li>crop ids stable</li>
+  <li>incomplete/blocked cases are reported honestly</li>
+</ul>
+<p>不要要求 extractor 等 parent canonical validation。</p>`,
+  claude: `
+<p><strong>收到。</strong>這是 prompt 改動量最大的一張卡。</p>
+<p><code>figure_extractor.md</code> 需要改的地方：</p>
+<ul>
+<li>所有 JSON example 的 path fields（image_file、preview、edge_previews、source_image、source_preview）從 <code>lanes/figures/worker_output/worker_01/...</code> 改成 artifact-root-relative</li>
+<li>規則段加一條：「JSON path fields 不含 worker_output/ 或 canonical/ prefix」</li>
+<li>圖片檔案段的 path 範例同步改</li>
+<li>individual validate 用 worker artifact root resolve paths</li>
+</ul>
+<p>改動不影響邏輯，只是 path 格式。可以用 replace-all 批次做。</p>`,
+    notesPlaceholder: 'Extractor prompt 要補的細節...'
+},
+{
+  id: 'P1-4',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Reviewer 使用 visual_review.json',
+  context: `
+<p>Discussion board 已決定 MVP 使用 figure-specific <code>visual_review.json</code>，不走 generic <code>review_batch</code>。</p>`,
+  plan: `
+<p>Reviewer 只輸出 <code>visual_review.json</code>。</p>
+<p>Reviewer 只讀 <code>canonical/</code>、<code>input/source.pdf</code>、<code>shared/pages/</code>、<code>shared/previews/</code>。Reviewer 不讀 <code>worker_output/</code>。所有 figure artifact references 都相對 <code>canonical/</code> resolve。</p>`,
+  implementation: `
+<ul>
+  <li>移除「必須跑正式 validator」的語氣。</li>
+  <li>保留 reviewer local self-check。</li>
+  <li>Fail findings 必須足夠 structured，讓 parent 可以機械轉成 repair request。</li>
+  <li>Reviewer 不能修改 extraction artifacts。</li>
+  <li>Reviewer dispatch 必須明確列出 <code>artifact_root=&lt;paper_dir&gt;/lanes/figures/canonical</code>。</li>
+</ul>`,
+  claude: `
+<p><strong>收到。</strong>同意 all agents 只讀 canonical + source + shared。</p>
+<p>有一個 artifact-root 的複雜度要注意：reviewer 同時讀兩個 root 的檔案——</p>
+<ul>
+<li><strong>canonical artifacts</strong>（crop PNGs、extractor previews）→ resolve from <code>canonical/</code></li>
+<li><strong>reviewer 自己建的 previews</strong>（source evidence、source edge previews）→ resolve from <code>reviews/round_00/reviewer_01/</code></li>
+</ul>
+<p><code>visual_review.json</code> 裡的 <code>crop_previews_read</code> 引用 canonical paths，<code>source_previews_read</code> 引用 reviewer-local paths。兩者的 artifact root 不同。</p>
+<p>建議：reviewer JSON 裡明確分兩組 paths，各自 relative to 自己的 root。或者統一用 paper_dir relative paths（但這和 artifact-root-relative 衝突）。這個需要想清楚再改 prompt。</p>`,
+    notesPlaceholder: 'Reviewer output / review coverage 的想法...'
+},
+{
+  id: 'P1-5',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Review → repair_requests_merged.json',
+  context: `
+<p>Repair prompt 讀 <code>repair_requests_merged.json</code>。中間轉換由 parent 做，但 Phase 1 可以先在 <code>SKILL.md</code> 寫成 deterministic steps。</p>`,
+  plan: `
+<p>Parent 從 <code>visual_review.json</code> 收集 repairable failures，寫一份 <code>repair_requests_merged.json</code>。</p>
+<pre>reviews/round_00/reviewer_01/visual_review.json
+  → repairs/round_01/repair_requests_merged.json</pre>
+<p>Missing / duplicate / wrong figure inventory 不進 repair，直接 block。</p>`,
+  implementation: `
+<p>Phase 1 不新增 merge script。Parent 做簡單 deterministic file operations，並保留 artifact-root-relative tree：</p>
+<ul>
+  <li>copy worker output tree into <code>canonical/</code>，不改 JSON paths</li>
+  <li>copy reviewer output into review round directory</li>
+  <li>依 machine-readable <code>canonical_target</code> 把 repair output 搬進 <code>canonical/</code>，不自行推測 target path</li>
+</ul>
+<p><code>before_snapshot</code> 由 parent 在 spawn repair 前建立。</p>`,
+  claude: `
+<p><strong>收到。</strong>Phase 1 = single worker，不 merge，直接複製貼上。</p>
+<p>有了 artifact-root-relative paths，parent 的操作更簡單：</p>
+<pre>extraction 後：cp -r worker_output/worker_01/* → canonical/
+  （JSON 不用改，因為 paths 是 relative）
+review 後：不搬（reviewer 寫在自己的 dir）
+repair 前：cp -r canonical/ → before_snapshot/
+repair 後：依 repair_report.json 的 canonical_target 搬檔</pre>
+<p>repair_requests_merged.json 由 parent 從 visual_review.json 機械產生。</p>`,
+    notesPlaceholder: 'Repair request builder 的最小欄位...'
+},
+{
+  id: 'P1-6',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Repair Prompt Minimal Contract',
+  context: `
+<p>Phase 1 只使用 <code>repair_requests_merged.json</code>，不使用 generic <code>repair_manifest</code>。</p>`,
+  plan: `
+<p>Repair worker 只處理 repairable crop defects 和 allowlisted manifest corrections。</p>
+<p>Repair worker 必須輸出 <code>repair_report.json</code>，並清楚列出 repaired files 和 intended target。</p>`,
+  implementation: `
+<ul>
+  <li>Repair 不建立新 figure inventory。</li>
+  <li>Repair 不處理 missing figure。</li>
+  <li>Repair 只讀 <code>canonical/</code>、source、shared pages/previews、repair requests。</li>
+  <li>Repair output 讓 parent 能照 <code>repair_output</code> + artifact-root-relative <code>canonical_target</code> 搬檔或改名。</li>
+  <li>Parent 搬檔後直接 rerun reviewer，不做 canonical validation。</li>
+</ul>`,
+  claude: `
+<p><strong>收到。</strong>Repair prompt 的 <code>canonical_target</code> 也要遵守 artifact-root-relative（例如 <code>Figure_2_part_2.png</code> 而不是 <code>lanes/figures/canonical/Figure_2_part_2.png</code>）。</p>
+<p>Repair 讀 canonical artifacts 時用 canonical 作為 artifact root；寫 repair output 時用自己的 repair dir 作為 artifact root。和 reviewer 一樣有兩個 root 的問題，但 repair_report.json 已經用 repair_output + canonical_target 分開記錄，所以比 reviewer 清楚。</p>`,
+    notesPlaceholder: 'Repair 的邊界...'
+},
+{
+  id: 'P1-7',
+  phase: 'phase1',
+  status: 'decision',
+  title: 'Phase 1 Gate 很薄',
+  context: `
+<p>長期 gate 可以很嚴格，但 Phase 1 的 close rule 要薄，否則跑不起來。</p>`,
+  plan: `
+<p>Phase 1 的 gate 是 parent decision，不是 agent，也不是另一個 validator agent。</p>
+<pre>close if:
+  visual_review.json says pass
+
+repair if:
+  visual_review.json has repairable fail
+
+block if:
+  missing / duplicate / wrong inventory
+  repair round limit reached
+  required files for next step are absent</pre>`,
+  implementation: `
+<p>不做 parent canonical validation。不做 crop hash freshness。這些全部留 Phase 2。</p>
+<p>Parent 可以寫 minimal trace，但它不是 acceptance blocker。</p>`,
+  claude: `
+<p><strong>收到。</strong>同意薄 gate。Phase 1 三個條件夠了。不做 canonical validation、不做 crop hash freshness。</p>`,
+    notesPlaceholder: 'Phase 1 close/block 條件...'
+},
+{
+  id: 'P1-8',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Phase 1 Acceptance Criteria',
+  context: `
+<p>這是第一階段完成定義。</p>`,
+  plan: `
+<ul>
+  <li>短 PDF 可以跑完 init、extract、review。</li>
+  <li>Reviewer pass 時 parent 可以 close figure lane。</li>
+  <li>Reviewer fail 時 parent 可以建立 repair request、spawn repair、搬運 repair output、rerun review。</li>
+  <li>Parent 不做 visual judgment。</li>
+  <li>Parent 不做 real merge。</li>
+  <li>Parent 不做 canonical validation。</li>
+  <li>Extractor / reviewer / repair 都使用 artifact-root-relative paths，parent 搬檔後不需要 rewrite JSON。</li>
+</ul>`,
+  implementation: `
+<p>實作順序：</p>
+<ol>
+  <li>Rewrite <code>SKILL.md</code> around <code>figure_lane_only</code>.</li>
+  <li>Copy required helpers into <code>agents/scripts/</code>.</li>
+  <li>Align <code>figure_extractor.md</code>.</li>
+  <li>Align <code>figure_reviewer.md</code>.</li>
+  <li>Align <code>figure_repair.md</code>.</li>
+  <li>Smoke test a short PDF.</li>
+</ol>`,
+  claude: `
+<p><strong>收到。</strong>同意 acceptance criteria。</p>
+<p>實作順序中最大的工作是步驟 3（Align <code>figure_extractor.md</code>）——要把所有 JSON examples 改成 artifact-root-relative paths。步驟 4-5（reviewer / repair）改動較小。</p>
+<p>Smoke test 用 3-5 頁、2-3 張 figures 的短 PDF。</p>`,
+    notesPlaceholder: 'Smoke test 需要什麼 fixture...'
+},
+{
+  id: 'P2-1',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'multiworker_to_do.md',
+  context: `
+<p>Phase 2 的第一件事不是直接改 pipeline，而是把 multi-worker 問題集中到一份文件。</p>`,
+  plan: `
+<p>新增：</p>
+<pre>agents/multiworker_to_do.md</pre>
+<p>收納所有 Phase 1 不處理的問題，尤其是何時從「copy into canonical」升級成「merge into canonical」。</p>`,
+  implementation: `
+<ul>
+  <li>page-range assignment</li>
+  <li>context pages</li>
+  <li>cross-page figures</li>
+  <li>caption ownership</li>
+  <li>supplemental workers</li>
+  <li>extraction/review/repair divide and merge</li>
+  <li>canonical validation</li>
+  <li>copy-to-canonical vs merge-to-canonical boundary</li>
+</ul>`,
+  claude: `<p>收到。同意。</p>`,
+    notesPlaceholder: 'Phase 2 文件要收哪些題目...'
+},
+{
+  id: 'P2-2',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'Divide Extraction Workers',
+  context: `
+<p>多 worker 需要 parent 先定 assignment，不應讓 agents 自己猜 scope。</p>`,
+  plan: `
+<p>Parent 寫：</p>
+<pre>lanes/figures/extraction_assignments.json</pre>
+<p>內容包含 worker id、assigned pages、context pages、allowed write dir、known figure labels。</p>`,
+  implementation: `
+<p>Ownership rule 留到 Phase 2：</p>
+<ul>
+  <li>caption page owns the figure</li>
+  <li>caption unclear 時用 primary visual region page</li>
+  <li>ambiguous 時 spawn supplemental worker 或 block</li>
+</ul>`,
+  claude: `<p>收到。留 Phase 2。</p>`,
+    notesPlaceholder: 'Page split / ownership rule...'
+},
+{
+  id: 'P2-3',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'Real Merge Scripts',
+  context: `
+<p>Phase 2 才需要真正 merge。Phase 1 的 parent copy-to-canonical 不算 real merge，也不寫 merge script。</p>`,
+  plan: `
+<pre>scripts/merge_figure_extractions.py
+scripts/merge_figure_reviews.py
+scripts/merge_figure_repairs.py</pre>`,
+  implementation: `
+<p>Merge scripts 才負責：</p>
+<ul>
+  <li>combine multiple worker outputs</li>
+  <li>detect duplicate ids</li>
+  <li>detect conflicting crop units</li>
+  <li>copy final crop/previews to canonical</li>
+  <li>normalize JSON artifact paths to artifact-root-relative form</li>
+  <li>block on judgment-requiring conflicts</li>
+</ul>`,
+  claude: `<p>收到。Phase 2 merge scripts 的輸出也維持 artifact-root-relative paths。</p>`,
+    notesPlaceholder: 'Merge script 的 contract...'
+},
+{
+  id: 'P2-4',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'Canonical Validation',
+  context: `
+<p>Canonical validation 是 Phase 2 的 parent gate evidence，不是 Phase 1 blocker。</p>`,
+  plan: `
+<p>升級 <code>agents/scripts/validate_figures.py</code>，只支援 v2，不保留 legacy。</p>
+<pre>individual validate = merge prerequisite
+canonical validate  = parent gate evidence</pre>`,
+  implementation: `
+<p>Validation modes:</p>
+<ul>
+  <li>extraction worker output validation</li>
+  <li>canonical extraction validation</li>
+  <li>review output validation</li>
+  <li>repair output validation</li>
+  <li>close gate validation</li>
+  <li>path validation resolves JSON references against the provided artifact root</li>
+</ul>`,
+  claude: `<p>收到。validator 打掉重來只支援 v2，收 <code>--artifact-root</code> 參數。</p>`,
+    notesPlaceholder: 'Validator v2 應該檢查哪些欄位...'
+},
+{
+  id: 'P2-5',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'Review / Repair Divide and Merge',
+  context: `
+<p>多 reviewer 和多 repair worker 需要穩定 ids、merge reports、conflict policy。</p>`,
+  plan: `
+<p>Review merge 需要保留 disagreement，不可以 dedup 掉衝突。</p>
+<p>Repair merge 需要 snapshot、request ids、allowlisted patch、target conflict detection。</p>`,
+  implementation: `
+<ul>
+  <li>reviewer outputs remain <code>visual_review.json</code></li>
+  <li>repair input remains <code>repair_requests_merged.json</code></li>
+  <li>parent merges multiple reports into canonical gate evidence</li>
+  <li>after repair merge, rerun canonical validation and review</li>
+</ul>`,
+  claude: `<p>收到。留 Phase 2。</p>`,
+    notesPlaceholder: 'Review/repair divide merge 的風險...'
+},
+{
+  id: 'P2-6',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'Phase 2 Acceptance Criteria',
+  context: `
+<p>Phase 2 完成後，figure lane 才算能穩定支援大型 PDF。</p>`,
+  plan: `
+<ul>
+  <li>大型 PDF 可以分配給多個 extraction workers。</li>
+  <li>Parent 可以 merge outputs，不做 visual judgment。</li>
+  <li>Canonical validation catches missing files, stale paths, duplicate ids, crop bounds errors.</li>
+  <li>Review 可以 divide/merge 且不丟失衝突 findings。</li>
+  <li>Repair 可以 divide/merge 且不 silent overwrite。</li>
+  <li>Close gate 使用最新 canonical validation + 最新 review coverage。</li>
+</ul>`,
+  implementation: `
+<p>Phase 2 必須等 Phase 1 smoke test 穩定後才開始。不要讓 multi-worker 架構或 canonical validation 回頭污染第一版。</p>`,
+  claude: `<p>收到。Phase 2 等 Phase 1 smoke test 穩定後才開始。</p>`,
+    notesPlaceholder: 'Phase 2 完成條件...'
+}
+];
+
+function defaultState() {
+  const s = { statuses: {}, notes: {}, expanded: {}, contextOpen: {} };
+  cards.forEach(card => {
+    s.statuses[card.id] = card.status;
+    s.notes[card.id] = '';
+    s.expanded[card.id] = card.phase === 'phase1';
+    s.contextOpen[card.id] = false;
+  });
+  return s;
+}
+
+function loadState() {
+  const def = defaultState();
+  try {
+    const emb = (typeof EMBEDDED_USER_DATA !== 'undefined') ? EMBEDDED_USER_DATA : { statuses: {}, notes: {} };
+    cards.forEach(card => {
+      if (card.id in emb.statuses) def.statuses[card.id] = emb.statuses[card.id];
+      if (card.id in emb.notes && emb.notes[card.id]) def.notes[card.id] = emb.notes[card.id];
+    });
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return def;
+    const s = JSON.parse(raw);
+    cards.forEach(card => {
+      if (!(card.id in s.statuses)) s.statuses[card.id] = def.statuses[card.id];
+      if (!(card.id in s.notes)) s.notes[card.id] = def.notes[card.id] || '';
+      if (!(card.id in s.expanded)) s.expanded[card.id] = def.expanded[card.id];
+      if (!(card.id in s.contextOpen)) s.contextOpen[card.id] = false;
+    });
+    return s;
+  } catch {
+    return def;
+  }
+}
+
+let state = loadState();
+let activeFilter = 'all';
+let searchQuery = '';
+
+function phaseLabel(phase) {
+  return phase === 'phase1' ? 'Phase 1' : 'Phase 2';
+}
+
+function render() {
+  const c = document.getElementById('container');
+  c.innerHTML = '';
+
+  const overview = document.createElement('div');
+  overview.className = 'overview';
+  overview.innerHTML = `
+    <div class="overview-head">Two-Phase Boundary</div>
+    <div class="phase-grid">
+      <div class="phase-col phase1">
+        <h2>Phase 1: minimal runnable lane</h2>
+        <ul>
+          <li>render pages/previews before figure lane</li>
+          <li>single extractor / reviewer / repair worker</li>
+          <li>parent copies output into canonical</li>
+          <li>individual validate only</li>
+          <li>no parent canonical validation</li>
+        </ul>
+      </div>
+      <div class="phase-col phase2">
+        <h2>Phase 2: divide and merge</h2>
+        <ul>
+          <li>multi-worker assignment</li>
+          <li>real merge scripts</li>
+          <li>canonical validation</li>
+          <li>review/repair conflict handling</li>
+        </ul>
+      </div>
+    </div>`;
+  c.appendChild(overview);
+
+  cards.forEach(card => {
+    const st = state.statuses[card.id];
+    const isOpen = !!state.expanded[card.id];
+    const contextOpen = !!state.contextOpen[card.id];
+
+    const el = document.createElement('div');
+    el.className = 'card' + (isOpen ? ' open' : '');
+    el.dataset.id = card.id;
+    el.dataset.phase = card.phase;
+    el.dataset.status = st;
+    el.innerHTML = `
+      <div class="card-header">
+        <span class="card-num ${card.phase}">${card.id}</span>
+        <span class="card-title">${card.title}</span>
+        <span class="badge" data-status="${st}" data-id="${card.id}">${STATUS_LABELS[st]}</span>
+        <span class="card-arrow">&#9654;</span>
+      </div>
+      <div class="card-body">
+        <div class="section-toggle ${contextOpen ? 'open' : ''}" data-id="${card.id}">
+          <span class="arrow">&#9654;</span> Context
+        </div>
+        <div class="section-content ${contextOpen ? 'open' : ''}" data-id="${card.id}">
+          ${card.context}
+        </div>
+        <div class="plan-grid">
+          <div class="panel ${card.phase}">
+            <div class="panel-head ${card.phase}"><span class="dot"></span>${phaseLabel(card.phase)} Plan</div>
+            ${card.plan}
+          </div>
+          <div class="panel ${card.phase === 'phase1' ? 'phase2' : 'phase1'}">
+            <div class="panel-head ${card.phase === 'phase1' ? 'phase2' : 'phase1'}"><span class="dot"></span>Implementation</div>
+            ${card.implementation}
+          </div>
+          <div class="panel claude">
+            <div class="panel-head claude"><span class="dot"></span>Claude</div>
+            ${card.claude || '<p><em>No response yet.</em></p>'}
+          </div>
+          <div class="panel notes">
+            <div class="panel-head notes"><span class="dot"></span>Notes</div>
+            <textarea class="note" data-id="${card.id}" placeholder="${card.notesPlaceholder}">${state.notes[card.id] || ''}</textarea>
+          </div>
+        </div>
+      </div>`;
+    c.appendChild(el);
+  });
+
+  updateProgress();
+  applyFilter();
+}
+
+function updateProgress() {
+  const total = cards.length;
+  const p1 = cards.filter(c => c.phase === 'phase1').length;
+  const p2 = cards.filter(c => c.phase === 'phase2').length;
+  const done = cards.filter(c => state.statuses[c.id] === 'done').length;
+  document.getElementById('progress').textContent = `${total} cards | ${p1} phase 1 | ${p2} phase 2 | ${done} done`;
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const t = document.getElementById('saveToast');
+  t.textContent = 'Saved';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1200);
+}
+
+function applyFilter() {
+  document.querySelectorAll('.card[data-id]').forEach(card => {
+    const id = card.dataset.id;
+    const phase = card.dataset.phase;
+    const st = state.statuses[id];
+    const matchFilter =
+      activeFilter === 'all' ||
+      activeFilter === phase ||
+      activeFilter === st;
+    const matchSearch =
+      !searchQuery ||
+      card.textContent.toLowerCase().includes(searchQuery.toLowerCase());
+    card.classList.toggle('hidden', !(matchFilter && matchSearch));
+  });
+}
+
+function statusMenuFor(id) {
+  return `
+    <div class="status-menu open" data-menu-for="${id}">
+      ${Object.entries(STATUS_LABELS).map(([key, label]) => `
+        <div class="status-option" data-set-status="${key}" data-id="${id}">
+          <span class="status-dot" style="background:${STATUS_META[key].color}"></span>
+          ${label}
+        </div>`).join('')}
+    </div>`;
+}
+
+document.addEventListener('click', e => {
+  const openMenu = document.querySelector('.status-menu.open');
+
+  const badge = e.target.closest('.badge');
+  if (badge) {
+    e.stopPropagation();
+    if (openMenu) openMenu.remove();
+    badge.insertAdjacentHTML('beforeend', statusMenuFor(badge.dataset.id));
+    return;
+  }
+
+  const option = e.target.closest('.status-option');
+  if (option) {
+    e.stopPropagation();
+    state.statuses[option.dataset.id] = option.dataset.setStatus;
+    saveState();
+    render();
+    return;
+  }
+
+  if (openMenu) openMenu.remove();
+
+  const header = e.target.closest('.card-header');
+  if (header) {
+    const card = header.closest('.card');
+    const id = card.dataset.id;
+    state.expanded[id] = !state.expanded[id];
+    card.classList.toggle('open');
+    saveState();
+    return;
+  }
+
+  const toggle = e.target.closest('.section-toggle');
+  if (toggle) {
+    const id = toggle.dataset.id;
+    state.contextOpen[id] = !state.contextOpen[id];
+    saveState();
+    render();
+    return;
+  }
+});
+
+document.addEventListener('input', e => {
+  if (e.target.classList.contains('note')) {
+    state.notes[e.target.dataset.id] = e.target.value;
+    saveState();
+  }
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  applyFilter();
+});
+
+document.getElementById('expandAll').addEventListener('click', () => {
+  cards.forEach(card => state.expanded[card.id] = true);
+  saveState();
+  render();
+});
+
+document.getElementById('collapseAll').addEventListener('click', () => {
+  cards.forEach(card => state.expanded[card.id] = false);
+  saveState();
+  render();
+});
+
+document.getElementById('saveFile').addEventListener('click', () => {
+  const exportData = { statuses: {}, notes: {} };
+  cards.forEach(card => {
+    const st = state.statuses[card.id];
+    if (st !== card.status) exportData.statuses[card.id] = st;
+    const note = (state.notes[card.id] || '').trim();
+    if (note) exportData.notes[card.id] = note;
+  });
+  const html = document.documentElement.outerHTML;
+  const newBlock = `const EMBEDDED_USER_DATA = ${JSON.stringify(exportData, null, 2)};`;
+  const updated = html.replace(/const EMBEDDED_USER_DATA = \{[\s\S]*?\};/, newBlock);
+  const blob = new Blob(['<!DOCTYPE html>\\n' + updated], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'figure_lane_two_phase_plan.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  const t = document.getElementById('saveToast');
+  t.textContent = 'File downloaded - overwrite original to persist';
+  t.classList.add('show');
+  setTimeout(() => { t.classList.remove('show'); t.textContent = 'Saved'; }, 3000);
+});
+
+render();
+</script>
+
+
+
+</body></html>

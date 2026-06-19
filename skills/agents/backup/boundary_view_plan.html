@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure Boundary View Plan</title>
+<style>
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --text: #1f2937;
+  --text2: #6b7280;
+  --text3: #9ca3af;
+  --phase1: #fff7ed;
+  --phase1-border: #fed7aa;
+  --phase1-head: #ea580c;
+  --phase2: #eff6ff;
+  --phase2-border: #bfdbfe;
+  --phase2-head: #2563eb;
+  --notes: #f0fdf4;
+  --notes-border: #bbf7d0;
+  --claude: #eff6ff;
+  --claude-border: #bfdbfe;
+  --claude-head: #2563eb;
+  --notes-head: #16a34a;
+  --decision: #2563eb;
+  --todo: #d97706;
+  --defer: #7c3aed;
+  --done: #16a34a;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 12px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.topbar h1 { font-size: 16px; font-weight: 650; margin-right: auto; white-space: nowrap; }
+.progress { font-size: 13px; color: #94a3b8; white-space: nowrap; }
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn, .ctrl-btn {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.18);
+  background: transparent;
+  color: #cbd5e1;
+}
+.filter-btn { border-radius: 12px; }
+.filter-btn:hover, .ctrl-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+.filter-btn.active { background: rgba(255,255,255,.16); color: #fff; border-color: rgba(255,255,255,.4); }
+.save-btn { background: rgba(34,197,94,.2); color: #4ade80; border-color: rgba(34,197,94,.4); font-weight: 650; }
+.search-wrap { padding: 16px 24px 0; max-width: 1400px; margin: 0 auto; }
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--card);
+  outline: none;
+}
+.search-input:focus { border-color: #93c5fd; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+.container { max-width: 1400px; margin: 0 auto; padding: 16px 24px 80px; }
+.overview {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.overview-head {
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 650;
+  border-bottom: 1px solid var(--border);
+}
+.phase-grid { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .phase-grid { grid-template-columns: 1fr; } }
+.phase-col { padding: 16px 20px; font-size: 13px; }
+.phase-col:first-child { background: var(--phase1); border-right: 1px solid var(--border); }
+.phase-col:last-child { background: var(--phase2); }
+.phase-col h2 { font-size: 14px; margin-bottom: 8px; }
+.phase-col.phase1 h2 { color: var(--phase1-head); }
+.phase-col.phase2 h2 { color: var(--phase2-head); }
+.phase-col ul { margin-left: 18px; }
+.phase-col li { margin-bottom: 4px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+.card.hidden { display: none; }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.card-header:hover { background: #f9fafb; }
+.card-num {
+  font-size: 12px;
+  font-weight: 750;
+  color: #fff;
+  background: #64748b;
+  min-width: 34px;
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.card-num.phase1 { background: var(--phase1-head); }
+.card-num.phase2 { background: var(--phase2-head); }
+.card-title { font-size: 15px; font-weight: 650; flex: 1; }
+.card-arrow { font-size: 12px; color: var(--text3); transition: transform .2s; flex-shrink: 0; }
+.card.open .card-arrow { transform: rotate(90deg); }
+.badge {
+  font-size: 11px;
+  font-weight: 650;
+  padding: 2px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.badge[data-status="decision"] { background: #dbeafe; color: var(--decision); }
+.badge[data-status="todo"] { background: #fef3c7; color: var(--todo); }
+.badge[data-status="defer"] { background: #ede9fe; color: var(--defer); }
+.badge[data-status="done"] { background: #dcfce7; color: var(--done); }
+.status-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  min-width: 140px;
+}
+.status-menu.open { display: block; }
+.status-option {
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-option:hover { background: #f3f4f6; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.card-body { display: none; border-top: 1px solid var(--border); }
+.card.open .card-body { display: block; }
+.section-toggle {
+  padding: 10px 20px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+  background: #f9fafb;
+}
+.section-toggle:hover { color: var(--text); }
+.section-toggle .arrow { font-size: 10px; transition: transform .15s; }
+.section-toggle.open .arrow { transform: rotate(90deg); }
+.section-content {
+  display: none;
+  padding: 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text2);
+}
+.section-content.open { display: block; }
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; min-height: 120px; }
+@media (max-width: 1000px) { .plan-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .plan-grid { grid-template-columns: 1fr; } }
+.panel {
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.65;
+  border-right: 1px solid var(--border);
+}
+.panel:last-child { border-right: none; }
+.panel.phase1 { background: var(--phase1); }
+.panel.phase2 { background: var(--phase2); }
+.panel.notes { background: var(--notes); }
+.panel-head {
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.panel-head .dot { width: 6px; height: 6px; border-radius: 50%; }
+.panel-head.phase1 { color: var(--phase1-head); }
+.panel-head.phase1 .dot { background: var(--phase1-head); }
+.panel-head.phase2 { color: var(--phase2-head); }
+.panel-head.phase2 .dot { background: var(--phase2-head); }
+.panel-head.notes { color: var(--notes-head); }
+.panel-head.notes .dot { background: var(--notes-head); }
+.panel.claude { background: var(--claude); }
+.panel-head.claude { color: var(--claude-head); }
+.panel-head.claude .dot { background: var(--claude-head); }
+.panel p { margin-bottom: 8px; }
+.panel ul, .panel ol, .section-content ul, .section-content ol { margin: 6px 0 10px 18px; }
+.panel li, .section-content li { margin-bottom: 3px; }
+pre {
+  background: rgba(0,0,0,.05);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+  line-height: 1.5;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+}
+code {
+  background: rgba(0,0,0,.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+pre code { background: none; padding: 0; }
+.note {
+  width: 100%;
+  min-height: 92px;
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--notes-border);
+  border-radius: 6px;
+  background: #fff;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+.note:focus { outline: none; border-color: #86efac; box-shadow: 0 0 0 3px rgba(22,163,74,.1); }
+.save-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+  z-index: 200;
+}
+.save-toast.show { opacity: 1; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Figure Boundary View Plan</h1>
+  <div class="progress" id="progress">14 cards | 8 phase 1 | 6 phase 2 | 0 done</div>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="phase1">Phase 1</button>
+    <button class="filter-btn" data-filter="phase2">Phase 2</button>
+    <button class="filter-btn" data-filter="todo">Todo</button>
+    <button class="filter-btn" data-filter="defer">Deferred</button>
+  </div>
+  <button class="ctrl-btn" id="expandAll">Expand All</button>
+  <button class="ctrl-btn" id="collapseAll">Collapse All</button>
+  <button class="ctrl-btn save-btn" id="saveFile">Save to File</button>
+</div>
+
+<div class="search-wrap">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search plan...">
+</div>
+
+<div class="container" id="container"></div>
+
+<div class="save-toast" id="saveToast">Saved</div>
+
+<script id="user-data">
+const EMBEDDED_USER_DATA = {
+  "statuses": {},
+  "notes": {}
+};
+</script>
+
+<script>
+const STORAGE_KEY = 'figure_boundary_view_plan_v1';
+
+const STATUS_LABELS = {
+  decision: '決策',
+  todo: '待實作',
+  defer: 'Phase 2',
+  done: '完成'
+};
+
+const STATUS_META = {
+  decision: { color: '#2563eb' },
+  todo: { color: '#d97706' },
+  defer: { color: '#7c3aed' },
+  done: { color: '#16a34a' }
+};
+
+const cards = [
+{
+  id: 'BV-0',
+  phase: 'phase1',
+  status: 'decision',
+  title: 'Case study：ED Fig 2 為何漏掉',
+  context: `
+<p>跑完 luciferase paper 後，<code>Extended_Data_Figure_2_bottom.png</code> 的紅線清楚穿過 "Discard Inactive Enzymes" 垃圾桶 icon 的下緣，但 worker_01 標 pass、reviewer_01 標 <code>clean_margin</code>，整張圖以 14/14 close 收場。這張卡定義整份計畫要解掉的失敗。</p>`,
+  plan: `
+<p><strong>三個 root cause</strong>：</p>
+<ol>
+  <li><strong>粒度坍縮</strong>：reviewer 把 11 個 labeled workflow icon 寫成一個 <code>workflow_icons: icon_set</code>，per-icon 完整性不存在 schema 欄位可承載。</li>
+  <li><strong>Edge strip 太窄</strong>：±100 px 條看不到垃圾桶整體輪廓，只看到「貼著紅線的未知 stub」。</li>
+  <li><strong>Perception correlated</strong>：worker 和 reviewer 都用「caption 在線下方 = clean」捷徑；evidence 獨立但 judgment heuristic 一樣，獨立性沒救它。</li>
+</ol>`,
+  implementation: `
+<p>修法分兩階段：</p>
+<ul>
+  <li><strong>Phase 1（本計畫前 7 張卡）</strong>：改 artifact 形狀 — 用 boundary view 取代 4 條 edge previews。直接解掉問題 2，靠 gestalt-style 視覺判斷削弱問題 3。</li>
+  <li><strong>Phase 2（後 5 張卡）</strong>：在新 artifact 上鎖緊 schema — 強制 unit 粒度、edge 條件必須命名 unit、observed_units 必須附 bbox 證據。解掉問題 1，把問題 3 從「prompt 勸導」改成「schema 不容許糊弄」。</li>
+</ul>
+<p>順序很關鍵：先 Phase 1 換 artifact，再 Phase 2 加規則 — 否則 Phase 2 的規則寫到一半，artifact 還是舊形狀。</p>`,
+  claude: `
+<p><strong>我認為這個失敗值得整份重寫，不能用 prompt 微調帶過。</strong>原因是它不是 "reviewer 不小心漏看"，而是 schema 給了 reviewer 一條合法的偷懶路徑（先聚合 unit 再宣布 clean_margin），prompt 怎麼勸都沒用。</p>
+<p>但我也想被挑戰：boundary view 改完之後，是不是其實 Phase 2 的 A/B/C 已經不太需要？或者反過來，是不是只要做 Phase 2 就夠了，不用動 artifact？這值得在 BV-1 那張卡討論清楚。</p>`,
+  notesPlaceholder: '對失敗診斷有不同看法？要不要再加 case study？'
+},
+{
+  id: 'BV-1',
+  phase: 'phase1',
+  status: 'decision',
+  title: '取消 4 條 edge previews，改成 1 張 boundary preview',
+  context: `
+<p>現況：每個 <code>crop_unit</code> 產 4 張 edge strip (<code>edges/&lt;id&gt;_{top,bottom,left,right}.png</code>) 和 4 張 preview，每張條的範圍是 <code>[x1, y2-100, x2, y2+100]</code> 之類，紅線疊在 crop 邊上。Reviewer 對稱建 4 張 source edge previews。</p>`,
+  plan: `
+<p>取消 4 條條。改成每個 crop_unit <strong>一張 boundary preview</strong>（1-to-1）：</p>
+<ul>
+  <li>從該 crop_unit 所在的 page 裁出比 crop 大一圈的 context view。</li>
+  <li>上面用紅色矩形（4 條紅線）標 crop 邊界。</li>
+  <li>reviewer 對稱建自己的 source boundary preview。</li>
+</ul>
+<p>所有 edge_check 共用同一張 preview 作為 evidence，不再有 top/bottom/left/right 各自的 preview path。</p>
+<p><strong>boundary_preview 不取代 <code>crop_units[].preview</code></strong>。原本就有的 final crop preview 保留，繼續用來檢查 figure 內部細節（座標軸刻度、tick labels、panel label 等）。分工：</p>
+<ul>
+  <li><code>crop_units[].preview</code> → 純 figure interior，最高保留解析度，檢查內部細節。</li>
+  <li><code>crop_units[].boundary_preview</code> → 含 margin 的 context view，紅矩形標 crop_px，檢查邊界裁切。</li>
+</ul>`,
+  implementation: `
+<ul>
+  <li>Artifact 數量大概降 75%（每個 crop_unit 從 4 個 edge file + 4 個 edge preview 變成 1 個 boundary file + 1 個 boundary preview）。</li>
+  <li><code>crop_region.py</code> 已支援多 <code>--hline</code> + 多 <code>--vline</code>，不用寫新 script。</li>
+  <li>preview 大小走現有 max-dim 1568 規則，不變。</li>
+</ul>`,
+  claude: `
+<p><strong>失敗的本質是 reviewer 被訓練成 "邊條掃描器"</strong>。對 4 條條的標準動作是逐邊問「線外有東西嗎」，這是局部、語境貧乏的判斷。</p>
+<p>換成 boundary view 後問題變成「這個紅矩形把任何 unit 切斷嗎」— 整體、有 gestalt 的判斷。人的注意力會被「形狀斷裂處」自動吸引（這就是你一眼看到垃圾桶被切的原因）。</p>
+<p>把 procedural 判斷改回 perceptual 判斷，正好是 worker / reviewer perception-correlated 失敗的解藥之一。</p>
+<p><strong>要被挑戰的點</strong>：local resolution 降了 ~2×（窄條 px-per-cm 比 context view 高）。&lt; 5 px source 級的微切會更難看見。但本次失敗是 30 + px，而 &lt; 5 px 級的 cut 多半是 anti-aliasing 殘留，不值得用 4× artifact 數量保證能看到。</p>`,
+  notesPlaceholder: '同意取消 4 條 edge 嗎？有其他 hybrid 方案？'
+},
+{
+  id: 'BV-2',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Boundary view 規格（margin、紅框、preview）',
+  context: `
+<p>margin 大小、紅線寬度、preview resize 規則要寫死，否則 worker 和 reviewer 會各自生不同形狀的圖，比較時對不上。</p>`,
+  plan: `
+<p><strong>Margin formula</strong>（每邊獨立，clamp 到 page bounds）：</p>
+<pre>margin_per_side = max(
+    round(0.15 * crop_dim_along_axis),
+    250 px
+)
+
+context_box = [
+    max(0,        crop_px[0] - margin_left),
+    max(0,        crop_px[1] - margin_top),
+    min(page_w,   crop_px[2] + margin_right),
+    min(page_h,   crop_px[3] + margin_bottom),
+]</pre>
+<p><strong>紅框</strong>：crop_px 投影到 context_box 局部座標，畫 4 條紅線（2 hline + 2 vline），4 px 寬。</p>
+<p><strong>Preview</strong>：context_box 原圖丟給 <code>make_image_preview.py --max-dim 1568</code>。</p>`,
+  implementation: `
+<p>不寫新 script，直接用 <code>crop_region.py</code>：</p>
+<pre>python3 crop_region.py page_N.png x0 y0 x1 y1 boundaries/&lt;id&gt;.png \\
+  --hline crop_y1 --hline crop_y2 \\
+  --vline crop_x1 --vline crop_x2</pre>
+<p>由 SKILL 規定 margin 計算公式，agent / parent 自己算座標，不藏進 helper。</p>`,
+  claude: `
+<p><strong>Margin 用 <code>max(percentage, absolute)</code> 是必要的</strong>。純百分比對小圖 margin 會太薄；純絕對值對全頁圖會超頁。15% 是經驗值，可以調整。</p>
+<p><strong>Full-bleed 情況</strong>：crop 貼頁邊時，context_box 在那一側 clamp 到 0 或 page_w，紅線就壓在 preview 邊緣。Reviewer 看到「紅線沒有外側 margin」就應該用 <code>intentional_full_bleed_edge</code> 判定，不算 fail。這個語意要在 figure_reviewer.md 寫清楚。</p>
+<p><strong>解析度降級</strong>：加 margin 後 downscale 到 max-dim 1568，figure interior 比 standalone crop preview 小 12-23%（依 figure 在 page 中的比例）。tick label / 座標軸會變模糊。這就是為什麼 BV-1 保留 <code>crop_units[].preview</code>（純 figure，高保留解析度）和 <code>boundary_preview</code>（含 margin 的 context view）並存的原因 — 兩個 preview 分工不同：細節檢查讀 preview，邊界檢查讀 boundary_preview。</p>`,
+  notesPlaceholder: 'margin 公式有意見？要不要改 percentage 或 absolute 預設值？'
+},
+{
+  id: 'BV-3',
+  phase: 'phase1',
+  status: 'decision',
+  title: 'per-crop_unit 一張 boundary preview（1-to-1）',
+  context: `
+<p>一個 figure 可能有多個 <code>crop_units</code>，同頁或跨頁都會發生。原本我提過 per-page 共用一張的版本，但使用者指出 per-crop_unit 比較好；我同意。這張卡定義 1-to-1 的 schema。</p>`,
+  plan: `
+<p>每個 <code>crop_unit</code> 自己一張 boundary preview，純塌縮原本的 <code>edge_previews</code>：</p>
+<pre>// 舊
+"crop_units": [{
+  "crop_id": "Figure_2_part_1",
+  "page": 4,
+  "crop_px": [...],
+  "image_file": "crops/Figure_2_part_1.png",
+  "preview": "previews/Figure_2_part_1_preview.png",
+  "edge_previews": {
+    "top":    "previews/Figure_2_part_1_top_preview.png",
+    "bottom": "previews/Figure_2_part_1_bottom_preview.png",
+    "left":   "previews/Figure_2_part_1_left_preview.png",
+    "right":  "previews/Figure_2_part_1_right_preview.png"
+  },
+  "role": "..."
+}]
+
+// 新
+"crop_units": [{
+  "crop_id": "Figure_2_part_1",
+  "page": 4,
+  "crop_px": [...],
+  "image_file": "crops/Figure_2_part_1.png",
+  "preview": "previews/Figure_2_part_1_preview.png",
+  "boundary_preview": "previews/Figure_2_part_1_boundary_preview.png",
+  "role": "..."
+}]</pre>
+<p>boundary 原檔 <code>boundaries/Figure_2_part_1.png</code> 也是 per-crop_unit。</p>`,
+  implementation: `
+<ul>
+  <li><code>edge_previews.{top,bottom,left,right}</code> → <code>boundary_preview</code>（單欄位）。</li>
+  <li>多 crop_units 自然處理：每個 unit 有自己的 page 和 crop_px，各算各的 margin 與 boundary preview。</li>
+  <li>跨頁也自然處理：因為一個 crop_unit 只屬於一個 page，跨頁 figure 自然有多個 unit、各自一張 boundary preview。</li>
+</ul>`,
+  claude: `
+<p><strong>使用者的判斷正確，我之前的判斷錯了。</strong>per-crop_unit 在三個地方都比 per-page 乾淨：</p>
+<ul>
+  <li><strong>Schema 是純塌縮</strong>：4 field → 1 field，結構維度不變，沒新增 figure-level 陣列。</li>
+  <li><strong>沒有 grouping 邏輯</strong>：跨頁 figure 自動處理；不需要先 group_by(page) 再每組產一張。</li>
+  <li><strong>Margin 跟 unit 大小走</strong>：兩個小 unit 同頁時，per-page 會被迫拉出大 context view（要把兩 unit 都包進來），單一 unit 的細節反而被稀釋。per-crop_unit 每張 view 都對自己的 unit 大小最佳化。</li>
+</ul>
+<p><strong>我之前的論點「同頁兩 unit 之間夾的 body text 要看一張才檢得到」站不住腳</strong>。每個 unit 的 boundary preview 已經有 15% margin，body text 在它「內側那一邊」自然會出現在 view 裡。同一段 body text 會出現在兩 unit 的兩張 view 上（各看自己這側），不需要強制兩 unit 共用一張。</p>`,
+  notesPlaceholder: 'per-crop_unit 1-to-1 schema 還有疑慮？'
+},
+{
+  id: 'BV-4',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'figure_extractor.md 改寫範圍',
+  context: `
+<p>extractor 自己也做視覺驗證（步驟 11 建邊界圖片、步驟 12 讀取、步驟 13 邊界決策、步驟 15 寫 verification）。artifact 結構從 4 條變 1 張，工作流程也要重寫。</p>`,
+  plan: `
+<p><strong>主要改動段落</strong>：</p>
+<ul>
+  <li><strong>步驟 11</strong>「為每個 crop unit 從頁面圖片建立四個邊界圖片」→ 「為每個 crop unit 建立一張 boundary 圖片（page context + 紅矩形）」。</li>
+  <li><strong>步驟 12-13</strong>「逐一讀預覽最終裁切圖片與其四個邊界預覽 + 邊界決策」→ 「讀 boundary preview，確認紅矩形沒切到 figure 內容；再讀 final crop preview 確認 unit 完整」。</li>
+  <li><strong>JSON examples</strong>：<code>crop_units[].edge_previews.{top,bottom,left,right}</code>（4 行 block）→ <code>crop_units[].boundary_preview</code>（1 行 field）。</li>
+  <li><strong>verification 欄位</strong>：<code>edge_previews_checked</code> → <code>boundary_preview_checked</code>。</li>
+  <li>規則段「## 視覺驗證 → ### 高頻失敗模式」保留語意，evidence 路徑換。</li>
+</ul>`,
+  implementation: `
+<p><strong>實際 edit volume 大約：</strong></p>
+<ul>
+  <li>步驟 11（建邊界圖片）邏輯改寫 ~5 行</li>
+  <li>步驟 12-13（讀邊界 + 邊界決策）改寫 ~10 行</li>
+  <li>步驟 15-17 / self-check 提到 edge previews 處 ~5 行</li>
+  <li>「## 圖片檔案」邊界圖片條目 ~5 行</li>
+  <li>JSON examples：<code>edge_previews.{...}</code> block 塌縮成單行 field（每處 -5 行，共 ~4 處）= <strong>net -20 行</strong></li>
+  <li>evidence_read 中 <code>edge_previews</code> 陣列 4 path → 1 path = <strong>net -5 行</strong></li>
+</ul>
+<p><strong>結算：實質邏輯改寫 ~25 行，schema 塌縮 net -25 行，檔案最終會變短</strong>。我前一版「150-200 行」估計把機械塌縮算進「修改量」，太誇張。</p>`,
+  claude: `
+<p><strong>步驟 13（邊界決策）邏輯改寫最多</strong>。原本「四邊檢查時，非 figure 內容碰邊就縮小 crop」要改成「紅矩形的任一邊切到 figure 內容就調整 crop_px，重生 boundary preview，再檢查」。邏輯不變，但描述從「四邊獨立掃描」改成「整體紅框視察」。</p>
+<p><strong>要小心保留的</strong>：高頻失敗模式那段（圖表型圖片底邊與側邊風險最高）不能丟。boundary view 不是放鬆檢查，只是換 evidence 形狀。</p>`,
+  notesPlaceholder: 'extractor 改動範圍評估，有沒有漏掉的段落？'
+},
+{
+  id: 'BV-5',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'figure_reviewer.md 改寫範圍',
+  context: `
+<p>reviewer 對應地不再建 4 張 source edge previews，改建 1 張 source boundary preview。<code>edge_checks</code> 結構保留每邊獨立 verdict（top/bottom/left/right 失敗模式不同，不能合併），但 evidence 都指同一張圖。</p>`,
+  plan: `
+<p><strong>步驟 5</strong>「為每個 crop unit 建立四個來源邊界預覽」→「為每個 page 的 crop_units 建立一張 source boundary preview」。</p>
+<p><strong>Schema 變動</strong>：</p>
+<pre>source_edge_previews_read.crop_units[].edge_previews.{top,bottom,left,right}
+    → source_boundary_previews_read[]  (per page)
+
+crop_previews_read.crop_units[].edge_previews.{top,bottom,left,right}
+    → crop_boundary_previews_read[]    (per page)</pre>
+<p><strong>edge_checks 結構</strong>（保留每邊 verdict，evidence 收斂到一張圖）：</p>
+<pre>"edge_checks": {
+  "crop_units": [{
+    "crop_id": "Figure_1",
+    "boundary_evidence": {
+      "source": "lanes/figures/reviews/.../previews/Figure_1_source_boundary_preview.png",
+      "crop":   "previews/Figure_1_boundary_preview.png"
+    },
+    "edges": {
+      "top":    {"status": "pass", "condition": "clean_margin", "notes": "..."},
+      "bottom": {"status": "pass", "condition": "clean_margin", "notes": "..."},
+      "left":   {"status": "pass", "condition": "clean_margin", "notes": "..."},
+      "right":  {"status": "pass", "condition": "clean_margin", "notes": "..."}
+    }
+  }]
+}</pre>`,
+  implementation: `
+<p><strong>實際 edit volume 大約：</strong></p>
+<ul>
+  <li>步驟 5-6（建 source 邊界證據）邏輯改寫 ~8 行</li>
+  <li>步驟 9-10（讀 canonical edge previews）改寫 ~5 行</li>
+  <li>步驟 14（per-edge 檢查）evidence path 改 ~8 行（per-edge verdict 結構不變）</li>
+  <li>「# 圖片檔案」邊界圖片條目 ~5 行</li>
+  <li>「## 規則 → ## 邊緣檢查規則」~3 行</li>
+  <li>JSON example：<code>source_edge_previews_read</code> 和 <code>crop_previews_read</code> 兩個 block 塌縮成 <code>boundary_evidence</code> + per-edge verdicts = <strong>net -30 行</strong></li>
+</ul>
+<p><strong>結算：實質邏輯改寫 ~30 行，schema 塌縮 net -30 行，檔案最終會變短</strong>。</p>`,
+  claude: `
+<p><strong>per-edge verdict 必須保留</strong>。top 多半是上一段正文 / page header；bottom 多半是 caption；left/right 多半是欄寬或相鄰 panel。失敗模式不同，verdict 也應該各自表達，不能 collapse 成 figure-level 一個。</p>
+<p><strong>evidence path 收斂</strong>是真正的簡化點：4 張 source + 4 張 crop = 8 條 path 變成 2 條 path。每條 edge_check 只是判斷 + 條件 + notes，evidence 共用。</p>
+<p><strong>注意 reviewer 的 source 獨立性</strong>：boundary view 改完後，reviewer 還是要自己從 <code>shared/pages/page_N.png</code> 重建 source boundary preview，不能直接讀 worker 的 boundary preview。這條獨立性規則保留。</p>`,
+  notesPlaceholder: 'reviewer 邊界檢查結構，per-edge verdict 同意保留嗎？'
+},
+{
+  id: 'BV-6',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Mechanical hash check：crop file ↔ source[crop_px]',
+  context: `
+<p>現在沒有 mechanism 能抓到「<code>figures.json</code> 寫 <code>crop_px=A</code>，但 <code>crops/&lt;id&gt;.png</code> 實際內容是 <code>crop_px=B</code>」這種 manifest/file divergence。例如 worker 後續調 crop_px 但忘了重 crop。</p>`,
+  plan: `
+<p>每個 <code>crop_unit</code> 加 mechanical self-check：</p>
+<pre>expected = sha256(crop_region(page_N, crop_px, padding=0))
+actual   = sha256(crops/&lt;figure_id&gt;.png)
+assert expected == actual</pre>
+<p>加進：</p>
+<ul>
+  <li><code>figure_extractor.md</code> 的「## 規則 → ## 機械自檢」</li>
+  <li><code>figure_reviewer.md</code> 的 local self-check</li>
+</ul>`,
+  implementation: `
+<p><strong>padding policy 決定：padding=0</strong></p>
+<ul>
+  <li>worker 寫 <code>crops/&lt;id&gt;.png</code> 時用 <code>padding=0</code>。</li>
+  <li>hash check 重 crop 時也 <code>padding=0</code>。</li>
+  <li><code>crop_region.py</code> 預設 <code>padding=5</code> 不變（給其他用途用），但本 pipeline 顯式傳 <code>--padding 0</code>。</li>
+</ul>
+<p>不保留 padding=5 選項。理由：clamping 到 page bounds 時不同步驟容易產生微像素差，hash 永遠對不上。padding=0 是唯一可行解。</p>`,
+  claude: `
+<p><strong>這條和 boundary view 互補</strong>。boundary view 解的是「人類視覺判斷錯」；hash check 解的是「manifest 和檔案不同步」。完全不同層級的問題。</p>
+<p>原本 4-edge schema 也能加這條，但本次重寫順便加進去成本最低。</p>
+<p><strong>潛在問題</strong>：page rendering 不確定。如果 <code>render_pages.py</code> 用 pypdfium2 但 hash check 時 page image 被以其他方式重生，hash 會不一致。要規定 hash check 比較的是 source page PNG 上的 crop_px 區域 vs 已存的 crop PNG，兩者都是現成檔案，沒有 re-render 問題。</p>`,
+  notesPlaceholder: 'padding policy 選 A 還是 B？hash check 要不要 phase 1 進？'
+},
+{
+  id: 'BV-7',
+  phase: 'phase1',
+  status: 'todo',
+  title: 'Phase 1 acceptance criteria',
+  context: `
+<p>Phase 1 完成的定義 + smoke test。</p>`,
+  plan: `
+<p><strong>完成條件</strong>：</p>
+<ul>
+  <li>三份 prompt（extractor / reviewer / repair）改寫完。</li>
+  <li><code>crop_region.py</code> 不變（已支援 multi-line）。</li>
+  <li>JSON schema 升版（<code>figure_extraction.v3</code> / <code>figure_review.v3</code>），舊 v2 artifacts 不向後相容。</li>
+  <li>在 luciferase paper 重跑 figure lane。</li>
+</ul>
+<p><strong>Smoke test 預期</strong>：</p>
+<ul>
+  <li>ED Fig 2 應該 fail（boundary preview 把整個垃圾桶 + 紅框畫出來，垃圾桶下緣切口可見）。</li>
+  <li>其他 13 張 figures 應該 pass（這次的 crop 大致正確，只是 ED Fig 2 漏掉）。</li>
+</ul>`,
+  implementation: `
+<p><strong>退場條件</strong>：</p>
+<ul>
+  <li>若重跑後 ED Fig 2 仍 pass → boundary view 沒解決問題，退回討論。可能要直接進 Phase 2 規則。</li>
+  <li>若其他正常 figures 也誤 fail → margin formula 太緊或紅框太粗，回 BV-2 調。</li>
+  <li>若 reviewer 還是用 caption 位置當證據放行 → boundary view 沒打破 perception heuristic，必須上 Phase 2 SR-B 規則來強制。</li>
+</ul>`,
+  claude: `
+<p><strong>用 luciferase 當 smoke test 合適</strong>。已 rendered，14 figures 覆蓋 dense schematic（ED Fig 2 / Fig 1）、圖表（Fig 4, ED Fig 4-10）、微觀照片（Fig 3）、化學流程（ED Fig 1 inset）、sequence alignment（ED Fig 6），各種失敗模式都有。</p>
+<p><strong>還要做的事</strong>：把現有 <code>workspace/luciferase/</code> 當 fixture 保存。重跑前先 backup canonical 和 reviews 到 <code>_v2_baseline/</code>，方便對照。</p>`,
+  notesPlaceholder: 'Phase 1 完成條件對嗎？退場條件足夠嗎？'
+},
+{
+  id: 'SR-A',
+  phase: 'phase2',
+  status: 'defer',
+  title: '收緊 expected_visual_units 粒度規則',
+  context: `
+<p>ED Fig 2 reviewer 把 11 個 labeled workflow icon（OligoArray、PCR Mutagenesis、Library Transformation、Spray Luciferin、Colony Imaging、Discard Inactive Enzymes、Confirm Activity、Plasmid Extraction、Sequencing、Computational Design、Gene Assembly）全寫成一個 <code>workflow_icons: icon_set</code> unit。導致「Discard Inactive Enzymes 是否完整」沒有 schema 欄位承載。Boundary view 讓 reviewer 看見整個 unit，但若粒度可坍縮，看見了也不會 record。</p>`,
+  plan: `
+<p>在 <code>figure_reviewer.md</code> 步驟 7（建立視覺清單）寫死：</p>
+<pre>粒度：來源中每個帶 label 的元件
+      (workflow node / panel / reagent box /
+       molecule group / tile / track /
+       scale bar / color bar / callout)
+      都是一個獨立的 expected_visual_units[] entry。
+
+禁用：icon_set / panel_group / label_group / "main_diagram"
+      這類聚合 unit
+      (除非該圖真的只有一個視覺單元)。
+
+unit_id：對應 source 中的 label 文字、filename-safe。
+        例如 discard_inactive_enzymes_trashcan。
+
+self-check：source 中可數的 label 數
+            vs expected_visual_units 中 labeled type 的 entry 數，
+            差距 > 1 → self-check fail，必須拆細。</pre>`,
+  implementation: `
+<ul>
+  <li><code>figure_reviewer.md</code> 步驟 7 改寫。</li>
+  <li>「## 格式 → ## JSON 命名與 enum」加 <code>expected_visual_units</code> 粒度禁用清單。</li>
+  <li>「## 規則 → ## 視覺清單規則」加「禁用聚合 unit」條款。</li>
+</ul>`,
+  claude: `
+<p><strong>這條和 boundary view 是互補的，缺一不可</strong>：</p>
+<ul>
+  <li>沒 boundary view：reviewer 看不見整個 unit，就算列出 11 個 expected_units 也判斷不出完整性。</li>
+  <li>沒 SR-A：reviewer 看見了，但把 11 個包成 1 個 icon_set，schema 不要求它對每個 unit 表態，垃圾桶還是 leak。</li>
+</ul>
+<p>兩條都到位才能抓 ED Fig 2 那種失敗。</p>`,
+  notesPlaceholder: '粒度規則是否太嚴？11 個 unit 對小圖也合理？'
+},
+{
+  id: 'SR-B',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'bounded_by_unit 必須是該軸 bbox 極值（不要 source bbox）',
+  context: `
+<p>原始版本要求 reviewer 填 <code>unit_extent_in_source_px</code>，但使用者指出 VLM 對精確座標不可靠，容易幻覺合理但錯誤的數字，反而給假信心。本卡採用軟化版：用結構關係取代 source bbox 舉證。</p>
+<p>失敗案例：reviewer 對 ED Fig 2 bottom 寫 <code>"Confirm Activity icon (bottom-most workflow node) ends inside crop"</code> — 名字對了一半（有名 unit），但選錯了 unit（真正 bottom-most 是垃圾桶）。光是 naming 不夠；naming 必須有結構約束。</p>`,
+  plan: `
+<p>每個 pass 邊的 <code>edge_check</code> 必填 <code>bounded_by_unit</code>。<strong>不</strong>要 source bbox。</p>
+<pre>{
+  "status": "pass",
+  "condition": "clean_margin",
+  "bounded_by_unit": "discard_inactive_enzymes_trashcan",
+  "notes": "..."
+}</pre>
+<p><strong>新規則</strong>：<code>bounded_by_unit</code> 必須是 <code>observed_visual_units[]</code> 中在該軸方向上 <code>bbox_in_crop_px</code> 最極值的 unit。</p>
+<ul>
+  <li>bottom 邊 → <code>bbox_in_crop_px[3]</code>（y2）最大的 unit</li>
+  <li>top 邊 → <code>bbox_in_crop_px[1]</code>（y1）最小的 unit</li>
+  <li>right 邊 → <code>bbox_in_crop_px[2]</code>（x2）最大的 unit</li>
+  <li>left 邊 → <code>bbox_in_crop_px[0]</code>（x1）最小的 unit</li>
+</ul>
+<p><strong><code>clean_margin</code> 新定義</strong>（沒有 source bbox 版本）：</p>
+<ol>
+  <li><code>bounded_by_unit</code> 是該軸方向 bbox_in_crop_px 極值的 unit。</li>
+  <li>該 unit 的 <code>extent_inside_crop = true</code>（由 SR-C 保證）。</li>
+  <li>boundary_preview 上看，該 unit 邊與 crop 邊之間是空白。</li>
+</ol>`,
+  implementation: `
+<ul>
+  <li><code>figure_reviewer.md</code> 步驟 14 改寫。</li>
+  <li><code>edge_checks</code> schema 加 <code>bounded_by_unit</code>（單一 unit_id 字串）。</li>
+  <li>self-check：對每個 pass 邊，掃 <code>observed_visual_units[]</code> 找該軸極值 unit，必須等於 <code>bounded_by_unit</code>。不等就 fail。</li>
+  <li><strong>不</strong>加 <code>unit_extent_in_source_px</code>。VLM 估 source bbox 的價值低於成本。</li>
+</ul>`,
+  claude: `
+<p><strong>使用者的判斷正確，原版 SR-B 過重。</strong>VLM 對 source 像素座標的估算精度不足以撐起 audit 角色 — 我們要的是「強制 reviewer 不能糊弄」，不是「強制 reviewer 產精確座標」。</p>
+<p>軟化後的 SR-B 用 <strong>結構關係</strong> 取代 <strong>數值舉證</strong>：</p>
+<ul>
+  <li>bbox_in_crop_px 由 SR-C 強制每個 observed unit 提供（在 crop 圖上估，比 source 圖容易）。</li>
+  <li>SR-B 只要 reviewer 名 unit，但 unit 必須是該軸的 bbox 極值 — 機械可驗證。</li>
+</ul>
+<p><strong>套回 ED Fig 2</strong>：</p>
+<ul>
+  <li>SR-A 列 11 個 unit。</li>
+  <li>SR-C 每個 unit 填 <code>bbox_in_crop_px</code>。垃圾桶 bbox y2 接近 crop 邊 → 觸發「extent_inside_crop」查 source → 改 <code>incomplete</code>。</li>
+  <li>SR-B 想標 bottom = clean_margin？<code>bounded_by_unit</code> 必須是 bbox.y2 最大的 unit，那就是垃圾桶。但垃圾桶 status = incomplete，邊就過不了。</li>
+</ul>
+<p>整條鏈條結構性地擋下原本的失敗，不依賴 VLM 估 source 座標。</p>`,
+  notesPlaceholder: 'bbox 極值規則同意嗎？'
+},
+{
+  id: 'SR-C',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'observed_visual_units.present 必填 bbox 證據',
+  context: `
+<p>現在 <code>observed_visual_units[].status: present</code> 只是 enum，不需要證據。reviewer 標 present 不用說「我在 crop 的哪裡看到它、它的 bbox 是多少」。</p>`,
+  plan: `
+<pre>{
+  "unit_id": "discard_inactive_enzymes_trashcan",
+  "status": "present",
+  "bbox_in_crop_px": [1820, 1100, 1980, 1280],
+  "extent_inside_crop": true,
+  "notes": "..."
+}</pre>
+<p><strong>規則</strong>：</p>
+<ul>
+  <li>present 必填 <code>bbox_in_crop_px</code> 與 <code>extent_inside_crop</code>。</li>
+  <li><code>bbox_in_crop_px</code> 任一邊貼到 final crop 邊（&lt; 5 px）必須查 source bbox。</li>
+  <li>若 source 中 unit bbox 超出 crop_px → status 改 <code>incomplete</code>，figure decision 必須 fail。</li>
+  <li>incomplete / missing 必須給 <code>repair_request</code>。</li>
+</ul>`,
+  implementation: `
+<ul>
+  <li><code>figure_reviewer.md</code> 步驟 12（記錄 observed_visual_units）改寫。</li>
+  <li>「## 規則 → ## 視覺清單規則」加 bbox 證據要求。</li>
+  <li>self-check：每個 <code>present</code> entry 必填 bbox；任一邊 &lt; 5 px 距離 final crop 邊時，要在 notes 說明已查 source。</li>
+</ul>`,
+  claude: `
+<p><strong>SR-A + SR-C 是 reviewer 端的雙保險</strong>：</p>
+<ul>
+  <li>SR-A 強制 unit 列表不能 collapse。</li>
+  <li>SR-C 強制每個 unit 必須有空間證據。</li>
+</ul>
+<p>兩條缺一不可。只有 SR-A，reviewer 可以列 11 個 unit 但全標 present 不附 bbox，垃圾桶照樣 leak。只有 SR-C，reviewer 可以把 11 個塞成 1 個 unit 然後給整體 bbox 蒙混過去。</p>`,
+  notesPlaceholder: 'bbox 證據必填同意嗎？5 px threshold 合理？'
+},
+{
+  id: 'SR-D',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'extractor 只做 enumeration（不做 per-unit verification）',
+  context: `
+<p>原版 SR-D 把兩件事混在一起：worker 做 per-label enumeration（便宜）+ worker 做 per-unit completeness verification（重）。使用者指出後者會拖垮 worker，且和 reviewer 重複。本卡保留 enumeration，丟掉 verification。Asymmetry by design：worker 列清單，reviewer 把關。</p>`,
+  plan: `
+<p><strong>保留</strong>：worker 在 <code>figure_decisions.json</code> 列 per-label <code>expected_units[]</code>。每個 entry 只要：</p>
+<pre>{
+  "unit_id": "discard_inactive_enzymes_trashcan",
+  "label_text": "Discard Inactive Enzymes",
+  "type": "workflow_node"
+}</pre>
+<p>不要求 bbox。不要求 completeness verdict。只是讀 source 寫下看到了哪些 label。</p>
+<p><strong>丟掉</strong>：原本的 <code>figures.json.verification.expected_units_complete</code> per-unit 檢查欄位。worker 自己剛裁完，要它再對每個 unit 估 bbox / 判完整性，是無謂的重工。</p>`,
+  implementation: `
+<ul>
+  <li><code>figure_extractor.md</code> 步驟 8（寫 figure_decisions）加 <code>expected_units[]</code>。</li>
+  <li>其他步驟不動 — worker 步驟 12-13 的視覺驗證維持原本的「整體看 final crop + boundary preview」粒度。</li>
+  <li>schema 不在 <code>figures.json.verification</code> 加 per-unit 欄位。</li>
+</ul>`,
+  claude: `
+<p><strong>使用者的判斷正確，原版 SR-D 過重。</strong>Extractor 的核心任務是「找出大致正確的 bounding box」，per-label 完整性檢查是 reviewer 的工作。強迫 worker 跟 reviewer 對稱反而會讓 worker 步驟膨脹、容易 timeout。</p>
+<p>軟化後的 SR-D：worker 只做<strong>清單交付</strong>。reviewer 在 SR-A 寫 <code>expected_visual_units[]</code> 時拿 worker 的清單當 baseline 比對 — 兩邊 list 對齊就過，不對齊 reviewer 出 <code>manifest_correction</code>。</p>
+<p>這也是為什麼 SR-A 比 SR-D 重要：reviewer 還是要從 source 自己重建 visual unit list（獨立性原則），worker 的清單只是 cross-check，不是 reviewer 的依據。</p>`,
+  notesPlaceholder: 'enumeration-only 同意嗎？'
+},
+{
+  id: 'SR-F',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'figure_repair.md 對齊新 schema',
+  context: `
+<p>原本計畫只寫到 reviewer + extractor 改動，遺漏了 figure_repair.md。如果 reviewer 的 schema 改了（boundary_preview 取代 edge_previews、新 unit-naming 欄位），repair worker 必須能讀懂並產對應的 output，否則 parent merge 會 break。</p>`,
+  plan: `
+<p>Repair worker 需要對齊的點：</p>
+<ul>
+  <li><strong>讀</strong>：repair worker 從 <code>repair_requests_merged.json</code> 讀 reviewer 出的 request。request 本身 schema 變動不大（仍是 <code>action</code> + <code>direction</code> + <code>constraint</code>，無 bbox），但 reviewer 的 <code>defects</code> / <code>notes</code> 會引用新詞彙（unit_id、bounded_by_unit）— repair worker 要能解析這些。</li>
+  <li><strong>寫</strong>：repair worker 產新 crop 時，也要產對應的 <strong>boundary_preview</strong>（不再產 4 條 edge previews）。</li>
+  <li><strong>repair_report</strong>：<code>merge.file_copies[]</code> 的 <code>kind</code> 從 <code>edge_preview</code> 換成 <code>boundary_preview</code>。</li>
+  <li><strong>manifest_patches</strong>：<code>crop_units[].edge_previews</code> 整欄移除，新增 <code>crop_units[].boundary_preview</code> 單一 path。</li>
+</ul>`,
+  implementation: `
+<ul>
+  <li><code>figure_repair.md</code> 步驟段：產 boundary preview 取代 4 條 edge previews。</li>
+  <li>JSON example：<code>repair_report.json</code> 的 <code>merge.file_copies</code> kind enum 換、<code>manifest_patches</code> path 換。</li>
+  <li>「允許的 parent 動作」段（在 SKILL.md 而非 repair prompt 內）：<code>kind</code> enum 從 <code>crop / crop_preview / edge_preview</code> 改成 <code>crop / crop_preview / boundary_preview</code>。</li>
+</ul>`,
+  claude: `
+<p><strong>使用者提醒得對 — 漏這張會讓 Phase 2 完成後 repair 流程直接破。</strong>SR-F 要在 SR-E（完整 luciferase 回歸）之前完成，否則跑到 repair round 就 break。</p>
+<p>Repair worker 改動相對機械，因為 repair_request 本身不變（只是 reviewer 的 defects 文字會用新詞彙），主要工作是 output schema 對齊。估 ~20 行 prompt 改動 + JSON example schema 換。</p>`,
+  notesPlaceholder: 'repair worker 還有其他要對齊的點嗎？'
+},
+{
+  id: 'SR-E',
+  phase: 'phase2',
+  status: 'defer',
+  title: 'Phase 2 acceptance + 完整 luciferase 回歸',
+  context: `
+<p>SR-A 到 SR-D 都完成，算 Phase 2 完成。完整跑一次 luciferase，包括 repair → re-review → close 流程。</p>`,
+  plan: `
+<p><strong>預期結果</strong>：</p>
+<ul>
+  <li>ED Fig 2 fail 的明確原因：<code>observed_visual_units</code> 中 <code>discard_inactive_enzymes_trashcan</code> status = incomplete；bottom edge_check fail（<code>unit_extent_in_source_px</code> y2 &gt; <code>crop_px</code> y2）。</li>
+  <li><code>repair_request</code> 指向 <code>recrop</code> + <code>expand_bottom</code>，constraint「include trashcan bottom; stop before bold caption」。</li>
+  <li>跑 <code>figure_repair</code> round_01 → re-review round_01 → close。</li>
+</ul>`,
+  implementation: `
+<p>Smoke test 同 BV-7，但這次必須跑完整 repair loop，不只看 review fail。</p>
+<ul>
+  <li>repair worker 能讀新 schema 的 repair_request 並重新 crop。</li>
+  <li>合併回 canonical 後 re-review，<code>observed_visual_units</code> 全 present + bbox 完整。</li>
+  <li>close gate 通過。</li>
+</ul>`,
+  claude: `
+<p><strong>兩階段都跑完才算這次討論收尾</strong>。Phase 2 acceptance 不只是「reviewer 抓到」，還要驗證 repair 流程在新 schema 下能完整跑通。</p>
+<p>SR-F 已處理 repair prompt 對齊，所以 SR-E 跑時 repair 流程應該可用。SR-E 是 end-to-end 驗證，不是單元測試。</p>`,
+  notesPlaceholder: 'Phase 2 完成判準還有要補的？'
+}
+];
+
+function defaultState() {
+  const s = { statuses: {}, notes: {}, expanded: {}, contextOpen: {} };
+  cards.forEach(card => {
+    s.statuses[card.id] = card.status;
+    s.notes[card.id] = '';
+    s.expanded[card.id] = card.phase === 'phase1';
+    s.contextOpen[card.id] = false;
+  });
+  return s;
+}
+
+function loadState() {
+  const def = defaultState();
+  try {
+    const emb = (typeof EMBEDDED_USER_DATA !== 'undefined') ? EMBEDDED_USER_DATA : { statuses: {}, notes: {} };
+    cards.forEach(card => {
+      if (card.id in emb.statuses) def.statuses[card.id] = emb.statuses[card.id];
+      if (card.id in emb.notes && emb.notes[card.id]) def.notes[card.id] = emb.notes[card.id];
+    });
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return def;
+    const s = JSON.parse(raw);
+    cards.forEach(card => {
+      if (!(card.id in s.statuses)) s.statuses[card.id] = def.statuses[card.id];
+      if (!(card.id in s.notes)) s.notes[card.id] = def.notes[card.id] || '';
+      if (!(card.id in s.expanded)) s.expanded[card.id] = def.expanded[card.id];
+      if (!(card.id in s.contextOpen)) s.contextOpen[card.id] = false;
+    });
+    return s;
+  } catch {
+    return def;
+  }
+}
+
+let state = loadState();
+let activeFilter = 'all';
+let searchQuery = '';
+
+function phaseLabel(phase) {
+  return phase === 'phase1' ? 'Phase 1' : 'Phase 2';
+}
+
+function render() {
+  const c = document.getElementById('container');
+  c.innerHTML = '';
+
+  const overview = document.createElement('div');
+  overview.className = 'overview';
+  overview.innerHTML = `
+    <div class="overview-head">Two-Phase Boundary</div>
+    <div class="phase-grid">
+      <div class="phase-col phase1">
+        <h2>Phase 1: boundary view (artifact reshape)</h2>
+        <ul>
+          <li>取消每個 crop_unit 的 4 條 edge previews</li>
+          <li>改成每頁一張 boundary preview（page context + 紅矩形）</li>
+          <li>per-edge verdict 保留，evidence 收斂到一張圖</li>
+          <li>每個 crop_unit 一張 boundary preview（1-to-1）</li>
+          <li>加 mechanical crop ↔ source[crop_px] hash check</li>
+        </ul>
+      </div>
+      <div class="phase-col phase2">
+        <h2>Phase 2: schema rules (tightening)</h2>
+        <ul>
+          <li>SR-A：expected_visual_units 必須 per-labeled-element</li>
+          <li>SR-B：bounded_by_unit 必須是該軸 bbox 極值（不要 source bbox）</li>
+          <li>SR-C：observed_visual_units.present 必填 bbox_in_crop_px</li>
+          <li>SR-D：extractor 只做 enumeration，不做 per-unit verification</li>
+          <li>SR-F：figure_repair.md 對齊新 schema</li>
+          <li>SR-E：完整 luciferase 回歸 + repair loop</li>
+        </ul>
+      </div>
+    </div>`;
+  c.appendChild(overview);
+
+  cards.forEach(card => {
+    const st = state.statuses[card.id];
+    const isOpen = !!state.expanded[card.id];
+    const contextOpen = !!state.contextOpen[card.id];
+
+    const el = document.createElement('div');
+    el.className = 'card' + (isOpen ? ' open' : '');
+    el.dataset.id = card.id;
+    el.dataset.phase = card.phase;
+    el.dataset.status = st;
+    el.innerHTML = `
+      <div class="card-header">
+        <span class="card-num ${card.phase}">${card.id}</span>
+        <span class="card-title">${card.title}</span>
+        <span class="badge" data-status="${st}" data-id="${card.id}">${STATUS_LABELS[st]}</span>
+        <span class="card-arrow">&#9654;</span>
+      </div>
+      <div class="card-body">
+        <div class="section-toggle ${contextOpen ? 'open' : ''}" data-id="${card.id}">
+          <span class="arrow">&#9654;</span> Context
+        </div>
+        <div class="section-content ${contextOpen ? 'open' : ''}" data-id="${card.id}">
+          ${card.context}
+        </div>
+        <div class="plan-grid">
+          <div class="panel ${card.phase}">
+            <div class="panel-head ${card.phase}"><span class="dot"></span>${phaseLabel(card.phase)} Plan</div>
+            ${card.plan}
+          </div>
+          <div class="panel ${card.phase === 'phase1' ? 'phase2' : 'phase1'}">
+            <div class="panel-head ${card.phase === 'phase1' ? 'phase2' : 'phase1'}"><span class="dot"></span>Implementation</div>
+            ${card.implementation}
+          </div>
+          <div class="panel claude">
+            <div class="panel-head claude"><span class="dot"></span>Claude</div>
+            ${card.claude || '<p><em>No response yet.</em></p>'}
+          </div>
+          <div class="panel notes">
+            <div class="panel-head notes"><span class="dot"></span>Notes</div>
+            <textarea class="note" data-id="${card.id}" placeholder="${card.notesPlaceholder}">${state.notes[card.id] || ''}</textarea>
+          </div>
+        </div>
+      </div>`;
+    c.appendChild(el);
+  });
+
+  updateProgress();
+  applyFilter();
+}
+
+function updateProgress() {
+  const total = cards.length;
+  const p1 = cards.filter(c => c.phase === 'phase1').length;
+  const p2 = cards.filter(c => c.phase === 'phase2').length;
+  const done = cards.filter(c => state.statuses[c.id] === 'done').length;
+  document.getElementById('progress').textContent = `${total} cards | ${p1} phase 1 | ${p2} phase 2 | ${done} done`;
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const t = document.getElementById('saveToast');
+  t.textContent = 'Saved';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1200);
+}
+
+function applyFilter() {
+  document.querySelectorAll('.card[data-id]').forEach(card => {
+    const id = card.dataset.id;
+    const phase = card.dataset.phase;
+    const st = state.statuses[id];
+    const matchFilter =
+      activeFilter === 'all' ||
+      activeFilter === phase ||
+      activeFilter === st;
+    const matchSearch =
+      !searchQuery ||
+      card.textContent.toLowerCase().includes(searchQuery.toLowerCase());
+    card.classList.toggle('hidden', !(matchFilter && matchSearch));
+  });
+}
+
+function statusMenuFor(id) {
+  return `
+    <div class="status-menu open" data-menu-for="${id}">
+      ${Object.entries(STATUS_LABELS).map(([key, label]) => `
+        <div class="status-option" data-set-status="${key}" data-id="${id}">
+          <span class="status-dot" style="background:${STATUS_META[key].color}"></span>
+          ${label}
+        </div>`).join('')}
+    </div>`;
+}
+
+document.addEventListener('click', e => {
+  const openMenu = document.querySelector('.status-menu.open');
+
+  const badge = e.target.closest('.badge');
+  if (badge) {
+    e.stopPropagation();
+    if (openMenu) openMenu.remove();
+    badge.insertAdjacentHTML('beforeend', statusMenuFor(badge.dataset.id));
+    return;
+  }
+
+  const option = e.target.closest('.status-option');
+  if (option) {
+    e.stopPropagation();
+    state.statuses[option.dataset.id] = option.dataset.setStatus;
+    saveState();
+    render();
+    return;
+  }
+
+  if (openMenu) openMenu.remove();
+
+  const header = e.target.closest('.card-header');
+  if (header) {
+    const card = header.closest('.card');
+    const id = card.dataset.id;
+    state.expanded[id] = !state.expanded[id];
+    card.classList.toggle('open');
+    saveState();
+    return;
+  }
+
+  const toggle = e.target.closest('.section-toggle');
+  if (toggle) {
+    const id = toggle.dataset.id;
+    state.contextOpen[id] = !state.contextOpen[id];
+    saveState();
+    render();
+    return;
+  }
+});
+
+document.addEventListener('input', e => {
+  if (e.target.classList.contains('note')) {
+    state.notes[e.target.dataset.id] = e.target.value;
+    saveState();
+  }
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  applyFilter();
+});
+
+document.getElementById('expandAll').addEventListener('click', () => {
+  cards.forEach(card => state.expanded[card.id] = true);
+  saveState();
+  render();
+});
+
+document.getElementById('collapseAll').addEventListener('click', () => {
+  cards.forEach(card => state.expanded[card.id] = false);
+  saveState();
+  render();
+});
+
+document.getElementById('saveFile').addEventListener('click', () => {
+  const exportData = { statuses: {}, notes: {} };
+  cards.forEach(card => {
+    const st = state.statuses[card.id];
+    if (st !== card.status) exportData.statuses[card.id] = st;
+    const note = (state.notes[card.id] || '').trim();
+    if (note) exportData.notes[card.id] = note;
+  });
+  const html = document.documentElement.outerHTML;
+  const newBlock = `const EMBEDDED_USER_DATA = ${JSON.stringify(exportData, null, 2)};`;
+  const updated = html.replace(/const EMBEDDED_USER_DATA = \{[\s\S]*?\};/, newBlock);
+  const blob = new Blob(['<!DOCTYPE html>\n' + updated], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'boundary_view_plan.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  const t = document.getElementById('saveToast');
+  t.textContent = 'File downloaded - overwrite original to persist';
+  t.classList.add('show');
+  setTimeout(() => { t.classList.remove('show'); t.textContent = 'Saved'; }, 3000);
+});
+
+render();
+</script>
+
+</body></html>

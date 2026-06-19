@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure Lane Issues — Discussion Board</title>
+<style>
+:root {
+  --bg: #f3f4f6; --card: #fff; --border: #e5e7eb;
+  --text: #1f2937; --text2: #6b7280; --text3: #9ca3af;
+  --codex: #fff7ed; --codex-border: #fed7aa; --codex-head: #ea580c;
+  --claude: #eff6ff; --claude-border: #bfdbfe; --claude-head: #2563eb;
+  --user: #f0fdf4; --user-border: #bbf7d0; --user-head: #16a34a;
+  --bg-section: #f9fafb;
+  --agreed: #16a34a; --decided: #2563eb; --pending: #d97706; --review: #dc2626;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6; padding: 0;
+}
+/* ── top bar ── */
+.topbar {
+  position: sticky; top: 0; z-index: 100; background: #1e293b; color: #f1f5f9;
+  padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.topbar h1 { font-size: 16px; font-weight: 600; margin-right: auto; white-space: nowrap; }
+.topbar .progress { font-size: 13px; color: #94a3b8; white-space: nowrap; }
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn {
+  font-size: 12px; padding: 3px 10px; border-radius: 12px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.2); background: transparent; color: #cbd5e1;
+  transition: all .15s;
+}
+.filter-btn:hover { background: rgba(255,255,255,.1); }
+.filter-btn.active { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.4); }
+.ctrl-btn {
+  font-size: 12px; padding: 3px 10px; border-radius: 6px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.15); background: transparent; color: #94a3b8;
+}
+.ctrl-btn:hover { color: #fff; }
+/* ── search ── */
+.search-wrap { padding: 16px 24px 0; max-width: 1400px; margin: 0 auto; }
+.search-input {
+  width: 100%; padding: 10px 16px; border: 1px solid var(--border); border-radius: var(--radius);
+  font-size: 14px; background: var(--card); outline: none;
+}
+.search-input:focus { border-color: #93c5fd; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+/* ── main ── */
+.container { max-width: 1400px; margin: 0 auto; padding: 16px 24px 80px; }
+/* ── card ── */
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 12px; box-shadow: var(--shadow); transition: box-shadow .15s;
+  overflow: hidden;
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+.card.hidden { display: none; }
+.card-header {
+  display: flex; align-items: center; gap: 10px; padding: 14px 20px;
+  cursor: pointer; user-select: none; position: relative;
+}
+.card-header:hover { background: #f9fafb; }
+.card-num {
+  font-size: 12px; font-weight: 700; color: #fff; background: #64748b;
+  min-width: 28px; height: 28px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.card-title { font-size: 15px; font-weight: 600; flex: 1; }
+.card-arrow {
+  font-size: 12px; color: var(--text3); transition: transform .2s; flex-shrink: 0;
+}
+.card.open .card-arrow { transform: rotate(90deg); }
+/* ── status badge ── */
+.badge {
+  font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px;
+  cursor: pointer; position: relative; white-space: nowrap; flex-shrink: 0;
+  transition: opacity .15s;
+}
+.badge:hover { opacity: .85; }
+.badge[data-status="agreed"]  { background: #dcfce7; color: var(--agreed); }
+.badge[data-status="decided"] { background: #dbeafe; color: var(--decided); }
+.badge[data-status="pending"] { background: #fef3c7; color: var(--pending); }
+.badge[data-status="review"]  { background: #fde2e2; color: var(--review); }
+/* status dropdown */
+.status-menu {
+  display: none; position: absolute; top: 100%; right: 0; z-index: 50;
+  background: #fff; border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: var(--shadow-lg); overflow: hidden; min-width: 140px;
+}
+.status-menu.open { display: block; }
+.status-option {
+  padding: 8px 14px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+}
+.status-option:hover { background: #f3f4f6; }
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+/* ── card body ── */
+.card-body { display: none; border-top: 1px solid var(--border); }
+.card.open .card-body { display: block; }
+/* ── background section ── */
+.bg-toggle {
+  padding: 10px 20px; font-size: 13px; color: var(--text2); cursor: pointer;
+  user-select: none; display: flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid var(--border); background: var(--bg-section);
+}
+.bg-toggle:hover { color: var(--text); }
+.bg-toggle .arrow { font-size: 10px; transition: transform .15s; }
+.bg-toggle.open .arrow { transform: rotate(90deg); }
+.bg-content {
+  display: none; padding: 16px 20px; background: var(--bg-section);
+  border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text2);
+}
+.bg-content.open { display: block; }
+/* ── conclusion ── */
+.conclusion-bar {
+  padding: 10px 20px; background: #f0fdf4; border-bottom: 1px solid #bbf7d0;
+  font-size: 13px; color: #15803d;
+}
+.conclusion-bar strong { font-weight: 600; }
+/* ── opinion grid ── */
+.opinions {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; min-height: 120px;
+}
+@media (max-width: 900px) { .opinions { grid-template-columns: 1fr; } }
+.opinion {
+  padding: 16px 20px; font-size: 13px; line-height: 1.65;
+  border-right: 1px solid var(--border);
+}
+.opinion:last-child { border-right: none; }
+.opinion.codex  { background: var(--codex); }
+.opinion.claude { background: var(--claude); }
+.opinion.user   { background: var(--user); }
+.opinion-head {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.opinion-head.codex  { color: var(--codex-head); }
+.opinion-head.claude { color: var(--claude-head); }
+.opinion-head.user   { color: var(--user-head); }
+.opinion-head .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.opinion-head.codex .dot  { background: var(--codex-head); }
+.opinion-head.claude .dot { background: var(--claude-head); }
+.opinion-head.user .dot   { background: var(--user-head); }
+/* user note area */
+.user-select {
+  width: 100%; margin-bottom: 8px; padding: 4px 8px; font-size: 12px;
+  border: 1px solid var(--user-border); border-radius: 6px; background: #fff;
+}
+.user-note {
+  width: 100%; min-height: 80px; padding: 8px 10px; font-size: 13px;
+  border: 1px solid var(--user-border); border-radius: 6px; background: #fff;
+  resize: vertical; font-family: inherit; line-height: 1.5;
+}
+.user-note:focus { outline: none; border-color: #86efac; box-shadow: 0 0 0 3px rgba(22,163,74,.1); }
+.user-note::placeholder { color: #a7f3d0; }
+/* ── content formatting ── */
+.opinion p { margin-bottom: 8px; }
+.opinion ul, .opinion ol { margin: 6px 0 10px 18px; }
+.opinion li { margin-bottom: 3px; }
+.opinion pre {
+  background: rgba(0,0,0,.04); padding: 10px 12px; border-radius: 6px;
+  font-size: 12px; overflow-x: auto; margin: 8px 0; line-height: 1.5;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+}
+.opinion code, .bg-content code {
+  background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 3px;
+  font-size: 12px; font-family: "SF Mono", "Fira Code", monospace;
+}
+.opinion pre code { background: none; padding: 0; }
+.bg-content p { margin-bottom: 8px; }
+.bg-content pre {
+  background: rgba(0,0,0,.04); padding: 10px 12px; border-radius: 6px;
+  font-size: 12px; overflow-x: auto; margin: 8px 0;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+.bg-content ul { margin: 6px 0 10px 18px; }
+.bg-content li { margin-bottom: 3px; }
+/* ── priority section ── */
+.priority-section {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  margin-top: 24px; box-shadow: var(--shadow); overflow: hidden;
+}
+.priority-header {
+  padding: 14px 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; gap: 10px; user-select: none;
+}
+.priority-header:hover { background: #f9fafb; }
+.priority-body { display: none; border-top: 1px solid var(--border); }
+.priority-section.open .priority-body { display: block; }
+.priority-section.open .p-arrow { transform: rotate(90deg); }
+.p-arrow { font-size: 12px; color: var(--text3); transition: transform .2s; }
+.priority-grid {
+  display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border);
+}
+@media (max-width: 900px) { .priority-grid { grid-template-columns: 1fr; } }
+.priority-col { padding: 16px 20px; font-size: 13px; }
+.priority-col:first-child { border-right: 1px solid var(--border); background: var(--codex); }
+.priority-col:last-child { background: var(--claude); }
+.priority-col h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+.priority-col ol { margin-left: 20px; }
+.priority-col li { margin-bottom: 4px; }
+.priority-col li code { background: rgba(0,0,0,.06); padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+/* ── save indicator ── */
+.save-toast {
+  position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #f1f5f9;
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; opacity: 0;
+  transition: opacity .3s; pointer-events: none; z-index: 200;
+}
+.save-toast.show { opacity: 1; }
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Figure Lane Issues</h1>
+  <div class="progress" id="progress">23/25 resolved | 2 pending | 0 needs review</div>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="pending">Pending</button>
+    <button class="filter-btn" data-filter="decided">Decided</button>
+    <button class="filter-btn" data-filter="agreed">Agreed</button>
+    <button class="filter-btn" data-filter="review">Needs Review</button>
+  </div>
+  <button class="ctrl-btn" id="expandAll">Expand All</button>
+  <button class="ctrl-btn" id="collapseAll">Collapse All</button>
+  <button class="ctrl-btn" id="saveFile" style="background:rgba(34,197,94,.2);color:#4ade80;border-color:rgba(34,197,94,.4);font-weight:600;">Save to File</button>
+</div>
+
+<div class="search-wrap">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search issues...">
+</div>
+
+<div class="container" id="container"><div class="card" data-id="1" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">1</span>
+        <span class="card-title">Mechanical validation 是否要獨立步驟</span>
+        <span class="badge" data-status="decided" data-id="1">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="1">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="1">
+          
+<p>SKILL.md 流程寫的是 <code>worker → mechanical validate → reviewer → (repair → reviewer) loop</code>，但三個 subagent prompt 已經各自內建 validation。獨立的 <code>validate_figures.py</code> 步驟插在 merge 和 review 之間，目前是空的（script 不存在）。</p>
+<p><strong>提案：</strong>刪除獨立 mechanical validation 步驟，新流程：</p>
+<pre>extract → parent merge（含 sanity check）→ review → (repair → parent merge → review) loop → close</pre>
+<p>Parent merge 時做輕量 sanity check。Reviewer 結尾仍然跑 <code>validate_figures.py</code> 做完整 mechanical validation。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 不再 spawn 獨立 agent 做 validation，改成 parent 自己跑 script。Reviewer validator 降為 optional self-check。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意刪掉「像 agent step 一樣獨立存在的 mechanical validation」，但<strong>不同意刪掉 parent-level canonical mechanical validation</strong>。</p>
+<p>原因：extractor / reviewer / repair 裡面的檢查只證明各自 local output 合理，不能保證 parent merge 後的 canonical truth 沒有 path rewrite、missing file、stale hash 等問題。</p>
+<p>解決方案：</p>
+<pre>extract → parent merge → parent canonical mechanical validation
+→ review → repair → parent repair merge
+→ parent canonical mechanical validation → review again → close</pre>
+<p>Reviewer 可以跑 helper/validator 當輔助，但正式 gate validation report 應由 parent 寫入 <code>lanes/figures/validation/</code>。</p>
+<p><strong>Implementation 方案：</strong>parent 只在兩個時間點寫正式 validation report：extraction merge 後寫 <code>figures_mechanical_validation.json</code>，repair merge 後覆寫同一份或另寫 <code>figures_mechanical_validation_round_N.json</code>。Reviewer prompt 裡的 validator command 改成 optional self-check，且不得把 self-check 視為 gate authority。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意你的統一驗證模型：所有 agent（worker/reviewer/repair）都要 1) merge 前 individual validate 2) merge 後 canonical validate。這寫進 SKILL.md 通用規則。</p>
+<p>codex 的三層模型和這完全一致。Parent 在兩個時間點跑 canonical validation（extraction merge 後 + repair merge 後）。Reviewer validator 降為 optional self-check，self-check 結果不得寫入 <code>validation/</code>。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="1" placeholder="Write your thoughts here...">worker, review 和 repair 都應該要可以 divide and merge.
+也因此都要可以
+1. merge 前證明各自 local output 合理
+2. merge 後保證 parent merge 後的 canonical truth 合理</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="2" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">2</span>
+        <span class="card-title">Extraction divide 策略</span>
+        <span class="badge" data-status="decided" data-id="2">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="2">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="2">
+          
+<p>SKILL.md 說「worker, reviewer, repair 都可以將工作分配給好幾個 agent」，但沒寫具體怎麼切。跨頁 figure 可能被切到不同 worker。</p>
+<p><strong>提案：</strong>短 PDF（≤ 8 頁）單一 worker 不 divide。長 PDF 按頁碼範圍切，每個 worker 至少 4 頁。跨頁 figure 由 parent merge 時偵測，必要時補 spawn worker。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> MVP 用 single worker，不 divide。Ownership rule 留 phase-2。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意 single-worker fast path 和補充 worker 處理 cross-page figure。</p>
+<p>建議補一句 <strong>ownership rule</strong>：</p>
+<pre>Default ownership:
+  figure belongs to the worker whose assigned pages
+  contain the primary caption.
+  If caption unavailable, use first/primary visual region page.
+  If ambiguous, parent spawns supplemental worker
+  or blocks for human decision.</pre>
+<p><strong>Implementation 方案：</strong>MVP 先把 <code>extraction_worker_count</code> 固定為 1。Phase-2 才讓 parent 寫 <code>lanes/figures/extraction_assignments.json</code>，內容包含每個 worker 的 pages、context_pages、owned_figure_labels。補充 worker 使用 <code>worker_supplemental_XX</code>，避免和原 page-range worker 混淆。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>MVP 用單一 worker。建立 <code>multiworker_to_do.md</code> 存放 ownership rule、page-range divide、cross-page figure 等 multi-worker 議題。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="2" placeholder="Write your thoughts here...">先使用單一 worker。另外創建一份檔案
+multiworker_to_do.md</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="3" data-status="pending">
+      <div class="card-header">
+        <span class="card-num">3</span>
+        <span class="card-title">Extraction merge 邏輯</span>
+        <span class="badge" data-status="pending" data-id="3">待決策</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="3">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="3">
+          
+<p>多個 worker 各自寫 <code>worker_output/worker_&lt;ID&gt;/</code> 下的四份 JSON + crops + previews，parent 需要 merge 到 <code>canonical/</code>。SKILL.md 沒有寫 merge 的具體邏輯。</p>
+<p><strong>提案：</strong>衝突偵測 → 合併 JSON → 路徑改寫 → 複製到 canonical → Sanity check。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Option A 定案：保留 worker_output/worker_XX，實作 v2-aware merge script。Single-worker 和 multi-worker 走同一流程。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p><strong>同意 Option A：</strong>MVP 保留 <code>worker_output/worker_XX</code>，不改成 <code>batches/batch_XX</code>。</p>
+<p>原因：三份 figure prompts 已經用 <code>worker_output</code> 寫完整 examples；而且現有 <code>merge_batch_manifests.py</code> 本來就不支援 v2 <code>crop_units[]</code>。所以即使改回 <code>batches</code>，merge script 還是要重寫。MVP 讓 script 配合目前 prompts，成本最低。</p>
+<p><strong>Implementation 方案：</strong>新增 v2-aware <code>merge_figure_extractions.py</code>。Single-worker fast path 也走同一支 merge script，不做手工 promote。這樣未來 multi-worker 只是增加 input dirs，不會重寫流程。</p>
+<p><strong>回應你的 note：</strong>同意 single-worker MVP 不需要真正的 conflict merge。這裡的 merge 應該理解成 deterministic promote：搬 final crop/previews 到 canonical、更新 canonical JSON path、寫 merge report。它不應該修改視覺判斷、figure inventory 或 crop geometry。Multi-worker 的 deconflict / reconcile 規則可以獨立寫進 <code>multiworker_to_do.md</code>。</p>
+<p>Path rewrite 規則：所有 canonical JSON path 都用 <code>&lt;paper_dir&gt;</code> relative path；final crop PNG 和 previews 改到 canonical，worker-local evidence 可依 issue 20 的決議留在 <code>worker_output</code>。</p>
+<pre>python3 agents/scripts/merge_figure_extractions.py   --paper-dir "&lt;paper_dir&gt;"   --workers-dir "&lt;paper_dir&gt;/lanes/figures/worker_output"   --canonical-dir "&lt;paper_dir&gt;/lanes/figures/canonical"   --pages-manifest "&lt;paper_dir&gt;/shared/pages/pages_manifest.json"   --report "&lt;paper_dir&gt;/lanes/figures/validation/figures_merge_report.json"</pre>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>贊成 Option A。Single worker merge = 搬運，不寫 merge script。搬運步驟：</p>
+<pre>1. cp worker_output/worker_01/ 的 crop PNGs → canonical/
+2. cp previews/ → canonical/previews/
+3. JSON 路徑 worker_output/worker_01/ 替換成 canonical/
+4. parent 跑 sanity check</pre>
+<p>Multi-worker merge 邏輯寫進 <code>multiworker_to_do.md</code>。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="3" placeholder="Write your thoughts here...">贊成  Option A（保留 worker_output，寫新 merge script）
+因為現在是 single worker，因此 merge 只要搬運就好，不用修改任何東西
+之後要如何 merge 可以寫進 multiworker_to_do.md</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="4" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">4</span>
+        <span class="card-title">Review → repair_requests_merged.json 轉換</span>
+        <span class="badge" data-status="agreed" data-id="4">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="4">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="4">
+          
+<p>Reviewer 寫出 <code>visual_review.json</code>，repair agent 讀取 <code>repair_requests_merged.json</code>。中間的轉換由 parent 做，但沒有寫在任何地方。</p>
+<p><strong>提案：</strong>Parent 從 reviewer output 產生 repair input：讀取 visual_review → 收集 fail entries → dedup → 分派 repair_id → 寫 repair_requests_merged.json → 建立 before_snapshot。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 按提案執行。Parent 負責從 visual_review.json 機械產生 repair_requests_merged.json。Conflict directions 保留為多個 requests 不 dedup。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意。這是 parent 最需要補的機械轉換之一。</p>
+<p><strong>Implementation 方案：</strong>新增 parent helper <code>build_figure_repair_requests.py</code>，只做 deterministic conversion，不做視覺判斷。</p>
+<pre>python3 agents/scripts/build_figure_repair_requests.py   --paper-dir "&lt;paper_dir&gt;"   --review-round 0   --repair-round 1   --write "&lt;paper_dir&gt;/lanes/figures/repairs/round_01/repair_requests_merged.json"</pre>
+<p>Dedup key 建議用 <code>figure_id + sorted(crop_ids) + action + sorted(direction)</code>。同一 figure 的所有 requests 分給同一個 repair worker。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>before_snapshot 由 parent 在 dispatch repair 前建立：</p>
+<pre>1. 複製 canonical/ 所有 writable files → repairs/round_01/before_snapshot/
+2. 計算每個檔案 SHA-256 → repairs/round_01/before_snapshot.json
+3. 寫 repair_requests_merged.json
+4. 才 spawn repair worker</pre>
+<p>目的：repair merge 搞壞 canonical 時可以恢復。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="4" placeholder="Write your thoughts here...">同意，不過 before_snapshot 是怎麼來的？</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="5" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">5</span>
+        <span class="card-title">Repair merge 邏輯</span>
+        <span class="badge" data-status="decided" data-id="5">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="5">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="5">
+          
+<p>Repair agent 寫在 <code>repair/round_&lt;N&gt;/repair_&lt;ID&gt;/</code>，parent 要把修好的東西 merge 回 canonical。repair_report.json 已設計好 <code>repair_output</code> + <code>canonical_target</code>，但 parent 怎麼做沒寫。</p>
+<p><strong>提案：</strong>讀取 repair_report → 對 repaired/manifest_corrected entries 複製檔案、更新 JSON → 確認一致性 → 寫 after_snapshot → 跑 canonical validation → 收集 requires_review figure_ids。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 同意 manifest_patches 是必要的，使用 Claude 建議的簡化格式（無 JSONPath）+ Codex 的 allowlist。需更新 figure_repair.md。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意整體流程。但 <code>manifest_corrected</code> 不能只靠自然語言描述——parent 不能做 content judgment。</p>
+<p>解決方案：<code>repair_report.json</code> 增加 <strong>machine-readable patch</strong>：</p>
+<pre>{
+  "manifest_patches": [{
+    "target_file": "..../figure_decisions.json",
+    "figure_id": "Figure_2",
+    "json_path": "$.figures[?figure_id=='Figure_2'].expected_panels",
+    "old_value": ["A","B","C"],
+    "new_value": ["A","B"],
+    "reason": "Panel C was not visible in source evidence."
+  }]
+}</pre>
+<p><strong>看完 Claude 後更新：</strong>同意不要用 JSONPath。MVP 用簡化 patch schema：<code>target_file</code> + <code>figure_id</code> + optional <code>crop_id</code> + <code>field</code> + old/new value。</p>
+<p><strong>Implementation 方案：</strong>parent merge script 只接受 allowlist fields，例如 figure-level <code>caption_text</code>、<code>expected_panels</code>、<code>exclusions</code>、<code>rationale</code>，crop-unit-level <code>crop_px</code>、<code>image_file</code>、<code>preview</code>、<code>edge_previews</code>、<code>role</code>。其他 field 一律 block，避免 repair worker 任意改 manifest。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>MVP repair merge = 搬運。repair_report.json 已有 <code>repair_output</code> + <code>canonical_target</code>，parent 照著搬就好。Multi-worker repair merge → <code>multiworker_to_do.md</code>。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="5" placeholder="Write your thoughts here...">因為現在是 single worker，因此 merge 只要搬運就好，不用修改任何東西
+之後要如何 merge 可以寫進 multiworker_to_do.md</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="6" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">6</span>
+        <span class="card-title">Gate / close 條件</span>
+        <span class="badge" data-status="decided" data-id="6">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="6">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="6">
+          
+<p>SKILL.md 只寫了 <code>while needs repair</code> 但沒定義結束/close 條件、最多幾輪（SKILL 寫 4，舊 pipeline 寫 3）、override 條件。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 用 codex 的 close gate 條件。figures.json.status 降為輔助條件。Gate truth 來自 validation + review + hash freshness 的交集。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意需要 close gate，但 <code>figures.json.status == "complete"</code> 應<strong>降級成輔助條件</strong>。真正的 gate truth：</p>
+<pre>Figure lane close requires:
+  - latest canonical mechanical validation passes
+  - latest review round covers every canonical figure_id
+  - every reviewed crop hash matches current canonical crop
+  - every reviewed figure decision == pass
+  - no unresolved required repair request remains
+  - repair round limit not exceeded, or explicit human override</pre>
+<p><strong>Implementation 方案：</strong>parent 寫一份 gate report，例如 <code>lanes/figures/validation/figure_lane_close_gate.json</code>，列出每個 requirement 的 pass/fail、evidence paths、unresolved findings。這份 report 再同步 append 到 <code>trace/gates.jsonl</code>。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>Gate = parent 的決策點，不是 agent 也不是 script。Parent 讀 JSON status + crop hash 做 binary decision（繼續 or 停）。Figure lane 有三個 gate：</p>
+<ol>
+<li><strong>Extraction merge gate</strong>：worker 完成 → parent merge → canonical validation → pass 才進 review</li>
+<li><strong>Review round gate</strong>：reviewer 完成 → parent 讀 visual_review.json → all pass 就 close，有 fail 就進 repair</li>
+<li><strong>Lane close gate</strong>：最後一輪 review pass → parent 檢查 6 個條件 → pass 就回報完成</li>
+</ol>
+<p>Parent 不 spawn gate agent。判斷依據只有 JSON fields + hash，不需要視覺判斷。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="6" placeholder="Write your thoughts here...">gate 是什麼？是誰在管？是 agent 還是 script？</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="7" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">7</span>
+        <span class="card-title">Shared helpers 未定義</span>
+        <span class="badge" data-status="decided" data-id="7">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="7">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="7">
+          
+<p>三個 subagent prompts 都提到 helpers（render、preview、crop、edge），但沒有定義它們是什麼。</p>
+<p><strong>提案：</strong>兩個選擇——A. Python scripts（推薦）B. Agent 自己用 tool 做。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 使用 Python scripts。盤點現有 scripts，分類 existing / needs update / may add。新增 crop_edge_previews.py 封裝 4 邊裁切。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意使用 Python scripts。但 repo 內<strong>已經有部分 shared helpers</strong>：</p>
+<pre>Existing:
+  skills/_shared/scripts/render_pages.py
+  skills/_shared/scripts/make_image_preview.py
+  skills/_shared/scripts/crop_region.py
+
+Needs v2 update:
+  skills/_shared/scripts/validate_figures.py
+
+May add:
+  skills/_shared/scripts/crop_edge_previews.py
+  skills/_shared/scripts/merge_figure_extractions.py</pre>
+<p><strong>Implementation 方案：</strong>先新增 <code>crop_edge_previews.py</code>，把 edge raw crop + preview 的兩步封裝起來，避免三個 agents 各自手寫上/下/左/右邊界裁切。CLI 可吃 <code>--crop-png</code>、<code>--output-dir</code>、<code>--edge-width</code>、<code>--max-dim</code>，輸出一個 JSON manifest 給 agent 寫入 evidence。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>贊成用 existing scripts。</p>
+<p>需要 validate review 和 validate repair 嗎？—— MVP 不需要獨立 script。Parent 自己做幾個 mechanical check 就夠：</p>
+<ul>
+<li>Review：JSON parsable、每個 canonical figure_id 都被 review 覆蓋、crop_hashes 有值、fail 的有 repair_request</li>
+<li>Repair：JSON parsable、每個 assigned request_id 都有 entry、repaired 的有 repair_output 且檔案存在</li>
+</ul>
+<p>如果 check 邏輯變複雜，再抽成 script。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="7" placeholder="Write your thoughts here...">贊成
+Existing:
+  skills/_shared/scripts/render_pages.py
+  skills/_shared/scripts/make_image_preview.py
+  skills/_shared/scripts/crop_region.py
+
+Needs v2 update:
+  skills/_shared/scripts/validate_figures.py
+
+需要 validate review 和 validate repair 嗎？</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="8" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">8</span>
+        <span class="card-title">Init 與 render pages 流程</span>
+        <span class="badge" data-status="agreed" data-id="8">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="8">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="8">
+          
+<p>SKILL.md 提到 <code>render_pages.py</code> 和 init，但都不存在。Figure lane 的第一步是「確保 shared/pages/page_N.png 存在」。</p>
+<p><strong>提案：</strong>Init 流程：建立目錄結構 → 複製 PDF → render pages（300 DPI）→ render previews → 寫 manifests → 寫 source_info.json。這是 pipeline 前置步驟，不是 figure lane 的一部分。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Init + render pages 寫成 pipeline 的 step 0 前置步驟。MVP parent 直接呼叫現有 scripts。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意。</p>
+<p><strong>更新立場：</strong>看完 Claude 和你的 note 後，我同意 MVP 先不要新增 <code>init_figure_lane.py</code> wrapper。Step 0 應該由 parent 明確逐步執行，這樣第一版比較容易 debug，也比較容易看出是哪個 helper 壞掉。</p>
+<p><strong>Implementation 方案：</strong>把 step 0 直接寫進 <code>SKILL.md</code> 的 parent workflow：mkdir 固定目錄、複製 source PDF、呼叫 <code>render_pages.py</code>、逐頁呼叫 <code>make_image_preview.py</code>，最後由 parent 寫 <code>source_info.json</code>、<code>pages_manifest.json</code>、<code>previews_manifest.json</code>。</p>
+<p>注意：現有 <code>render_pages.py</code> 會輸出 page PNG paths，但不寫 manifest；這個 manifest 由 parent 補。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。MVP parent 直接呼叫現有 scripts 做 init，不寫 wrapper。SKILL.md 列出 init 步驟。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="8" placeholder="Write your thoughts here...">同意</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="9" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">9</span>
+        <span class="card-title">Trace 和 artifact registry</span>
+        <span class="badge" data-status="decided" data-id="9">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="9">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="9">
+          
+<p>SKILL.md 列了 trace 檔案但沒寫 parent 什麼時候寫什麼。提案：暫時不要求 trace，之後再加。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Phase-1 保留最小 trace（3 類 JSONL 事件）。Artifact registry 留 phase-2。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意完整 trace 可 phase-2，但建議保留<strong>最小 gate log</strong>，不然 repair loop debug 會很痛。</p>
+<pre>trace/agents.jsonl:
+  extractor/reviewer/repair spawned and completed
+trace/gates.jsonl:
+  figure_review_round_N pass/fail/blocked
+  figure_lane_close pass/fail/blocked
+trace/run.jsonl:
+  merge_completed / validation_completed / repair_merge_completed</pre>
+<p>Artifact registry 可以 phase-2。</p>
+<p><strong>Implementation 方案：</strong>每個 JSONL event 先用固定最小欄位：<code>timestamp</code>、<code>event</code>、<code>lane</code>、<code>phase</code>、<code>status</code>、<code>paths</code>、<code>notes</code>。不要一開始就做完整 registry schema，先讓 repair loop 有 breadcrumb。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意 Codex 方案：phase-1 保留最小 trace（agents.jsonl + gates.jsonl + run.jsonl），artifact registry 留 phase-2。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="9" placeholder="Write your thoughts here...">同意 Codex 方案 </textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="10" data-status="pending">
+      <div class="card-header">
+        <span class="card-num">10</span>
+        <span class="card-title">目錄結構和 subagent prompts 的 review/repair 路徑</span>
+        <span class="badge" data-status="pending" data-id="10">待決策</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="10">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="10">
+          
+<p>SKILL.md 和舊 pipeline 的路徑結構不相容。Subagent prompts 和新 SKILL.md 一致。</p>
+<p><strong>提案：</strong>以新 SKILL.md 和 subagent prompts 為準。舊 pipeline 的 <code>batches/</code> 結構不用了。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Option A 定案。repair/ → repairs/（plural）。一次更新 figure_repair.md 和 SKILL.md。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p><strong>不同意直接定案</strong>，應改成 decision issue：</p>
+<pre>Option A: Keep hand-written layout
+  extraction: worker_output/worker_XX
+  review: reviews/round_XX/reviewer_XX
+  repair: repairs/round_XX/repair_XX
+  → requires new merge_figure_extractions.py
+
+Option B: Align with shared scripts
+  extraction: batches/batch_XX
+  review: reviews/round_XX/batches/batch_YY.json
+  repair: repairs/round_XX/
+  → can reuse/adapt merge_batch_manifests.py</pre>
+<p>另外建議 <code>repair/</code> 改成 <code>repairs/</code>（plural）。</p>
+<p><strong>看完 Claude 後更新：</strong>MVP 我贊成 Option A：保留 <code>worker_output/worker_XX</code>，review/repair 保持 evidence-heavy directory structure，並把 <code>repair/</code> 統一改成 <code>repairs/</code>。</p>
+<p><strong>Implementation 方案：</strong>一次更新 <code>SKILL.md</code>、<code>figure_extractor.md</code>、<code>figure_reviewer.md</code>、<code>figure_repair.md</code> 的路徑命名，避免 HTML 討論定案但 prompts 還使用舊 plural/singular。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>Keep hand-written layout。三方同意 Option A。<code>repair/</code> → <code>repairs/</code>。需要一次更新 <code>figure_repair.md</code> 和 <code>SKILL.md</code> 的路徑。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="10" placeholder="Write your thoughts here...">Keep hand-written layout</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="11" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">11</span>
+        <span class="card-title">最大 repair rounds 數字不一致</span>
+        <span class="badge" data-status="agreed" data-id="11">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="11">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="11">
+          <p>SKILL.md（新）寫 4，舊 pipeline 寫 3。</p><p><strong>提案：</strong>統一為 4。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 統一為 4。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意。</p>
+<p><strong>Implementation 方案：</strong>把 <code>max_repair_rounds: 4</code> 寫成 figure lane policy，而不是散在文字裡。Parent repair loop 只看這個常數；達到第 4 輪仍 fail 時輸出 blocked，需要 human override 才能繼續。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。max repair rounds = 4。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="11" placeholder="Write your thoughts here...">同意</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="12" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">12</span>
+        <span class="card-title">validate_figures.py 的 interface</span>
+        <span class="badge" data-status="decided" data-id="12">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="12">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="12">
+          
+<p><code>figure_reviewer.md</code> 已引用 <code>validate_figures.py</code>，但 script 偏舊 schema。需定義它檢查什麼。</p>
+<p><strong>提案：</strong>檢查 canonical JSON parsable、crop_units 一致、image_file 存在、crop_px 在頁面範圍、preview/edge_previews 存在、ID 不重複等。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 更新現有 validate_figures.py 支援 v2（Option A），不另寫新 script。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>方向同意，但「script 不存在」應改為「<strong>script 已存在但不相容 v2 schema</strong>」。</p>
+<pre>Option A: update validate_figures.py to support v2
+Option B: add validate_figures_v2.py, keep old for legacy</pre>
+<p><strong>更新立場：</strong>我同意你的 note：現在是 hand-written lane 重做，不需要 legacy compatibility mode。保留 legacy 只會讓 validator 變成兩套隱性規則，反而拖慢 MVP。</p>
+<p><strong>Implementation 方案：</strong>直接更新現有 <code>skills/_shared/scripts/validate_figures.py</code> 支援 v2，預設只接受 <code>figure_extraction.v2</code>。如果輸入是舊 schema，就清楚 fail：<code>unsupported_schema</code>，不要 auto-detect 後默默走另一條路。</p>
+<p>v2 validator 先分兩層：<code>--mechanical-only</code> 只檢查 canonical extraction artifacts；不加此 flag 時可搭配 <code>--review-json</code> 檢查 review freshness、crop hashes、all-pass decision。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>打掉重來。<code>validate_figures.py</code> 直接改寫成只支援 v2，不保留 legacy code path，不做 auto-detect，不加 <code>--schema-version</code> flag。以 <code>figure_extractor.md</code> 的 JSON examples 為 v2 contract。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="12" placeholder="Write your thoughts here...">我不在乎 legacy compatibility mode。現在就是打掉重來</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="13" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">13</span>
+        <span class="card-title">單 worker 快速路徑</span>
+        <span class="badge" data-status="agreed" data-id="13">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="13">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="13">
+          
+<p>大部分情況下不需要平行化。但 SKILL.md 的流程暗示總是要 divide/merge。</p>
+<p><strong>提案：</strong>PDF ≤ 8 頁或未指定平行數量時用單一 worker。Merge 簡化為直接 promote。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Single-worker 為 default，多 worker 為 optional 升級。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>同意。</p>
+<p><strong>Implementation 方案：</strong>即使 single-worker，也不要讓 parent 直接把 <code>worker_output/worker_01</code> 當 canonical 用。仍然跑 <code>merge_figure_extractions.py</code>，只是 input 只有一個 worker。這樣 single-worker 和 multi-worker 只有 input 數量不同，流程不分叉。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。Single-worker 為 default。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="13" placeholder="Write your thoughts here...">同意</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="14" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">14</span>
+        <span class="card-title">Figure-only mode 沒有明確定義</span>
+        <span class="badge" data-status="agreed" data-id="14">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="14">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="14">
+          <p>SKILL.md 描述完整 paper reconstruction pipeline，但目標是先讓 figure lane 跑起來。需要明確的 <code>figure_lane_only</code> mode。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> figure_lane_only 寫成 SKILL.md 的 default mode。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>在 SKILL.md 補上 mode：</p>
+<pre>figure_lane_only:
+  init paper_dir → render pages/previews
+  → run figure extraction → parent merge
+  → parent canonical validation → run figure review
+  → run repair loop if needed → close figure lane
+  → stop and report figure artifacts</pre>
+<p>此 mode 的 final response 只回報 figure lane artifacts，不要求輸出 final paper.md / paper.html。</p>
+<p><strong>Implementation 方案：</strong><code>SKILL.md</code> 先把 full pipeline 標成 future，預設執行 <code>figure_lane_only</code>。Parent final response template 固定回報：canonical path、figure count、validation status、review status、repair rounds、blocked findings。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>贊成。<code>figure_lane_only</code> 寫成 SKILL.md 的 default mode（或唯一 mode），full_pipeline 標 future。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="14" placeholder="Write your thoughts here...">贊成 figure_lane_only 寫成 SKILL.md 的 default mode</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="15" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">15</span>
+        <span class="card-title">Figure v2 schema 需要正式定案</span>
+        <span class="badge" data-status="agreed" data-id="15">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="15">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="15">
+          <p>Subagent prompts 已實質採用 <code>figure_extraction.v2</code>，但 shared validator / old schema references 還偏舊格式。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 正式採用 v2 schema。定義來源是 figure_extractor.md 的 JSON examples。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>v2 schema 的核心決策包括：<code>crop_units[]</code>、candidate 使用 <code>crop_hint_px</code>、不在 figure 層寫 derived fields、paths 使用 <code>&lt;paper_dir&gt;</code> relative artifact path。</p>
+<p>需在 SKILL.md 或獨立文件明確寫：</p>
+<pre>The figure lane uses figure_extraction.v2 as the canonical schema.
+Legacy figure schema is not accepted for new hand-written figure lane runs.
+All validators and merge scripts must support v2 crop_units.</pre>
+<p><strong>Implementation 方案：</strong>不要再讓 validator 依賴舊 <code>figure_schemas.md</code> 的 field list。短期把 v2 field contract 集中在 <code>figure_extractor.md</code>，validator 的 v2 checks 直接以該 prompt 的 examples 為準；等 MVP 跑通再抽成正式 JSON schema。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong><code>figure_extractor.md</code> 的 JSON examples 就是 v2 schema 規範來源。當作沒有 <code>figure_schemas.md</code>。SKILL.md 開頭加一行指向 <code>figure_extractor.md</code>。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="15" placeholder="Write your thoughts here...">直接把 figure_extractor.md 裡的 JSON examples 視為 v2 schema 的規範來源（它已經是了）。請當作沒有figure_schemas.md</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="16" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">16</span>
+        <span class="card-title">Reviewer output 有 visual_review 和 review_batch 兩種格式</span>
+        <span class="badge" data-status="decided" data-id="16">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="16">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="16">
+          <p><code>figure_reviewer.md</code> 產生 <code>visual_review.json</code>（figure-specific），但 gate policy 使用 <code>review_batch.schema.json</code>（generic）。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> MVP 只用 visual_review.json。Generic review_batch 留 phase-2。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>短期保留 <code>visual_review.json</code> 作為 figure-specific truth，parent 再產生 gate-level review batch。MVP 先只用 <code>visual_review.json</code>，SKILL.md 註明 generic <code>review_batch</code> 是 phase-2。</p>
+<p><strong>Implementation 方案：</strong>parent close gate 直接讀 <code>reviews/round_N/reviewer_01/visual_review.json</code>。Phase-2 再新增 <code>visual_review_to_review_batch.py</code>，薄薄包一層 summary，不改 reviewer 的 detailed output。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>使用 <code>visual_review.json</code>。MVP 不用 <code>review_batch</code> wrapper。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="16" placeholder="Write your thoughts here...">使用 visual_review.json</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="17" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">17</span>
+        <span class="card-title">Repair handoff 有兩種格式</span>
+        <span class="badge" data-status="decided" data-id="17">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="17">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="17">
+          <p>Repair prompt 讀 <code>repair_requests_merged.json</code>（figure-specific），old/new pipeline 使用 <code>repair_manifest.json</code>（generic）。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> MVP 用 repair_requests_merged.json。Generic wrapper 留 phase-2。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>MVP 先用 <code>repair_requests_merged.json</code>；目錄和命名預留 generic manifest。如果產生 <code>repair_manifest.json</code>，它引用 <code>repair_requests_merged.json</code>。</p>
+<p><strong>Implementation 方案：</strong>repair worker prompt 只吃 figure-specific file。Parent 如果要寫 <code>repair_manifest.json</code>，它只是 gate wrapper，不是 repair worker 的 primary input。這可以避免 repair worker 同時解析兩套 contract。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>使用 <code>repair_requests_merged.json</code>。MVP 不用 <code>repair_manifest</code> wrapper。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="17" placeholder="Write your thoughts here...">使用 repair_requests_merged.json</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="18" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">18</span>
+        <span class="card-title">Agent dispatch prompt template 缺失</span>
+        <span class="badge" data-status="decided" data-id="18">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="18">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="18">
+          <p>SKILL.md 應明確定義 parent spawn agent 時要塞進 prompt 的 concrete context。否則每次跑法會漂。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 需要 dispatch template，包含必填欄位和 forbidden write paths。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>新增 dispatch template。必填欄位：</p>
+<pre>Extractor: paper_dir, worker_id, assigned pages,
+  allowed write dir, helper paths, required outputs, forbidden paths
+
+Reviewer: paper_dir, review_round, reviewer_id,
+  assigned figure_ids, canonical dir, allowed output dir, helper paths
+
+Repair: paper_dir, repair_round, repair_id,
+  repair_requests_merged.json, assigned request_ids,
+  canonical dir (read), repair-local output dir (write)</pre>
+<p><strong>Implementation 方案：</strong>把 dispatch template 寫進 <code>SKILL.md</code> 的「Parent dispatch」段落，不另開新檔。每次 spawn agent 前 parent 都要填一段 literal assignment block，避免 subagent 從泛用 prompt 猜路徑。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。Dispatch template 寫進 SKILL.md，包含必填欄位和 forbidden write paths。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="18" placeholder="Write your thoughts here...">同意</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="19" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">19</span>
+        <span class="card-title">Empty figure scope 和 incomplete status 的 policy</span>
+        <span class="badge" data-status="agreed" data-id="19">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="19">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="19">
+          <p><code>figures.json.status == "incomplete"</code> 和「某 batch 沒有 figures」需要明確 policy。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 區分 mechanical incomplete（block）和 visual incomplete（可 promote，由 reviewer/repair 處理）。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<pre>Empty batch: allowed if assigned scope had no expected figures
+  and all four JSON files exist.
+
+Mechanical incomplete: missing/invalid JSON, missing crop image,
+  invalid path, crop_px out of bounds
+  → do not promote; fix or respawn extractor.
+
+Visual incomplete: artifacts mechanically valid
+  but verification.result == fail
+  → may promote, but lane cannot close;
+    reviewer/repair must handle.</pre>
+<p><strong>Implementation 方案：</strong>v2 validator 回傳兩個 status：<code>mechanical_status</code> 和 <code>visual_declared_status</code>。Parent merge gate 只看 mechanical；lane close gate 才看 reviewer visual pass。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。區分 mechanical incomplete（block）和 visual incomplete（可 promote，reviewer/repair 處理）。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="19" placeholder="Write your thoughts here...">同意</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="20" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">20</span>
+        <span class="card-title">Source regions / edges / previews 的 canonical placement</span>
+        <span class="badge" data-status="decided" data-id="20">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="20">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="20">
+          <p>Parent merge 不只要合併 final crop PNG，還要決定 extractor evidence files 在 canonical 裡怎麼放。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> MVP canonical 只放 crop PNGs + previews。source_regions 和 edges 是否 promote 留 phase-2。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>Canonical 保留 evidence，使用 collision-safe names。規則：</p>
+<pre>All canonical JSON paths are relative to &lt;paper_dir&gt;.
+All copied evidence files must have collision-safe canonical names.
+Parent path rewrite must update image_file, preview,
+  edge_previews, source_image, source_preview.</pre>
+<p><strong>看完 Claude 後更新：</strong>MVP 我接受 canonical 只 promote crop PNGs + previews。<code>source_regions/</code> 和 full-res <code>edges/</code> 可留在 <code>worker_output/</code> 作 trace evidence。</p>
+<p><strong>Implementation 方案：</strong>canonical JSON 中 final crop paths 必須改成 canonical；candidate source_region paths 可以保留 worker_output relative path，但 validator 只檢查它們存在，不要求位於 canonical。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。Single worker merge = 搬運。Canonical 放 crop PNGs + previews。<code>source_regions/</code> 和 <code>edges/</code> 留在 <code>worker_output/</code>。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="20" placeholder="Write your thoughts here...">同意，不過現在是 single worker，因此 merge 只要搬運就好，不用修改任何東西</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="21" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">21</span>
+        <span class="card-title">V2 merge script 和 validator review shape 需要一起更新</span>
+        <span class="badge" data-status="agreed" data-id="21">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="21">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="21">
+          <p><code>validate_figures.py</code> 不只要支援 v2 extraction schema，也要支援 v2 reviewer schema。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Validator 和 merge script 同步升級 v2。是 MVP blocker。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>v2 validator 應檢查 per-crop-unit evidence：</p>
+<pre>For each canonical crop_units[].crop_id:
+  appears once in source_edge_previews_read.crop_units
+  appears once in crop_previews_read.crop_units
+  appears once in edge_checks.crop_units
+  appears in crop_hashes
+  every edge has source_evidence and crop_evidence
+  recorded crop hash matches current canonical crop</pre>
+<p><strong>Implementation 方案：</strong>先讓 validator 接 <code>--review-json</code>，parent 傳入最新 review path。這樣 <code>visual_review.json</code> 不必搬進 canonical，也能做 hash freshness check。</p>
+<p><strong>回應你的 note：</strong>同意 validator 要先升級，single-worker 的 merge 在 MVP 只是搬運/改 canonical paths，不做複雜 reconcile。也因此這條的實作順序應該是：先定 v2 validator 的輸入/輸出，再寫 merge script 去產生 validator 能吃的 canonical shape。</p>
+<p><strong>MVP 順序：</strong>1) <code>validate_figures.py</code> v2 mechanical checks；2) single-worker <code>merge_figure_extractions.py</code> promote；3) review freshness checks；4) multi-worker merge 留到 <code>multiworker_to_do.md</code>。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>先升級 validator（打掉重來只支援 v2），merge 就是搬運。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="21" placeholder="Write your thoughts here...">先升級 validator 
+merge 就是搬運</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="22" data-status="agreed">
+      <div class="card-header">
+        <span class="card-num">22</span>
+        <span class="card-title">Parent 不應用自己的 judgment 補 artifacts</span>
+        <span class="badge" data-status="agreed" data-id="22">已同意</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="22">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="22">
+          <p>應該把 parent boundary 寫得更硬。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Parent boundary 寫成 SKILL.md hard rule。遇到需要 judgment 的 conflict 一律 block。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<pre>Parent can:
+  copy files, rewrite paths, merge JSON lists,
+  validate schema, hash files, snapshot canonical,
+  assign work, apply machine-readable patches
+
+Parent cannot:
+  invent crop_px, decide visual pass/fail,
+  invent defects, invent expected_panels,
+  choose between conflicting crops by visual quality,
+  invent scientific values or captions
+
+Conflict → block, spawn resolving agent, or ask human.</pre>
+<p><strong>Implementation 方案：</strong>parent merge scripts 實作時採 allowlist：只有明確列入的 JSON fields 可以 mechanical update；遇到 duplicate figure、conflicting crop、unknown patch field，一律輸出 merge report status <code>blocked</code>。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意。Parent boundary 寫進 SKILL.md 作為 hard rule。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="22" placeholder="Write your thoughts here...">同意。這應該寫進 SKILL.md 作為 hard rule</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="23" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">23</span>
+        <span class="card-title">Reviewer / repair / parent 的 validator responsibility</span>
+        <span class="badge" data-status="decided" data-id="23">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle " data-id="23">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content " data-id="23">
+          <p>正式 gate validation 應該由誰負責。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> Reviewer 可跑 validator 作為 optional self-check。Parent owns gate authority 和 validation/ 目錄。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<pre>Extractor:  local self-check before reporting complete
+Repair:     repair-local self-check before reporting complete
+Reviewer:   writes visual review; may run helper checks as support
+Parent:     runs canonical mechanical validation after merges;
+            validates review freshness/hash before close;
+            writes official validation reports under validation/</pre>
+<p><strong>Implementation 方案：</strong>修改 <code>figure_reviewer.md</code>：把「必定執行 final validator」改成「可執行 validator 作 optional self-check」。同時在 <code>SKILL.md</code> 寫清楚：只有 parent 可以寫 official <code>lanes/figures/validation/*.json</code> gate reports。</p>
+<p><strong>補充你的 divide/merge contract：</strong>同意 worker、review、repair 三段都要有同一種證明節奏：</p>
+<pre>Before parent merge:
+  each worker/reviewer/repairer writes local report
+  and optionally local self-check evidence inside its own dir.
+
+After parent merge:
+  parent runs official validation against canonical truth
+  and writes validation/*.json as gate evidence.</pre>
+<p><strong>Implementation 方案：</strong>把 validation 分成三類，而不是只寫一個 validate：</p>
+<pre>extract_worker_validation:
+  worker output parsable, files exist, crop_px sane
+extract_canonical_validation:
+  canonical figures.json + crops/previews sane
+review_output_validation:
+  visual_review.json covers canonical crop_ids and current hashes
+repair_output_validation:
+  repair_report.json machine-readable patches/files valid
+repair_canonical_validation:
+  post-repair canonical still passes mechanical checks</pre>
+<p>正式 gate 仍由 parent 管，但 subagent local output 必須先能被機械檢查，否則 parent 不 merge。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意你的統一驗證模型。和 issue 1 一致：</p>
+<pre>任何 agent 完成後：
+  1. Agent local self-check（individual validate）
+  2. Parent merge（搬運）
+  3. Parent canonical validation（merge validate）</pre>
+<p>這寫進 SKILL.md 通用規則。Reviewer 可跑 validator 作 optional self-check，parent owns gate authority 和 <code>validation/</code> 目錄。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="23" placeholder="Write your thoughts here...">worker, review 和 repair 都應該要可以 divide and merge.
+也因此都要可以
+1. merge 前證明各自 local output 合理 (individual validate)
+2. merge 後保證 parent merge 後的 canonical truth 合理 (merge validate)</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="24" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">24</span>
+        <span class="card-title">Figure inventory repair policy</span>
+        <span class="badge" data-status="decided" data-id="24">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="24">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="24">
+          <p>不是所有 reviewer fail 都應該進普通 recrop repair。有些是 figure inventory 或 manifest 問題。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> 分三級處理。MVP 遇到 missing figure 直接 block。extraction_continuation 留 phase-2。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<pre>crop defect → recrop
+manifest defect → manifest_correction (machine-readable patches)
+missing/duplicate/wrong figure inventory
+  → parent blocks normal repair
+  → spawns extractor continuation or resolving agent</pre>
+<p>missing expected figure → extraction_continuation, not recrop。</p>
+<p><strong>Implementation 方案：</strong>MVP 不做 extractor continuation。Reviewer 如果發現 missing figure，parent 寫 blocked gate，final response 明確列 missing figure evidence，請 human 決定是否補跑 extraction。</p>
+<p><strong>應該寫在哪裡：</strong>三個地方都要寫，但層級不同：<code>SKILL.md</code> 寫 parent routing policy；<code>figure_reviewer.md</code> 寫 reviewer 如何標記 <code>finding_type: missing_figure|duplicate_figure|crop_defect|manifest_defect</code>；<code>figure_repair.md</code> 寫 repair worker 只處理 <code>crop_defect</code> 和 allowlisted <code>manifest_defect</code>，遇到 inventory 類 request 必須 refuse/block。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>三級分類寫進 SKILL.md 的 repair dispatch 段落：</p>
+<pre>reviewer fail → parent 分類：
+  1. crop defect → repair_requests_merged.json
+  2. manifest defect → repair_requests + manifest_correction
+  3. missing/wrong figure → block，回報使用者</pre>
+<p>不需要寫在 subagent prompt 裡——subagent 不需要知道它收不到的 request type。MVP 遇到 missing figure 直接 block。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="24" placeholder="Write your thoughts here...">同意，不過這應該寫進哪裡呢？</textarea>
+          </div>
+        </div>
+      </div></div><div class="card" data-id="25" data-status="decided">
+      <div class="card-header">
+        <span class="card-num">25</span>
+        <span class="card-title">First runnable MVP scope 應明確縮窄</span>
+        <span class="badge" data-status="decided" data-id="25">已定案</span>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle open" data-id="25">
+          <span class="arrow">▶</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content open" data-id="25">
+          <p>要先跑起 figure lane，不應一開始就同時支援所有功能。</p>
+        </div>
+        <div class="conclusion-bar"><strong>Conclusion:</strong> MVP 固定為 single everything + figure_lane_only mode。5 milestones 逐步跑通。需先確認 agent spawn mechanism、token budget、script dependencies。</div>
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            
+<p>第一個 runnable MVP 固定為：</p>
+<pre>one PDF, figure_lane_only mode
+single extractor / reviewer / repair worker
+figure_extraction.v2 schema
+parent canonical merge + validation
+visual_review.json as reviewer output
+repair_requests_merged.json as repair handoff
+no reassembly, minimal trace only</pre>
+<p>MVP flow：</p>
+<pre>init → render pages → spawn extractor worker_01
+→ parent merge → parent validate
+→ spawn reviewer_01
+→ if fail: parent builds repair_requests
+  → snapshot → spawn repair_01
+  → parent merge repair → validate → rerun reviewer
+→ close or report blocked</pre>
+<p><strong>Implementation 方案：</strong>第一個實作 milestone 切成 5 個 PR/patch：1) init/render helpers wrapper；2) v2 merge script；3) v2 mechanical validator；4) review-to-repair request builder；5) repair merge + close gate。每一步都可以用 fixture paper 跑 smoke test。</p>
+<p><strong>更新實作順序：</strong>我會採用 Claude 重新排序後的 milestones，而且把「init/render helpers wrapper」改成「init/render helpers 確認」，不先做 wrapper。第一步應該是確認現有 scripts 和 dependencies 可跑，第二步才 smoke test extractor。</p>
+<p><strong>我建議第一個 patch 實作內容：</strong>只改文件和最小 scripts contract：更新 <code>SKILL.md</code> figure_lane_only flow、把 step 0 寫清楚、定 v2 validator contract、定 parent validation ownership。真正新增 script 從 <code>crop_edge_previews.py</code> 或 <code>validate_figures.py</code> v2 checks 開始，避免一開始同時動 prompt、merge、repair loop。</p>
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            
+<p><strong>收到。</strong>同意 MVP scope。Single everything + figure_lane_only mode。</p>
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="25" placeholder="Write your thoughts here...">同意</textarea>
+          </div>
+        </div>
+      </div></div><div class="priority-section open">
+    <div class="priority-header">
+      <span class="card-num" style="background:#4f46e5">P</span>
+      <span style="flex:1">Priority Roadmap</span>
+      <span class="p-arrow">▶</span>
+    </div>
+    <div class="priority-body">
+      <div class="priority-grid">
+        <div class="priority-col">
+          <h3 style="color:var(--codex-head)">Codex</h3>
+          <ol>
+            <li><strong>0.</strong> Decide runtime layout: <code>worker_output</code> or <code>batches</code></li>
+            <li><strong>1.</strong> Decide validation semantics</li>
+            <li><strong>2.</strong> Issue 8: init + render pages</li>
+            <li><strong>3.</strong> Issue 7: shared helpers</li>
+            <li><strong>4.</strong> Issue 13: single-worker fast path</li>
+            <li><strong>5.</strong> Issue 12: v2-compatible validate_figures</li>
+            <li><strong>6.</strong> Issue 3: extraction merge</li>
+            <li><strong>7.</strong> Issue 4: review → repair_requests_merged</li>
+            <li><strong>8.</strong> Issue 5: repair merge</li>
+            <li><strong>9.</strong> Issue 6: gate / close conditions</li>
+            <li><strong>10.</strong> Issue 2: multi-worker divide</li>
+            <li><strong>11.</strong> Issue 9: trace / artifact registry phase-2</li>
+          </ol>
+        </div>
+        <div class="priority-col">
+          <h3 style="color:var(--claude-head)">Claude</h3>
+          <ol>
+            <li><strong>0a.</strong> Decide runtime layout (issue 10)</li>
+            <li><strong>0b.</strong> Decide validation ownership (issue 1)</li>
+            <li><strong>0c.</strong> Formally adopt v2 schema (issue 15)</li>
+            <li><strong>0d.</strong> Confirm agent spawn mechanism (new)</li>
+            <li><strong>1.</strong> Issue 8: init + render pages</li>
+            <li><strong>2.</strong> Issue 7: confirm helper script interfaces</li>
+            <li><strong>3.</strong> Issue 12: update validate_figures.py for v2</li>
+            <li><strong>4.</strong> Issue 14: figure_lane_only mode</li>
+            <li><strong>5.</strong> Issue 13: single-worker fast path</li>
+            <li><strong>6.</strong> Issue 3/5: extraction + repair merge</li>
+            <li><strong>7.</strong> Issue 4: review → repair_requests_merged</li>
+            <li><strong>8.</strong> Issue 6: gate / close conditions</li>
+            <li><strong>9.</strong> Issue 18: dispatch template</li>
+            <li><strong>10.</strong> Issue 9: minimal trace</li>
+            <li><strong>11.</strong> Everything else: phase-2</li>
+          </ol>
+        </div>
+      </div>
+    </div></div></div>
+
+<div class="save-toast" id="saveToast">Saved</div>
+
+<!--
+  USER NOTES & DECISIONS
+  This block is updated when you click "Save to File".
+  Codex / Claude: read this to see the user's opinions and status decisions.
+-->
+<script id="user-data">
+const EMBEDDED_USER_DATA = {
+  "statuses": {
+    "3": "pending",
+    "10": "pending"
+  },
+  "notes": {
+    "1": "worker, review 和 repair 都應該要可以 divide and merge.\n也因此都要可以\n1. merge 前證明各自 local output 合理\n2. merge 後保證 parent merge 後的 canonical truth 合理",
+    "2": "先使用單一 worker。另外創建一份檔案\nmultiworker_to_do.md",
+    "3": "贊成  Option A（保留 worker_output，寫新 merge script）\n因為現在是 single worker，因此 merge 只要搬運就好，不用修改任何東西\n之後要如何 merge 可以寫進 multiworker_to_do.md",
+    "4": "同意，不過 before_snapshot 是怎麼來的？",
+    "5": "因為現在是 single worker，因此 merge 只要搬運就好，不用修改任何東西\n之後要如何 merge 可以寫進 multiworker_to_do.md",
+    "6": "gate 是什麼？是誰在管？是 agent 還是 script？",
+    "7": "贊成\nExisting:\n  skills/_shared/scripts/render_pages.py\n  skills/_shared/scripts/make_image_preview.py\n  skills/_shared/scripts/crop_region.py\n\nNeeds v2 update:\n  skills/_shared/scripts/validate_figures.py\n\n需要 validate review 和 validate repair 嗎？",
+    "8": "同意",
+    "9": "同意 Codex 方案",
+    "10": "Keep hand-written layout",
+    "11": "同意",
+    "12": "我不在乎 legacy compatibility mode。現在就是打掉重來",
+    "13": "同意",
+    "14": "贊成 figure_lane_only 寫成 SKILL.md 的 default mode",
+    "15": "直接把 figure_extractor.md 裡的 JSON examples 視為 v2 schema 的規範來源（它已經是了）。請當作沒有figure_schemas.md",
+    "16": "使用 visual_review.json",
+    "17": "使用 repair_requests_merged.json",
+    "18": "同意",
+    "19": "同意",
+    "20": "同意，不過現在是 single worker，因此 merge 只要搬運就好，不用修改任何東西",
+    "21": "先升級 validator \nmerge 就是搬運",
+    "22": "同意。這應該寫進 SKILL.md 作為 hard rule",
+    "23": "worker, review 和 repair 都應該要可以 divide and merge.\n也因此都要可以\n1. merge 前證明各自 local output 合理 (individual validate)\n2. merge 後保證 parent merge 後的 canonical truth 合理 (merge validate)",
+    "24": "同意，不過這應該寫進哪裡呢？",
+    "25": "同意"
+  }
+};
+</script>
+
+<script>
+const STORAGE_KEY = 'figure_lane_issues_v2';
+
+const STATUS_LABELS = {
+  agreed:  '已同意',
+  decided: '已定案',
+  pending: '待決策',
+  review:  '需審閱'
+};
+const STATUS_ORDER = ['pending','decided','agreed','review'];
+
+const issues = [
+// ─────────── Issue 1 ───────────
+{
+  id: 1,
+  title: 'Mechanical validation 是否要獨立步驟',
+  status: 'decided',
+  background: `
+<p>SKILL.md 流程寫的是 <code>worker → mechanical validate → reviewer → (repair → reviewer) loop</code>，但三個 subagent prompt 已經各自內建 validation。獨立的 <code>validate_figures.py</code> 步驟插在 merge 和 review 之間，目前是空的（script 不存在）。</p>
+<p><strong>提案：</strong>刪除獨立 mechanical validation 步驟，新流程：</p>
+<pre>extract → parent merge（含 sanity check）→ review → (repair → parent merge → review) loop → close</pre>
+<p>Parent merge 時做輕量 sanity check。Reviewer 結尾仍然跑 <code>validate_figures.py</code> 做完整 mechanical validation。</p>`,
+  codex: `
+<p>同意刪掉「像 agent step 一樣獨立存在的 mechanical validation」，但<strong>不同意刪掉 parent-level canonical mechanical validation</strong>。</p>
+<p>原因：extractor / reviewer / repair 裡面的檢查只證明各自 local output 合理，不能保證 parent merge 後的 canonical truth 沒有 path rewrite、missing file、stale hash 等問題。</p>
+<p>解決方案：</p>
+<pre>extract → parent merge → parent canonical mechanical validation
+→ review → repair → parent repair merge
+→ parent canonical mechanical validation → review again → close</pre>
+<p>Reviewer 可以跑 helper/validator 當輔助，但正式 gate validation report 應由 parent 寫入 <code>lanes/figures/validation/</code>。</p>
+<p><strong>Implementation 方案：</strong>parent 只在兩個時間點寫正式 validation report：extraction merge 後寫 <code>figures_mechanical_validation.json</code>，repair merge 後覆寫同一份或另寫 <code>figures_mechanical_validation_round_N.json</code>。Reviewer prompt 裡的 validator command 改成 optional self-check，且不得把 self-check 視為 gate authority。</p>
+<p><strong>回應你的 note：</strong>你說 worker、review、repair 都應該可以 divide/merge，而且都要「merge 前證明 local output 合理、merge 後證明 canonical truth 合理」。我同意，這應該是整個 parent/subagent contract，不只是 figure extraction 的 validation。MVP 即使 single worker，也要保留這個節奏：subagent local output 先被機械檢查，parent merge/promote 後再產生 official canonical validation。</p>
+<pre>individual validate = merge prerequisite
+merge validate      = gate evidence owned by parent</pre>`,
+  claude: `
+<p><strong>收到。</strong>同意你的統一驗證模型：所有 agent（worker/reviewer/repair）都要 1) merge 前 individual validate 2) merge 後 canonical validate。這寫進 SKILL.md 通用規則。</p>
+<p>codex 的三層模型和這完全一致。Parent 在兩個時間點跑 canonical validation（extraction merge 後 + repair merge 後）。覆寫同一份 <code>figures_mechanical_validation.json</code>。Reviewer validator 降為 optional self-check，self-check 結果不得寫入 <code>validation/</code>。</p>`,
+  conclusion: '不再 spawn 獨立 agent 做 validation，改成 parent 自己跑 script。Reviewer validator 降為 optional self-check。'
+},
+// ─────────── Issue 2 ───────────
+{
+  id: 2,
+  title: 'Extraction divide 策略',
+  status: 'decided',
+  background: `
+<p>SKILL.md 說「worker, reviewer, repair 都可以將工作分配給好幾個 agent」，但沒寫具體怎麼切。跨頁 figure 可能被切到不同 worker。</p>
+<p><strong>提案：</strong>短 PDF（≤ 8 頁）單一 worker 不 divide。長 PDF 按頁碼範圍切，每個 worker 至少 4 頁。跨頁 figure 由 parent merge 時偵測，必要時補 spawn worker。</p>`,
+  codex: `
+<p>同意 single-worker fast path 和補充 worker 處理 cross-page figure。</p>
+<p>建議補一句 <strong>ownership rule</strong>：</p>
+<pre>Default ownership:
+  figure belongs to the worker whose assigned pages
+  contain the primary caption.
+  If caption unavailable, use first/primary visual region page.
+  If ambiguous, parent spawns supplemental worker
+  or blocks for human decision.</pre>
+<p><strong>Implementation 方案：</strong>MVP 先把 <code>extraction_worker_count</code> 固定為 1。Phase-2 才讓 parent 寫 <code>lanes/figures/extraction_assignments.json</code>，內容包含每個 worker 的 pages、context_pages、owned_figure_labels。補充 worker 使用 <code>worker_supplemental_XX</code>，避免和原 page-range worker 混淆。</p>
+<p><strong>回應你的 note：</strong>同意第一版先用單一 worker。多 worker 不應塞進 MVP 文件裡變成半成品規則；我建議新增 <code>multiworker_to_do.md</code>，專門收 phase-2 問題：page partition、cross-page figure ownership、supplemental worker、multi-worker conflict policy、review/repair 的 divide/merge、以及 merge 後 validation contract。</p>`,
+  claude: `
+<p><strong>收到。</strong>MVP 用單一 worker。建立 <code>multiworker_to_do.md</code> 存放 ownership rule、divide、cross-page figure 等 multi-worker 議題。</p>`,
+  conclusion: 'MVP 用 single worker，不 divide。Ownership rule 留 phase-2。'
+},
+// ─────────── Issue 3 ───────────
+{
+  id: 3,
+  title: 'Extraction merge 邏輯',
+  status: 'decided',
+  background: `
+<p>多個 worker 各自寫 <code>worker_output/worker_&lt;ID&gt;/</code> 下的四份 JSON + crops + previews，parent 需要 merge 到 <code>canonical/</code>。SKILL.md 沒有寫 merge 的具體邏輯。</p>
+<p><strong>提案：</strong>衝突偵測 → 合併 JSON → 路徑改寫 → 複製到 canonical → Sanity check。</p>`,
+  codex: `
+<p><strong>同意 Option A：</strong>MVP 保留 <code>worker_output/worker_XX</code>，不改成 <code>batches/batch_XX</code>。</p>
+<p>原因：三份 figure prompts 已經用 <code>worker_output</code> 寫完整 examples；而且現有 <code>merge_batch_manifests.py</code> 本來就不支援 v2 <code>crop_units[]</code>。所以即使改回 <code>batches</code>，merge script 還是要重寫。MVP 讓 script 配合目前 prompts，成本最低。</p>
+<p><strong>Implementation 方案：</strong>新增 v2-aware <code>merge_figure_extractions.py</code>。Single-worker fast path 也走同一支 merge script，不做手工 promote。這樣未來 multi-worker 只是增加 input dirs，不會重寫流程。</p>
+<p><strong>回應你的 note：</strong>同意 single-worker MVP 不需要真正的 conflict merge。這裡的 merge 應該理解成 deterministic promote：搬 final crop/previews 到 canonical、更新 canonical JSON path、寫 merge report。它不應該修改視覺判斷、figure inventory 或 crop geometry。Multi-worker 的 deconflict / reconcile 規則可以獨立寫進 <code>multiworker_to_do.md</code>。</p>
+<p>Path rewrite 規則：所有 canonical JSON path 都用 <code>&lt;paper_dir&gt;</code> relative path；final crop PNG 和 previews 改到 canonical，worker-local evidence 可依 issue 20 的決議留在 <code>worker_output</code>。</p>
+<pre>python3 agents/scripts/merge_figure_extractions.py \
+  --paper-dir "&lt;paper_dir&gt;" \
+  --workers-dir "&lt;paper_dir&gt;/lanes/figures/worker_output" \
+  --canonical-dir "&lt;paper_dir&gt;/lanes/figures/canonical" \
+  --pages-manifest "&lt;paper_dir&gt;/shared/pages/pages_manifest.json" \
+  --report "&lt;paper_dir&gt;/lanes/figures/validation/figures_merge_report.json"</pre>`,
+  claude: `
+<p><strong>收到。</strong>贊成 Option A。Single worker merge = 搬運，不寫 merge script：</p>
+<pre>1. cp worker_output/worker_01/ 的 crop PNGs → canonical/
+2. cp previews/ → canonical/previews/
+3. JSON 路徑 worker_output/worker_01/ 替換成 canonical/
+4. parent 跑 sanity check</pre>
+<p>Multi-worker merge → <code>multiworker_to_do.md</code>。</p>`,
+  conclusion: 'Option A 定案：保留 worker_output/worker_XX，實作 v2-aware merge script。Single-worker 和 multi-worker 走同一流程。'
+},
+// ─────────── Issue 4 ───────────
+{
+  id: 4,
+  title: 'Review → repair_requests_merged.json 轉換',
+  status: 'agreed',
+  background: `
+<p>Reviewer 寫出 <code>visual_review.json</code>，repair agent 讀取 <code>repair_requests_merged.json</code>。中間的轉換由 parent 做，但沒有寫在任何地方。</p>
+<p><strong>提案：</strong>Parent 從 reviewer output 產生 repair input：讀取 visual_review → 收集 fail entries → dedup → 分派 repair_id → 寫 repair_requests_merged.json → 建立 before_snapshot。</p>`,
+  codex: `
+<p>同意。這是 parent 最需要補的機械轉換之一。</p>
+<p><strong>Implementation 方案：</strong>新增 parent helper <code>build_figure_repair_requests.py</code>，只做 deterministic conversion，不做視覺判斷。</p>
+<pre>python3 agents/scripts/build_figure_repair_requests.py \
+  --paper-dir "&lt;paper_dir&gt;" \
+  --review-round 0 \
+  --repair-round 1 \
+  --write "&lt;paper_dir&gt;/lanes/figures/repairs/round_01/repair_requests_merged.json"</pre>
+<p>Dedup key 建議用 <code>figure_id + sorted(crop_ids) + action + sorted(direction)</code>。同一 figure 的所有 requests 分給同一個 repair worker。</p>
+<p><strong>回應你的 note：before_snapshot 是 parent 建的。</strong>時間點是在 parent 已經決定要進 repair round、但還沒 spawn repair worker 之前。Parent 複製當下 canonical JSON/crops/previews 到 <code>repairs/round_XX/before_snapshot/</code>，再寫 <code>before_snapshot.json</code>，包含 canonical file list、SHA-256、來源 validation report path、review round path。Repair worker 只讀 snapshot metadata，不負責建立它。</p>`,
+  claude: `
+<p><strong>收到。</strong>before_snapshot 由 parent 在 dispatch repair 前建立：</p>
+<pre>1. 複製 canonical/ 所有 writable files → repairs/round_01/before_snapshot/
+2. 計算每個檔案 SHA-256 → repairs/round_01/before_snapshot.json
+3. 寫 repair_requests_merged.json
+4. 才 spawn repair worker</pre>
+<p>目的：repair merge 搞壞 canonical 時可以恢復。</p>`,
+  conclusion: '按提案執行。Parent 負責從 visual_review.json 機械產生 repair_requests_merged.json。Conflict directions 保留為多個 requests 不 dedup。'
+},
+// ─────────── Issue 5 ───────────
+{
+  id: 5,
+  title: 'Repair merge 邏輯',
+  status: 'decided',
+  background: `
+<p>Repair agent 寫在 <code>repair/round_&lt;N&gt;/repair_&lt;ID&gt;/</code>，parent 要把修好的東西 merge 回 canonical。repair_report.json 已設計好 <code>repair_output</code> + <code>canonical_target</code>，但 parent 怎麼做沒寫。</p>
+<p><strong>提案：</strong>讀取 repair_report → 對 repaired/manifest_corrected entries 複製檔案、更新 JSON → 確認一致性 → 寫 after_snapshot → 跑 canonical validation → 收集 requires_review figure_ids。</p>`,
+  codex: `
+<p>同意整體流程。但 <code>manifest_corrected</code> 不能只靠自然語言描述——parent 不能做 content judgment。</p>
+<p>解決方案：<code>repair_report.json</code> 增加 <strong>machine-readable patch</strong>：</p>
+<pre>{
+  "manifest_patches": [{
+    "target_file": "..../figure_decisions.json",
+    "figure_id": "Figure_2",
+    "json_path": "$.figures[?figure_id=='Figure_2'].expected_panels",
+    "old_value": ["A","B","C"],
+    "new_value": ["A","B"],
+    "reason": "Panel C was not visible in source evidence."
+  }]
+}</pre>
+<p><strong>看完 Claude 後更新：</strong>同意不要用 JSONPath。MVP 用簡化 patch schema：<code>target_file</code> + <code>figure_id</code> + optional <code>crop_id</code> + <code>field</code> + old/new value。</p>
+<p><strong>Implementation 方案：</strong>parent merge script 只接受 allowlist fields，例如 figure-level <code>caption_text</code>、<code>expected_panels</code>、<code>exclusions</code>、<code>rationale</code>，crop-unit-level <code>crop_px</code>、<code>image_file</code>、<code>preview</code>、<code>edge_previews</code>、<code>role</code>。其他 field 一律 block，避免 repair worker 任意改 manifest。</p>
+<p><strong>回應你的 note：</strong>同意 single-worker MVP 的 repair merge 也不該做 multi-worker reconcile。它只做兩件事：1) 把 repair worker 產出的 repaired files 搬到 canonical target；2) 套用 allowlisted machine-readable manifest patches。多個 repair workers 的衝突合併規則先放 <code>multiworker_to_do.md</code>。</p>`,
+  claude: `
+<p><strong>收到。</strong>MVP repair merge = 搬運。repair_report.json 已有 <code>repair_output</code> + <code>canonical_target</code>，parent 照著搬就好。Multi-worker repair merge → <code>multiworker_to_do.md</code>。</p>`,
+  conclusion: '同意 manifest_patches 是必要的，使用 Claude 建議的簡化格式（無 JSONPath）+ Codex 的 allowlist。需更新 figure_repair.md。'
+},
+// ─────────── Issue 6 ───────────
+{
+  id: 6,
+  title: 'Gate / close 條件',
+  status: 'decided',
+  background: `
+<p>SKILL.md 只寫了 <code>while needs repair</code> 但沒定義結束/close 條件、最多幾輪（SKILL 寫 4，舊 pipeline 寫 3）、override 條件。</p>`,
+  codex: `
+<p>同意需要 close gate，但 <code>figures.json.status == "complete"</code> 應<strong>降級成輔助條件</strong>。真正的 gate truth：</p>
+<pre>Figure lane close requires:
+  - latest canonical mechanical validation passes
+  - latest review round covers every canonical figure_id
+  - every reviewed crop hash matches current canonical crop
+  - every reviewed figure decision == pass
+  - no unresolved required repair request remains
+  - repair round limit not exceeded, or explicit human override</pre>
+<p><strong>Implementation 方案：</strong>parent 寫一份 gate report，例如 <code>lanes/figures/validation/figure_lane_close_gate.json</code>，列出每個 requirement 的 pass/fail、evidence paths、unresolved findings。這份 report 再同步 append 到 <code>trace/gates.jsonl</code>。</p>
+<p><strong>回應你的 note：gate 是 parent 管的，不是 agent 管的。</strong>比較精確地說：gate 是一份 parent-owned decision report；validator/close-gate script 只負責機械計算 pass/fail/block，parent 根據 report 決定是否 spawn repair、close lane、或 block for human。Reviewer/repair agent 只能提供 evidence 和 self-declared status，不能 close gate。</p>`,
+  claude: `
+<p><strong>收到。</strong>Gate = parent 的決策點，不是 agent 也不是 script。Parent 讀 JSON status + crop hash 做 binary decision（繼續 or 停）。Figure lane 有三個 gate：</p>
+<ol>
+<li><strong>Extraction merge gate</strong>：worker 完成 → parent merge → canonical validation → pass 才進 review</li>
+<li><strong>Review round gate</strong>：reviewer 完成 → parent 讀 visual_review.json → all pass 就 close，有 fail 就進 repair</li>
+<li><strong>Lane close gate</strong>：最後一輪 review pass → parent 檢查 6 個條件 → pass 就回報完成</li>
+</ol>
+<p>Parent 不 spawn gate agent。判斷依據只有 JSON fields + hash，不需要視覺判斷。</p>`,
+  conclusion: '用 codex 的 close gate 條件。figures.json.status 降為輔助條件。Gate truth 來自 validation + review + hash freshness 的交集。'
+},
+// ─────────── Issue 7 ───────────
+{
+  id: 7,
+  title: 'Shared helpers 未定義',
+  status: 'decided',
+  background: `
+<p>三個 subagent prompts 都提到 helpers（render、preview、crop、edge），但沒有定義它們是什麼。</p>
+<p><strong>提案：</strong>兩個選擇——A. Python scripts（推薦）B. Agent 自己用 tool 做。</p>`,
+  codex: `
+<p>同意使用 Python scripts。但 repo 內<strong>已經有部分 shared helpers</strong>：</p>
+<pre>Existing:
+  skills/_shared/scripts/render_pages.py
+  skills/_shared/scripts/make_image_preview.py
+  skills/_shared/scripts/crop_region.py
+
+Needs v2 update:
+  skills/_shared/scripts/validate_figures.py
+
+May add:
+  skills/_shared/scripts/crop_edge_previews.py
+  skills/_shared/scripts/merge_figure_extractions.py</pre>
+<p><strong>Implementation 方案：</strong>先新增 <code>crop_edge_previews.py</code>，把 edge raw crop + preview 的兩步封裝起來，避免三個 agents 各自手寫上/下/左/右邊界裁切。CLI 可吃 <code>--crop-png</code>、<code>--output-dir</code>、<code>--edge-width</code>、<code>--max-dim</code>，輸出一個 JSON manifest 給 agent 寫入 evidence。</p>
+<p><strong>回應你的 note：</strong>需要 validate review，也需要 validate repair，但它們不是同一種 validation。Review validation 檢查 <code>visual_review.json</code> 是否覆蓋 canonical crop ids、hash 是否 fresh、evidence paths 是否存在；repair validation 檢查 <code>repair_report.json</code>、repaired files、canonical_target、manifest_patches allowlist 是否機械有效。MVP 可先把它們做成 <code>validate_figures.py --review-json</code> 和 <code>validate_figures.py --repair-report</code> 兩個 mode，之後再拆 script。</p>`,
+  claude: `
+<p><strong>收到。</strong>贊成用 existing scripts。</p>
+<p>需要 validate review 和 validate repair 嗎？—— MVP 不需要獨立 script。Parent 自己做幾個 mechanical check 就夠：</p>
+<ul>
+<li>Review：JSON parsable、每個 canonical figure_id 都被覆蓋、crop_hashes 有值、fail 的有 repair_request</li>
+<li>Repair：JSON parsable、每個 assigned request_id 都有 entry、repaired 的有 repair_output 且檔案存在</li>
+</ul>
+<p>check 邏輯變複雜再抽成 script。</p>`,
+  conclusion: '使用 Python scripts。盤點現有 scripts，分類 existing / needs update / may add。新增 crop_edge_previews.py 封裝 4 邊裁切。'
+},
+// ─────────── Issue 8 ───────────
+{
+  id: 8,
+  title: 'Init 與 render pages 流程',
+  status: 'agreed',
+  background: `
+<p>SKILL.md 提到 <code>render_pages.py</code> 和 init，但都不存在。Figure lane 的第一步是「確保 shared/pages/page_N.png 存在」。</p>
+<p><strong>提案：</strong>Init 流程：建立目錄結構 → 複製 PDF → render pages（300 DPI）→ render previews → 寫 manifests → 寫 source_info.json。這是 pipeline 前置步驟，不是 figure lane 的一部分。</p>`,
+  codex: `
+<p>同意。</p>
+<p><strong>更新立場：</strong>看完 Claude 和你的 note 後，我同意 MVP 先不要新增 <code>init_figure_lane.py</code> wrapper。Step 0 應該由 parent 明確逐步執行，這樣第一版比較容易 debug，也比較容易看出是哪個 helper 壞掉。</p>
+<p><strong>Implementation 方案：</strong>把 step 0 直接寫進 <code>SKILL.md</code> 的 parent workflow：mkdir 固定目錄、複製 source PDF、呼叫 <code>render_pages.py</code>、逐頁呼叫 <code>make_image_preview.py</code>，最後由 parent 寫 <code>source_info.json</code>、<code>pages_manifest.json</code>、<code>previews_manifest.json</code>。</p>
+<p>注意：現有 <code>render_pages.py</code> 會輸出 page PNG paths，但不寫 manifest；這個 manifest 由 parent 補。</p>`,
+  claude: `<p><strong>收到。</strong>同意。MVP parent 直接呼叫現有 scripts 做 init，不寫 wrapper。SKILL.md 列出 init 步驟。</p>`,
+  conclusion: 'Init + render pages 寫成 pipeline 的 step 0 前置步驟。MVP parent 直接呼叫現有 scripts。'
+},
+// ─────────── Issue 9 ───────────
+{
+  id: 9,
+  title: 'Trace 和 artifact registry',
+  status: 'decided',
+  background: `
+<p>SKILL.md 列了 trace 檔案但沒寫 parent 什麼時候寫什麼。提案：暫時不要求 trace，之後再加。</p>`,
+  codex: `
+<p>同意完整 trace 可 phase-2，但建議保留<strong>最小 gate log</strong>，不然 repair loop debug 會很痛。</p>
+<pre>trace/agents.jsonl:
+  extractor/reviewer/repair spawned and completed
+trace/gates.jsonl:
+  figure_review_round_N pass/fail/blocked
+  figure_lane_close pass/fail/blocked
+trace/run.jsonl:
+  merge_completed / validation_completed / repair_merge_completed</pre>
+<p>Artifact registry 可以 phase-2。</p>
+<p><strong>Implementation 方案：</strong>每個 JSONL event 先用固定最小欄位：<code>timestamp</code>、<code>event</code>、<code>lane</code>、<code>phase</code>、<code>status</code>、<code>paths</code>、<code>notes</code>。不要一開始就做完整 registry schema，先讓 repair loop 有 breadcrumb。</p>`,
+  claude: `<p><strong>收到。</strong>同意 Codex 方案：phase-1 保留最小 trace（agents.jsonl + gates.jsonl + run.jsonl），artifact registry 留 phase-2。</p>`,
+  conclusion: 'Phase-1 保留最小 trace（3 類 JSONL 事件）。Artifact registry 留 phase-2。'
+},
+// ─────────── Issue 10 ───────────
+{
+  id: 10,
+  title: '目錄結構和 subagent prompts 的 review/repair 路徑',
+  status: 'decided',
+  background: `
+<p>SKILL.md 和舊 pipeline 的路徑結構不相容。Subagent prompts 和新 SKILL.md 一致。</p>
+<p><strong>提案：</strong>以新 SKILL.md 和 subagent prompts 為準。舊 pipeline 的 <code>batches/</code> 結構不用了。</p>`,
+  codex: `
+<p><strong>不同意直接定案</strong>，應改成 decision issue：</p>
+<pre>Option A: Keep hand-written layout
+  extraction: worker_output/worker_XX
+  review: reviews/round_XX/reviewer_XX
+  repair: repairs/round_XX/repair_XX
+  → requires new merge_figure_extractions.py
+
+Option B: Align with shared scripts
+  extraction: batches/batch_XX
+  review: reviews/round_XX/batches/batch_YY.json
+  repair: repairs/round_XX/
+  → can reuse/adapt merge_batch_manifests.py</pre>
+<p>另外建議 <code>repair/</code> 改成 <code>repairs/</code>（plural）。</p>
+<p><strong>看完 Claude 後更新：</strong>MVP 我贊成 Option A：保留 <code>worker_output/worker_XX</code>，review/repair 保持 evidence-heavy directory structure，並把 <code>repair/</code> 統一改成 <code>repairs/</code>。</p>
+<p><strong>Implementation 方案：</strong>一次更新 <code>SKILL.md</code>、<code>figure_extractor.md</code>、<code>figure_reviewer.md</code>、<code>figure_repair.md</code> 的路徑命名，避免 HTML 討論定案但 prompts 還使用舊 plural/singular。</p>`,
+  claude: `<p><strong>收到。</strong>Keep hand-written layout。三方同意 Option A。<code>repair/</code> → <code>repairs/</code>。需要一次更新 <code>figure_repair.md</code> 和 <code>SKILL.md</code> 的路徑。</p>`,
+  conclusion: 'Option A 定案。repair/ → repairs/（plural）。一次更新 figure_repair.md 和 SKILL.md。'
+},
+// ─────────── Issue 11 ───────────
+{
+  id: 11,
+  title: '最大 repair rounds 數字不一致',
+  status: 'agreed',
+  background: `<p>SKILL.md（新）寫 4，舊 pipeline 寫 3。</p><p><strong>提案：</strong>統一為 4。</p>`,
+  codex: `
+<p>同意。</p>
+<p><strong>Implementation 方案：</strong>把 <code>max_repair_rounds: 4</code> 寫成 figure lane policy，而不是散在文字裡。Parent repair loop 只看這個常數；達到第 4 輪仍 fail 時輸出 blocked，需要 human override 才能繼續。</p>`,
+  claude: `<p><strong>收到。</strong>同意。max repair rounds = 4。</p>`,
+  conclusion: '統一為 4。'
+},
+// ─────────── Issue 12 ───────────
+{
+  id: 12,
+  title: 'validate_figures.py 的 interface',
+  status: 'decided',
+  background: `
+<p><code>figure_reviewer.md</code> 已引用 <code>validate_figures.py</code>，但 script 偏舊 schema。需定義它檢查什麼。</p>
+<p><strong>提案：</strong>檢查 canonical JSON parsable、crop_units 一致、image_file 存在、crop_px 在頁面範圍、preview/edge_previews 存在、ID 不重複等。</p>`,
+  codex: `
+<p>方向同意，但「script 不存在」應改為「<strong>script 已存在但不相容 v2 schema</strong>」。</p>
+<pre>Option A: update validate_figures.py to support v2
+Option B: add validate_figures_v2.py, keep old for legacy</pre>
+<p><strong>更新立場：</strong>我同意你的 note：現在是 hand-written lane 重做，不需要 legacy compatibility mode。保留 legacy 只會讓 validator 變成兩套隱性規則，反而拖慢 MVP。</p>
+<p><strong>Implementation 方案：</strong>直接更新現有 <code>skills/_shared/scripts/validate_figures.py</code> 支援 v2，預設只接受 <code>figure_extraction.v2</code>。如果輸入是舊 schema，就清楚 fail：<code>unsupported_schema</code>，不要 auto-detect 後默默走另一條路。</p>
+<p>v2 validator 先分兩層：<code>--mechanical-only</code> 只檢查 canonical extraction artifacts；不加此 flag 時可搭配 <code>--review-json</code> 檢查 review freshness、crop hashes、all-pass decision。</p>`,
+  claude: `<p><strong>收到。</strong>打掉重來。<code>validate_figures.py</code> 直接改寫成只支援 v2，不保留 legacy，不做 auto-detect。以 <code>figure_extractor.md</code> 的 JSON examples 為 v2 contract。</p>`,
+  conclusion: '更新現有 validate_figures.py 支援 v2（Option A），不另寫新 script。'
+},
+// ─────────── Issue 13 ───────────
+{
+  id: 13,
+  title: '單 worker 快速路徑',
+  status: 'agreed',
+  background: `
+<p>大部分情況下不需要平行化。但 SKILL.md 的流程暗示總是要 divide/merge。</p>
+<p><strong>提案：</strong>PDF ≤ 8 頁或未指定平行數量時用單一 worker。Merge 簡化為直接 promote。</p>`,
+  codex: `
+<p>同意。</p>
+<p><strong>Implementation 方案：</strong>即使 single-worker，也不要讓 parent 直接把 <code>worker_output/worker_01</code> 當 canonical 用。仍然跑 <code>merge_figure_extractions.py</code>，只是 input 只有一個 worker。這樣 single-worker 和 multi-worker 只有 input 數量不同，流程不分叉。</p>`,
+  claude: `<p><strong>收到。</strong>同意。Single-worker 為 default。</p>`,
+  conclusion: 'Single-worker 為 default，多 worker 為 optional 升級。'
+},
+// ─────────── Issue 14 ───────────
+{
+  id: 14,
+  title: 'Figure-only mode 沒有明確定義',
+  status: 'agreed',
+  background: `<p>SKILL.md 描述完整 paper reconstruction pipeline，但目標是先讓 figure lane 跑起來。需要明確的 <code>figure_lane_only</code> mode。</p>`,
+  codex: `
+<p>在 SKILL.md 補上 mode：</p>
+<pre>figure_lane_only:
+  init paper_dir → render pages/previews
+  → run figure extraction → parent merge
+  → parent canonical validation → run figure review
+  → run repair loop if needed → close figure lane
+  → stop and report figure artifacts</pre>
+<p>此 mode 的 final response 只回報 figure lane artifacts，不要求輸出 final paper.md / paper.html。</p>
+<p><strong>Implementation 方案：</strong><code>SKILL.md</code> 先把 full pipeline 標成 future，預設執行 <code>figure_lane_only</code>。Parent final response template 固定回報：canonical path、figure count、validation status、review status、repair rounds、blocked findings。</p>`,
+  claude: `<p><strong>收到。</strong>贊成。<code>figure_lane_only</code> 寫成 SKILL.md 的 default mode（或唯一 mode），full_pipeline 標 future。</p>`,
+  conclusion: 'figure_lane_only 寫成 SKILL.md 的 default mode。'
+},
+// ─────────── Issue 15 ───────────
+{
+  id: 15,
+  title: 'Figure v2 schema 需要正式定案',
+  status: 'agreed',
+  background: `<p>Subagent prompts 已實質採用 <code>figure_extraction.v2</code>，但 shared validator / old schema references 還偏舊格式。</p>`,
+  codex: `
+<p>v2 schema 的核心決策包括：<code>crop_units[]</code>、candidate 使用 <code>crop_hint_px</code>、不在 figure 層寫 derived fields、paths 使用 <code>&lt;paper_dir&gt;</code> relative artifact path。</p>
+<p>需在 SKILL.md 或獨立文件明確寫：</p>
+<pre>The figure lane uses figure_extraction.v2 as the canonical schema.
+Legacy figure schema is not accepted for new hand-written figure lane runs.
+All validators and merge scripts must support v2 crop_units.</pre>
+<p><strong>Implementation 方案：</strong>不要再讓 validator 依賴舊 <code>figure_schemas.md</code> 的 field list。短期把 v2 field contract 集中在 <code>figure_extractor.md</code>，validator 的 v2 checks 直接以該 prompt 的 examples 為準；等 MVP 跑通再抽成正式 JSON schema。</p>
+<p><strong>回應你的 note：</strong>同意「當作沒有 <code>figure_schemas.md</code>」。實作上不是去同步舊 schema，而是移除 SKILL/prompt/validator 對它的依賴；v2 的唯一規範來源先是 <code>figure_extractor.md</code> 裡的 JSON examples。</p>`,
+  claude: `<p><strong>收到。</strong><code>figure_extractor.md</code> 的 JSON examples 就是 v2 schema 規範來源。當作沒有 <code>figure_schemas.md</code>。SKILL.md 加一行指向 <code>figure_extractor.md</code>。</p>`,
+  conclusion: '正式採用 v2 schema。定義來源是 figure_extractor.md 的 JSON examples。'
+},
+// ─────────── Issue 16 ───────────
+{
+  id: 16,
+  title: 'Reviewer output 有 visual_review 和 review_batch 兩種格式',
+  status: 'decided',
+  background: `<p><code>figure_reviewer.md</code> 產生 <code>visual_review.json</code>（figure-specific），但 gate policy 使用 <code>review_batch.schema.json</code>（generic）。</p>`,
+  codex: `
+<p>短期保留 <code>visual_review.json</code> 作為 figure-specific truth，parent 再產生 gate-level review batch。MVP 先只用 <code>visual_review.json</code>，SKILL.md 註明 generic <code>review_batch</code> 是 phase-2。</p>
+<p><strong>Implementation 方案：</strong>parent close gate 直接讀 <code>reviews/round_N/reviewer_01/visual_review.json</code>。Phase-2 再新增 <code>visual_review_to_review_batch.py</code>，薄薄包一層 summary，不改 reviewer 的 detailed output。</p>
+<p><strong>回應你的 note：</strong>同意 MVP 就使用 <code>visual_review.json</code>。Generic <code>review_batch</code> 不進第一版 gate；parent close gate 直接吃 visual_review，避免 review truth 被轉換兩次。</p>`,
+  claude: `<p><strong>收到。</strong>使用 <code>visual_review.json</code>。MVP 不用 <code>review_batch</code> wrapper。</p>`,
+  conclusion: 'MVP 只用 visual_review.json。Generic review_batch 留 phase-2。'
+},
+// ─────────── Issue 17 ───────────
+{
+  id: 17,
+  title: 'Repair handoff 有兩種格式',
+  status: 'decided',
+  background: `<p>Repair prompt 讀 <code>repair_requests_merged.json</code>（figure-specific），old/new pipeline 使用 <code>repair_manifest.json</code>（generic）。</p>`,
+  codex: `
+<p>MVP 先用 <code>repair_requests_merged.json</code>；目錄和命名預留 generic manifest。如果產生 <code>repair_manifest.json</code>，它引用 <code>repair_requests_merged.json</code>。</p>
+<p><strong>Implementation 方案：</strong>repair worker prompt 只吃 figure-specific file。Parent 如果要寫 <code>repair_manifest.json</code>，它只是 gate wrapper，不是 repair worker 的 primary input。這可以避免 repair worker 同時解析兩套 contract。</p>
+<p><strong>回應你的 note：</strong>同意 MVP 只使用 <code>repair_requests_merged.json</code>。<code>repair_manifest.json</code> 不應該出現在 repair worker 的必讀輸入裡，否則第一版等於同時維護兩套 repair handoff contract。</p>`,
+  claude: `<p><strong>收到。</strong>使用 <code>repair_requests_merged.json</code>。MVP 不用 <code>repair_manifest</code> wrapper。</p>`,
+  conclusion: 'MVP 用 repair_requests_merged.json。Generic wrapper 留 phase-2。'
+},
+// ─────────── Issue 18 ───────────
+{
+  id: 18,
+  title: 'Agent dispatch prompt template 缺失',
+  status: 'decided',
+  background: `<p>SKILL.md 應明確定義 parent spawn agent 時要塞進 prompt 的 concrete context。否則每次跑法會漂。</p>`,
+  codex: `
+<p>新增 dispatch template。必填欄位：</p>
+<pre>Extractor: paper_dir, worker_id, assigned pages,
+  allowed write dir, helper paths, required outputs, forbidden paths
+
+Reviewer: paper_dir, review_round, reviewer_id,
+  assigned figure_ids, canonical dir, allowed output dir, helper paths
+
+Repair: paper_dir, repair_round, repair_id,
+  repair_requests_merged.json, assigned request_ids,
+  canonical dir (read), repair-local output dir (write)</pre>
+<p><strong>Implementation 方案：</strong>把 dispatch template 寫進 <code>SKILL.md</code> 的「Parent dispatch」段落，不另開新檔。每次 spawn agent 前 parent 都要填一段 literal assignment block，避免 subagent 從泛用 prompt 猜路徑。</p>`,
+  claude: `<p><strong>收到。</strong>同意。Dispatch template 寫進 SKILL.md，包含必填欄位和 forbidden write paths。</p>`,
+  conclusion: '需要 dispatch template，包含必填欄位和 forbidden write paths。'
+},
+// ─────────── Issue 19 ───────────
+{
+  id: 19,
+  title: 'Empty figure scope 和 incomplete status 的 policy',
+  status: 'agreed',
+  background: `<p><code>figures.json.status == "incomplete"</code> 和「某 batch 沒有 figures」需要明確 policy。</p>`,
+  codex: `
+<pre>Empty batch: allowed if assigned scope had no expected figures
+  and all four JSON files exist.
+
+Mechanical incomplete: missing/invalid JSON, missing crop image,
+  invalid path, crop_px out of bounds
+  → do not promote; fix or respawn extractor.
+
+Visual incomplete: artifacts mechanically valid
+  but verification.result == fail
+  → may promote, but lane cannot close;
+    reviewer/repair must handle.</pre>
+<p><strong>Implementation 方案：</strong>v2 validator 回傳兩個 status：<code>mechanical_status</code> 和 <code>visual_declared_status</code>。Parent merge gate 只看 mechanical；lane close gate 才看 reviewer visual pass。</p>`,
+  claude: `<p><strong>收到。</strong>同意。區分 mechanical incomplete（block）和 visual incomplete（可 promote，reviewer/repair 處理）。</p>`,
+  conclusion: '區分 mechanical incomplete（block）和 visual incomplete（可 promote，由 reviewer/repair 處理）。'
+},
+// ─────────── Issue 20 ───────────
+{
+  id: 20,
+  title: 'Source regions / edges / previews 的 canonical placement',
+  status: 'decided',
+  background: `<p>Parent merge 不只要合併 final crop PNG，還要決定 extractor evidence files 在 canonical 裡怎麼放。</p>`,
+  codex: `
+<p>Canonical 保留 evidence，使用 collision-safe names。規則：</p>
+<pre>All canonical JSON paths are relative to &lt;paper_dir&gt;.
+All copied evidence files must have collision-safe canonical names.
+Parent path rewrite must update image_file, preview,
+  edge_previews, source_image, source_preview.</pre>
+<p><strong>看完 Claude 後更新：</strong>MVP 我接受 canonical 只 promote crop PNGs + previews。<code>source_regions/</code> 和 full-res <code>edges/</code> 可留在 <code>worker_output/</code> 作 trace evidence。</p>
+<p><strong>Implementation 方案：</strong>canonical JSON 中 final crop paths 必須改成 canonical；candidate source_region paths 可以保留 worker_output relative path，但 validator 只檢查它們存在，不要求位於 canonical。</p>
+<p><strong>回應你的 note：</strong>同意 single-worker 時這裡的 merge 也只是搬運/promote。唯一需要的機械修改是 canonical path rewrite 和 merge report；不做 source_regions/edges 的 evidence promotion，也不做跨 worker collision resolution。</p>`,
+  claude: `<p><strong>收到。</strong>同意。Single worker merge = 搬運。Canonical 放 crop PNGs + previews。<code>source_regions/</code> 和 <code>edges/</code> 留在 <code>worker_output/</code>。</p>`,
+  conclusion: 'MVP canonical 只放 crop PNGs + previews。source_regions 和 edges 是否 promote 留 phase-2。'
+},
+// ─────────── Issue 21 ───────────
+{
+  id: 21,
+  title: 'V2 merge script 和 validator review shape 需要一起更新',
+  status: 'agreed',
+  background: `<p><code>validate_figures.py</code> 不只要支援 v2 extraction schema，也要支援 v2 reviewer schema。</p>`,
+  codex: `
+<p>v2 validator 應檢查 per-crop-unit evidence：</p>
+<pre>For each canonical crop_units[].crop_id:
+  appears once in source_edge_previews_read.crop_units
+  appears once in crop_previews_read.crop_units
+  appears once in edge_checks.crop_units
+  appears in crop_hashes
+  every edge has source_evidence and crop_evidence
+  recorded crop hash matches current canonical crop</pre>
+<p><strong>Implementation 方案：</strong>先讓 validator 接 <code>--review-json</code>，parent 傳入最新 review path。這樣 <code>visual_review.json</code> 不必搬進 canonical，也能做 hash freshness check。</p>
+<p><strong>回應你的 note：</strong>同意 validator 要先升級，single-worker 的 merge 在 MVP 只是搬運/改 canonical paths，不做複雜 reconcile。也因此這條的實作順序應該是：先定 v2 validator 的輸入/輸出，再寫 merge script 去產生 validator 能吃的 canonical shape。</p>
+<p><strong>MVP 順序：</strong>1) <code>validate_figures.py</code> v2 mechanical checks；2) single-worker <code>merge_figure_extractions.py</code> promote；3) review freshness checks；4) multi-worker merge 留到 <code>multiworker_to_do.md</code>。</p>`,
+  claude: `<p><strong>收到。</strong>先升級 validator（打掉重來只支援 v2），merge 就是搬運。</p>`,
+  conclusion: 'Validator 和 merge script 同步升級 v2。是 MVP blocker。'
+},
+// ─────────── Issue 22 ───────────
+{
+  id: 22,
+  title: 'Parent 不應用自己的 judgment 補 artifacts',
+  status: 'agreed',
+  background: `<p>應該把 parent boundary 寫得更硬。</p>`,
+  codex: `
+<pre>Parent can:
+  copy files, rewrite paths, merge JSON lists,
+  validate schema, hash files, snapshot canonical,
+  assign work, apply machine-readable patches
+
+Parent cannot:
+  invent crop_px, decide visual pass/fail,
+  invent defects, invent expected_panels,
+  choose between conflicting crops by visual quality,
+  invent scientific values or captions
+
+Conflict → block, spawn resolving agent, or ask human.</pre>
+<p><strong>Implementation 方案：</strong>parent merge scripts 實作時採 allowlist：只有明確列入的 JSON fields 可以 mechanical update；遇到 duplicate figure、conflicting crop、unknown patch field，一律輸出 merge report status <code>blocked</code>。</p>
+<p><strong>回應你的 note：</strong>同意這必須寫進 <code>SKILL.md</code> 作為 hard rule，而且要用 MUST / MUST NOT 語氣，不只是 discussion note。所有 subagent prompt 也應引用這條 parent boundary：subagent 產出 evidence，parent 只做機械搬運、驗證和 allowlisted patch。</p>`,
+  claude: `<p><strong>收到。</strong>同意。Parent boundary 寫進 SKILL.md 作為 hard rule。</p>`,
+  conclusion: 'Parent boundary 寫成 SKILL.md hard rule。遇到需要 judgment 的 conflict 一律 block。'
+},
+// ─────────── Issue 23 ───────────
+{
+  id: 23,
+  title: 'Reviewer / repair / parent 的 validator responsibility',
+  status: 'decided',
+  background: `<p>正式 gate validation 應該由誰負責。</p>`,
+  codex: `
+<pre>Extractor:  local self-check before reporting complete
+Repair:     repair-local self-check before reporting complete
+Reviewer:   writes visual review; may run helper checks as support
+Parent:     runs canonical mechanical validation after merges;
+            validates review freshness/hash before close;
+            writes official validation reports under validation/</pre>
+<p><strong>Implementation 方案：</strong>修改 <code>figure_reviewer.md</code>：把「必定執行 final validator」改成「可執行 validator 作 optional self-check」。同時在 <code>SKILL.md</code> 寫清楚：只有 parent 可以寫 official <code>lanes/figures/validation/*.json</code> gate reports。</p>
+<p><strong>補充你的 divide/merge contract：</strong>同意 worker、review、repair 三段都要有同一種證明節奏：</p>
+<pre>Before parent merge:
+  each worker/reviewer/repairer writes local report
+  and optionally local self-check evidence inside its own dir.
+
+After parent merge:
+  parent runs official validation against canonical truth
+  and writes validation/*.json as gate evidence.</pre>
+<p><strong>Implementation 方案：</strong>把 validation 分成三類，而不是只寫一個 validate：</p>
+<pre>extract_worker_validation:
+  worker output parsable, files exist, crop_px sane
+extract_canonical_validation:
+  canonical figures.json + crops/previews sane
+review_output_validation:
+  visual_review.json covers canonical crop_ids and current hashes
+repair_output_validation:
+  repair_report.json machine-readable patches/files valid
+repair_canonical_validation:
+  post-repair canonical still passes mechanical checks</pre>
+<p>正式 gate 仍由 parent 管，但 subagent local output 必須先能被機械檢查，否則 parent 不 merge。</p>`,
+  claude: `
+<p><strong>收到。</strong>同意你的統一驗證模型，和 issue 1 一致：</p>
+<pre>任何 agent 完成後：
+  1. Agent local self-check（individual validate）
+  2. Parent merge（搬運）
+  3. Parent canonical validation（merge validate）</pre>
+<p>寫進 SKILL.md 通用規則。Reviewer 可跑 validator 作 optional self-check，parent owns gate authority 和 <code>validation/</code> 目錄。</p>`,
+  conclusion: 'Reviewer 可跑 validator 作為 optional self-check。Parent owns gate authority 和 validation/ 目錄。'
+},
+// ─────────── Issue 24 ───────────
+{
+  id: 24,
+  title: 'Figure inventory repair policy',
+  status: 'decided',
+  background: `<p>不是所有 reviewer fail 都應該進普通 recrop repair。有些是 figure inventory 或 manifest 問題。</p>`,
+  codex: `
+<pre>crop defect → recrop
+manifest defect → manifest_correction (machine-readable patches)
+missing/duplicate/wrong figure inventory
+  → parent blocks normal repair
+  → spawns extractor continuation or resolving agent</pre>
+<p>missing expected figure → extraction_continuation, not recrop。</p>
+<p><strong>Implementation 方案：</strong>MVP 不做 extractor continuation。Reviewer 如果發現 missing figure，parent 寫 blocked gate，final response 明確列 missing figure evidence，請 human 決定是否補跑 extraction。</p>
+<p><strong>應該寫在哪裡：</strong>三個地方都要寫，但層級不同：<code>SKILL.md</code> 寫 parent routing policy；<code>figure_reviewer.md</code> 寫 reviewer 如何標記 <code>finding_type: missing_figure|duplicate_figure|crop_defect|manifest_defect</code>；<code>figure_repair.md</code> 寫 repair worker 只處理 <code>crop_defect</code> 和 allowlisted <code>manifest_defect</code>，遇到 inventory 類 request 必須 refuse/block。</p>`,
+  claude: `
+<p><strong>收到。</strong>三級分類寫進 SKILL.md 的 repair dispatch 段落：</p>
+<pre>reviewer fail → parent 分類：
+  1. crop defect → repair_requests_merged.json
+  2. manifest defect → repair_requests + manifest_correction
+  3. missing/wrong figure → block，回報使用者</pre>
+<p>不需要寫在 subagent prompt 裡。MVP 遇到 missing figure 直接 block。</p>`,
+  conclusion: '分三級處理。MVP 遇到 missing figure 直接 block。extraction_continuation 留 phase-2。'
+},
+// ─────────── Issue 25 ───────────
+{
+  id: 25,
+  title: 'First runnable MVP scope 應明確縮窄',
+  status: 'decided',
+  background: `<p>要先跑起 figure lane，不應一開始就同時支援所有功能。</p>`,
+  codex: `
+<p>第一個 runnable MVP 固定為：</p>
+<pre>one PDF, figure_lane_only mode
+single extractor / reviewer / repair worker
+figure_extraction.v2 schema
+parent canonical merge + validation
+visual_review.json as reviewer output
+repair_requests_merged.json as repair handoff
+no reassembly, minimal trace only</pre>
+<p>MVP flow：</p>
+<pre>init → render pages → spawn extractor worker_01
+→ parent merge → parent validate
+→ spawn reviewer_01
+→ if fail: parent builds repair_requests
+  → snapshot → spawn repair_01
+  → parent merge repair → validate → rerun reviewer
+→ close or report blocked</pre>
+<p><strong>Implementation 方案：</strong>第一個實作 milestone 切成 5 個 PR/patch：1) init/render helpers wrapper；2) v2 merge script；3) v2 mechanical validator；4) review-to-repair request builder；5) repair merge + close gate。每一步都可以用 fixture paper 跑 smoke test。</p>
+<p><strong>更新實作順序：</strong>我會採用 Claude 重新排序後的 milestones，而且把「init/render helpers wrapper」改成「init/render helpers 確認」，不先做 wrapper。第一步應該是確認現有 scripts 和 dependencies 可跑，第二步才 smoke test extractor。</p>
+<p><strong>我建議第一個 patch 實作內容：</strong>只改文件和最小 scripts contract：更新 <code>SKILL.md</code> figure_lane_only flow、把 step 0 寫清楚、定 v2 validator contract、定 parent validation ownership。真正新增 script 從 <code>crop_edge_previews.py</code> 或 <code>validate_figures.py</code> v2 checks 開始，避免一開始同時動 prompt、merge、repair loop。</p>`,
+  claude: `<p><strong>收到。</strong>同意 MVP scope。Single everything + figure_lane_only mode。</p>`,
+  conclusion: 'MVP 固定為 single everything + figure_lane_only mode。5 milestones 逐步跑通。需先確認 agent spawn mechanism、token budget、script dependencies。'
+}
+];
+
+// ─────────── State ───────────
+let state = loadState();
+
+function defaultState() {
+  const s = { statuses: {}, notes: {}, expanded: {}, bgExpanded: {} };
+  issues.forEach(i => {
+    s.statuses[i.id] = i.status;
+    s.notes[i.id] = '';
+    s.expanded[i.id] = false;
+    s.bgExpanded[i.id] = false;
+  });
+  return s;
+}
+
+function loadState() {
+  try {
+    const def = defaultState();
+    // Merge embedded user data (from "Save to File") as base
+    const emb = (typeof EMBEDDED_USER_DATA !== 'undefined') ? EMBEDDED_USER_DATA : { statuses: {}, notes: {} };
+    issues.forEach(i => {
+      if (i.id in emb.statuses) def.statuses[i.id] = emb.statuses[i.id];
+      if (i.id in emb.notes && emb.notes[i.id]) def.notes[i.id] = emb.notes[i.id];
+    });
+    // localStorage overrides embedded (most recent edits)
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return def;
+    const s = JSON.parse(raw);
+    issues.forEach(i => {
+      if (!(i.id in s.statuses)) s.statuses[i.id] = def.statuses[i.id];
+      if (!(i.id in s.notes)) s.notes[i.id] = def.notes[i.id] || '';
+      if (!(i.id in s.expanded)) s.expanded[i.id] = false;
+      if (!(i.id in s.bgExpanded)) s.bgExpanded[i.id] = false;
+    });
+    return s;
+  } catch { return defaultState(); }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const t = document.getElementById('saveToast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1200);
+}
+
+// ─────────── Render ───────────
+function render() {
+  const c = document.getElementById('container');
+  c.innerHTML = '';
+  issues.forEach(issue => {
+    const st = state.statuses[issue.id];
+    const isOpen = state.expanded[issue.id];
+    const bgOpen = state.bgExpanded[issue.id];
+
+    const card = document.createElement('div');
+    card.className = 'card' + (isOpen ? ' open' : '');
+    card.dataset.id = issue.id;
+    card.dataset.status = st;
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-num">${issue.id}</span>
+        <span class="card-title">${issue.title}</span>
+        <span class="badge" data-status="${st}" data-id="${issue.id}">${STATUS_LABELS[st]}</span>
+        <span class="card-arrow">&#9654;</span>
+      </div>
+      <div class="card-body">
+        <div class="bg-toggle ${bgOpen ? 'open' : ''}" data-id="${issue.id}">
+          <span class="arrow">&#9654;</span> Background &amp; Proposal
+        </div>
+        <div class="bg-content ${bgOpen ? 'open' : ''}" data-id="${issue.id}">
+          ${issue.background}
+        </div>
+        ${issue.conclusion ? `<div class="conclusion-bar"><strong>Conclusion:</strong> ${issue.conclusion}</div>` : ''}
+        <div class="opinions">
+          <div class="opinion codex">
+            <div class="opinion-head codex"><span class="dot"></span>Codex</div>
+            ${issue.codex}
+          </div>
+          <div class="opinion claude">
+            <div class="opinion-head claude"><span class="dot"></span>Claude</div>
+            ${issue.claude}
+          </div>
+          <div class="opinion user">
+            <div class="opinion-head user"><span class="dot"></span>My Notes</div>
+            <textarea class="user-note" data-id="${issue.id}" placeholder="Write your thoughts here...">${state.notes[issue.id] || ''}</textarea>
+          </div>
+        </div>
+      </div>`;
+    c.appendChild(card);
+  });
+
+  // Priority section
+  const ps = document.createElement('div');
+  ps.className = 'priority-section open';
+  ps.innerHTML = `
+    <div class="priority-header">
+      <span class="card-num" style="background:#4f46e5">P</span>
+      <span style="flex:1">Priority Roadmap</span>
+      <span class="p-arrow">&#9654;</span>
+    </div>
+    <div class="priority-body">
+      <div class="priority-grid">
+        <div class="priority-col">
+          <h3 style="color:var(--codex-head)">Codex</h3>
+          <ol>
+            <li><strong>0.</strong> Decide runtime layout: <code>worker_output</code> or <code>batches</code></li>
+            <li><strong>1.</strong> Decide validation semantics</li>
+            <li><strong>2.</strong> Issue 8: init + render pages</li>
+            <li><strong>3.</strong> Issue 7: shared helpers</li>
+            <li><strong>4.</strong> Issue 13: single-worker fast path</li>
+            <li><strong>5.</strong> Issue 12: v2-compatible validate_figures</li>
+            <li><strong>6.</strong> Issue 3: extraction merge</li>
+            <li><strong>7.</strong> Issue 4: review → repair_requests_merged</li>
+            <li><strong>8.</strong> Issue 5: repair merge</li>
+            <li><strong>9.</strong> Issue 6: gate / close conditions</li>
+            <li><strong>10.</strong> Issue 2: multi-worker divide</li>
+            <li><strong>11.</strong> Issue 9: trace / artifact registry phase-2</li>
+          </ol>
+        </div>
+        <div class="priority-col">
+          <h3 style="color:var(--claude-head)">Claude</h3>
+          <ol>
+            <li><strong>0a.</strong> Decide runtime layout (issue 10)</li>
+            <li><strong>0b.</strong> Decide validation ownership (issue 1)</li>
+            <li><strong>0c.</strong> Formally adopt v2 schema (issue 15)</li>
+            <li><strong>0d.</strong> Confirm agent spawn mechanism (new)</li>
+            <li><strong>1.</strong> Issue 8: init + render pages</li>
+            <li><strong>2.</strong> Issue 7: confirm helper script interfaces</li>
+            <li><strong>3.</strong> Issue 12: update validate_figures.py for v2</li>
+            <li><strong>4.</strong> Issue 14: figure_lane_only mode</li>
+            <li><strong>5.</strong> Issue 13: single-worker fast path</li>
+            <li><strong>6.</strong> Issue 3/5: extraction + repair merge</li>
+            <li><strong>7.</strong> Issue 4: review → repair_requests_merged</li>
+            <li><strong>8.</strong> Issue 6: gate / close conditions</li>
+            <li><strong>9.</strong> Issue 18: dispatch template</li>
+            <li><strong>10.</strong> Issue 9: minimal trace</li>
+            <li><strong>11.</strong> Everything else: phase-2</li>
+          </ol>
+        </div>
+      </div>
+    </div>`;
+  c.appendChild(ps);
+
+  updateProgress();
+  applyFilter();
+  applySearch();
+}
+
+function updateProgress() {
+  const counts = { agreed: 0, decided: 0, pending: 0, review: 0 };
+  issues.forEach(i => counts[state.statuses[i.id]]++);
+  const total = issues.length;
+  const resolved = counts.agreed + counts.decided;
+  document.getElementById('progress').textContent =
+    `${resolved}/${total} resolved | ${counts.pending} pending | ${counts.review} needs review`;
+}
+
+// ─────────── Filters ───────────
+let activeFilter = 'all';
+let searchQuery = '';
+
+function applyFilter() {
+  document.querySelectorAll('.card[data-id]').forEach(card => {
+    const st = state.statuses[card.dataset.id];
+    const matchFilter = activeFilter === 'all' || st === activeFilter;
+    const matchSearch = !searchQuery || cardMatchesSearch(card, searchQuery);
+    card.classList.toggle('hidden', !(matchFilter && matchSearch));
+  });
+}
+
+function applySearch() { applyFilter(); }
+
+function cardMatchesSearch(card, q) {
+  return card.textContent.toLowerCase().includes(q.toLowerCase());
+}
+
+// ─────────── Events ───────────
+document.addEventListener('click', e => {
+  // Close any open status menu
+  const openMenu = document.querySelector('.status-menu.open');
+
+  // Card header toggle
+  const header = e.target.closest('.card-header');
+  if (header && !e.target.closest('.badge')) {
+    const card = header.closest('.card');
+    const id = card.dataset.id;
+    state.expanded[id] = !state.expanded[id];
+    card.classList.toggle('open');
+    saveState();
+    return;
+  }
+
+  // Status badge click
+  const badge = e.target.closest('.badge');
+  if (badge) {
+    e.stopPropagation();
+    if (openMenu) openMenu.classList.remove('open');
+    // Create or toggle dropdown
+    let menu = badge.parentElement.querySelector('.status-menu');
+    if (!menu) {
+      menu = document.createElement('div');
+      menu.className = 'status-menu';
+      const colors = { agreed: '#16a34a', decided: '#2563eb', pending: '#d97706', review: '#dc2626' };
+      STATUS_ORDER.forEach(s => {
+        const opt = document.createElement('div');
+        opt.className = 'status-option';
+        opt.dataset.status = s;
+        opt.innerHTML = `<span class="status-dot" style="background:${colors[s]}"></span>${STATUS_LABELS[s]}`;
+        menu.appendChild(opt);
+      });
+      badge.parentElement.style.position = 'relative';
+      badge.parentElement.appendChild(menu);
+    }
+    menu.classList.toggle('open');
+    return;
+  }
+
+  // Status option click
+  const opt = e.target.closest('.status-option');
+  if (opt) {
+    const menu = opt.closest('.status-menu');
+    const card = opt.closest('.card');
+    const id = card.dataset.id;
+    const newStatus = opt.dataset.status;
+    state.statuses[id] = newStatus;
+    const b = card.querySelector('.badge');
+    b.dataset.status = newStatus;
+    b.textContent = STATUS_LABELS[newStatus];
+    card.dataset.status = newStatus;
+    menu.classList.remove('open');
+    updateProgress();
+    applyFilter();
+    saveState();
+    return;
+  }
+
+  // Background toggle
+  const bgToggle = e.target.closest('.bg-toggle');
+  if (bgToggle) {
+    const id = bgToggle.dataset.id;
+    state.bgExpanded[id] = !state.bgExpanded[id];
+    bgToggle.classList.toggle('open');
+    bgToggle.nextElementSibling.classList.toggle('open');
+    saveState();
+    return;
+  }
+
+  // Priority section toggle
+  const ph = e.target.closest('.priority-header');
+  if (ph) {
+    ph.closest('.priority-section').classList.toggle('open');
+    return;
+  }
+
+  // Close menus
+  if (openMenu) openMenu.classList.remove('open');
+});
+
+// User notes
+document.addEventListener('input', e => {
+  if (e.target.classList.contains('user-note')) {
+    state.notes[e.target.dataset.id] = e.target.value;
+    saveState();
+  }
+});
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  applySearch();
+});
+
+// Expand/collapse all
+document.getElementById('expandAll').addEventListener('click', () => {
+  issues.forEach(i => state.expanded[i.id] = true);
+  document.querySelectorAll('.card').forEach(c => c.classList.add('open'));
+  saveState();
+});
+document.getElementById('collapseAll').addEventListener('click', () => {
+  issues.forEach(i => state.expanded[i.id] = false);
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
+  saveState();
+});
+
+// ─────────── Save to File ───────────
+document.getElementById('saveFile').addEventListener('click', () => {
+  // Build the embedded data object with current notes & statuses
+  const exportData = { statuses: {}, notes: {} };
+  issues.forEach(i => {
+    const st = state.statuses[i.id];
+    if (st !== i.status) exportData.statuses[i.id] = st;  // only changed statuses
+    const note = (state.notes[i.id] || '').trim();
+    if (note) exportData.notes[i.id] = note;
+  });
+
+  // Get current HTML source and replace the user-data script content
+  const html = document.documentElement.outerHTML;
+  const newBlock = `const EMBEDDED_USER_DATA = ${JSON.stringify(exportData, null, 2)};`;
+  const updated = html.replace(
+    /const EMBEDDED_USER_DATA = \{[\s\S]*?\};/,
+    newBlock
+  );
+
+  const blob = new Blob(['<!DOCTYPE html>\n' + updated], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'figure_lane_issues.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+
+  const t = document.getElementById('saveToast');
+  t.textContent = 'File downloaded — overwrite the original to persist';
+  t.classList.add('show');
+  setTimeout(() => { t.classList.remove('show'); t.textContent = 'Saved'; }, 3000);
+});
+
+// ─────────── Init ───────────
+render();
+</script>
+
+
+</body></html>
