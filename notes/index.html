@@ -1713,6 +1713,8 @@ class HttpSource {
   async gh(url, opt = {}) {
     const r = await fetch(url, { ...opt, headers: { Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + this.token, ...(opt.headers || {}) } });
     if (r.status === 401) throw new Error('GitHub token 無效或過期（來源選單可更換）');
+    const writing = opt.method === 'PUT' || opt.method === 'DELETE';
+    if (writing && (r.status === 403 || r.status === 404)) throw new Error('GitHub 拒絕寫入（' + r.status + '）。最常見的原因：token 的 Contents 權限只有讀。到 github.com/settings/personal-access-tokens 點那把 token → Permissions → Contents 改成「Read and write」→ Update，然後直接再按一次儲存（token 那串不變、不用重貼）。');
     return r;
   }
   /* 驗證 token 能寫這個倉庫 */
@@ -1749,6 +1751,7 @@ class HttpSource {
     const j = await r.json();
     if (j.content && j.content.sha) this.shas.set(full, j.content.sha);
     this.pending.set(path, { t: Date.now() });   // 部署跟上之前，輪詢不要用舊資料蓋掉
+    Persist.pref.set('ghSavedAt', String(Date.now()));   // 重新整理後若部署還沒跟上，要提示（D39）
     return j;
   }
   static normalize(d) { return Array.isArray(d) ? { modules: d } : { modules: d.modules || [], writable: !!d.writable, github: d.github || null, generated: d.generated || 0 }; }
@@ -1813,6 +1816,7 @@ class HttpSource {
         this.shas.delete(full);
       }
       this.stamps.delete(path); this.pending.set(path, { t: Date.now(), removed: true });
+      Persist.pref.set('ghSavedAt', String(Date.now()));
       return {};
     }
     const r = await fetch('api/file?path=' + encodeURIComponent(path), { method: 'DELETE' });
@@ -2151,7 +2155,9 @@ const Editor = {
       const nm = Parse.module(text, mod.path); nm.mtime = (r && r.mtime) || Date.now();
       Store.upsert(nm); Store.reindex(); Drafts.del(mod.id);
       this.mod = null; this.dirty = false; this.fields = null;
-      App.renderSidebar(); App.updateCache(); App.toast('已儲存 ' + mod.path); App.show(nm.id, true);
+      App.renderSidebar(); App.updateCache();
+      App.toast(App.source && App.source.token ? '已 commit 到 GitHub：' + mod.path + '（公開頁面約 1–2 分鐘後更新）' : '已儲存 ' + mod.path);
+      App.show(nm.id, true);
     } catch (e) { App.toast('儲存失敗：' + (e.message || e), true); }
   },
 };
@@ -2241,6 +2247,11 @@ const App = {
     for (const a of loaded.assets || []) Store.addAsset(a);
     Store.reindex();
     if (src.watch) src.watch(d => this.applyDelta(d));
+    if (src.kind === 'http' && src.github && src.token) {   // 剛在別次重新整理前存過檔？部署（約 1–2 分鐘）沒跟上前先說清楚（D39）
+      const t = +Persist.pref.get('ghSavedAt') || 0;
+      const gen = (src.man && src.man.generated) || 0;
+      if (t && gen && gen < t && Date.now() - t < 15 * 60 * 1000) { this._ghLagNotice = true; this.showNotice('剛存進 GitHub 的修改正在部署（通常 1–2 分鐘）。這頁目前顯示的是部署前的版本——修改都在，部署完會自動換上，不用重打。'); }
+    }
     if (src.kind === 'folder') { this.pendingHandle = null; Persist.set('dirHandle', src.handle); }
     if (src.kind === 'files') { this.pendingHandle = null; Persist.del('dirHandle'); }   // 新的匯入取代舊的記憶
     if (src.kind === 'folder' || src.kind === 'files') this.writeCache();
@@ -2280,6 +2291,7 @@ const App = {
   updateCache: Util.debounce(() => App.writeCache(), 800),
 
   applyDelta({ upserts, removed }) {
+    if (this._ghLagNotice) { this._ghLagNotice = false; this.hideNotice(); this.toast('部署完成，內容已更新'); }   // 新的 manifest 到了
     const changed = new Set();
     for (const u of upserts) { const m = Parse.module(u.text, u.path); m.mtime = u.mtime || Date.now(); Store.upsert(m); changed.add(m.id); }
     for (const p of removed) { const id = Util.pathToId(p); Store.remove(id); changed.add(id); }

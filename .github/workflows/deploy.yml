@@ -24,6 +24,12 @@ jobs:
           python-version: '3.x'
       - name: Build index.html
         run: python scripts/build_index.py
+      - name: Rebuild notes manifest (modules.json)
+        # notes/ 由檢視器（GitHub 直接編輯）commit 個別 .md 之後，打包檔要在部署時重建才會跟上
+        run: |
+          if [ -f notes/build.py ]; then
+            python3 notes/build.py notes --manifest --inline --github "$GITHUB_REPOSITORY" --branch "${GITHUB_REF_NAME}" --dir notes
+          fi
       - name: Stage site
         run: |
           set -euo pipefail
