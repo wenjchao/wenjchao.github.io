@@ -1,17 +1,17 @@
 {
- "generated": 1787684396203,
+ "generated": 1787688228931,
  "modules": [
   {
    "path": "首頁.md",
-   "mtime": 1787684047959,
-   "size": 336,
-   "text": "# 首頁\n\n## 摘要\n筆記的入口。醫學筆記在「醫學筆記」資料夾，工具與使用說明在「筆記模組」資料夾。\n\n## 內文\n### 醫學筆記\n\n[[醫學筆記/CV new|摘要]]\n\n[[醫學筆記/CV new 改寫版]]\n\n[[醫學筆記/症狀治療基本用藥|摘要]]\n\n### 工具與說明\n\n[[筆記模組/首頁|摘要]]\n"
+   "mtime": 1787688120584,
+   "size": 1164,
+   "text": "# 首頁\n\n## 摘要\n筆記的入口。醫學筆記在「醫學筆記」資料夾，工具與使用說明在「筆記模組」資料夾；最下面有日常流程的速查。\n\n## 內文\n### 醫學筆記\n\n[[醫學筆記/CV new|摘要]]\n\n[[醫學筆記/CV new 改寫版]]\n\n[[醫學筆記/症狀治療基本用藥|摘要]]\n\n### 工具與說明\n\n[[筆記模組/首頁|摘要]]\n\n### 怎麼用\n\n- 改筆記：雙擊這個資料夾裡的 `啟動筆記.command`，瀏覽器會開 localhost:8765；筆記放在 `醫學筆記/` 底下。\n- 要上線：雙擊 `發佈到GitHub.command`——會自動 commit、合併 iPad 的修改、重建 modules.json、推送；約 1–2 分鐘後 https://wenjchao.github.io/notes/ 更新。\n- iPad／手機：開上面的網址直接看；要改按「啟用編輯」（token 每台設一次），每次儲存自動 commit，下次在 Mac 發佈時會自動合併回來。\n- 儲存跳「GitHub 回應 409」：和另一個修改撞到而已，等幾秒再按一次儲存，內容不會丟。\n- 完整規則在 [[筆記模組/說明/載入與同步|載入與同步]] 與 [[筆記模組/說明/規格書|規格書]] 的「同步架構」。\n"
   },
   {
-   "path": "筆記模組/首頁.md",
-   "mtime": 1787603640038,
-   "size": 1938,
-   "text": "# 首頁\n\n## 摘要\n這是整本筆記的入口，也是使用說明的總覽。一個 `.md` 檔就是一個模組；模組 = 標題 + 摘要 + 內文；模組裡用 `[[模組名|模式]]` 裝進別的模組，讀的人決定要看到哪一層。下面每個主題都是獨立的模組——展開看摘要，點標題看全文。\n\n## 內文\n### 範例\n\n[[範例/筆記一|摘要]]\n\n### 先看這兩個\n\n[[說明/快速開始|摘要]]\n\n[[說明/寫作規範|摘要]]\n\n### 寫的時候會用到\n\n[[說明/連結語法|摘要]]\n\n[[說明/圖片|摘要]]\n\n[[說明/編輯|摘要]]\n\n### 在哪裡看、怎麼換樣子\n\n[[說明/載入與同步|摘要]]\n\n[[說明/從 Notion 匯入|摘要]]\n\n[[說明/外觀樣式|摘要]]\n\n### 給要改程式的人\n\n[[說明/擴充開發|摘要]]\n\n[[說明/規格書|摘要]]\n\n[[說明/已知限制|摘要]]\n\n[[說明/功能藍圖|摘要]]\n\n### 三十秒版\n\n- 檔案：`# 標題`、`## 摘要`、`## 內文`。沒有摘要就不寫 `## 摘要`。開頭可放 frontmatter 寫 `tags:`、`date:`。\n- 連結：`[[第一小點]]`、`[[第一小點|摘要]]`、`[[第一小點|全文]]`；在子資料夾的寫 `[[說明/寫作規範]]`；清單裡想和其他項目平行寫 `[[第一小點|扁平]]`。獨立一行是卡片，句子裡是晶片。編輯器裡打 `[[` 會跳出模組清單。\n- 圖片：`![說明](圖片/檔名.png)`，或在編輯器裡直接貼上。數學式：`$E=mc^2$`、`$$…$$`。\n- 打開：Chrome／Edge 雙擊 `index.html` →「匯入資料夾」。Safari／其他環境雙擊 `啟動筆記.command`（Windows：`.bat`）。放上 GitHub Pages 的版本在 iPad／手機按「啟用編輯」輸入 token，就能用同一套編輯器。\n- 按 `/` 搜尋（會搜內文，`#標籤` 可篩選）；左下角若出現「N 個壞連結」，點進去修。改名、搬移、刪除在模組工具列；連結會跟著改。\n- 有些事還做不到，先看 [[說明/已知限制]]。\n"
+   "path": "筆記模組/筆記模組 - 首頁.md",
+   "mtime": 1787688228813,
+   "size": 1953,
+   "text": "# 筆記模組 - 首頁\n\n## 摘要\n這是整本筆記的入口，也是使用說明的總覽。一個 `.md` 檔就是一個模組；模組 = 標題 + 摘要 + 內文；模組裡用 `[[模組名|模式]]` 裝進別的模組，讀的人決定要看到哪一層。下面每個主題都是獨立的模組——展開看摘要，點標題看全文。\n\n## 內文\n### 範例\n\n[[範例/筆記一|摘要]]\n\n### 先看這兩個\n\n[[說明/快速開始|摘要]]\n\n[[說明/寫作規範|摘要]]\n\n### 寫的時候會用到\n\n[[說明/連結語法|摘要]]\n\n[[說明/圖片|摘要]]\n\n[[說明/編輯|摘要]]\n\n### 在哪裡看、怎麼換樣子\n\n[[說明/載入與同步|摘要]]\n\n[[說明/從 Notion 匯入|摘要]]\n\n[[說明/外觀樣式|摘要]]\n\n### 給要改程式的人\n\n[[說明/擴充開發|摘要]]\n\n[[說明/規格書|摘要]]\n\n[[說明/已知限制|摘要]]\n\n[[說明/功能藍圖|摘要]]\n\n### 三十秒版\n\n- 檔案：`# 標題`、`## 摘要`、`## 內文`。沒有摘要就不寫 `## 摘要`。開頭可放 frontmatter 寫 `tags:`、`date:`。\n- 連結：`[[第一小點]]`、`[[第一小點|摘要]]`、`[[第一小點|全文]]`；在子資料夾的寫 `[[說明/寫作規範]]`；清單裡想和其他項目平行寫 `[[第一小點|扁平]]`。獨立一行是卡片，句子裡是晶片。編輯器裡打 `[[` 會跳出模組清單。\n- 圖片：`![說明](圖片/檔名.png)`，或在編輯器裡直接貼上。數學式：`$E=mc^2$`、`$$…$$`。\n- 打開：Chrome／Edge 雙擊 `index.html` →「匯入資料夾」。Safari／其他環境雙擊 `啟動筆記.command`（Windows：`.bat`）。放上 GitHub Pages 的版本在 iPad／手機按「啟用編輯」輸入 token，就能用同一套編輯器。\n- 按 `/` 搜尋（會搜內文，`#標籤` 可篩選）；左下角若出現「N 個壞連結」，點進去修。改名、搬移、刪除在模組工具列；連結會跟著改。\n- 有些事還做不到，先看 [[說明/已知限制]]。\n"
   },
   {
    "path": "筆記模組/範例/第一小點.md",
@@ -111,9 +111,9 @@
   },
   {
    "path": "醫學筆記/CV new 改寫版.md",
-   "mtime": 1787674018000,
-   "size": 1143,
-   "text": "# CV new\n\n## 摘要\n心血管內科科整理：心臟超音波參數、瓣膜疾病、冠心病、肥厚型心肌病、心律不整、心衰竭、主動脈剝離與動脈瘤、感染性心內膜炎與心肌炎、先天性心臟病、昏厥，以及幾則零星補充。每個主題是一個模組，大的主題裡再依子題拆開。\n\n## 內文\n[[CV new 改寫版/Heart Echo]]\n\n[[CV new 改寫版/Valvular disease]]\n\n[[CV new 改寫版/Coronary artery disease]]\n\n[[CV new 改寫版/Hypertrophic cardiomyopathy]]\n\n[[CV new 改寫版/Arrhythmia]]\n\n[[CV new 改寫版/Heart failure]]\n\n[[CV new 改寫版/Aortic dissection]]\n\n[[CV new 改寫版/Aortic aneurysm]]\n\n[[CV new 改寫版/Infective endocarditis]]\n\n[[CV new 改寫版/Infective myocarditis]]\n\n[[CV new 改寫版/Congenital Heart disease]]\n\n[[CV new 改寫版/Syncope]]\n\n### Others\n\n[[CV new 改寫版/VA ecmo contraindication]]\n\n[[CV new 改寫版/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- AR ⇒ hypertrophy 、LV dilated ⇒ hypertrophy\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
+   "mtime": 1787688228814,
+   "size": 1150,
+   "text": "# CV new 改寫版\n\n## 摘要\n心血管內科整理：心臟超音波參數、瓣膜疾病、冠心病、肥厚型心肌病、心律不整、心衰竭、主動脈剝離與動脈瘤、感染性心內膜炎與心肌炎、先天性心臟病、昏厥，以及幾則零星補充。每個主題是一個模組，大的主題裡再依子題拆開。\n\n## 內文\n[[CV new 改寫版/Heart Echo]]\n\n[[CV new 改寫版/Valvular disease]]\n\n[[CV new 改寫版/Coronary artery disease]]\n\n[[CV new 改寫版/Hypertrophic cardiomyopathy]]\n\n[[CV new 改寫版/Arrhythmia]]\n\n[[CV new 改寫版/Heart failure]]\n\n[[CV new 改寫版/Aortic dissection]]\n\n[[CV new 改寫版/Aortic aneurysm]]\n\n[[CV new 改寫版/Infective endocarditis]]\n\n[[CV new 改寫版/Infective myocarditis]]\n\n[[CV new 改寫版/Congenital Heart disease]]\n\n[[CV new 改寫版/Syncope]]\n\n### Others\n\n[[CV new 改寫版/VA ecmo contraindication]]\n\n[[CV new 改寫版/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- AR ⇒ hypertrophy 、LV dilated ⇒ hypertrophy\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
   },
   {
    "path": "醫學筆記/CV new.md",
@@ -123,9 +123,9 @@
   },
   {
    "path": "醫學筆記/症狀治療基本用藥.md",
-   "mtime": 1787368698000,
-   "size": 833,
-   "text": "# 症狀治療基本用藥\n\n## 摘要\n診所常用的症狀治療用藥整理：抗組織胺、鼻子、咳嗽、腸胃、噁心嘔吐頭暈、皮膚癢、藥膏與滴劑、退燒止痛，加上耳鼻喉科診所的處置流程與其他零星用藥。每一類先看摘要，點進去才有藥名與劑量。\n\n## 內文\n[[症狀治療基本用藥/Anti-histamine 簡介]]\n\n[[症狀治療基本用藥/鼻子]]\n\n[[症狀治療基本用藥/咳嗽|摘要]]\n\n[[症狀治療基本用藥/腸胃用藥|摘要]]\n\n[[症狀治療基本用藥/噁心、嘔吐、頭暈|摘要]]\n\n[[症狀治療基本用藥/Itchiness|摘要]]\n\n[[症狀治療基本用藥/藥膏與滴劑|摘要]]\n\n[[症狀治療基本用藥/發燒、止痛|摘要]]\n\n[[症狀治療基本用藥/耳鼻喉科診所 procedure|摘要]]\n\n[[症狀治療基本用藥/其他用藥|摘要]]\n"
+   "mtime": 1787688228814,
+   "size": 842,
+   "text": "# 症狀治療基本用藥\n\n## 摘要\n診所常常常常用的症狀治療用藥整理：抗組織胺、鼻子、咳嗽、腸胃、噁心嘔吐頭暈、皮膚癢、藥膏與滴劑、退燒止痛，加上耳鼻喉科診所的處置流程與其他零星用藥。每一類先看摘要，點進去才有藥名與劑量。\n\n## 內文\n[[症狀治療基本用藥/Anti-histamine 簡介]]\n\n[[症狀治療基本用藥/鼻子]]\n\n[[症狀治療基本用藥/咳嗽|摘要]]\n\n[[症狀治療基本用藥/腸胃用藥|摘要]]\n\n[[症狀治療基本用藥/噁心、嘔吐、頭暈|摘要]]\n\n[[症狀治療基本用藥/Itchiness|摘要]]\n\n[[症狀治療基本用藥/藥膏與滴劑|摘要]]\n\n[[症狀治療基本用藥/發燒、止痛|摘要]]\n\n[[症狀治療基本用藥/耳鼻喉科診所 procedure|摘要]]\n\n[[症狀治療基本用藥/其他用藥|摘要]]\n"
   },
   {
    "path": "醫學筆記/CV new/Aortic aneurysm.md",
