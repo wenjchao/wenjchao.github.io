@@ -37,7 +37,7 @@ jobs:
           cp index.html _site/
           # Auto-copy every top-level directory except the excluded ones below.
           # Add a name here to keep it out of the deployed site.
-          excluded=( _site scripts 本地 筆記模組 )
+          excluded=( _site scripts 本地 )
           shopt -s nullglob
           for dir in */; do
             name="${dir%/}"
