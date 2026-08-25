@@ -1,11 +1,11 @@
 {
- "generated": 1787606701475,
+ "generated": 1787680668531,
  "modules": [
   {
-   "path": "CV new 手動更新改寫.md",
-   "mtime": 1787381371000,
-   "size": 1003,
-   "text": "# CV new\n\n## 摘要\n心血管內科科整理：心臟超音波參數、瓣膜疾病、冠心病、肥厚型心肌病、心律不整、心衰竭、主動脈剝離與動脈瘤、感染性心內膜炎與心肌炎、先天性心臟病、昏厥，以及幾則零星補充。每個主題是一個模組，大的主題裡再依子題拆開。\n\n## 內文\n[[CV new/Heart Echo]]\n\n[[CV new/Valvular disease]]\n\n[[CV new/Coronary artery disease]]\n\n[[CV new/Hypertrophic cardiomyopathy]]\n\n[[CV new/Arrhythmia]]\n\n[[CV new/Heart failure]]\n\n[[CV new/Aortic dissection]]\n\n[[CV new/Aortic aneurysm]]\n\n[[CV new/Infective endocarditis]]\n\n[[CV new/Infective myocarditis]]\n\n[[CV new/Congenital Heart disease]]\n\n[[CV new/Syncope]]\n\n### Others\n\n[[CV new/VA ecmo contraindication]]\n\n[[CV new/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- AR ⇒ hypertrophy 、LV dilated ⇒ hypertrophy\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
+   "path": "CV new 改寫版.md",
+   "mtime": 1787674018000,
+   "size": 1143,
+   "text": "# CV new\n\n## 摘要\n心血管內科科整理：心臟超音波參數、瓣膜疾病、冠心病、肥厚型心肌病、心律不整、心衰竭、主動脈剝離與動脈瘤、感染性心內膜炎與心肌炎、先天性心臟病、昏厥，以及幾則零星補充。每個主題是一個模組，大的主題裡再依子題拆開。\n\n## 內文\n[[CV new 改寫版/Heart Echo]]\n\n[[CV new 改寫版/Valvular disease]]\n\n[[CV new 改寫版/Coronary artery disease]]\n\n[[CV new 改寫版/Hypertrophic cardiomyopathy]]\n\n[[CV new 改寫版/Arrhythmia]]\n\n[[CV new 改寫版/Heart failure]]\n\n[[CV new 改寫版/Aortic dissection]]\n\n[[CV new 改寫版/Aortic aneurysm]]\n\n[[CV new 改寫版/Infective endocarditis]]\n\n[[CV new 改寫版/Infective myocarditis]]\n\n[[CV new 改寫版/Congenital Heart disease]]\n\n[[CV new 改寫版/Syncope]]\n\n### Others\n\n[[CV new 改寫版/VA ecmo contraindication]]\n\n[[CV new 改寫版/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- AR ⇒ hypertrophy 、LV dilated ⇒ hypertrophy\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
   },
   {
    "path": "CV new.md",
@@ -422,404 +422,404 @@
    "text": "# TAVI vs SAVR\n\n## 摘要\n兩張比較圖：TAVI 與 SAVR 怎麼選。\n\n## 內文\n![](../../圖片/image-2.png)\n\n![](../../圖片/image2.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Aortic aneurysm.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Aortic aneurysm.md",
+   "mtime": 1787674018000,
    "size": 183,
    "text": "# Aortic aneurysm\n\n## 摘要\n控制血壓；兩張分類與處置截圖。\n\n## 內文\n![](圖片/截圖_2023-06-12_上午6.47.53.png)\n\n![](圖片/截圖_2023-06-12_上午6.48.01.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Aortic dissection.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Aortic dissection.md",
+   "mtime": 1787674018000,
    "size": 713,
    "text": "# Aortic dissection\n\n## 摘要\n突發劇痛＋高血壓史；d-dimer 敏感不特異，tearing pain／縱膈變寬／脈搏不對稱特異不敏感；血壓控制：急性期先 β-blocker，穩定後 NTG，忌血管擴張劑。\n\n## 內文\n1. Severe, abrupt pain + history of hypertension\n2. Sensitive but not specific: 沒中rule out，有中不一定rule in\n   1. d-dimer\n3. Specific but not sensitive: 都沒中才可以 rule out\n   1. tearing pain\n   2. mediastinal widening\n   3. asymmetric pulse\n4. control BP：\n   1. **<u>very critical if hypotension</u>**\n   2. if hypertension：\n      1. 急性期一線用藥 ⇒ beta-blocker\n      2. 穩定下來以後 ⇒ NTG\n      3. Contraindication: Vasodilator\n"
   },
   {
-   "path": "CV new 手動更新改寫/Arrhythmia.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Arrhythmia.md",
+   "mtime": 1787674018000,
    "size": 1375,
    "text": "# Arrhythmia\n\n## 摘要\nAfib（CHA₂DS₂-VASc >2 抗凝、LA 大小與病生理、rate vs rhythm control）、緩脈放 pacemaker、SVT 類 RFCA、VT 放 ICD、抗心律不整藥四大類；附 19 張圖解。\n\n## 內文\n1. **<u>Atrial fibrillation</u>**\n\n   [[Arrhythmia/CHA2DS2-VASc|摘要]]\n   1. Pathophysiology:\n      1. Left atrium enlargement\n         - LA dimensions: 4cm normal, 5cm 50% a-fib, 6cm 100% a-fib\n      2. Left atrium ischemia\n      ⇒ remodeling: Ca2+ channel remodeling, scar formation\n      ⇒ permanent A-fib\n   2. Afib rate control / Afib-RVR emergency：\n      1. CCB + beta blocker (if no HF)\n      2. second line: amiodarone（小心會跳回來）、digoxin\n         1. amiodarone 注意毒性（一天的量有上限）\n      3. 只有 LA 小的才考慮 rhythm control（不然撐不久）\n         - 如果能 rhythm control，長期來看還是讓他 rhythm control 比較好\n2. Bradycardia（SSS、AV block）：**<u>Pacemaker</u>**\n3. Atrial Tachy、AVNRT、AVRT、A-Flutter：**<u>RCFA</u>**（用心導管燒掉） > Anti-arrhythmics\n4. VT：**<u>ICD</u>** > RFCA、Anti-arrhythmics\n5. **<u>Anti-arrhythmics</u>**\n   1. Class 1: Na: lido**cain**e, pro**cain**amide\n   2. Class 2: beta blocker ⇒ -olol\n   3. Class 3: K: amiodarone (混class 1234)\n   4. Class 4: Ca: 即 CCB ⇒ Dilitazem, Verapamil\n\n   [[Arrhythmia/圖解|摘要]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/Congenital Heart disease.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Congenital Heart disease.md",
+   "mtime": 1787674018000,
    "size": 1140,
    "text": "# Congenital Heart disease\n\n## 摘要\n發紺＝右到左分流。發紺型五 T 速記（Truncus、TGA、Tricuspid atresia、TOF、TAPVR）與 Ebstein、依賴 PDA／ASD／VSD、Fontan 手術；非發紺型打洞類（VSD／ASD／PDA）與阻塞類；Eisenmenger syndrome。\n\n## 內文\n> 💡 Cyanotic 表示體循環含氧量不足，代表有缺氧血混進動脈裡，即 Right-to-left shunt；反之若有 Left-to-right shunt 則因為動脈血仍維持高含氧量，不會發紺\n\n> 💡 寶寶在喘 ⇒ 因此喝不了奶 ⇒ 營養不良 ⇒ 免疫不好 ⇒ infection\n\n> 💡 小孩不會抱怨胸痛、喘，可能一出事就 shock，所以要很注意兒童急診 ABC：pallor, cold sweating, jugular vein engorgement, hepatomegaly\n\n- [[Congenital Heart disease/Cyanotic heart disease|扁平]]\n- [[Congenital Heart disease/Non-cyanotic heart disease|扁平]]\n- **Eisenmenger syndrome**：長期大量 **<u>Left-to-right shunt</u>** ⇒ 小肺動脈代償性增厚 ⇒ PVR ↑ ⇒ PVOD(pulmonary vascular obstructive disease) ⇒ pulmonary hypertension ⇒ **<u>Right-to-left shunt( & cyanosis )</u>**，此時已不適合開刀\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Coronary artery disease.md",
+   "mtime": 1787674018000,
    "size": 2233,
    "text": "# Coronary artery disease\n\n## 摘要\n依嚴重度 STEMI > NSTEMI > UA > stable angina（前三者合稱 ACS），各自的 ST／troponin 組合與症狀定義、CCS 分級、hs-troponin 0/1/3 小時流程、NICE 處置、冠狀動脈攝影視角。\n\n## 內文\n依嚴重程度分類，分成四階：STEMI > NSTEMI > Unstable angina > Stable angina\n\n其中 STEMI、NSTEMI、Unstable angina 合稱 ACS（acute coronary syndrome）\n\n1. **<u>STEMI</u>**：**<u>ST elevation</u>** + **<u>elevated troponin</u>**\n\n   [[Coronary artery disease/STEMI equivalent|摘要]]\n2. **<u>NSTEMI</u>**：~~No ST elevation~~ + **<u>elevated troponin</u>**\n3. **<u>Unstable angina</u>**：~~No ST elevation~~ + ~~normal troponin~~\n   > Symptom of UA：\n   >\n   > Prolonged, Rested, New-onset, Progressed, Post-MI angina\n   >\n   > 1. **<u>Prolonged</u>** (>20 min) chest discomfort **<u>at rest</u>**\n   > 2. **<u>New-onset</u>**(<3 months) angina (class II or III)\n   > 3. Recent **<u>destabilization</u>** of previously stable angina(Class III)\n   >    (crescendo/unstable angina).\n   > 4. **<u>Post-acute myocardial infarction</u>** angina\n   > 5. [[Coronary artery disease/Canadian Cardiovascular Society classification|扁平]]\n4. **<u>Stable angina</u>**：~~No ST elevation~~ + ~~normal troponin~~\n   > Symptom of stable angina：\n   >\n   > retrosternal, exertional,\n   >\n   > relieved by\n   >\n   > rest\n   >\n   > 1. **<u>retrosternal(1)</u>** heaviness with radiation\n   >\n   >    [[Coronary artery disease/疼痛 radiation 位置|摘要]]\n   > 2. provoked by **<u>exertional or emotional stress(2)</u>**\n   > 3. relieved by **<u>rest or NTG(3)</u>**\n   >\n   > - 三項症狀 ≥ 兩項 ⇒ stable angina， ≤ 一項 ⇒ noncardiac schest pain\n\n- Other ACS symptoms\n  1. **cold sweating, dyspnea, nausea & vomiting, syncope**\n  2. hypotension, pulmonary edema, crackles\n  3. epigastric pain\n  4. pallor, sweating, or tremor ⇒ precipitating conditions ex: anemia / thyrotoxicosis\n\n> 💡 No ST elevation 也可以是 ST depression / T inversion / Normal sinus rhythm\n\n[[Coronary artery disease/hs-Troponin 0-1-3 小時流程|摘要]]\n\n[[Coronary artery disease/Management|摘要]]\n\n[[Coronary artery disease/Coronary angiography view|摘要]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/EKG for Anterior ischemia.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/EKG for Anterior ischemia.md",
+   "mtime": 1787674018000,
    "size": 122,
    "text": "# EKG for Anterior ischemia\n\n## 摘要\nV2、V3 出現 QS complex（r 波消失）。\n\n## 內文\n![](圖片/Untitled.jpeg)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo.md",
-   "mtime": 1787413575000,
+   "path": "CV new 改寫版/Heart Echo.md",
+   "mtime": 1787674018000,
    "size": 1487,
    "text": "# Heart Echo\n\n## 摘要\n靜態參數（EF、LVIDd/LVIDs、LA）與 Doppler 動態參數（AVA、V2 max／mean、壓力差 = 4V²）；另有壓力差公式的推導與一則 Q&A，以及舒張功能的 E/A、E/e’。\n\n## 內文\n### 靜態參數\n\n- [[Heart Echo/EF (Ejection fraction)|扁平]]\n- LVIDd and LVIDs: Left ventricular internal diameter end diastole / systole\n  Normal range : LVIDd is **3.5-5.6** cm, LVIDs is 2.0-4.0 cm\n- LA dimension：for A-fib\n\n### Doppler（動態參數）\n\n這邊以 Aortic valve 舉例，其餘 valve 均相同\n\n- [[Heart Echo/AVA (Aortic valve area)|扁平]]\n- **<u>V2 max (Aortic valve maximal velocity)</u>**：直接量\n- [[Heart Echo/V2 mean|扁平]]\n- **<u>Transvalvular pressure gradient（PG）</u>** = **4\\*V^2** ，一樣分 Peak PG & Mean PG\n  1. Peak PG = 4\\*V2 max^2\n  2. **<u>Mean PG</u>** (Mean aortic valve gradient) 把 PG 積分起來以後取平均\n     - Mean PG > 4\\*V mean^2 (平方的平均 > 平均的平方)\n\n  [[Heart Echo/壓力差 = 4V² 的證明]]\n\n  [[Heart Echo/問：壓力差取 P_LV−P_Aorta，速度為何取 V_Valve]]\n  - 同樣方法也可以測量心臟間各chamber的壓力差，ex: CVP + Gradient from Tricuspid regurgitation = Pulmonary artery systolic pressure (PASP)\n- [[Heart Echo/Peak to peak gradient|扁平]]\n- [[Heart Echo/Diastolic dysfunction 的 echo 指標|扁平]]\n- High TR PG for Pulmonary Hypertension\n- High intra-LV pressure gradient & Diastolic dysfunction for Hypertrophic cardiomyopathy\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure.md",
-   "mtime": 1787413586000,
+   "path": "CV new 改寫版/Heart failure.md",
+   "mtime": 1787674018000,
    "size": 1799,
    "text": "# Heart failure\n\n## 摘要\n急性：惡性循環、urgent／immediate phase、congestion × perfusion 的 2×2 評估、Swan-Ganz 數值、2016 ESC 處置。長期：vital sign、lab、echo、NYHA／ACC-AHA／Intermacs 分期、HFrEF／HFmrEF／HFpEF、GDMT（ARNI + BB + SGLT2i + MRA）與劑量、裝置治療、機械循環輔助。\n\n## 內文\n### Acute heart failure & acute management\n\n- [[Heart failure/Disease progression|扁平]]\n- 惡化因子：飲食中水分鹽分未控制、不規律用藥、Infection、Anemia、酒、藥物、懷孕\n\n1. Initial（**Urgent phase**）：keep vital sign，送 ICU / CCU\n   1. **<u>cardiogenic shock</u>**: pharmacological & mechanical support\n   2. **<u>respiratory failure</u>**: ventilation support\n2. Initial（**Immediate phase**）： etiology survey & specific treatment\n   1. acute coronary syndrome\n   2. arrythmia\n   3. pulmonary embolism\n   4. hypertensive crisis\n   5. myocardial / valve rupture\n3. [[Heart failure/Evaluation|扁平]]\n4. [[Heart failure/Usage of Swan-Ganz|扁平]]\n5. [[Heart failure/Treatment Algorithm|扁平]]\n\n### Long-term evaluation & management\n\n1. Vital sign：SpO2 & BP\n2. Lab data\n   1. **Troponin, NT-proBNP**（不同年齡有差）\n   2. Hb, HCT, PT, aPTT, Electrolyte, Thyroid / Renal / Liver function\n3. <u>Heart echo</u> for systolic & diastolic dysfunction\n4. **Staging**\n\n   [[Heart failure/Symptom staging 疾病嚴重程度|摘要]]\n\n   [[Heart failure/Functional types 心室功能分類|摘要]]\n5. **Treatment:** **<u>ARNI + beta-blocker + SGLT-2i + MRA</u>**\n\n   [[Heart failure/2022 guideline-directed medical therapy (GDMT)|摘要]]\n\n   [[Heart failure/GDMT dosing|摘要]]\n\n   [[Heart failure/Devices for additional GDMT|摘要]]\n\n   [[Heart failure/Mechanical circulatory support device|摘要]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/Hypertrophic cardiomyopathy.md",
-   "mtime": 1787381017000,
+   "path": "CV new 改寫版/Hypertrophic cardiomyopathy.md",
+   "mtime": 1787674018000,
    "size": 1408,
    "text": "# Hypertrophic cardiomyopathy\n\n## 摘要\n病生理（thick／thin filament 突變）、好發年齡、症狀與徵象（ECG、echo、收縮期雜音）、併發症（猝死、HF、心律不整、中風）、猝死預防、治療原則。\n\n## 內文\n[[Hypertrophic cardiomyopathy/圖示|摘要]]\n\n[[Hypertrophic cardiomyopathy/Pathophysiology|摘要]]\n\n[[Hypertrophic cardiomyopathy/Etiology|摘要]]\n\n### Symptoms\n\n1. Dyspnea on exertion / Fatigue / Atypical or anginal chest pain\n2. Palpitation\n3. Presyncope and syncope, during or immediately following exertion\n4. **<u>Sudden cardiac death</u>** <u>⇒ prevention</u>\n\n### Signs\n\n1. Abnormal ECG (left axis deviation, high R voltage in aVL, aVF, V4 - V6, septal Q waves in aVL, I, II)\n2. Heart Echo：\n   1. High intra-LV pressure gradient\n   2. Diastolic dysfunction\n3. Murmurs：**Systolic**\n   1. Left ventricular outflow tract (LVOT) gradients / obstruction ⇒ Systolic murmurs\n   2. Mitral regurgitation ⇒ Systolic murmurs\n\n### Related complication\n\n1. **<u>Sudden Death</u>**\n2. Heart failure\n3. Arrythmias, both ventricular and atrial (especially important due to LV filling impairment)\n4. Stroke, in older age and larger left atrial size (even without identified atrial fibrillation)\n5. [[Hypertrophic cardiomyopathy/Prevention of sudden death|全文|扁平]]\n6. [[Hypertrophic cardiomyopathy/Treatment for hypertrophic cardiomyopathy|扁平]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/Infective endocarditis.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Infective endocarditis.md",
+   "mtime": 1787674018000,
    "size": 408,
    "text": "# Infective endocarditis\n\n## 摘要\nModified Duke criteria（細菌證據＋結構變化）、常見菌種圖、拔牙等處置前的預防性 amoxicillin 適用對象。\n\n## 內文\n![](圖片/CV-old/Untitled.png)\n\n- [[Infective endocarditis/菌種|扁平]]\n- Prophylaxis for Infective endocarditis（ex: 準備拔牙） : amoxicillin\n  For 哪些病人：\n  1. 所有congenital heart disease\n  2. 剛修完\n"
   },
   {
-   "path": "CV new 手動更新改寫/Infective myocarditis.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Infective myocarditis.md",
+   "mtime": 1787674018000,
    "size": 840,
    "text": "# Infective myocarditis\n\n## 摘要\n以小孩、病毒感染為主；病程從感冒到胸痛、蒼白、心搏過速、低血壓、心律不整，變化很快；檢查 CXR、ECG、troponin、NT-proBNP、SvO₂。\n\n## 內文\n1. 小孩子為主\n2. viral infection 為主，其他 infection 偶爾會有。可能直接感染心肌或是免疫反應攻擊心肌\n3. 病程：common cold → chest pain → weak, chillness, pale → tachycardia, hypotension → arrhythmia / dilated cardiomyopathy → ECMO / transplant\n   > 💡 病程變化很快，精神還很好的時候 Vital sign 就有變化了\n   > 💡 小孩不會抱怨胸痛、喘，可能一出事就 shock，所以要很注意兒童急診 ABC：pallor, cold sweating, jugular vein engorgement, hepatomegaly\n4. 檢查：CXR, ECG, Troponin, NT-proBNP, SvO2(看 heart failure 程度)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Syncope.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Syncope.md",
+   "mtime": 1787674018000,
    "size": 758,
    "text": "# Syncope\n\n## 摘要\n心因性（心律不整、LVOTO）vs 非心因性（姿勢性低血壓：站立 3 分鐘內 SBP 降 ≥20 或 DBP 降 ≥10；vasovagal），D/D vertigo。\n\n## 內文\n1. **Cardiac**\n   1. **Arrhythmia:** History of CAD, MI, cardiomyopathy? Torsades de pointes?\n   2. Left ventricular outflow tract obstruction (LVOTO): in <u>AS</u>, <u>HOCM</u>\n2. **Noncardiac:** prodrome for < 30 seconds & recovery within seconds\n   1. **Orthostatic hypotension**: 站立 **3 min 內** **SBP 掉 ≥ 20** or **DBP 掉 ≥ 10** mmHg\n      1. ANS disorder: Parkinson’s, Lewy body disease, MSA (P+), DM, Amyloidosis\n      2. Drug (α-antagonist) / hypovolemia / 剛吃飽\n   2. **Vasovagal**\n   > 💡 這兩個都 tilt table positive\n3. D/D: vertigo\n"
   },
   {
-   "path": "CV new 手動更新改寫/VA ecmo contraindication.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/VA ecmo contraindication.md",
+   "mtime": 1787674018000,
    "size": 343,
    "text": "# VA ecmo contraindication\n\n## 摘要\nAR：血只會衝回 LV；MR：afterload 太高，LV 的血全灌進 LA 與肺，造成嚴重肺水腫。\n\n## 內文\n1. AR: 血只會衝回 LV\n2. MR: 因為 ECMO 造成 afterload 太高，所以LV的血根本打不進Aorta，全部灌進LA跟肺裡，造成很嚴重的lung edema，ecmo flow 也拉不高\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease.md",
+   "mtime": 1787674018000,
    "size": 473,
    "text": "# Valvular disease\n\n## 摘要\n分期都依 heart echo 參數：AS（V2 max、Mean PG、AVA、EF；分期 A–D、2020 AHA 處置、TAVI vs SAVR）、MR（EROA、RVol）、MS（MVA）、AR（EROA、RVol）。\n\n## 內文\n現在主要的 Staging 方式都是根據 Heart echo 的參數\n\n[[Valvular disease/Aortic stenosis|摘要]]\n\n[[Valvular disease/Mitral regurgitation|摘要]]\n\n[[Valvular disease/Mitral stenosis|摘要]]\n\n[[Valvular disease/Aortic regurgitation|摘要]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/Arrhythmia/CHA2DS2-VASc.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Arrhythmia/CHA2DS2-VASc.md",
+   "mtime": 1787674018000,
    "size": 145,
    "text": "# CHA2DS2-VASc > 2 就要吃藥\n\n## 摘要\n腦梗在 S、心梗在 V、DVT 沒分數；附計分表。\n\n## 內文\n![](../圖片/Untitled-28.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Arrhythmia/圖解.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Arrhythmia/圖解.md",
+   "mtime": 1787674018000,
    "size": 992,
    "text": "# 圖解\n\n## 摘要\n19 張心律不整相關截圖（判讀與用藥）。\n\n## 內文\n![](../圖片/截圖_2022-09-03_15.06.23.png)\n\n![](../圖片/截圖_2022-09-03_15.06.38.png)\n\n![](../圖片/截圖_2022-09-03_14.56.27.png)\n\n![](../圖片/截圖_2022-09-03_14.57.53.png)\n\n![](../圖片/截圖_2022-09-03_14.58.21.png)\n\n![](../圖片/截圖_2022-09-03_14.59.00.png)\n\n![](../圖片/截圖_2022-09-03_14.59.45.png)\n\n![](../圖片/截圖_2022-09-03_15.00.12.png)\n\n![](../圖片/截圖_2022-09-03_15.00.48.png)\n\n![](../圖片/截圖_2022-09-03_15.01.08.png)\n\n![](../圖片/截圖_2022-09-03_15.01.37.png)\n\n![](../圖片/截圖_2022-09-03_15.01.50.png)\n\n![](../圖片/截圖_2022-09-03_15.02.55.png)\n\n![](../圖片/截圖_2022-09-03_15.03.09.png)\n\n![](../圖片/截圖_2022-09-03_15.03.29.png)\n\n![](../圖片/截圖_2022-09-03_15.03.53.png)\n\n![](../圖片/截圖_2022-09-03_15.04.12.png)\n\n![](../圖片/截圖_2022-09-03_15.04.32.png)\n\n![](../圖片/截圖_2022-09-03_15.04.51.png)\n\n1b phenytoin\n"
   },
   {
-   "path": "CV new 手動更新改寫/Congenital Heart disease/Cyanotic heart disease.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Congenital Heart disease/Cyanotic heart disease.md",
+   "mtime": 1787674018000,
    "size": 2099,
    "text": "# Cyanotic heart disease\n\n## 摘要\n速記 Truncus(1)、TGA(2)、Tricuspid atresia(3)、TOF(4)、TAPVR(5) 加 Ebstein；TOF 的 blue spells 與蹲姿；依賴 PDA／ASD／VSD 存活（TAPVR 例外）；單心室只能做 Fontan，附三階段手術。\n\n## 內文\n1. [[Cyanotic heart disease/要圖來這裡找|扁平]]\n2. Truncus arteriosus\n3. Transposition of the great arteries\n4. Tricuspid atresia\n5. **Tetralogy of Fallot**：Pulmonary Stenosis 嚴重的話會有 **Blue spells**\n   Blue spells: 用力（喝奶、大便、大哭）時 tissue acidosis ，讓 beta-adrenergic hyperfunction，使得 RVOT muscle spasm，PS 更嚴重 ⇒ **<u>反而 murmur 變小</u>**\n   1. <u>Beta Blocker</u> for Blue spells\n   2. TOF 的病人常在累的時候**<u>蹲姿休息</u>**\n   3. CXR: **boot-shaped heart**\n   ⇒ 做 BT shunt，把Pulmonary arteroles養大 (本來沒血，長不大)⇒ 2nd 手術\n6. Total anomalous pulmonary venous return: PV 不接 LA 反而去 RA\n7. Ebstein anomaly：瘋狂 TR ⇒ Right-to-Left through ASD, **<u>Split S1</u>**\n\n- 因為這些疾病的左心循環或是右心循環某一邊完全斷掉，因此需要強大的 PDA, ASD, VSD來幫助這些胎兒活下去（不然就真的斷光了）\n  **例外：TAPVR 不要擴大 PDA，因為會造成肺鬱積更嚴重**\n  > 💡 PDA: opened by PGE-1, closed by NSAID\n  - 其實還有疾病一些沒列在 5T 裡面。只要左心循環或是右心循環任一邊斷掉都會形成 Cyanotic heart disease, ex: Hypoplastic left heart syndrome(Mitral Atresia), Pulmonary atresia, Interrupted aortic arch ….\n- 手術修補：如果有兩個能用的心室，可以想辦法修補成雙循環，如果只有一個心室（Tricuspid/Mitral atresia ⇒ Left/Right heart hypoplasia）堪用，那只能使用 Fontan Operation，把單一心室雙循環變成單一心室單循環\n\n  [[Cyanotic heart disease/原理補充|摘要]]\n\n  [[Cyanotic heart disease/手術補充|摘要]]\n  - 這些疾病的左心循環和右心循環只會有一邊斷掉，兩個心室也最多會只有一邊壞掉，不然就會直接胎死腹中\n"
   },
   {
-   "path": "CV new 手動更新改寫/Congenital Heart disease/Non-cyanotic heart disease.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Congenital Heart disease/Non-cyanotic heart disease.md",
+   "mtime": 1787674018000,
    "size": 1337,
    "text": "# Non-cyanotic (acyanotic) heart disease\n\n## 摘要\n打洞類 VSD／ASD／PDA（左到右分流、肺紋增加、心音特徵、Qp:Qs 開刀門檻、長期併發症）與阻塞類（CoA、AS、PS）；總體症狀喘、水腫、心衰竭、休克。\n\n## 內文\n1. 打洞類：VSD, ASD, PDA, (隨便打一個洞，因為壓力差，通常都是 Left-to-right shunt，易 pulmonary hypertension\n   ![](../圖片/CV-old/截圖_2023-03-07_下午5.56.53.png)\n   > 💡 新生兒出生後三天才會出現明顯 Left-to-right shunt，開始聽到murmur\n   1. CXR：肺紋增加\n   2. 心音：ASD（收縮期雜音、寬且固定S2心音）、VSD（holosystolic murmur）、PDA（murmur at anytime）\n   3. ASD ⇒ 右心房 & 室擴大、VSD ⇒ 左右心室擴大、PDA ⇒ 左心室擴大\n   4. Qp（肺循環血流量） : Qs（體循環血流量）\n      1. VSD ⇒ > 2 : 1 開刀\n      2. ASD ⇒ > 1.5 : 1 開刀\n   > 💡 PDA、ASD、VSD 長期開著會有wide pulse pressure (舒張壓< 0.5收縮壓)、aedv（Absence of End Diastolic Velocity，舒張壓末期腦部無血流通過）、腸子缺血導致壞死 / 感染（NEC, Necrotizing enterocolitis）\n2. 阻塞類：Coarctation of the aorta、Aortic stenosis、Pulmonary stenosis\n   - Coarctation: 上下肢壓力差 > 15\n3. 總體症狀：喘、edema、heart failure、shock\n"
   },
   {
-   "path": "CV new 手動更新改寫/Congenital Heart disease/Cyanotic heart disease/原理補充.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Congenital Heart disease/Cyanotic heart disease/原理補充.md",
+   "mtime": 1787674018000,
    "size": 375,
    "text": "# 原理補充\n\n## 摘要\n單心室雙循環的三個缺點：肺高壓、長期缺氧造血增加導致血栓、心室負荷過大易衰竭。\n\n## 內文\n1 Ventricle 2 Circulation 的缺點有\n\n1. pulmonary hypertension\n2. 長期 hypoxia ⇒ blood cell genesis ⇒ thrombosis\n3. 心室負荷太大，易failure\n\n![](../../圖片/CV-old/截圖_2023-02-14_上午12.02.55.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Congenital Heart disease/Cyanotic heart disease/手術補充.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Congenital Heart disease/Cyanotic heart disease/手術補充.md",
+   "mtime": 1787674018000,
    "size": 207,
    "text": "# 手術補充\n\n## 摘要\n3-stage\n\n## 內文\nStage 1: Norwood procedure\n\nStage 2: separating the circulations - Bidirectional Glenn shunt\n\nStage 3: total cavopulmonary connection - modified Fontan operation\n"
   },
   {
-   "path": "CV new 手動更新改寫/Congenital Heart disease/Cyanotic heart disease/要圖來這裡找.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Congenital Heart disease/Cyanotic heart disease/要圖來這裡找.md",
+   "mtime": 1787674018000,
    "size": 353,
    "text": "# 要圖來這裡找\n\n## 摘要\n六張先天性心臟病示意圖（含 Ebstein）。\n\n## 內文\n![](../../圖片/CV-old/Untitled-2.png)\n\n![](../../圖片/CV-old/Untitled-3.png)\n\n![](../../圖片/CV-old/Untitled-4.png)\n\n![](../../圖片/CV-old/Untitled-5.png)\n\n![](../../圖片/CV-old/Untitled-6.png)\n\n![](../../圖片/CV-old/ebsteins_415x259_enIL.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/Canadian Cardiovascular Society classification.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Coronary artery disease/Canadian Cardiovascular Society classification.md",
+   "mtime": 1787674018000,
    "size": 193,
    "text": "# Canadian Cardiovascular Society classification\n\n## 摘要\nangina during 超常運動(I) ⇒ 劇烈運動(II) ⇒ 日常運動(III) ⇒ 沒運動(IV)\n\n## 內文\n![](../圖片/Untitled-15.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/Coronary angiography view.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Coronary artery disease/Coronary angiography view.md",
+   "mtime": 1787674018000,
    "size": 285,
    "text": "# Coronary angiography view\n\n## 摘要\n左冠狀動脈攝影各視角的對照圖，附來源連結。\n\n## 內文\n[https://www.cthsurgery.com/lca-angiogram-views.html](https://www.cthsurgery.com/lca-angiogram-views.html)\n\n![](../圖片/Untitled-21.png)\n\n![](../圖片/Untitled-22.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/Management.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Coronary artery disease/Management.md",
+   "mtime": 1787674018000,
    "size": 90,
    "text": "# Management\n\n## 摘要\nNICE guideline（BMJ）\n\n## 內文\n![](../圖片/Untitled-20.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/STEMI equivalent.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Coronary artery disease/STEMI equivalent.md",
+   "mtime": 1787674018000,
    "size": 125,
    "text": "# STEMI equivalent\n\n## 摘要\n一張圖：視同 STEMI 處理的心電圖型態。\n\n## 內文\n![](../圖片/Untitled-14.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/hs-Troponin 0-1-3 小時流程.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Coronary artery disease/hs-Troponin 0-1-3 小時流程.md",
+   "mtime": 1787674018000,
    "size": 904,
    "text": "# High-Troponin rapid algorithm for suspected Acute Coronary Syndrome (0/1/3 hour)\n\n## 摘要\n0 小時很低就 rule out、很高就 rule in；1 小時看變化量；仍不確定的 3 小時再抽。一定要用 hs-cTn，各醫院閾值不同；附流程圖與 2020 ESC 連結。\n\n## 內文\n1. 0 hour(initial) Troponin, rule out if very low, rule in if high(>99%)，剩下繼續觀察\n2. 1 hour Troponin, rule out if no elevation，rule in if elevation (3~4 ng/l 一定算elevation)\n3. 真的很不確定的人，3 hours再抽一次\n4. [[hs-Troponin 0-1-3 小時流程/流程圖|扁平]]\n\n- 此流程一定要用 hs-cTn（High-sensitive cardiac troponin T or I），注意每家醫院 assay 的 high、low、very low、1h**Δ** 的值都不一樣\n- 參考 2020 ESC guideline：[https://academic.oup.com/eurheartj/article/42/14/1289/5898842](https://academic.oup.com/eurheartj/article/42/14/1289/5898842)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/疼痛 radiation 位置.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Coronary artery disease/疼痛 radiation 位置.md",
+   "mtime": 1787674018000,
    "size": 122,
    "text": "# 疼痛 radiation 位置\n\n## 摘要\n一張圖：心絞痛的轉移痛位置。\n\n## 內文\n![](../圖片/Untitled-16.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Coronary artery disease/hs-Troponin 0-1-3 小時流程/流程圖.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Coronary artery disease/hs-Troponin 0-1-3 小時流程/流程圖.md",
+   "mtime": 1787674018000,
    "size": 200,
    "text": "# 流程圖\n\n## 摘要\n三張流程圖：0／1／3 小時的 rule-in 與 rule-out。\n\n## 內文\n![](../../圖片/Untitled-17.png)\n\n![](../../圖片/Untitled-18.png)\n\n![](../../圖片/Untitled-19.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/AVA (Aortic valve area).md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/AVA (Aortic valve area).md",
+   "mtime": 1787674018000,
    "size": 246,
    "text": "# AVA (Aortic valve area)\n\n## 摘要\n用流量不變定理計算\n\n## 內文\nCSA of LVOT = $π*r^2$\n\nVTI: velocity time integral 積分以後取平均\n\nCSA: cross sectional area\n\nLVOT: left ventricular outflow tract\n\n![](../圖片/Untitled-1.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/Diastolic dysfunction 的 echo 指標.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart Echo/Diastolic dysfunction 的 echo 指標.md",
+   "mtime": 1787674018000,
    "size": 942,
    "text": "# Heart echo for diastolic dysfunction\n\n## 摘要\nE/A（mitral inflow）與 E/e’（tissue Doppler）：E/e’ 越大代表 LV 越硬、反映 LVEDP；並區分 diastolic dysfunction（病生理）與 HFpEF（症狀）。\n\n## 內文\n[[Diastolic dysfunction 的 echo 指標/Diastolic dysfunction vs HFpEF|摘要]]\n\n![](../圖片/Untitled-5.png)\n\n> Mitral inflow view\n\n1. [[Diastolic dysfunction 的 echo 指標/Mitral inflow 圖示|扁平]]\n2. E: relaxation of LV\n3. A: contraction of LA\n4. E/A: normal ⇒ impaired passive relaxation ⇒ increased LA & passive pressure ⇒ LA pressure still increasing ⇒ impaired LA function\n\n> Doppler tissue of mitral annular motion\n\n1. [[Diastolic dysfunction 的 echo 指標/Tissue Doppler 圖示|扁平]]\n2. e’: 舒張充血時LV擴張，annulus往下動。動不了代表 LV 太硬了\n3. E/e’: 越大越硬\n\n   [[Diastolic dysfunction 的 echo 指標/E／e'|摘要]]\n4. a’: 不知道幹嘛用\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/EF (Ejection fraction).md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/EF (Ejection fraction).md",
+   "mtime": 1787674018000,
    "size": 156,
    "text": "# EF (Ejection fraction)\n\n## 摘要\n用積分近似，結論：看EF(Bi-Plane)=用π\\*D1\\*D2/4近似圓面積 最準\n\n## 內文\n![](../圖片/Untitled.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/Peak to peak gradient.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/Peak to peak gradient.md",
+   "mtime": 1787674018000,
    "size": 95,
    "text": "# Peak to peak gradient\n\n## 摘要\n很狗屎，無用\n\n## 內文\n![](../圖片/Untitled-3.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/V2 mean.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/V2 mean.md",
+   "mtime": 1787674018000,
    "size": 84,
    "text": "# V2 mean\n\n## 摘要\n積分以後取平均\n\n## 內文\n![](../圖片/Untitled-2.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/問：壓力差取 P_LV−P_Aorta，速度為何取 V_Valve.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/問：壓力差取 P_LV−P_Aorta，速度為何取 V_Valve.md",
+   "mtime": 1787674018000,
    "size": 917,
    "text": "# 問：為什麼壓力 P 是 $P_{LV} - P_{Aorta}$﻿，但速度 V 是取 $V_{Valve}$﻿ 而不是 $V_{LV}$﻿ 或 $V_{Aorta}$﻿？\n\n## 摘要\n三種想法：壓力差完全轉成通過小孔的流速；血流進入 aorta 後的減速是能量損耗、不算進守恆；要分清是壓力差造成流動還是流動造成壓力差。\n\n## 內文\n幾種想法：\n\n一、兩腔室之間壓力差越大，中間的小孔流速越快而且必由此壓力差完全轉化而來，因此 LV 與 Aorta 兩腔室之間壓力差完全轉換成血流通過 valve 的流速。\n\n二、V-aorta取的是血流剛進Aorta的流速，這股血流撞到aorta原有血液以後慢下來是之後的事，這部分會形成能量損耗，不能計算在能量守恆裡面。如果 valve 完全打開，V-aorta 就會等於 V-valve，也就不會有能量損耗。\n\n三、要分清楚是壓力差 ⇒ 流動，還是流動 ⇒ 壓力差\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/壓力差 = 4V² 的證明.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/壓力差 = 4V² 的證明.md",
+   "mtime": 1787674018000,
    "size": 793,
    "text": "# Transvalvular pressure gradient = 4V² 的證明\n\n## 摘要\n用 Bernoulli 方程式推導 ΔP = ½ρv²，代入 1 mmHg = 133.3 Pa、ρ = 1060 kg/m³ 得到 4v²。\n\n## 內文\n$\\tfrac{1}{2} \\rho v_\\text{ lv}^2 + \\rho g z + p_\\text{ lv} = \\tfrac{1}{2} \\rho v_\\text{ aorta}^2 + \\rho g z + p_\\text{ aorta}$\n\n⇒ $\\tfrac{1}{2} \\rho v_\\text{ lv}^2 + p_\\text{ lv} = \\tfrac{1}{2} \\rho v_\\text{ aorta}^2 + p_\\text{ aorta}$\n\n⇒ $p_\\text{ lv} - p_\\text{ aorta} = \\tfrac{1}{2} \\rho v_\\text{ aorta}^2 -\\tfrac{1}{2} \\rho v_\\text{ lv}^2$\n\n**⇒** **<u>Aortic valve pressure gradient</u>**$=\\Delta p = \\tfrac{1}{2} \\rho v_\\text{ aorta}^2$\n\n又 1 mm-Hg = 133.3 Pa, $\\rho_\\text{ blood}$ = 1060 kg / m^3\n\n**<u>Pressure gradient</u>** $=\\Delta p = \\tfrac{1}{2}*\\tfrac{1060}{133.3}* v_\\text{ aorta}^2 = 4 v^2$\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/Diastolic dysfunction 的 echo 指標/Diastolic dysfunction vs HFpEF.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/Diastolic dysfunction 的 echo 指標/Diastolic dysfunction vs HFpEF.md",
+   "mtime": 1787674018000,
    "size": 225,
    "text": "# Diastolic dysfunction (base on pathophysiology change) vs HFpEF (base on symptom)\n\n## 摘要\n一張圖：diastolic dysfunction 依病生理變化定義，HFpEF 依症狀定義。\n\n## 內文\n![](../../圖片/Untitled-4.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/Diastolic dysfunction 的 echo 指標/E／e'.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/Diastolic dysfunction 的 echo 指標/E／e'.md",
+   "mtime": 1787674018000,
    "size": 117,
    "text": "# E/e’\n\n## 摘要\n反映出 LVEDP (如圖）\n\n## 內文\n![](../../圖片/image.png)\n\n![](../../圖片/image-1.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/Diastolic dysfunction 的 echo 指標/Mitral inflow 圖示.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/Diastolic dysfunction 的 echo 指標/Mitral inflow 圖示.md",
+   "mtime": 1787674018000,
    "size": 132,
    "text": "# Mitral inflow 圖示\n\n## 摘要\nMitral inflow view 的示意圖（E 波、A 波）。\n\n## 內文\n![](../../圖片/Untitled-6.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart Echo/Diastolic dysfunction 的 echo 指標/Tissue Doppler 圖示.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart Echo/Diastolic dysfunction 的 echo 指標/Tissue Doppler 圖示.md",
+   "mtime": 1787674018000,
    "size": 145,
    "text": "# Tissue Doppler 圖示\n\n## 摘要\nDoppler tissue of mitral annular motion 的示意圖（e’）。\n\n## 內文\n![](../../圖片/Untitled-7.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/2022 guideline-directed medical therapy (GDMT).md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/2022 guideline-directed medical therapy (GDMT).md",
+   "mtime": 1787674018000,
    "size": 1405,
    "text": "# 2022 guideline-directed medical therapy (GDMT)\n\n## 摘要\n四大支柱與各藥重點：β-blocker 只有三種有證據、SGLT-2i 不論有無 DM、ARNi、ACEi／ARB、MRA、Ivabradine 的使用條件、CCB 在血壓低時先停。\n\n## 內文\n![](../圖片/Untitled-46.png)\n\n![](../圖片/Untitled-47.png)\n\n[【治療指引】2022年美國心臟衰竭治療指引更新｜AHA/ACC/HFSA | 小涵藥師研究室 (tinapoint.com)](https://tinapoint.com/024-2022-acc-hf-guideline/)\n\n[【治療指引】心臟衰竭治療大更新！2021 ESC 歐洲心臟學會 | 小涵藥師研究室 (tinapoint.com)](https://tinapoint.com/g002/) (裡面有dose)\n\n**Drugs:**\n\n1. Beta-blocker: 心臟相關降壓藥首選，保護心臟\n   - 只有 Bisoprolol、Carvedilol、Metoprolol 有 evidence\n2. SGLT-2: 神藥，病人沒DM可以保護心臟，有DM直接用\n3. ARNi: ARB + neprilysin inhibitor。新藥，indication 還沒這麼多，以後可能更多\n   ![](../圖片/Untitled-48.png)\n4. ACEi: Stage B開始用，不併用ARB ，注意鉀離子、腎功能。劑量用到最滿\n5. ARB: 不能用ACEi or ARNi的人才用，對心臟evidence沒那麼高\n6. MRA: mineral corticoid receptor (Spironolactone)\n7. Ivabradine: funny current channel inhibitor(IIa), for **LVEF<35%, sinus rhythm, resting HR>70** to **reduce HR** (a fib 不適合)\n8. CCB: 降壓藥，對心臟無影響，病人血壓低的話優先停此藥\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Devices for additional GDMT.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/Devices for additional GDMT.md",
+   "mtime": 1787674018000,
    "size": 559,
    "text": "# Devices for additional GDMT\n\n## 摘要\nCRT（LBBB + QRS 變寬）、ICD（唯一能防猝死）、末期機械循環輔助與移植、瓣膜置換（TAVI > SAVR for high risk）。\n\n## 內文\n1. CRT(同步收縮): for LBBB+QRS widening>150 or 120 ms with symptoms\n2. ICD: 唯一能prevent sudden death 的方法(amiodarone無效)，特別在low EF (健保不允許primary prevention)\n3. 末期: mechanical circulation support & transplant(transplant prognosis: 10-y survival > 60%)\n4. Valve replacement for valve disease: TAVI > SAVR for surgical high risk\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Disease progression.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Disease progression.md",
+   "mtime": 1787674018000,
    "size": 263,
    "text": "# Disease progression\n\n## 摘要\n形成惡性循環，要及早壓住惡性循環，恢復 Cardiac output 以及心肌灌流量\n\n## 內文\n![](../圖片/favpng_impella-ventricular-assist-device-cardiogenic-shock-abiomed-heart.png)\n\n![](../圖片/Untitled-29.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Evaluation.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/Evaluation.md",
+   "mtime": 1787674018000,
    "size": 830,
    "text": "# Evaluation\n\n## 摘要\nCongestion（wet vs dry：肺水腫、腳水腫、頸靜脈）× Perfusion（cold vs warm：體液不足、AKI、肢端冰冷、意識改變）畫成 2×2 表格。\n\n## 內文\n![](../圖片/Untitled-30.png)\n\n> 💡 CI (cardiac index): cardiac output / body surface area\n\n1. **Congestion** (**<u>wet</u>** vs dry):\n   1. Pulmonary edema: dyspnea, orthopnea, paroxymal nucturnal dyspnea, B-line, infiltrated CXR\n      > 💡 PCWP(pulmonary capillary wedge pressure): 透過 Swan-Ganz catheter 測量, congestion 時會高\n   2. Leg edema\n   3. Jugular vein: distention, hepatojugular reflux\n2. **Perfusion** (**<u>cold</u>** vs warm):\n   1. Fluid insufficiency: IVC under echo, poor response to diuretic\n   2. Acute renal injury: low urine output, CRE, BUN\n   3. Cold extremities\n   4. Altered mental status\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Functional types 心室功能分類.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Functional types 心室功能分類.md",
+   "mtime": 1787674018000,
    "size": 239,
    "text": "# Functional types 心室功能分類\n\n## 摘要\nHFrEF(≤40%) / HFmrEF / HFpEF(≥50%)\n\n## 內文\n> 💡 HFimpEF：從HFrEF進步回來的病人，不會歸入HFmrEF或HFpEF，應該繼續用HFrEF的用藥\n\n![](../圖片/Untitled-45.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/GDMT dosing.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/GDMT dosing.md",
+   "mtime": 1787674018000,
    "size": 2578,
    "text": "# GDMT dosing\n\n## 摘要\nACEi／ARB 到 50% 目標劑量就有好處，β-blocker 與 MRA 要到 100%；附各藥起始與目標劑量表及注意事項。\n\n## 內文\n1. ACEi / ARB 只要到 50% Max dose 就能有很好的 Benefit → 50% 就快加下一個\n2. Beta-blocker 一直到 100% Max dose 才會有最好的 Benefits → 能承受藥物副作用就要繼續加\n3. MRA 一直到 100% Max dose 才會有最好的 Benefits，但要達到 50% Max dose 才開始有 Benefits\n\n|  | **Starting dose** | **Target dose** |\n|---|---|---|\n| **ACE-I** |  |  |\n| Captopril | 6.25 mg TID | 50 mg TID |\n| Enalapril | 2.5 mg BID | 10–20 mg BID |\n| Lisinopril | 2.5–5 mg QD | 20–35 mg QD |\n| Ramipril | 2.5 mg BID | 5 mg BID |\n| Trandolapril | 0.5 mg QD | 4 mg QD |\n| **ARNI** |  |  |\n| Sacubitril / valsartan (Entresto 50/100/200mg) | 49 / 51 mg BID(200mg) | 97 / 103 mg BID (400mg) |\n| **Beta-blockers** |  |  |\n| Bisoprolol (Concor Tablet 1.25 mg bisoprolol/tab) | 1.25 mg QD | 10 mg QD |\n| Carvedilol (Dilatrend Tablet 6.25 mg/tab) | 3.125 mg BID | 25 mg BID |\n| Metoprolol succinate (CR/XL) | 12.5–25 mg QD | 200 mg QD |\n| **MRA** |  |  |\n| Eplerenone | 25 mg QD | 50 mg QD |\n| Spironolactone (Aldactone Tablet 25 mg/tab) | 25 mg QD | 50 mg QD |\n| **SGLT2 inhibitor** |  |  |\n| Dapagliflozin (Forxiga Film-coated Tablets 10 mg/tab) | 10 mg QD | 10 mg QD |\n| Empagliflozin | 10 mg QD | 10 mg QD |\n| **Other agents** |  |  |\n| Candesartan | 4 mg QD | 32 mg QD |\n| Losartan (Cozaar F.C. Tablet 50 mg/tab) | 50 mg QD | 150 mg QD |\n| Valsartan (Diovan Film-Coated Tablets 40 mg/tab) | 40 mg BID | 160 mg BID |\n| Ivabradine | 5 mg BID | 7.5 mg BID |\n| Vericiguat | 2.5 mg QD | 10 mg QD |\n| Digoxin (Lanoxin Tablet 0.25 mg/tab) | 62.5 µg QD (1/4 tablet) | 250 µg QD |\n| Hydralazine / Isosorbide dinitrate | 37.5 mg TID / 20 mg TID | 75 mg TID / 40 mg TID |\n\n1. Trandolapril：derived from post-myocardial infarction trials.\n2. Lisinopril：a higher dose has been shown to reduce morbidity/mortality compared with a lower dose of the same drug, but there is no substantive randomized, placebo-controlled trial and the optimum dose is uncertain.\n3. Sacubitril / valsartan：have an optional lower starting dose of 24/26 mg BID for those with a history of symptomatic hypotension.\n4. Carvedilol：A maximum target dose of 50 mg twice daily can be administered to patients weighing over 85 kg.\n5. Spironolactone：has an optional starting dose of 12.5 mg in patients where renal status or hyperkalaemia warrant caution.\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Mechanical circulatory support device.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Mechanical circulatory support device.md",
+   "mtime": 1787674018000,
    "size": 308,
    "text": "# Mechanical circulatory support device\n\n## 摘要\n內科可做的兩種：IABP（在 aorta 裡充氣消氣）與 Impella（把 LV 的血抽到 aorta）；附圖。\n\n## 內文\n內科可以做：IABP(在aorta裡面充氣消氣) & Impella(把LV的血抽到aorta)\n\n![](../圖片/截圖_2022-08-29_17.57.05.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Symptom staging 疾病嚴重程度.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Symptom staging 疾病嚴重程度.md",
+   "mtime": 1787674018000,
    "size": 443,
    "text": "# Symptom staging 疾病嚴重程度\n\n## 摘要\nNYHA 症狀分級、ACC/AHA A–D 分期（著重提早預防）、Intermacs profile（評估機械循環輔助需求）。\n\n## 內文\n[[Symptom staging 疾病嚴重程度/NYHA functional Class|摘要]]\n\n[[Symptom staging 疾病嚴重程度/ACC／AHA Stage|摘要]]\n\n[[Symptom staging 疾病嚴重程度/Intermacs Profile|摘要]]\n\n![](../圖片/Untitled-43.png)\n\n![](../圖片/Untitled-44.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Treatment Algorithm.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/Treatment Algorithm.md",
+   "mtime": 1787674018000,
    "size": 526,
    "text": "# Treatment Algorithm\n\n## 摘要\n2016 ESC：利尿劑治 congestion、靜脈血管擴張劑治高血壓型、dry & cold 給 fluid challenge；wet & cold & 低血壓用 inotropes 的三原則。\n\n## 內文\n1. diuretics for congestion (for hypotension, wait for perfusion corrected)\n2. intravenous vasodilator(NTG, Nitroprusside) for vascular type AHF (hypertension induced redistribution)\n3. fluid challenge for **dry & cold**\n4. [[Treatment Algorithm/Inotropes for wet & cold & low BP|扁平]]\n\n![](../圖片/Untitled-39.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Usage of Swan-Ganz.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/Usage of Swan-Ganz.md",
+   "mtime": 1787674018000,
    "size": 945,
    "text": "# Usage of Swan-Ganz\n\n## 摘要\n直接量測 CVP、PAP、PCWP（>18 表 congestion）；衍生指標 PAPi（<0.9 表 RV failure）、TPG、DPG、PVR；附 pulmonary hypertension 鑑別補充。\n\n## 內文\n![](../圖片/Untitled-31.png)\n\n> Direct measurement\n\n1. CVP (central venous pressure) = RAP\n2. PAP(s/d/m, pulmonary artery systolic, diastolic and mean pressure)\n3. **<u>PCWP</u>** (pulmonary capillary wedge pressure, 即 LAP, 即 LVEDP, 即 Preload) : if > 18, indicates **<u>congestion (cardiogenic shock)</u>**\n\n> Indices\n\n1. **<u>PAPi</u>** (Pulmonary artery pulsatility index) = (PAPs - PAPd)/RAP : if < 0.9, indicates **<u>RV failure</u>**\n2. TPG (Transpulmonary pressure gradient) = PAPm - PCWP\n3. DPG (Diastolic pulmonary gradient) = PAPd - PCWP\n4. PVR (Pulmonary vascular resistance, Wood Unit) = TPG/CO\n\n> 💡 無關的補充：Pulmonary hypertension D/D\n>\n> ![](../圖片/Untitled-32.png)\n\n[[Usage of Swan-Ganz/大圖|摘要]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Symptom staging 疾病嚴重程度/ACC／AHA Stage.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/Symptom staging 疾病嚴重程度/ACC／AHA Stage.md",
+   "mtime": 1787674018000,
    "size": 313,
    "text": "# ACC/AHA Stage\n\n## 摘要\n更著重提早預防\n\n## 內文\n1. Stage A(At-risk)、B(Pre failure)：預防\n2. Stage C(current or previous failure)：必須持續治療防止惡化 ＆ 復發\n3. Stage D(Advanced failure)：考慮植入性 mechanical circulation support OR 移植\n\n![](../../圖片/Untitled-41.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Symptom staging 疾病嚴重程度/Intermacs Profile.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Symptom staging 疾病嚴重程度/Intermacs Profile.md",
+   "mtime": 1787674018000,
    "size": 149,
    "text": "# Intermacs Profile\n\n## 摘要\nfor 嚴重病人，評估輔助性 mechanical circulation support 需求\n\n## 內文\n![](../../圖片/Untitled-42.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Symptom staging 疾病嚴重程度/NYHA functional Class.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Symptom staging 疾病嚴重程度/NYHA functional Class.md",
+   "mtime": 1787674018000,
    "size": 93,
    "text": "# NYHA functional Class\n\n## 摘要\n症狀分級\n\n## 內文\n![](../../圖片/Untitled-40.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Treatment Algorithm/Inotropes for wet & cold & low BP.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Heart failure/Treatment Algorithm/Inotropes for wet & cold & low BP.md",
+   "mtime": 1787674018000,
    "size": 557,
    "text": "# Inotropes for wet & cold & low BP (hemodynamic support)\n\n## 摘要\n三原則：最大化 cardiac output 與舒張壓、避免心搏過速以保留舒張填充時間、盡量不增加心肌耗氧；附五張圖。\n\n## 內文\n1. Maximize cardiac output & diastolic pressure\n2. Avoid tachycardia & preserve diastolic filling time\n3. Minimize any increase in myocardial oxygen demand\n\n![](../../圖片/Untitled-34.png)\n\n![](../../圖片/Untitled-35.png)\n\n![](../../圖片/Untitled-36.png)\n\n![](../../圖片/Untitled-37.png)\n\n![](../../圖片/Untitled-38.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Heart failure/Usage of Swan-Ganz/大圖.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Heart failure/Usage of Swan-Ganz/大圖.md",
+   "mtime": 1787674018000,
    "size": 100,
    "text": "# 大圖\n\n## 摘要\nSwan-Ganz 各項數值的大圖。\n\n## 內文\n![](../../圖片/Untitled-33.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Hypertrophic cardiomyopathy/Etiology.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Hypertrophic cardiomyopathy/Etiology.md",
+   "mtime": 1787674018000,
    "size": 227,
    "text": "# Etiology\n\n## 摘要\n嬰兒期到老年都可能發病，青少年期最常見；晚發者 HCM 相關死亡風險較低。\n\n## 內文\ninfancy, childhood, **adolescent(most common)**, Late age(lower risk for HCM-related death)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Hypertrophic cardiomyopathy/Pathophysiology.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Hypertrophic cardiomyopathy/Pathophysiology.md",
+   "mtime": 1787674018000,
    "size": 291,
    "text": "# Pathophysiology\n\n## 摘要\nThick filament（myosin／binding protein）突變最常見；其次是 thin filament（troponin／tropomyosin／actin）。\n\n## 內文\n1. thick filament mutations (myosin/binding protein), **most common**\n2. thin filament mutations (troponin/tropomyosin/actin)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Hypertrophic cardiomyopathy/Prevention of sudden death.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Hypertrophic cardiomyopathy/Prevention of sudden death.md",
+   "mtime": 1787674018000,
    "size": 878,
    "text": "# Prevention of sudden death\n\n## 摘要\n主因是 VT／VF；≥1 個主要危險因子就放 ICD（年輕人尤其），β-blocker 控制症狀，避免競技運動；LV apical aneurysm 與 LVEF <50% 也是主要危險因子。\n\n## 內文\n1. Major cause: **sustained VT, VF, sudden cardiac arrest**. Also high prevelance of ventricular arrhythmias (88% have ventricular premature beat, 12% had ≥ 500 VPBs; 15~30% have nonsustained ventricular tachycardia (NSVT))\n2. Pathophysiology: myocardial ischemia / LV outflow tract obstruction / high adrenergic states ⇒ myocyte disarray & interstitial fibrosis\n3. Management:\n   1. ICD for ≥ 1 major risk factor, especially in the young people.\n   2. beta blocker for symptoms control\n   3. Avoid competitive sports.\n   4. Other major risk factors: LV apical aneurysm & End-stage HCM (LVEF <50%)\n   ![](../圖片/Untitled-25.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Hypertrophic cardiomyopathy/Treatment for hypertrophic cardiomyopathy.md",
-   "mtime": 1787354413000,
+   "path": "CV new 改寫版/Hypertrophic cardiomyopathy/Treatment for hypertrophic cardiomyopathy.md",
+   "mtime": 1787674018000,
    "size": 290,
    "text": "# Treatment for hypertrophic cardiomyopathy\n\n## 摘要\n有阻塞又有症狀 → 手術；有心衰竭 → 照 HF 治療；附兩張圖。\n\n## 內文\n1. Obstructive + Symptoms ? ⇒ surgery\n2. Heart failure ? ⇒ HF treatment\n\n![](../圖片/Untitled-26.png)\n\n![](../圖片/Untitled-27.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Hypertrophic cardiomyopathy/圖示.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Hypertrophic cardiomyopathy/圖示.md",
+   "mtime": 1787674018000,
    "size": 223,
    "text": "# 圖示\n\n## 摘要\n兩張示意圖與 CCJM 綜述連結。\n\n## 內文\n![](../圖片/Untitled-23.png)\n\n![](../圖片/Untitled-24.png)\n\n[Hypertrophic cardiomyopathy: A complex disease](https://www.ccjm.org/content/85/5/399)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Infective endocarditis/菌種.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Infective endocarditis/菌種.md",
+   "mtime": 1787674018000,
    "size": 99,
    "text": "# 菌種\n\n## 摘要\n常見致病菌種一覽圖。\n\n## 內文\n![](../圖片/CV-old/Untitled-1.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Aortic regurgitation.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Aortic regurgitation.md",
+   "mtime": 1787674018000,
    "size": 125,
    "text": "# Aortic regurgitation\n\n## 摘要\nEROA (effective regurgitant orifice area)、Rvol\n\n## 內文\n![](../圖片/Untitled-13.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Aortic stenosis.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Aortic stenosis.md",
+   "mtime": 1787674018000,
    "size": 281,
    "text": "# Aortic stenosis\n\n## 摘要\n參數 V2 max、Mean PG、AVA、EF；Stage A（at risk）～D（symptomatic severe）；2020 AHA 處置流程；TAVI vs SAVR。\n\n## 內文\n[[Aortic stenosis/Stage|摘要]]\n\n[[Aortic stenosis/Management|摘要]]\n\n[[Aortic stenosis/TAVI vs SAVR|摘要]]\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Mitral regurgitation.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Mitral regurgitation.md",
+   "mtime": 1787674018000,
    "size": 201,
    "text": "# Mitral regurgitation\n\n## 摘要\nEROA（effective regurgitant orifice area）與 RVol 的分級圖。\n\n## 內文\n![](../圖片/image-3.png)\n\n![](../圖片/image-4.png)\n\n![](../圖片/Untitled-11.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Mitral stenosis.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Mitral stenosis.md",
+   "mtime": 1787674018000,
    "size": 75,
    "text": "# Mitral stenosis\n\n## 摘要\nMVA\n\n## 內文\n![](../圖片/Untitled-12.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Aortic stenosis/Management.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Aortic stenosis/Management.md",
+   "mtime": 1787674018000,
    "size": 122,
    "text": "# Management\n\n## 摘要\n2020 AHA guideline\n\n## 內文\n![](../../圖片/Untitled-9.png)\n\n![](../../圖片/Untitled-10.png)\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Aortic stenosis/Stage.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Aortic stenosis/Stage.md",
+   "mtime": 1787674018000,
    "size": 158,
    "text": "# Stage\n\n## 摘要\nA(at risk), B(mild-moderate), C(asymptomatic severe), D(symptomatic severe)\n\n## 內文\n![](../../圖片/Untitled-8.png)\n\nSV: Stroke volume\n"
   },
   {
-   "path": "CV new 手動更新改寫/Valvular disease/Aortic stenosis/TAVI vs SAVR.md",
-   "mtime": 1787344996000,
+   "path": "CV new 改寫版/Valvular disease/Aortic stenosis/TAVI vs SAVR.md",
+   "mtime": 1787674018000,
    "size": 142,
    "text": "# TAVI vs SAVR\n\n## 摘要\n兩張比較圖：TAVI 與 SAVR 怎麼選。\n\n## 內文\n![](../../圖片/image-2.png)\n\n![](../../圖片/image2.png)\n"
   },
