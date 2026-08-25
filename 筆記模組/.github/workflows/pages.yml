@@ -1,0 +1,40 @@
+# 把這個資料夾推上 GitHub 後，自動產生 modules.json 並部署到 GitHub Pages。
+# 第一次推送會自動啟用 Pages（enablement）；若失敗，到倉庫 Settings → Pages → Source 選「GitHub Actions」再推一次。
+name: 發佈筆記到 GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 產生 modules.json（含「在 GitHub 編輯」連結）
+        run: python3 build.py --manifest --inline --github "$GITHUB_REPOSITORY" --branch "$GITHUB_REF_NAME"
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
