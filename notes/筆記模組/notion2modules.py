@@ -585,5 +585,4 @@ if __name__ == '__main__':
         for m in missing: print('    ', m, '（匯出時沒有一起帶出來，或在別的頁面資料夾；補進 圖片/ 對應位置即可）')
     nosum = [rel for rel, text in c.modules.items() if '## 摘要' not in text]
     if nosum:
-        print(f'沒有摘要的模組（{len(nosum)}）——建議之後補：')
-        for rel in nosum: print('   ', rel)
+        print(f'沒有摘要的模組（{len(nosum)}）——原樣搬運，不必補。')

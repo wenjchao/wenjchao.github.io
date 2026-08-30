@@ -6,7 +6,8 @@ Modified Duke criteria（細菌證據＋結構變化）、常見菌種圖、拔�
 ## 內文
 ![](圖片/CV-old/Untitled.png)
 
-- [[Infective endocarditis/菌種|扁平]]
+[[Infective endocarditis/菌種]]
+
 - Prophylaxis for Infective endocarditis（ex: 準備拔牙） : amoxicillin
   For 哪些病人：
   1. 所有congenital heart disease

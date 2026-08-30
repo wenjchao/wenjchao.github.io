@@ -106,7 +106,7 @@ try {
 
   // 改名 → PUT 新檔＋DELETE 舊檔
   await page.click('.toolbar >> text=改名／搬移'); await page.waitForSelector('.wy-panel');
-  await page.fill('.wy-panel input[type="text"]', '待辦改名');
+  await page.fill('.wy-panel input[type="text"] >> nth=0', '待辦改名');
   await page.click('.wy-panel .btn.primary');
   await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '待辦改名');
   const dels = await page.evaluate(() => window.__gh.calls.filter(c => c.method === 'DELETE').map(c => decodeURIComponent(c.url)));

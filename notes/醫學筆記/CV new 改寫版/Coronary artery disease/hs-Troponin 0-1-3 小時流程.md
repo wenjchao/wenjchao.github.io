@@ -1,7 +1,4 @@
-# High-Troponin rapid algorithm for suspected Acute Coronary Syndrome (0/1/3 hour)
-
-## 摘要
-0 小時很低就 rule out、很高就 rule in；1 小時看變化量；仍不確定的 3 小時再抽。一定要用 hs-cTn，各醫院閾值不同；附流程圖與 2020 ESC 連結。
+# High-Troponin rapid algorithm for suspected ACS (0/1/3 hour)
 
 ## 內文
 1. 0 hour(initial) Troponin, rule out if very low, rule in if high(>99%)，剩下繼續觀察

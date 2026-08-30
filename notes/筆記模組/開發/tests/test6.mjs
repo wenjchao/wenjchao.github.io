@@ -45,7 +45,7 @@ const items = await page.$$eval('#srcPop .mi', bs => bs.map(b => b.textContent))
 assert.ok(items.some(t => t.startsWith('匯入檔案')) && items.some(t => t.startsWith('忘記匯入')), items.join(' | '));
 await page.keyboard.press('Escape');
 assert.equal(await page.$eval('#srcMenu', m => m.open), false);
-await page.setInputFiles('#pickFiles', [md('首頁.md')]);   // 換成另一批
+await page.setInputFiles('#pickFiles', [md('筆記模組 - 首頁.md')]);   // 換成另一批（工具首頁已被使用者改名）
 await page.waitForFunction(() => document.querySelector('#count')?.textContent === '1 個模組');
 await page.click('#srcBtn');
 page.once('dialog', d => d.accept());
@@ -59,6 +59,7 @@ assert.equal(await page.textContent('#count'), '2 個模組');
 
 // ---------- C：假的資料夾 handle → 重開先看快取，按一下重新連接 ----------
 const files = fs.readdirSync(ROOT, { recursive: true }).filter(f => f.endsWith('.md') && (!f.includes('/') || f.startsWith('範例/'))).map(f => ({ name: f, text: fs.readFileSync(path.join(ROOT, f), 'utf8') }));   // 根目錄的模組＋範例/
+files.unshift({ name: '首頁.md', text: '# 首頁\n\n## 內文\n[[範例/筆記一|摘要]]\n' });   // 測試用入口（使用者把工具首頁改名了，fixture 自備一個）
 const ctx2 = await browser.newContext({ viewport: { width: 1200, height: 800 }, locale: 'zh-TW' });
 await ctx2.addInitScript(({ files }) => {
   class FH { constructor(dir, name) { this.kind = 'file'; this.dir = dir; this.name = name; }

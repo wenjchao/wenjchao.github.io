@@ -115,8 +115,11 @@ def make_handler(root: pathlib.Path, index: pathlib.Path):
             return self._json({'ok': True, 'path': target.relative_to(root).as_posix()})
 
         def log_message(self, fmt, *args):
-            if '/api/modules' in (args[0] if args else ''):
+            first = args[0] if args else ''
+            if isinstance(first, str) and '/api/modules' in first:
                 return                        # 輪詢的請求不洗版
+            # 注意：錯誤記錄（如 404）的第一個參數是 HTTPStatus 不是字串，不能拿來做子字串比對——
+            # 0.x～1.1.5 這裡曾直接 `in args[0]`，404 時拋 TypeError，連回應都送不出去（1.1.6 修正）。
             sys.stderr.write('%s  %s\n' % (time.strftime('%H:%M:%S'), fmt % args))
 
     Handler.extensions_map.update({'.md': 'text/markdown; charset=utf-8', '.markdown': 'text/markdown; charset=utf-8',

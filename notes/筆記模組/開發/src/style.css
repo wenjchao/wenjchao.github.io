@@ -197,10 +197,10 @@ svg { display: block; }
 .card-head .tri { width: 26px; height: 26px; border-radius: 6px; flex: none; color: var(--ink-2); }
 .card-head .tri svg { transition: transform .18s ease; }
 .card:not([data-mode="1"]) > .card-head .tri svg { transform: rotate(90deg); }
-.card-title { font-family: var(--font-body); font-weight: 700; font-size: 17px; color: var(--ink); line-height: 1.35; min-width: 0; overflow-wrap: anywhere; }   /* R20：被連結的模組標題一律黑體粗體，各樣式不得改細、不換明體 */
+.card-title { font-family: var(--font-body); font-weight: 700; font-size: 18px; color: var(--ink); line-height: 1.35; min-width: 0; overflow-wrap: anywhere; }   /* R20：被連結的模組標題一律黑體粗體，各樣式不得改細、不換明體；R61：17→18px（群組縮排跟著 .card-title 級距） */
 .card-title:hover { color: var(--rail, var(--accent)); text-decoration: none; }
-.card .card .card-title { font-size: 16px; }
-.card .card .card .card-title { font-size: 15.5px; }
+.card .card .card-title { font-size: 17px; }
+.card .card .card .card-title { font-size: 16px; }
 .card-badge { font-size: 11px; padding: 1px 7px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
 .card-tools { display: flex; align-items: center; gap: 4px; margin-left: auto; flex: none; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius-s); overflow: hidden; background: var(--card); }
@@ -230,17 +230,44 @@ svg { display: block; }
 .style-seg { margin-left: 2px; }
 .style-seg button { color: var(--ink-3); }
 
-/* 清單項目裡的卡片（D28）：號碼／圓點不用瀏覽器原生的——Safari 會把它畫進卡片的第一個按鈕裡——改畫在標題列左邊、框外，
-   位置和字體跟其他項目的原生號碼對齊（號碼由 Cards.numberListCards 放在 data-n） */
+/* 清單記號全部自畫（D28、R62）：Safari 會把原生號碼畫進卡片裡，且 WebKit 與 Chrome 的原生記號度量不同，
+   自畫的卡片項配原生的純文字項在 Safari 永遠對不齊——所以閱讀畫面的記號一律由檢視器畫（hydrate 標 data-n／data-b，
+   編輯器裡沒有標記、維持原生）。兩種項目同一套畫法，任何瀏覽器都對齊 */
+.md ol > li[data-n], .md ul > li[data-b] { list-style: none; position: relative; }
+.md ol > li[data-n]::before { content: attr(data-n) '.\00a0'; position: absolute; right: 100%; white-space: nowrap; font-weight: 400; color: var(--ink); font-variant-numeric: tabular-nums; }
+.md ul > li[data-b]::before { content: ''; position: absolute; right: calc(100% + .78em); top: .66em; width: .4em; height: .4em; border-radius: 50%; background: currentColor; }
+.md ul ul > li[data-b]::before { background: transparent; border: 1.3px solid currentColor; }
+.md ul ul ul > li[data-b]::before { background: currentColor; border: 0; border-radius: 1px; }
+
+/* 清單項目裡的卡片（D28；1.3.16 改掛 li）：卡片項的記號一樣由上面的 li 規則畫——
+   以前掛在卡片標題列（flex 容器）上，Safari 對 flex 容器的絕對定位 ::before 會算錯位置、號碼疊到標題；
+   掛在 li（和純文字項同一種錨點）就任何引擎都同位。只剩垂直位置依外觀微調（卡片有外框與內距、扁平群組有外距） */
 .md li:has(> .card:first-child) { list-style: none; }
 .md li > .card:first-child { margin: 6px 0; }
 .md li > .card.flat:first-child { margin: .15em 0; }
 .md li > .card:first-child > .card-head { position: relative; }
-.md li > .card:first-child > .card-head::before { position: absolute; top: 50%; transform: translateY(-50%); right: calc(100% + var(--rail-w) + .3em); line-height: 1; white-space: nowrap; font-weight: 400; color: var(--ink); }
-.md li > .card.flat:first-child > .card-head::before { right: calc(100% + .3em); }
-.md ol > li > .card:first-child > .card-head[data-n]::before { content: attr(data-n) '.'; }
-.md ul > li > .card:first-child > .card-head::before { content: ''; width: .36em; height: .36em; border-radius: 50%; background: currentColor; right: calc(100% + var(--rail-w) + .62em); }
-.md ul > li > .card.flat:first-child > .card-head::before { right: calc(100% + .62em); }
+.md li[data-n]:has(> .card:first-child)::before, .md li[data-b]:has(> .card:first-child)::before { top: 0; line-height: 1.75; }
+.md li[data-b]:has(> .card:first-child)::before { top: .66em; line-height: normal; }
+.md li[data-b]:has(> .card.flat:first-child)::before { top: .7em; }
+.md li[data-b]:has(> .card.group:first-child)::before { top: .62em; }
+.md li[data-n]:has(> .card:first-child:not(.flat):not(.group))::before { top: 11px; line-height: 1.35; }
+.md li[data-b]:has(> .card:first-child:not(.flat):not(.group))::before { top: 18px; }
+/* 群組縮排外觀（R50、D43；1.3.3 定稿＝使用者選「方案二＋五綜合」、1.3.4 標題改與卡片標題同大小）：
+   同一頁的「一節」——標題粗體（大小同 .card-title 級距）、標題下一條該層 rail 淡色底線開場，
+   整節首尾各一條細線標出範圍；收合（標題模式）時只剩標題＋底線，像 ### 一樣安靜。無框無底色，不是卡片 */
+.card.group { border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; box-shadow: none; margin: 1.1em 0 1.2em; padding: .5em 0 .65em; position: static; }
+.card.group[data-mode="1"] { border-top: 0; border-bottom: 0; padding-top: 0; padding-bottom: 0; }
+.card.group > .card-head { padding: 0 0 .28em; border-bottom: 2px solid var(--rail-soft); min-height: 0; gap: 6px; align-items: center; }
+.card.group > .card-head .card-title { order: 1; }
+.card.group > .card-head .card-title:hover { color: var(--accent); }
+.card.group > .card-head .tri { order: 2; width: 1.4em; height: 1.4em; border-radius: 5px; color: var(--accent); }
+.card.group > .card-head .tri svg { width: 1.05em; height: 1.05em; }
+.card.group > .card-head .tri:hover { background: var(--accent-soft); }
+.card.group > .card-head .card-tools { order: 3; opacity: 0; transition: opacity .15s; margin-left: 4px; }
+.card.group:hover > .card-head .card-tools, .card.group:focus-within > .card-head .card-tools { opacity: 1; }
+.card.group > .card-summary, .card.group > .card-body { margin: .55em 0 .1em; padding: 0 0 0 .9em; border-left: 0; font-size: inherit; }   /* R61：內容稍微右縮，群組感更清楚 */
+/* 1.3.2（R52）：群組縮排的摘要不用次要色——群組是頁面的一節，字色要和一般內文相同 */
+.md li > .card.group:first-child { margin: .3em 0 .45em; }
 .chip.flat { border: 0; background: transparent; margin: 0; border-radius: 0; }
 .chip.flat .chip-go { color: inherit; font-weight: inherit; font-size: inherit; padding: 0; border-bottom: 1px dotted var(--accent-line); }
 .chip.flat .chip-go:hover { color: var(--accent); text-decoration: none; border-bottom-style: solid; }
@@ -279,7 +306,12 @@ svg { display: block; }
 .md pre { background: var(--code-bg); border: 1px solid var(--line-2); border-radius: var(--radius-s); padding: 12px 14px; overflow-x: auto; margin: 0 0 .9em; line-height: 1.55; }
 .md pre code { background: transparent; padding: 0; font-size: 13px; }
 .md hr { border: 0; border-top: 1px solid var(--line); margin: 1.4em 0; }
-.md img { max-width: 100%; height: auto; border-radius: var(--radius-s); }
+/* R65：圖片預設最多佔 1/3 寬（小圖不放大），按一下放大到全寬、再按縮回——看的狀態，不寫回檔案 */
+.md img { max-width: 33.3%; height: auto; border-radius: var(--radius-s); cursor: zoom-in; }
+.md img.img-full { max-width: 100%; cursor: zoom-out; }
+.editor img { cursor: default; }
+@media (max-width: 640px) { .md img { max-width: 100%; cursor: default; } }
+@media print { .md img { max-width: 100%; } }
 .md table { border-collapse: collapse; margin: 0 0 .9em; font-size: .95em; display: block; overflow-x: auto; max-width: 100%; }
 .md th, .md td { border: 1px solid var(--line); padding: 5px 10px; text-align: left; vertical-align: top; }
 .md th { background: var(--card-2); font-weight: 600; }
@@ -500,8 +532,8 @@ body.dragging .dropzone, body.dragging #main { outline: 3px dashed var(--accent-
 :root[data-style="sketch"] .btn, :root[data-style="sketch"] .sel, :root[data-style="sketch"] .rail-search input { border-color: var(--line-2); }
 :root[data-style="sketch"] .card { box-shadow: none; }
 :root[data-style="sketch"] .card[data-mode="1"] { background: var(--card); }
-:root[data-style="sketch"] .card-title { font-size: 18px; }
-:root[data-style="sketch"] .card .card .card-title { font-size: 17px; }
+:root[data-style="sketch"] .card-title { font-size: 19px; }
+:root[data-style="sketch"] .card .card .card-title { font-size: 18px; }
 :root[data-style="sketch"] .root-title { font-size: 32px; }
 :root[data-style="sketch"] .seg { border: 1.5px solid var(--ink); border-radius: 2px; }
 :root[data-style="sketch"] .seg button { border-right: 1.5px solid var(--ink); color: var(--ink); }

@@ -6,7 +6,7 @@
 ## 內文
 現在主要的 Staging 方式都是根據 Heart echo 的參數
 
-[[Valvular disease/Aortic stenosis|摘要]]
+[[Valvular disease/Aortic stenosis|全文]]
 
 [[Valvular disease/Mitral regurgitation|摘要]]
 

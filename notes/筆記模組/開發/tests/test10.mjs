@@ -7,6 +7,7 @@ import path from 'node:path';
 const ROOT = process.env.ROOT, HERE = process.env.HERE, TMP = process.env.TMP || '/tmp';
 
 const files = fs.readdirSync(ROOT, { recursive: true }).filter(f => f.endsWith('.md') && (!f.includes('/') || f.startsWith('範例/'))).map(f => ({ name: f, text: fs.readFileSync(path.join(ROOT, f), 'utf8') }));
+files.unshift({ name: '首頁.md', text: '# 首頁\n\n## 內文\n[[範例/筆記一|摘要]]\n' });   // 測試用入口（使用者把工具首頁改名了，fixture 自備一個）
 files.push({ name: '專案/待辦.md', text: '---\ntags: [工作, 重要]\ndate: 2026-08-22\n---\n# 待辦\n\n## 摘要\n有標籤和核取方塊的模組，連回 [[計畫]]。\n\n## 內文\n- [ ] 第一件事\n- [x] 第二件事\n- [ ] 第三件事\n\n![](圖片/a.png)\n\n```\n- [ ] 程式碼裡的不算\n```\n' });
 files.push({ name: '專案/計畫.md', text: '---\ntags:\n  - 工作\n---\n# 計畫\n\n## 摘要\n專案的計畫。\n\n## 內文\n[[待辦|全文]]\n\n也連到 [[範例/第二小點]] 和 [待辦](待辦.md)。\n' });
 
@@ -156,7 +157,7 @@ await go('專案/待辦'); await title('待辦');
 await page.click('.toolbar >> text=改名／搬移'); await page.waitForSelector('.wy-panel');
 assert.ok((await page.textContent('.wy-panel .note')).includes('1 個模組連到它'));
 assert.equal(await page.$eval('.wy-panel input[type="checkbox"]', c => c.checked), true, '標題＝檔名 → 預設一起改');
-await page.fill('.wy-panel input[type="text"]', '專案/清單');
+await page.fill('.wy-panel input[type="text"] >> nth=0', '專案/清單');
 await page.click('.wy-panel .btn.primary');
 await title('清單');
 await page.waitForFunction(() => window.__has('專案/清單.md') && !window.__has('專案/待辦.md'));
@@ -167,7 +168,7 @@ assert.ok(plan.includes('[[清單|全文]]') && plan.includes('[待辦](清單.m
 assert.equal(await page.$eval('#count', c => c.textContent), `${await page.evaluate(() => Store.modules.size)} 個模組`);
 // 搬到別的資料夾：它自己的相對連結與圖片路徑也要改
 await page.click('.toolbar >> text=改名／搬移'); await page.waitForSelector('.wy-panel');
-await page.fill('.wy-panel input[type="text"]', '封存/清單');
+await page.fill('.wy-panel input[type="text"] >> nth=0', '封存/清單');
 await page.keyboard.press('Enter');
 await page.waitForFunction(() => window.__has('封存/清單.md') && !window.__has('專案/清單.md'));
 t = await page.evaluate(() => window.__fileText('封存/清單.md'));
@@ -183,6 +184,58 @@ await title('首頁');
 await go('專案/計畫'); await title('計畫');
 assert.ok(await page.$('.root-body .missing-block[data-target="封存/清單"]'), '刪除後連結變成找不到');
 assert.equal(await page.$('#list .item[data-id="封存/清單"]'), null);
+
+/* ---------- 抽出成模組／併回（R47、D42） ---------- */
+// 抽出：原始碼模式選取兩段 → 抽成模組（prompt 用預設名，全域 dialog.accept()）
+await go('專案/計畫'); await title('計畫');
+await page.click('.toolbar >> text=編輯'); await page.waitForSelector('.editor');
+await page.click('.ed-bar .mode-seg button[data-mode="source"]'); await page.waitForSelector('.editor textarea');
+await page.evaluate(() => {
+  const ta = document.querySelector('.editor textarea');
+  ta.value = ta.value + '\n細節甲\n\n細節乙 ![](圖片/b.png)\n';
+  const a = ta.value.indexOf('細節甲');
+  ta.setSelectionRange(a, ta.value.length);
+});
+await page.click('.ed-bar .ex-btn');   // prompt 預設名＝第一行「細節甲」
+await page.waitForFunction(() => window.__has('專案/計畫/細節甲.md'));
+t = await page.evaluate(() => window.__fileText('專案/計畫/細節甲.md'));
+assert.ok(t.startsWith('# 細節甲\n'), t);
+assert.ok(t.includes('![](../圖片/b.png)'), '抽出後圖片路徑要改成相對於新位置：' + t);
+assert.ok(!t.includes('## 摘要'), '不自動產生摘要');
+let tav = await page.$eval('.editor textarea', el => el.value);
+assert.ok(tav.includes('[[計畫/細節甲]]') && !tav.includes('細節乙'), tav);
+await page.click('.ed-bar .btn.primary');   // 儲存
+await page.waitForFunction(() => window.__fileText('專案/計畫.md').includes('[[計畫/細節甲]]'));
+// 併回：卡片工具列的併回鈕 → 內容回到連結處、原檔刪除
+await page.waitForSelector('.root-body .card[data-id="專案/計畫/細節甲"]');
+await page.click('.root-body .card[data-id="專案/計畫/細節甲"] .icon-btn.merge');   // confirm 自動接受
+await page.waitForFunction(() => !window.__has('專案/計畫/細節甲.md'));
+plan = await page.evaluate(() => window.__fileText('專案/計畫.md'));
+assert.ok(plan.includes('**細節甲**') && plan.includes('細節乙 ![](圖片/b.png)'), '內容併回、路徑改回上層的資料夾：' + plan);
+assert.ok(!plan.includes('[[計畫/細節甲]]'), plan);
+assert.equal(await page.$('.root-body .card[data-id="專案/計畫/細節甲"]'), null, '卡片消失');
+
+/* ---------- 搬進模組＋整串搬（R63） ---------- */
+// 造一個有子模組的樹：直接在假資料夾放 專案/計畫/附錄.md，並讓 計畫 連到它
+await page.evaluate(() => { window.__set('專案/計畫/附錄.md', { text: '# 附錄\n\n## 內文\n回上層 [[../計畫]]。\n', mtime: Date.now() }); });
+await page.waitForFunction(() => Store.modules.has('專案/計畫/附錄'), null, { timeout: 8000 });
+await page.evaluate(() => { const r = window.__get('專案/計畫.md'); window.__set('專案/計畫.md', { text: r.text + '\n[[計畫/附錄|摘要]]\n', mtime: Date.now() }); });
+await page.waitForFunction(() => Store.modules.get('專案/計畫').raw.includes('[[計畫/附錄|摘要]]'), null, { timeout: 8000 });
+await go('專案/計畫'); await title('計畫');
+await page.click('.toolbar >> text=改名／搬移'); await page.waitForSelector('.wy-panel');
+assert.ok((await page.textContent('.wy-panel .note')).includes('1 個子模組'), '面板要提示整串搬');
+await page.fill('.wy-panel input[list="move-into-dl"]', '範例/筆記一');   // 「搬進模組」欄位 → 路徑自動填成 目標/原名
+assert.equal(await page.$eval('.wy-panel input[type="text"] >> nth=0', i => i.value), '範例/筆記一/計畫');
+await page.click('.wy-panel .btn.primary');
+await page.waitForFunction(() => window.__has('範例/筆記一/計畫.md') && window.__has('範例/筆記一/計畫/附錄.md') && !window.__has('專案/計畫.md') && !window.__has('專案/計畫/附錄.md'), null, { timeout: 8000 });
+t = await page.evaluate(() => window.__fileText('範例/筆記一/計畫.md'));
+assert.ok(t.includes('計畫/附錄'), '父連到子的連結搬完仍要成立：' + t.slice(-200));
+await page.waitForFunction(() => !(window.__fileText('範例/筆記一/計畫/附錄.md') || '').includes('[[專案/計畫]]'), null, { timeout: 8000 });   // 父最後搬完才回頭修子的連結
+t = await page.evaluate(() => window.__fileText('範例/筆記一/計畫/附錄.md'));
+const resolved = await page.evaluate(() => { const l = Refs.extract(window.__fileText('範例/筆記一/計畫/附錄.md'))[0]; return l && Store.resolve(l.target, '範例/筆記一/計畫')?.id; });
+assert.equal(resolved, '範例/筆記一/計畫', '子連回父要指到新家：' + t);
+await title('計畫');
+assert.ok(await page.$('.root-body .card[data-id="範例/筆記一/計畫/附錄"]'), '新家頁面上子模組卡片存在');
 
 await ctx.close();
 console.log('errors:', errors);

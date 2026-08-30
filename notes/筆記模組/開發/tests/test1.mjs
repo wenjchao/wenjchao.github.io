@@ -13,14 +13,16 @@ page.on('pageerror', e => errors.push('pageerror: ' + e.message));
 await page.goto('file://' + TMP + '/single.html');
 await page.waitForSelector('.root');
 
-// 首頁為入口
-assert.equal(await page.textContent('.root-title'), '首頁');
+// 入口模組已被使用者改名為「筆記模組 - 首頁」（沒有叫 首頁 的模組時退回上次／第一個）；直接導向它
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('筆記模組 - 首頁'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '筆記模組 - 首頁');
 const N = (await import('node:fs')).default.readdirSync(ROOT, { recursive: true }).filter(f => /\.md$/.test(f) && !f.startsWith('開發')).length;
 assert.equal(await page.textContent('#count'), `${N} 個模組`);
 // 首頁＝入口＋說明總覽（R42）：第一張是 範例/筆記一（摘要），後面是 說明/ 的各篇（摘要）
 const modes = await page.$$eval('.root .card', cs => cs.map(c => [c.dataset.id, c.dataset.mode]));
 assert.deepEqual(modes[0], ['範例/筆記一', '2']);
-assert.ok(modes.length >= 13 && modes.slice(1).every(([id, m]) => id.startsWith('說明/') && m === '2'), JSON.stringify(modes));
+// 模式字是使用者會在檢視器裡切、且會寫回檔案的狀態——只驗結構（都是 說明/、模式合法），不釘死每張的模式
+assert.ok(modes.length >= 7 && modes.slice(1).every(([id, m]) => id.startsWith('說明/') && ['1','2','3'].includes(m)), JSON.stringify(modes));
 assert.equal(await page.$('#list .item[data-id="使用說明"]'), null, '使用說明 已併入首頁');
 // 摘要模式下有摘要、無內文
 assert.ok(await page.$('.root .card[data-id="範例/筆記一"] > .card-summary'));
@@ -48,14 +50,25 @@ for (const st of ['ink', 'card', 'outline', 'sketch', 'tab']) {
 await page.evaluate(() => { document.documentElement.dataset.style = 'ink'; });
 
 // R26：清單裡的扁平卡片——沒有框、標題一般字重、粗箭頭在標題後面、號碼照舊；R27：有「卡片」切換鈕
-const flat = await page.$eval('.root-body ol > li > .card.flat[data-id="範例/第二小點"]', c => ({ style: c.dataset.style, weight: getComputedStyle(c.querySelector('.card-title')).fontWeight, border: getComputedStyle(c).borderTopWidth, mode: c.dataset.mode, triAfterTitle: getComputedStyle(c.querySelector('.tri')).order === '2' && getComputedStyle(c.querySelector('.card-title')).order === '1', bold: c.querySelector('.tri svg path').getAttribute('fill') === 'currentColor', seg: [...c.querySelectorAll('.style-seg button')].map(b => b.dataset.st + (b.classList.contains('on') ? '*' : '')).join(','), marker: getComputedStyle(c.parentElement).listStyleType, n: c.querySelector(':scope > .card-head').dataset.n, before: getComputedStyle(c.querySelector(':scope > .card-head'), '::before').content }));
-// D28：清單裡的卡片——原生號碼關掉（Safari 會把它畫進卡片裡），號碼由 CSS 照 data-n 畫在標題列左邊、框外
-assert.deepEqual(flat, { style: 'flat', weight: '400', border: '0px', mode: '1', triAfterTitle: true, bold: true, seg: 'card,flat*', marker: 'none', n: '2', before: '"2."' });
+const flat = await page.$eval('.root-body ol > li > .card.flat[data-id="範例/第二小點"]', c => ({ style: c.dataset.style, weight: getComputedStyle(c.querySelector('.card-title')).fontWeight, border: getComputedStyle(c).borderTopWidth, mode: c.dataset.mode, triAfterTitle: getComputedStyle(c.querySelector('.tri')).order === '2' && getComputedStyle(c.querySelector('.card-title')).order === '1', bold: c.querySelector('.tri svg path').getAttribute('fill') === 'currentColor', seg: [...c.querySelectorAll('.style-seg button')].map(b => b.dataset.st + (b.classList.contains('on') ? '*' : '')).join(','), marker: getComputedStyle(c.parentElement).listStyleType, n: c.parentElement.dataset.n, before: getComputedStyle(c.parentElement, '::before').content, tnum: getComputedStyle(c.parentElement, '::before').fontVariantNumeric }));
+// D28、R66：卡片項的號碼掛在 li（不是卡片標題列——Safari 對 flex 容器的絕對定位 ::before 會算錯位置疊到標題）
+assert.deepEqual(flat, { style: 'flat', weight: '400', border: '0px', mode: '1', triAfterTitle: true, bold: true, seg: 'card,flat*,group', marker: 'none', n: '2', before: '"2. "', tnum: 'tabular-nums' });
+// R62：純文字項的記號也由檢視器畫（Safari 的原生記號度量與自畫的不同，永遠對不齊——所以全部自畫）
+const plainLi = await page.$eval('.root-body ol > li:first-child', li => ({ n: li.dataset.n, ls: getComputedStyle(li).listStyleType, mk: getComputedStyle(li, '::before').content }));
+assert.deepEqual(plainLi, { n: '1', ls: 'none', mk: '"1.\u00a0"' }, JSON.stringify(plainLi));
 assert.equal(await page.$eval('.root > .root-body > .card[data-id="範例/第一小點"] .style-seg button.on', b => b.dataset.st), 'card');
 // 切成一般卡片：號碼還在框外、和扁平時同一個位置規則（使用者回報 Safari 切回卡片後號碼跑進框裡）
 await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="card"]');
-const asCard = await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => ({ style: c.dataset.style, lst: getComputedStyle(c.parentElement).listStyleType, before: getComputedStyle(c.querySelector(':scope > .card-head'), '::before').content, pos: getComputedStyle(c.querySelector(':scope > .card-head')).position, border: getComputedStyle(c).borderTopWidth !== '0px' }));
-assert.deepEqual(asCard, { style: 'card', lst: 'none', before: '"2."', pos: 'relative', border: true });
+const asCard = await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => ({ style: c.dataset.style, lst: getComputedStyle(c.parentElement).listStyleType, before: getComputedStyle(c.parentElement, '::before').content, pos: getComputedStyle(c.querySelector(':scope > .card-head')).position, border: getComputedStyle(c).borderTopWidth !== '0px' }));
+assert.deepEqual(asCard, { style: 'card', lst: 'none', before: '"2. "', pos: 'relative', border: true });
+await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="group"]');   // R50、1.3.3：群組縮排＝頁面的一節——標題放大＋rail 色底線；展開時首尾細線標出範圍
+const grp = await page.$eval('.root-body ol > li > .card.group[data-id="範例/第二小點"]', c => ({ style: c.dataset.style, weight: getComputedStyle(c.querySelector('.card-title')).fontWeight, border: getComputedStyle(c).borderTopWidth }));
+assert.deepEqual(grp, { style: 'group', weight: '700', border: '0px' }, JSON.stringify(grp));   // 收合＝只剩標題＋底線，沒有首尾線
+await page.click('.root-body ol > li > .card.group[data-id="範例/第二小點"] .seg button[data-m="3"]');   // 展開
+const grp2 = await page.$eval('.root-body ol > li > .card.group[data-id="範例/第二小點"]', c => { const cs = getComputedStyle(c), head = getComputedStyle(c.querySelector(':scope > .card-head')), body = c.querySelector(':scope > .card-body'); return { fs: parseFloat(getComputedStyle(c.querySelector('.card-title')).fontSize), head: head.borderBottomWidth, top: cs.borderTopWidth, bottom: cs.borderBottomWidth, indent: body ? getComputedStyle(body).borderLeftWidth : null }; });
+const cardFs = await page.$eval('.root > .root-body > .card[data-id="範例/第一小點"] .card-title', t => parseFloat(getComputedStyle(t).fontSize));
+assert.equal(grp2.fs, cardFs, '1.3.4：群組縮排標題大小＝卡片標題 ' + JSON.stringify({ grp: grp2.fs, card: cardFs }));
+assert.deepEqual({ head: grp2.head, top: grp2.top, bottom: grp2.bottom, indent: grp2.indent }, { head: '2px', top: '1px', bottom: '1px', indent: '0px' }, '1.3.3 方案二＋五：標題底線 2px、首尾細線 1px、內容不掛左線 ' + JSON.stringify(grp2));
 await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="flat"]');
 assert.equal(await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => c.dataset.style), 'flat');
 // 展開 補充說明 到全文 → 內含 筆記一（循環） 卡片，最多到摘要
@@ -115,25 +128,29 @@ await page.waitForFunction(() => document.querySelector('.root-title')?.textCont
 assert.ok(await page.$('.root-body .chip.missing[data-target="還沒寫的模組"]'));
 assert.equal(await page.$eval('.root-body a.mod-link', a => a.getAttribute('href')), '#/' + encodeURIComponent('範例/第二小點'));
 // 使用說明／說明文件：程式碼區塊內的 [[...]] 不應變成卡片（側欄是樹狀：先展開「說明」）
-assert.equal(await page.$('#list .item[data-id="說明/寫作規範"]'), null, '收起的資料夾裡的模組不該顯示');
+assert.equal(await page.$('#list .item[data-id="說明/如何編輯內容"]'), null, '收起的資料夾裡的模組不該顯示');
 await page.click('#list .item.folder[data-node="說明"] .chev');
-await page.click('#list .item[data-id="說明/寫作規範"]');
-await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '寫作規範');
-assert.ok((await page.textContent('.root-body pre')).includes('## 摘要'));
+await page.click('#list .item[data-id="說明/如何編輯內容"]');
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '如何編輯內容');
 const codeChips = await page.$$eval('.root-body code', cs => cs.filter(c => c.querySelector('.chip')).length);
 assert.equal(codeChips, 0);
-assert.equal(await page.$$eval('.root-body pre .mod-ph, .root-body pre .card', xs => xs.length), 0);
 // R24：側欄樹的展開狀態也記住
 await page.reload(); await page.waitForSelector('.root');
-assert.ok(await page.$('#list .item[data-id="說明/寫作規範"]'), '樹的展開狀態要記住');
-assert.ok(await page.$('#list .item.on[data-id="說明/寫作規範"]'), '目前模組要標記');
-await page.click('#brand');
-await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '首頁');
-assert.ok((await page.$$eval('.root-body > .card', cs => cs.length)) >= 13, '首頁應有範例＋12 篇說明的卡片');
+assert.ok(await page.$('#list .item[data-id="說明/如何編輯內容"]'), '樹的展開狀態要記住');
+assert.ok(await page.$('#list .item.on[data-id="說明/如何編輯內容"]'), '目前模組要標記');
+// 程式碼區塊內的 [[...]] 與 ## 摘要 不應被解析（1.3.2 起「檔案格式」＝純內文、無摘要——R52：內容少就整份放內文）
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('說明/如何編輯內容/檔案格式'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '檔案格式');
+assert.ok((await page.textContent('.root-body pre')).includes('## 摘要'));
+assert.equal(await page.$('.root-summary'), null, 'R52：檔案格式 不該有摘要段');
+assert.equal(await page.$$eval('.root-body pre .mod-ph, .root-body pre .card', xs => xs.length), 0);
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('筆記模組 - 首頁'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '筆記模組 - 首頁');
+assert.ok((await page.$$eval('.root-body > .card', cs => cs.length)) >= 7, '首頁應有範例＋6 篇說明的卡片');
 // 檢視原始檔（唯讀來源）
 await page.click('text=檢視原始檔');
 await page.waitForSelector('.editor textarea');
-assert.ok((await page.inputValue('.editor textarea')).startsWith('# 首頁'));
+assert.ok((await page.inputValue('.editor textarea')).startsWith('# 筆記模組 - 首頁'));
 assert.ok(await page.$('text=複製全文'));
 await page.click('text=關閉');
 await page.waitForSelector('.root');
@@ -144,9 +161,9 @@ assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), 
 await page.screenshot({ path: TMP + '/shot-dark.png' });
 await page.click('#themeBtn');
 
-// 回首頁
-await page.click('#brand');
-await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '首頁');
+// 回入口
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('筆記模組 - 首頁'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '筆記模組 - 首頁');
 
 // 截圖：筆記一（含展開）
 await page.click('.card[data-id="範例/筆記一"] .card-title');

@@ -33,3 +33,15 @@ assert '@@' not in out
 dest = W.parent / 'index.html'
 dest.write_text(out, encoding='utf-8')
 print('已寫入', dest, f'{len(out.encode("utf-8")) / 1024:.0f} KB')
+
+# 部署時檢視器有兩份（R54）：筆記資料夾根目錄（如 notes/index.html，伺服器與網站實際載入的）
+# 與 筆記模組/index.html。上上層若已放著同一個檢視器，一併更新，避免兩份不同步。
+root = W.parent.parent / 'index.html'
+if root.exists():
+    try:
+        old = root.read_text(encoding='utf-8', errors='ignore')
+    except OSError:
+        old = ''
+    if 'const CONFIG = {' in old and '<title>筆記模組</title>' in old:
+        root.write_text(out, encoding='utf-8')
+        print('已同步', root)

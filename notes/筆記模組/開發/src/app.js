@@ -17,8 +17,8 @@ const CONFIG = {
   modeAliases: { '1': 1, '標題': 1, 'title': 1, 't': 1,
                  '2': 2, '摘要': 2, 'summary': 2, 's': 2,
                  '3': 3, '全文': 3, '內文': 3, 'full': 3, 'body': 3, 'f': 3, 'all': 3 },
-  // [[模組|扁平]] 的外觀別名：card 卡片（預設）、flat 扁平（像 Notion 的 toggle，和清單項目平行）
-  styleAliases: { '卡片': 'card', 'card': 'card', '扁平': 'flat', 'flat': 'flat', '平': 'flat' },
+  // [[模組|扁平]] 的外觀別名：card 卡片（預設，有框）、flat 扁平（和清單項目平行）、group 群組縮排（無框，內容縮排在標題底下）
+  styleAliases: { '卡片': 'card', 'card': 'card', '扁平': 'flat', 'flat': 'flat', '平': 'flat', '群組縮排': 'group', '群組': 'group', '縮排': 'group', 'group': 'group' },
   defaultMode: 1,          // [[模組]] 沒寫模式時
   inlineExpandMode: 2,     // 段落中的晶片按 ▾ 展開時至少顯示到
   maxDepth: 10,            // 巢狀深度上限（防止無限展開）
@@ -71,12 +71,19 @@ const Util = {
   wordCount(t) { return ((t.match(/[㐀-鿿豈-﫿]/g) || []).length + (t.match(/[A-Za-z0-9_]+/g) || []).length); },
   stamp: f => f.lastModified + ':' + f.size,
   // 標題裡的 $…$ 也用 KaTeX 畫（側欄、卡片、根標題），其餘文字照常跳脫
+  /* 卡片標題與晶片文字：行內格式照常渲染（R67——顯示文字可用粗體、底線、刪除線、行內碼、數學式）。
+     連結與圖片在標題裡不合法（標題本身就是連結）→ 拆殼／移除；含 [[ 的照原樣顯示避免巢狀解析 */
+  inlineHtml(seg) {
+    if (seg.includes('[[')) return Util.esc(seg);
+    try { return String(marked.parseInline(seg)).replace(/<img\b[^>]*>/gi, '').replace(/<\/?a\b[^>]*>/gi, ''); }
+    catch { return Util.esc(seg); }
+  },
   titleHtml(t) {
     t = String(t);
-    if (!CONFIG.math || typeof katex === 'undefined' || !t.includes('$')) return Util.esc(t);
+    if (!CONFIG.math || typeof katex === 'undefined' || !t.includes('$')) return Util.inlineHtml(t);
     return t.split(/(\$[^$\n]+?\$)/).map(seg => {
       if (seg.length > 2 && seg.startsWith('$') && seg.endsWith('$')) { try { return katex.renderToString(seg.slice(1, -1), { throwOnError: false, strict: 'ignore' }); } catch { return Util.esc(seg); } }
-      return Util.esc(seg);
+      return Util.inlineHtml(seg);
     }).join('');
   },
 };
@@ -101,6 +108,7 @@ const ICON = {
   down: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
   pen: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
   triBold: '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5 19 12 7 20.5z" fill="currentColor"/></svg>',   // 扁平外觀用的實心粗箭頭
+  merge: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 14-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v5"/></svg>',   // 併回（R47）
 };
 
 /* ===================== Parse：把一個 .md 切成 標題／摘要／內文 ===================== */
@@ -206,6 +214,7 @@ const Refs = {
     const parts = [ref.target + (ref.anchor ? '#' + ref.anchor : '')];
     if (ref.mode === 2) parts.push('摘要'); else if (ref.mode === 3) parts.push('全文');
     if (ref.style === 'flat') parts.push('扁平');
+    else if (ref.style === 'group') parts.push('群組縮排');
     if (ref.label) parts.push(ref.label);
     for (const o of ref.opts || []) parts.push(o);
     return '[[' + parts.join('|') + ']]';
@@ -364,18 +373,19 @@ const Cards = {
     const capped = cyclic || tooDeep;
     const hasSummary = !!mod.summary;
     const key = `${ctx.key}>${mod.id}#${occ}`;
-    const el = h('section', { class: 'card' + (extraClass ? ' ' + extraClass : '') + (ref.style === 'flat' ? ' flat' : ''), dataset: { id: mod.id, key, depth: String(ctx.depth), rail: String(((ctx.depth - 1) % 4) + 1), style: ref.style || 'card' } });
+    const el = h('section', { class: 'card' + (extraClass ? ' ' + extraClass : '') + (ref.style === 'flat' ? ' flat' : ref.style === 'group' ? ' group' : ''), dataset: { id: mod.id, key, depth: String(ctx.depth), rail: String(((ctx.depth - 1) % 4) + 1), style: ref.style || 'card' } });
     el._ref = ref; el._parent = ctx.ancestors[ctx.ancestors.length - 1];   // 改寫連結模式時要知道連結寫在哪個模組裡
     if (ref.index != null) el.dataset.link = String(ref.index);
-    const tri = h('button', { class: 'tri icon-btn', type: 'button', title: '展開／收合', html: ref.style === 'flat' ? ICON.triBold : ICON.chev });
+    const tri = h('button', { class: 'tri icon-btn', type: 'button', title: '展開／收合', html: (ref.style === 'flat' || ref.style === 'group') ? ICON.triBold : ICON.chev });
     const title = h('a', { class: 'card-title', href: Util.hashFor(mod.id), title: mod.path, html: Util.titleHtml(ref.label || mod.title) });
     const segBtns = [1, 2, 3].map(m => h('button', { type: 'button', dataset: { m: String(m) } }, ['標題', '摘要', '全文'][m - 1]));
     if (!hasSummary) { segBtns[1].disabled = true; segBtns[1].title = '這個模組沒有摘要'; }
     if (capped) { segBtns[2].disabled = true; segBtns[2].title = cyclic ? '循環引用：這個模組已在上層展開' : '已達巢狀深度上限'; }
     // 外觀用和「標題／摘要／全文」一樣的段控鈕：兩個選項都看得到，目前的反白（R27）
-    const styleBtns = [['card', '卡片', '卡片外觀：有框、標題粗體'], ['flat', '扁平', '扁平外觀：像清單項目，標題後面一個箭頭']].map(([st, label, title]) => h('button', { type: 'button', dataset: { st }, title }, label));
+    const styleBtns = [['card', '卡片', '卡片外觀：有框、標題粗體'], ['flat', '扁平', '扁平外觀：像清單項目，和其他項目平行'], ['group', '群組縮排', '群組縮排：無框，標題粗體，內容縮排在標題底下']].map(([st, label, title]) => h('button', { type: 'button', dataset: { st }, title }, label));
     const tools = h('div', { class: 'card-tools' }, h('div', { class: 'seg', role: 'group', 'aria-label': '顯示範圍' }, segBtns), h('div', { class: 'seg style-seg', role: 'group', 'aria-label': '外觀' }, styleBtns));
     if (App.canEdit()) tools.append(h('button', { class: 'icon-btn edit', type: 'button', title: '編輯這個模組', html: ICON.pen, onclick: () => App.edit(mod.id) }));
+    if (App.canEdit() && typeof App.source.remove === 'function') tools.append(h('button', { class: 'icon-btn merge', type: 'button', title: '併回：把這個模組的內容搬回這裡、刪除模組檔（R47）', html: ICON.merge, onclick: () => App.inlineCard(el, mod, ref) }));
     el.append(h('header', { class: 'card-head' }, tri, title,
       cyclic ? h('span', { class: 'card-badge', title: '這個模組在上層已經展開過' }, '循環引用') : null,
       (!cyclic && tooDeep) ? h('span', { class: 'card-badge' }, '深度上限') : null,
@@ -384,9 +394,9 @@ const Cards = {
     el.dataset.initStyle = ref.style || 'card';
     // 外觀：卡片 ↔ 扁平（R27）。改了會和模式一樣寫回檔案（或唯讀時記在瀏覽器）
     const setStyle = (st, initial) => {
-      st = st === 'flat' ? 'flat' : 'card';
-      el.classList.toggle('flat', st === 'flat'); el.dataset.style = st; ref.style = st;
-      tri.innerHTML = st === 'flat' ? ICON.triBold : ICON.chev;
+      st = (st === 'flat' || st === 'group') ? st : 'card';
+      el.classList.toggle('flat', st === 'flat'); el.classList.toggle('group', st === 'group'); el.dataset.style = st; ref.style = st;
+      tri.innerHTML = st !== 'card' ? ICON.triBold : ICON.chev;
       styleBtns.forEach(b => b.classList.toggle('on', b.dataset.st === st));
       if (!initial) App.onCardStyle(el);
     };
@@ -455,17 +465,34 @@ const Cards = {
     return chip;
   },
 
-  /* 清單項目裡的卡片（D28）：瀏覽器原生的號碼在 Safari 會被畫進卡片裡，所以 CSS 把它藏掉、自己畫在框外；
-     編號清單的號碼先算好放在 data-n（含 start 屬性），圓點清單由 CSS 直接畫 */
+  /* 清單記號（D28、R62）：Safari 會把原生號碼畫進卡片裡，而且 WebKit 與 Chrome 的原生記號度量不同——
+     卡片項（自畫）配原生項（瀏覽器畫）在 Safari 永遠對不齊。所以閱讀畫面的清單記號**全部**自己畫：
+     編號算好放 data-n（純文字項放在 li、卡片項放在卡片頭），圓點項標 data-b 由 CSS 依層級畫；
+     核取方塊項目不標。編輯器裡沒有這些標記，維持原生記號。 */
   numberListCards(container) {
+    const alpha = n => { let s = ''; while (n > 0) { n--; s = String.fromCharCode(97 + (n % 26)) + s; n = Math.floor(n / 26); } return s; };
+    const roman = n => { const T = [[1000, 'm'], [900, 'cm'], [500, 'd'], [400, 'cd'], [100, 'c'], [90, 'xc'], [50, 'l'], [40, 'xl'], [10, 'x'], [9, 'ix'], [5, 'v'], [4, 'iv'], [1, 'i']]; let s = ''; for (const [v, r] of T) while (n >= v) { s += r; n -= v; } return s; };
+    const hasBox = li => !!li.querySelector(':scope > input[type="checkbox"], :scope > p:first-child > input[type="checkbox"]');
     for (const ol of container.querySelectorAll('ol')) {
-      const start = parseInt(ol.getAttribute('start') || '1', 10) || 1;
-      let i = 0;
-      for (const li of ol.children) {
-        if (li.tagName !== 'LI') continue;
-        const card = li.firstElementChild;
-        if (card && card.classList.contains('card') && card.firstElementChild) card.firstElementChild.dataset.n = String(start + i);
-        i++;
+      const items = [...ol.children].filter(el => el.tagName === 'LI');
+      const rev = ol.hasAttribute('reversed');
+      const start = ol.hasAttribute('start') ? (parseInt(ol.getAttribute('start'), 10) || 1) : (rev ? items.length : 1);
+      const type = ol.getAttribute('type');
+      items.forEach((li, idx) => {
+        const n = rev ? start - idx : start + idx;
+        let label = String(n);
+        if (n > 0) {
+          if (type === 'a') label = alpha(n); else if (type === 'A') label = alpha(n).toUpperCase();
+          else if (type === 'i') label = roman(n); else if (type === 'I') label = roman(n).toUpperCase();
+        }
+        if (hasBox(li)) return;
+        li.dataset.n = label;   // 記號一律掛在 li 上（Safari 對 flex 容器〔卡片標題列〕的絕對定位 ::before 會算錯位置）
+      });
+    }
+    for (const ul of container.querySelectorAll('ul')) {
+      for (const li of ul.children) {
+        if (li.tagName !== 'LI' || hasBox(li)) continue;
+        li.dataset.b = '1';
       }
     }
   },
@@ -486,22 +513,34 @@ const Cards = {
     }
     this.numberListCards(container);
     TaskWriter.enable(container, owner, part);   // 核取方塊直接點、寫回檔案（R38）
+    // 注意：巢狀卡片的摘要／內文在上面 replaceWith 時已用「它自己的資料夾」解析過相對路徑，
+    // 這裡再抓到它們會用父頁面的資料夾重算而蓋錯（HTTP 來源必回字串、蓋掉才會 404；1.1.7 修正），
+    // 所以處理過的一律標記 data-hyd，外層跳過。
     for (const a of container.querySelectorAll('a[href]')) {
+      if (a.dataset.hyd) continue;
       if (a.closest('.chip, .card-head')) continue;
       const href = a.getAttribute('href') || '';
       if (/^(https?:|mailto:|tel:)/i.test(href)) { a.target = '_blank'; a.rel = 'noopener'; continue; }
       if (href.startsWith('#')) continue;
       let dec = href; try { dec = decodeURIComponent(href); } catch {}
       if (/\.md$/i.test(dec)) {
+        a.dataset.hyd = '1';
         const mod = Store.resolve(dec.replace(/\.md$/i, ''), ctx.basePath);
         if (mod) { a.href = Util.hashFor(mod.id); a.classList.add('mod-link'); }
       }
     }
     for (const img of container.querySelectorAll('img[src]')) {
+      if (img.dataset.hyd) continue;
       const src = img.getAttribute('src') || '';
       if (/^(https?:|data:|blob:)/i.test(src)) continue;
+      img.dataset.hyd = '1';
       let dec = src; try { dec = decodeURIComponent(src); } catch {}
       Store.assetUrl(dec, ctx.basePath).then(url => { if (url) img.src = url; });
+    }
+    for (const img of container.querySelectorAll('img')) {   // R65：預設半寬，按一下放大／縮回（只在閱讀畫面；編輯器沒跑 hydrate）
+      if (img.dataset.z || img.closest('a[href]')) continue;
+      img.dataset.z = '1';
+      img.addEventListener('click', () => img.classList.toggle('img-full'));
     }
   },
 };
@@ -637,6 +676,27 @@ const LinkWriter = {
     }
     return out;
   },
+  /* 把檔案裡第 j 個 [[…]] 連結整個換成任意文字（併回用，R47）。
+     在清單項目裡時，後續行縮排到項目內容的位置，讓多段內容仍屬於同一個項目。 */
+  replaceWith(text, j, raw, replacement) {
+    const links = Refs.cards(text), cands = this.candidates(text);
+    const pos = []; let c = 0;
+    for (const l of links) { while (c < cands.length && cands[c].raw !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
+    const link = links[j], p = pos[j];
+    if (!link || !p || link.raw !== raw) throw new Error('檔案內容已經改變，這個連結對不上');
+    const lineStart = text.lastIndexOf('\n', p.start - 1) + 1;
+    const prefix = text.slice(lineStart, p.start);
+    let rep = replacement;
+    const m = /^(\s*)([-*+]|\d+[.)])\s+$/.exec(prefix);
+    if (m) {
+      const ind = m[1] + ' '.repeat(m[2].length + 1);
+      rep = replacement.split('\n').map((l, i) => (i && l.trim()) ? ind + l : (i ? '' : l)).join('\n');
+    }
+    const out = text.slice(0, p.start) + rep + text.slice(p.end);
+    const expect = links.length - 1 + Refs.cards(replacement).length;
+    if (Refs.cards(out).length !== expect) throw new Error('併回後連結數不符，已放棄');
+    return out;
+  },
   async apply(parentId, changes) {
     const mod = Store.modules.get(parentId); if (!mod || !App.canWriteLinks()) return;
     const out = this.rewrite(mod.raw, changes);
@@ -766,6 +826,43 @@ const Refactor = {
     if (i < lines.length && /^#[ \t]+/.test(lines[i])) lines[i] = '# ' + newTitle;
     return fm.raw + lines.join('\n');
   },
+  /* 抽出成模組（R47、D42）：選取的內容搬進新模組，放在「目前模組的配對資料夾」底下（D22 的世界觀）。
+     不自動產生摘要（R31）；相對路徑用 relocate 改寫。回傳 { id, link }，原位置的取代由呼叫端做（編輯器）。 */
+  async extract(parentMod, md, name) {
+    name = Util.norm(String(name || '')).trim().replace(/\.md$/i, '');
+    if (!name || /[|\[\]#/\\]/.test(name) || name.startsWith('.')) throw new Error('名稱不合法（不能空白、不能含 / | [ ] #）');
+    const childId = parentMod.id + '/' + name;
+    if (Store.modules.has(childId)) throw new Error('已經有同名的模組：' + childId);
+    const parentDir = Util.dirname(parentMod.path), childDir = parentMod.id;
+    let content = String(md || '').trim();
+    if (!content) throw new Error('選取的內容是空的');
+    content = this.relocate(content, parentDir, childDir);
+    const text = `# ${name}\n\n${content}\n`;
+    const r = await App.source.save(childId + '.md', text);
+    const nm = Parse.module(text, childId + '.md'); nm.mtime = (r && r.mtime) || Date.now();
+    Store.upsert(nm); Store.reindex(); App.renderSidebar(); App.updateCache();
+    return { id: childId, link: '[[' + Store.linkTarget(childId, parentDir) + ']]' };
+  },
+  /* 併回（R47、D42）：卡片的模組內容搬回上層檔案裡連結的位置，原檔刪除。
+     格式：**標題**（＋一行摘要接在冒號後；多行摘要另起段）＋內文；相對路徑改寫到上層的資料夾。 */
+  async inline(parentId, refIndex, mod) {
+    if (LinkWriter.pending.size) { clearTimeout(LinkWriter.timer); await LinkWriter.flush(); }
+    const parent = Store.modules.get(parentId);
+    if (!parent) throw new Error('找不到上層模組');
+    if (refIndex == null) throw new Error('對不到檔案裡的連結位置');
+    const links = Refs.cards(parent.raw), link = links[refIndex];
+    const parentDir = Util.dirname(parent.path), childDir = Util.dirname(mod.path);
+    if (!link || Store.resolve(link.target, parentDir) !== mod) throw new Error('檔案內容已經改變，這個連結對不上，請重新整理再試');
+    const s = (mod.summary || '').trim(), b = (mod.body || '').trim();
+    const head = '**' + mod.title + '**' + (s && !s.includes('\n') ? '：' + s : '');
+    const pieces = [head]; if (s && s.includes('\n')) pieces.push(s); if (b) pieces.push(b);
+    let inlined = pieces.join('\n\n');
+    if (childDir !== parentDir) inlined = this.relocate(inlined, childDir, parentDir);
+    const out = LinkWriter.replaceWith(parent.raw, refIndex, link.raw, inlined);
+    const r = await App.source.save(parent.path, out);
+    const np = Parse.module(out, parent.path); np.mtime = (r && r.mtime) || Date.now(); Store.upsert(np);
+    await this.remove(mod);
+  },
   async rename(mod, newId, { retitle = false } = {}) {
     newId = this.normalizeId(newId); if (!newId) throw new Error('名稱不合法');
     if (newId === mod.id) return { id: mod.id, updated: 0 };
@@ -791,6 +888,31 @@ const Refactor = {
     await App.source.remove(mod.path);
     Store.remove(mod.id); Memory.clearCards(mod.id); Drafts.del(mod.id);
     Store.reindex(); App.renderSidebar(); App.updateCache();
+  },
+  /* 整串搬（R63）：改名／搬移時，X 的同名資料夾底下的子模組全部跟著搬，
+     每一個都走 rename（自己的相對路徑改寫＋所有引用連動）。
+     順序＝深的子先搬、父最後搬：每搬一個，還沒搬的那些連到它的連結會被 retarget 指到新家，
+     最後搬父時再把所有已搬子模組裡「指回舊父」的連結一次修正——收斂到全部正確。 */
+  async renameTree(mod, newId, opts) {
+    newId = this.normalizeId(newId); if (!newId) throw new Error('名稱不合法');
+    if (newId === mod.id) return { id: mod.id, moved: 0, updated: 0 };
+    if (newId.startsWith(mod.id + '/')) throw new Error('不能搬進自己底下');
+    const oldPrefix = mod.id + '/';
+    const kids = [...Store.modules.keys()].filter(id => id.startsWith(oldPrefix))
+      .sort((a, b) => b.split('/').length - a.split('/').length);   // 深的先搬
+    if (Store.modules.has(newId)) throw new Error('已經有同名的模組');
+    for (const kid of kids) if (Store.modules.has(newId + '/' + kid.slice(oldPrefix.length))) throw new Error('目標底下已經有同名的子模組');
+    let moved = 0, updated = 0;
+    for (const kid of kids) {
+      const m = Store.modules.get(kid); if (!m) continue;
+      const rr = await this.rename(m, newId + '/' + kid.slice(oldPrefix.length));
+      moved++; updated += rr.updated;
+    }
+    // 搬子模組時父的連結被改寫過、Store 裡已是新物件——要拿最新的，不能用面板開啟時抓的舊參照
+    const fresh = Store.modules.get(mod.id) || mod;
+    const r = await this.rename(fresh, newId, opts);
+    moved++; updated += r.updated;
+    return { id: newId, moved, updated };
   },
 };
 
@@ -1208,7 +1330,7 @@ const Wysi = {
     const modeName = ['', '標題', '摘要', '全文'][ref.mode] || '標題';
     const el = h(block ? 'div' : 'span', { class: 'wy-atom ' + (block ? 'wy-card' : 'wy-chip') + (mod ? '' : ' missing'), contenteditable: 'false', dataset: { md: raw.trim() }, title: '模組連結：點一下修改' });
     el.append(h('span', { class: 'wy-atom-icon', html: ICON.chev }), h('span', { class: 'wy-atom-name', html: Util.titleHtml(name) }));
-    if (block) el.append(h('span', { class: 'wy-atom-mode' }, modeName + (ref.style === 'flat' ? ' · 扁平' : '')));
+    if (block) el.append(h('span', { class: 'wy-atom-mode' }, modeName + (ref.style === 'flat' ? ' · 扁平' : ref.style === 'group' ? ' · 群組縮排' : '')));
     else if (ref.style === 'flat') el.classList.add('flat');
     return el;
   },
@@ -1454,6 +1576,59 @@ const Editor = {
   },
   /* 外部改了檔案、或切換模式時，用指定的文字重畫 */
   load(text) { App.renderEditor(text); this.dirty = text !== this.mod.raw; },
+  /* 抽成模組（R47、D42）：選取的內容搬進新模組、原位置換成 [[連結]]。
+     原始碼／並排（原始碼側）＝文字框選取範圍；直觀編輯＝選取範圍蓋到的整個段落。 */
+  async extractSelection() {
+    if (!this.mod || !App.canEdit()) return;
+    const mod = this.mod, basePath = Util.dirname(mod.path);
+    let md = '', replace = null;
+    const useTa = this.mode === 'source' || (this.mode === 'split' && this.side === 'source');
+    if (useTa && this.ta) {
+      const ta = this.ta, a = ta.selectionStart, b = ta.selectionEnd;
+      if (a === b) return App.toast('先在原始碼裡選取要抽出的內容', true);
+      md = ta.value.slice(a, b);
+      replace = link => {
+        const before = ta.value.slice(0, a), after = ta.value.slice(b);
+        const nl1 = before && !before.endsWith('\n') ? '\n' : '', nl2 = after && !after.startsWith('\n') ? '\n' : '';
+        ta.value = before + nl1 + link + nl2 + after;
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+        ta.focus();
+      };
+    } else if (this.fields) {
+      const sel = window.getSelection();
+      if (!sel || !sel.rangeCount || sel.isCollapsed) return App.toast('先選取要抽出的內容（以整個段落為單位）', true);
+      const range = sel.getRangeAt(0);
+      const field = [this.fields.body, this.fields.summary].find(f => f && (f === range.commonAncestorContainer || f.contains(range.commonAncestorContainer)));
+      if (!field) return App.toast('請在內文或摘要區域裡選取', true);
+      const top = n => { while (n && n.parentNode !== field) n = n.parentNode; return n; };
+      const s = top(range.startContainer), e = top(range.endContainer);
+      if (!s || !e) return App.toast('選取範圍對不到段落', true);
+      const blocks = []; for (let n = s; n; n = n.nextSibling) { blocks.push(n); if (n === e) break; }
+      if (!blocks.includes(e)) return App.toast('選取範圍對不到段落', true);
+      const tmp = h('div'); blocks.forEach(n => tmp.append(n.cloneNode(true)));
+      md = Wysi.toMarkdown(tmp);
+      replace = link => {
+        const atom = Wysi.atomFromRaw(link, true, basePath);
+        s.parentNode.insertBefore(atom, s);
+        blocks.forEach(n => n.remove());
+        Wysi.tidy(field);
+        this.touch();
+      };
+    } else return;
+    md = (md || '').trim();
+    if (!md) return App.toast('選取的內容是空的', true);
+    const firstLine = (md.split('\n').find(l => l.trim()) || '')
+      .replace(/^[\s>]*(?:[-*+]|\d+[.)])?\s*(?:\[[ xX]\]\s*)?#{0,6}\s*/, '')
+      .replace(/[*_`~\[\]!|]/g, '').trim().slice(0, 40) || '新模組';
+    const name = prompt('新模組的名稱（會放在 ' + mod.id + '/ 底下）：', firstLine);
+    if (name == null) return;
+    try {
+      const r = await Refactor.extract(mod, md, name.trim() || firstLine);
+      replace(r.link);
+      if (useTa) { this.dirty = this.ta.value !== mod.raw; this.autosave(); }
+      App.toast('已建立 ' + r.id + '，記得儲存這一篇');
+    } catch (e) { console.warn(e); App.toast('抽出失敗：' + (e.message || e), true); }
+  },
   async save() {
     if (!this.mod || !App.canEdit()) return;
     const mod = this.mod, text = this.text();
@@ -1834,27 +2009,59 @@ const App = {
     }
   },
   /* 改名／搬移（R34、R40）：面板放在工具列下面 */
+  /* 卡片工具列的「併回」（R47）：確認後把模組內容搬回上層、刪掉模組檔 */
+  async inlineCard(el, mod, ref) {
+    if (!this.canEdit() || typeof this.source.remove !== 'function') return;
+    const parentId = el._parent, parent = Store.modules.get(parentId);
+    if (!parent) return this.toast('找不到上層模組', true);
+    if (ref.index == null) return this.toast('對不到檔案裡的連結位置（晶片就地展開的卡片不能併回，請到上層模組的頁面操作）', true);
+    const others = Store.backlinks(mod.id).filter(m => m.id !== parentId);
+    const metaKeys = Object.keys(mod.meta || {}).filter(k => k !== 'title');
+    const kids = [...Store.modules.keys()].some(id => id.startsWith(mod.id + '/'));
+    let msg = `併回：「${mod.title}」的內容會搬進 ${parent.path}，原檔 ${mod.path} 會刪除。`;
+    if (others.length) msg += `\n\n注意：另有 ${others.length} 個模組連到它，併回後那些連結會變成「找不到」。`;
+    if (kids) msg += `\n它底下的子模組會留在原資料夾，內容裡連到它們的連結會改寫、仍然可用。`;
+    if (metaKeys.length) msg += `\n它的 frontmatter（${metaKeys.join('、')}）不會保留。`;
+    if (!confirm(msg)) return;
+    try {
+      await Refactor.inline(parentId, ref.index, mod);
+      this.toast('已併回 ' + parent.path + '，並刪除 ' + mod.path);
+      if (!Editor.open) this.refresh();
+    } catch (e) { console.warn(e); this.toast('併回失敗：' + (e.message || e), true); }
+  },
   renamePanel(mod) {
     this.closePanel();
     const input = h('input', { class: 'wy-q', type: 'text', value: mod.id, placeholder: '新的檔名，可含資料夾：專案/想法', spellcheck: 'false', autocomplete: 'off' });
     const sameTitle = mod.title === Util.basename(mod.id);
     const cb = h('input', { type: 'checkbox' }); cb.checked = sameTitle;
     const refs = Store.backlinks(mod.id);
-    const info = h('div', { class: 'note' }, refs.length ? `有 ${refs.length} 個模組連到它（${refs.slice(0, 5).map(r => r.title).join('、')}${refs.length > 5 ? '…' : ''}），連結會一起改。` : '沒有其他模組連到它。', ' 搬到別的資料夾時，它自己的相對連結與圖片路徑也會跟著改。');
+    const kidCount = [...Store.modules.keys()].filter(id => id.startsWith(mod.id + '/')).length;
+    // 搬進模組（R63）：輸入或選一個目標模組，路徑自動填成「目標/原名」（配對資料夾世界觀）
+    const dl = h('datalist', { id: 'move-into-dl' });
+    for (const m of Store.modules.values()) { if (m.id !== mod.id && !m.id.startsWith(mod.id + '/')) dl.append(h('option', { value: m.id })); }
+    const lb1 = h('div', { style: 'font-size:12.5px;color:var(--ink-2);margin:2px 0 0' }, '新檔名（整段路徑；只想改名就改最後一段。檔名不能含 /，要斜線用全形 ／ 或寫進標題）');
+    const lb2 = h('div', { style: 'font-size:12.5px;color:var(--ink-2);margin:6px 0 0' }, '或：搬進某個模組（自動放進它的同名資料夾）');
+    const into = h('input', { class: 'wy-q', type: 'text', list: 'move-into-dl', placeholder: '輸入目標模組名稱', spellcheck: 'false', autocomplete: 'off' });
+    into.addEventListener('input', () => {
+      const t = Store.modules.get(into.value) || Store.resolve(into.value, Util.dirname(mod.path));
+      if (t && t.id !== mod.id && !t.id.startsWith(mod.id + '/')) input.value = t.id + '/' + Util.basename(mod.id);
+    });
+    const info = h('div', { class: 'note' }, refs.length ? `有 ${refs.length} 個模組連到它（${refs.slice(0, 5).map(r => r.title).join('、')}${refs.length > 5 ? '…' : ''}），連結會一起改。` : '沒有其他模組連到它。', ' 搬到別的資料夾時，它自己的相對連結與圖片路徑也會跟著改。', kidCount ? ` 它底下有 ${kidCount} 個子模組，會整串一起搬。` : '');
     const doIt = async () => {
       const newId = Refactor.normalizeId(input.value);
       if (!newId) { this.toast('名稱不合法（不能含 | [ ] #，不能用 .. ）', true); return; }
-      if (newId === mod.id) { this.closePanel(); return; }
+      if (newId === mod.id) { this.toast('檔名沒有變，沒有做任何事'); return; }
       if (Store.modules.has(newId)) { this.toast('已經有同名的模組', true); return; }
       try {
-        const r = await Refactor.rename(mod, newId, { retitle: cb.checked });
-        this.closePanel(); this.toast(`已改成 ${newId}.md` + (r.updated ? `，更新了 ${r.updated} 個模組的連結` : ''));
+        const r = await Refactor.renameTree(mod, newId, { retitle: cb.checked });
+        this.closePanel(); this.toast(`已改成 ${newId}.md` + (r.moved > 1 ? `（含 ${r.moved - 1} 個子模組）` : '') + (r.updated ? `，更新了 ${r.updated} 個模組的連結` : ''));
         this.trail = []; this.currentId = null;
         if (Util.idFromHash() === r.id) this.show(r.id, true); else location.hash = Util.hashFor(r.id);
       } catch (e) { this.toast('改名失敗：' + (e.message || e), true); }
     };
     input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doIt(); } });
-    this.showPanel('改名／搬移 ' + mod.path, [input, h('label', { class: 'wy-check' }, cb, ' 標題也改成新檔名'), info], [
+    into.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doIt(); } });
+    this.showPanel('改名／搬移 ' + mod.path, [lb1, input, lb2, into, dl, h('label', { class: 'wy-check' }, cb, ' 標題也改成新檔名'), info], [
       { label: '改名', primary: true, fn: doIt }, { label: '取消', fn: () => this.closePanel() }], { top: true });
     input.focus(); input.select();
   },
@@ -1953,8 +2160,9 @@ const App = {
     const modes = [['wysiwyg', '直觀編輯', '直接在畫面上打字、選字後按格式鈕'], ['source', '原始碼', 'Markdown 原始碼，下方有預覽'], ['split', '並排', '左邊直觀編輯、右邊原始碼，兩邊即時同步（R29）']];
     const seg = h('div', { class: 'seg mode-seg', role: 'group', 'aria-label': '編輯模式' },
       modes.map(([m, label, title]) => h('button', { type: 'button', class: Editor.mode === m ? 'on' : '', dataset: { mode: m }, title, onclick: () => Editor.switchMode(m) }, label)));
+    const extractBtn = App.canEdit() ? h('button', { class: 'btn quiet ex-btn', type: 'button', title: '把選取的內容搬進一個新模組（放在這個模組底下），原位置換成連結；直觀編輯以整個段落為單位（R47）', onclick: () => Editor.extractSelection() }, '抽成模組') : null;
     const bar = h('div', { class: 'wy-tools ed-bar' + (Editor.mode === 'source' ? ' no-fmt' : '') },
-      seg, h('span', { class: 'wy-sep' }), this.buildWysiTools(mod, basePath), h('span', { class: 'spacer' }),
+      seg, extractBtn, h('span', { class: 'wy-sep' }), this.buildWysiTools(mod, basePath), h('span', { class: 'spacer' }),
       h('button', { class: 'btn primary', type: 'button', onclick: () => Editor.save() }, '儲存'));
     bar.addEventListener('mousedown', e => { if (e.target.tagName !== 'SELECT') e.preventDefault(); });   // 不搶焦點，直觀編輯的選取範圍才會留著
     return bar;
@@ -2181,7 +2389,7 @@ const App = {
     const list = h('div', { class: 'wy-results' });
     const modeSel = h('select', { class: 'sel' }, h('option', { value: '1' }, '只顯示標題'), h('option', { value: '2' }, '標題＋摘要'), h('option', { value: '3' }, '標題＋摘要＋內文')); modeSel.value = String(ref.mode || 1);
     const formSel = h('select', { class: 'sel' }, h('option', { value: 'card' }, '卡片（獨立一行）'), h('option', { value: 'chip' }, '晶片（句子中間）')); formSel.value = block ? 'card' : 'chip';
-    const styleSel = h('select', { class: 'sel', title: '外觀' }, h('option', { value: 'card' }, '外觀：一般'), h('option', { value: 'flat' }, '外觀：扁平（和清單項目平行）')); styleSel.value = ref.style === 'flat' ? 'flat' : 'card';
+    const styleSel = h('select', { class: 'sel', title: '外觀' }, h('option', { value: 'card' }, '外觀：卡片'), h('option', { value: 'flat' }, '外觀：扁平（和清單項目平行）'), h('option', { value: 'group' }, '外觀：群組縮排（無框、內容縮排）')); styleSel.value = (ref.style === 'flat' || ref.style === 'group') ? ref.style : 'card';
     const label = h('input', { class: 'wy-q', type: 'text', placeholder: '顯示文字（留白＝模組標題）' }); label.value = ref.label || '';
     let picked = ref.target;
     const renderList = () => {
@@ -2198,7 +2406,7 @@ const App = {
       // 連到同資料夾或子資料夾的模組時，寫成相對於目前模組資料夾的路徑，搬家也不會壞
       let t = target; if (basePath && target.startsWith(basePath + '/')) t = target.slice(basePath.length + 1);
       const mode = ['', '標題', '摘要', '全文'][+modeSel.value] || '標題';
-      const parts = [t]; if (mode !== '標題') parts.push(mode); if (styleSel.value === 'flat') parts.push('扁平'); if (label.value.trim()) parts.push(label.value.trim());
+      const parts = [t]; if (mode !== '標題') parts.push(mode); if (styleSel.value === 'flat') parts.push('扁平'); else if (styleSel.value === 'group') parts.push('群組縮排'); if (label.value.trim()) parts.push(label.value.trim());
       return `[[${parts.join('|')}]]`;
     };
     this.showPanel(atom ? '修改模組連結' : '插入模組', [q, list, h('div', { class: 'wy-row' }, modeSel, formSel, styleSel), label], [

@@ -6,6 +6,7 @@ const ROOT = process.env.ROOT, HERE = process.env.HERE, TMP = process.env.TMP ||
 
 const NOTES = ROOT + '';
 const files = fs.readdirSync(NOTES, { recursive: true }).filter(f => f.endsWith('.md') && (!f.includes('/') || f.startsWith('範例/'))).map(f => ({ name: f, text: fs.readFileSync(`${NOTES}/${f}`, 'utf8') }));   // 根目錄的模組＋範例/
+files.unshift({ name: '首頁.md', text: '# 首頁\n\n## 內文\n[[範例/筆記一|摘要]]\n' });   // 測試用入口（使用者把工具首頁改名了，fixture 自備一個）
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 860 }, locale: 'zh-TW' });
@@ -65,6 +66,9 @@ await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includ
 await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="card"]');
 await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點]]\n'), null, { timeout: 5000 });
 assert.equal(await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => c.dataset.style), 'card');
+await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="group"]');   // R50：群組縮排也寫檔
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|群組縮排]]'), null, { timeout: 5000 });
+assert.equal(await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => c.dataset.style), 'group');
 await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="flat"]');
 await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|扁平]]'), null, { timeout: 5000 });
 assert.equal(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem(Persist.key('cards')) || '{}')).length), 0, '可寫入時不該用瀏覽器記憶');

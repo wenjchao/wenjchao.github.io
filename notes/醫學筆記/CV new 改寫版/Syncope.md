@@ -1,7 +1,7 @@
 # Syncope
 
 ## 摘要
-心因性（心律不整、LVOTO）vs 非心因性（姿勢性低血壓：站立 3 分鐘內 SBP 降 ≥20 或 DBP 降 ≥10；vasovagal），D/D vertigo。
+Cardiac vs Noncardiac vs Vertigo
 
 ## 內文
 1. **Cardiac**
@@ -12,5 +12,5 @@
       1. ANS disorder: Parkinson’s, Lewy body disease, MSA (P+), DM, Amyloidosis
       2. Drug (α-antagonist) / hypovolemia / 剛吃飽
    2. **Vasovagal**
-   > 💡 這兩個都 tilt table positive
+   - 這兩個都 tilt table positive
 3. D/D: vertigo
