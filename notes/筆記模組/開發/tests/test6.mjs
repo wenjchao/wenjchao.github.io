@@ -45,7 +45,7 @@ const items = await page.$$eval('#srcPop .mi', bs => bs.map(b => b.textContent))
 assert.ok(items.some(t => t.startsWith('匯入檔案')) && items.some(t => t.startsWith('忘記匯入')), items.join(' | '));
 await page.keyboard.press('Escape');
 assert.equal(await page.$eval('#srcMenu', m => m.open), false);
-await page.setInputFiles('#pickFiles', [md('筆記模組 - 首頁.md')]);   // 換成另一批（工具首頁已被使用者改名）
+await page.setInputFiles('#pickFiles', [md('工具與說明.md')]);   // 換成另一批（工具首頁＝工具與說明）
 await page.waitForFunction(() => document.querySelector('#count')?.textContent === '1 個模組');
 await page.click('#srcBtn');
 page.once('dialog', d => d.accept());

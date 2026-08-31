@@ -13,9 +13,9 @@ page.on('pageerror', e => errors.push('pageerror: ' + e.message));
 await page.goto('file://' + TMP + '/single.html');
 await page.waitForSelector('.root');
 
-// 入口模組已被使用者改名為「筆記模組 - 首頁」（沒有叫 首頁 的模組時退回上次／第一個）；直接導向它
-await page.evaluate(() => location.hash = '#/' + encodeURIComponent('筆記模組 - 首頁'));
-await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '筆記模組 - 首頁');
+// 入口模組已被使用者改名為「工具與說明」（沒有叫 首頁 的模組時退回上次／第一個）；直接導向它
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('工具與說明'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '工具與說明');
 const N = (await import('node:fs')).default.readdirSync(ROOT, { recursive: true }).filter(f => /\.md$/.test(f) && !f.startsWith('開發')).length;
 assert.equal(await page.textContent('#count'), `${N} 個模組`);
 // 首頁＝入口＋說明總覽（R42）：第一張是 範例/筆記一（摘要），後面是 說明/ 的各篇（摘要）
@@ -144,13 +144,13 @@ await page.waitForFunction(() => document.querySelector('.root-title')?.textCont
 assert.ok((await page.textContent('.root-body pre')).includes('## 摘要'));
 assert.equal(await page.$('.root-summary'), null, 'R52：檔案格式 不該有摘要段');
 assert.equal(await page.$$eval('.root-body pre .mod-ph, .root-body pre .card', xs => xs.length), 0);
-await page.evaluate(() => location.hash = '#/' + encodeURIComponent('筆記模組 - 首頁'));
-await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '筆記模組 - 首頁');
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('工具與說明'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '工具與說明');
 assert.ok((await page.$$eval('.root-body > .card', cs => cs.length)) >= 7, '首頁應有範例＋6 篇說明的卡片');
 // 檢視原始檔（唯讀來源）
 await page.click('text=檢視原始檔');
 await page.waitForSelector('.editor textarea');
-assert.ok((await page.inputValue('.editor textarea')).startsWith('# 筆記模組 - 首頁'));
+assert.ok((await page.inputValue('.editor textarea')).startsWith('# 工具與說明'));
 assert.ok(await page.$('text=複製全文'));
 await page.click('text=關閉');
 await page.waitForSelector('.root');
@@ -162,8 +162,8 @@ await page.screenshot({ path: TMP + '/shot-dark.png' });
 await page.click('#themeBtn');
 
 // 回入口
-await page.evaluate(() => location.hash = '#/' + encodeURIComponent('筆記模組 - 首頁'));
-await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '筆記模組 - 首頁');
+await page.evaluate(() => location.hash = '#/' + encodeURIComponent('工具與說明'));
+await page.waitForFunction(() => document.querySelector('.root-title')?.textContent === '工具與說明');
 
 // 截圖：筆記一（含展開）
 await page.click('.card[data-id="範例/筆記一"] .card-title');
