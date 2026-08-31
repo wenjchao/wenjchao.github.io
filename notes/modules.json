@@ -1,11 +1,11 @@
 {
- "generated": 1788136851516,
+ "generated": 1788137489252,
  "modules": [
   {
    "path": "醫學筆記.md",
-   "mtime": 1788136667277,
-   "size": 406,
-   "text": "# 醫學筆記\n\n## 內文\n[[醫學筆記/CV|摘要]]\n\n[[醫學筆記/Infectious Disease|摘要]]\n\n[[醫學筆記/症狀治療基本用藥]]\n\n[[醫學筆記/Rheuma]]\n\n[[醫學筆記/Pediatric|摘要]]\n\n[[醫學筆記/Hema|摘要]]\n\n[[醫學筆記/Neuro|摘要]]\n\n[[醫學筆記/Neurophysiology|摘要]]\n\n[[醫學筆記/Psychiatry|摘要]]\n\n[[醫學筆記/OB GYN|摘要]]\n\n[[醫學筆記/Liver & GI|摘要]]\n"
+   "mtime": 1788137479675,
+   "size": 437,
+   "text": "# 醫學筆記\n\n## 內文\n[[醫學筆記/CV|摘要]]\n\n[[醫學筆記/Infectious Disease|摘要]]\n\n[[醫學筆記/症狀治療基本用藥]]\n\n[[醫學筆記/Rheuma]]\n\n[[醫學筆記/Pediatric|摘要]]\n\n[[醫學筆記/Hema|摘要]]\n\n[[醫學筆記/Neuro|摘要]]\n\n[[醫學筆記/Neurophysiology|摘要]]\n\n[[醫學筆記/Psychiatry|摘要]]\n\n[[醫學筆記/OB GYN|摘要]]\n\n[[醫學筆記/Liver & GI|摘要]]\n\n[[醫學筆記/Chest|摘要]]\n"
   },
   {
    "path": "首頁.md",
@@ -120,6 +120,12 @@
    "mtime": 1788127925223,
    "size": 589,
    "text": "# CV\n\n## 摘要\n\n## 內文\n[[CV/Heart Echo|摘要]]\n\n[[CV/Valvular disease]]\n\n[[CV/Coronary artery disease]]\n\n[[CV/Hypertrophic cardiomyopathy]]\n\n[[CV/Arrhythmia]]\n\n[[CV/Heart failure]]\n\n[[CV/Aortic dissection]]\n\n[[CV/Aortic aneurysm]]\n\n[[CV/Infective endocarditis]]\n\n[[Pediatric/Infective myocarditis]]\n\n[[CV/Congenital Heart disease]]\n\n[[CV/Syncope]]\n\n### Others\n\n[[CV/VA ecmo contraindication]]\n\n[[CV/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
+  },
+  {
+   "path": "醫學筆記/Chest.md",
+   "mtime": 1788137470479,
+   "size": 631,
+   "text": "# Chest\n\n## 內文\nXray 判讀：ABCDEFGH Airway, Bone, Cardiac, Diaphragm, Effusion, lung Field, Gastric bubble, Hilum, 再加一個：Soft tissue\n\nCough D/D: post-nasal drip, GERD, asthma, COPD, infection(pneumonia, larnygitis, TB), PE(咳血), lung cancer, Vasculitis(p-ANCA, c-ANCA) Drug(ACEi)\n\n[[Infectious Disease/Pneumonia|摘要]]\n\n[[Chest/Atelectasis|摘要]]\n\n[[Chest/Obstructive lung disease|摘要]]\n\n[[Chest/Interstitial Lung Disease ⇒ Fibrotic Lung Diseases|摘要]]\n\n[[Chest/Chest tube drainage|摘要]]\n\n[[Chest/Dyspnea & 呼吸器設定|摘要]]\n\n[[Chest/插管|摘要]]\n\n[[Chest/奇怪的 lung disease|摘要]]\n"
   },
   {
    "path": "醫學筆記/Hema.md",
@@ -708,6 +714,234 @@
    "mtime": 1787674018000,
    "size": 142,
    "text": "# TAVI vs SAVR\n\n## 摘要\n兩張比較圖：TAVI 與 SAVR 怎麼選。\n\n## 內文\n![](../../圖片/image-2.png)\n\n![](../../圖片/image2.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Atelectasis.md",
+   "mtime": 1788137431659,
+   "size": 1104,
+   "text": "# Atelectasis\n\n## 內文\n1. Etiology\n   1. Obstructive（氣管塞住） ⇒ airway obstruction ex: tumor, foreign body, asthma, infectious bronchitis / pneumonia\n   2. Passive（Changes in intrapleural pressure，即肺外的問題，肺張不開）ex: large pleural effusion, pneumothorax, hemothorax\n   3. Compressive（肺內的問題，肺張不開）ex: mass, bullae\n   4. Adhesive: 缺乏 surfactant\n   5. Cicatricial (fibrotic scar) ex: TB, sarcoidosis, 放射線治療\n2. CXR: trachea 往哪邊偏？⇒ lesion side 是 collapse 還是脹大\n   1. 往白掉的那邊偏：lesion side collapse ex: airway obstruction, pneumonectomy\n   2. 沒有偏：原地 consolidation ex: pneumonia\n   3. 往正常的那邊偏：lesion side 東西太多脹出來 ex: massive pleural effusion\n   - 注意：注意 pneumothorax 有問題的部分是黑掉不是白掉，要反過來\n3. Other signs on CXR:\n   1. Crowding of the bronchovascular markings. 有/沒有 air bronchogram?\n   2. Displacement of the interlobar fissures\n   3. Compensatory overinflation of remaining lung\n   4. Elevation of hemidiaphragm\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Chest tube drainage.md",
+   "mtime": 1788137431673,
+   "size": 525,
+   "text": "# Chest tube drainage\n\n## 內文\n2-bottle 和 3-bottle 為了維持胸內負壓，最後面接suction control tube (1 bottle 是接外面大氣) 。在台大醫院的 suction control 是用牆上的吸嘴控制，不用另外放一個瓶子\n\n![](圖片/Untitled-11.png)\n\n氣胸用 1 bottle / 2 bottle（因為沒什麼液體）\n\n有水有氣要排的話就要用 3 bottle 第一個瓶子接水 第二個瓶子接氣 這樣不會水越接越多以後水淹過管子的深度(y)大 氣體出不來\n\n![](圖片/Untitled-12.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定.md",
+   "mtime": 1788137431683,
+   "size": 849,
+   "text": "# Dyspnea & 呼吸器設定\n\n## 內文\n- 注意：Respiratory failure:\n\n  Type 1: 缺氧氣 (hypoxemia)\n\n  Type 2: 二氧化碳太多 (hypercapnia) ⇒\n\n  1. Won’t breathe: 藥物或疾病等造成 CNS depression，無法呼吸\n  2. Can’t breathe: 神經學上正常，想呼吸，但其他原因 (ex: obstruction、脊柱側彎) 造成換氣困難\n\n  Type 4: shock ⇒ 組織 perfusion 不夠，供氧不足\n\n[[Dyspnea & 呼吸器設定/Etiology 要分系統(肺／心／酸／精神) & 是哪個 Type|摘要]]\n\n[[Dyspnea & 呼吸器設定/Evaluation & management|摘要]]\n\n[[Dyspnea & 呼吸器設定/呼吸輔助道具：依SpO2判斷氧氣夠不夠|摘要]]\n\n[[Dyspnea & 呼吸器設定/呼吸器設定：決定三件事 - Rate, Volume, FiO2，監測兩件事 - O2, CO2|摘要]]\n\n[[Dyspnea & 呼吸器設定/Fick's law of diffusion|摘要]]\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Interstitial Lung Disease ⇒ Fibrotic Lung Diseases.md",
+   "mtime": 1788137431672,
+   "size": 1944,
+   "text": "# Interstitial Lung Disease ⇒ Fibrotic Lung Diseases\n\n## 內文\nIf 年輕人 ⇒ 考慮換肺\n\n1. [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Pathophysiology tissue injury in lung parechyma ⇒|扁平]]\n3. Etiology\n   1. Autoimmune-related interstitial lung disease\n\n      [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Connective tissue disease related (CTD-ILD) RA|摘要]]\n      - Others: pulmonary langerhans cell histiocytosis, lymphangioleiomyomatosis(LAM), amyloidosis, eosinophilic pneumonia, Goodpasture syndrome (anti-GBM)\n   2. Granuloma-related interstitial lung disease：見 「感染科 ⇒ Innate immunity (granuloma related)」\n      1. Sarcoidosis\n      2. Granulomatous with polyangiitis (c-ANCA)\n      3. Eosinophilic granulomatous with polyangiitis (p-ANCA)\n      4. TB\n      5. Other foreign body / dust exposure（見下面 c.）\n   3. Exposure-related interstitial lung disease (pneumoconiosis) ⇒ Also granuloma\n      1. asbestosis（石綿肺）\n      2. Silicosis（矽肺病，礦場/工地工人吸入矽塵）\n      3. Anthracosis / Coal workers’ pneumoconiosis （碳）\n      4. Aluminosis（鋁） / Berylliosis（鈹） / Pulmonary siderosis（鐵）\n      5. Organ dust toxic syndrome（農場）/ Byssinosis（棉塵症，紡織工人）\n      6. Drug: 化療、放療、amiodarone、phenytoin 、cocaine、heroin\n      - 注意：Pneumoconiosis + Rheumatoid arthritis ⇒ Caplan syndrome\n   4. Idiopathic interstitial lung disease / Idiopathic pulmonary fibrosis\n\n   [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Etiology 互相交織、互相影響|摘要]]\n4. Classification: AIP, COP, NSIP, DIP, RB-ILD, LIP, UIP\n\n   [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/主要是看 HRCT(high-resolution CT)、病理切片、進程速度|摘要]]\n\n[Spectrum of Fibrotic Lung Diseases | NEJM](https://www.nejm.org/doi/10.1056/NEJMra2005230)\n\n![](圖片/Untitled-10.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease.md",
+   "mtime": 1788137431668,
+   "size": 887,
+   "text": "# Obstructive lung disease\n\n## 內文\n- 注意：Asthma vs COPD\n\n  1. asthma 病程變化大且 acute（不發作時基本上 asymptomatic），AE 時吸 ICS 也會很快回來；COPD 病程持續且變化慢，如果有 AE 也要等治好 infection 才會好\n     asthma 控制不好的病人，甚至同一天量的 PEFR(peak expiratory flow rate) 白天晚上會差 > 20%\n  2. COPD 病人做 bronchdilator test 應該要是 negative。 Asthma 病人在沒發作時做 bronchodilator test 也會是 negative，要在發作的時候做，或是改用 provocative test\n     Positive bronchodilator test: both 12% and 200ml\n  3. asthma 嚴重程度用發作頻率定義；COPD 嚴重程度用肺功能定義\n\n[[Obstructive lung disease/Lung Function Test|摘要]]\n\n[[Obstructive lung disease/COPD ⇒ GOLD guideline|摘要]]\n\n[[Obstructive lung disease/Asthma ⇒ GINA guideline|摘要]]\n"
+  },
+  {
+   "path": "醫學筆記/Chest/奇怪的 lung disease.md",
+   "mtime": 1788137431688,
+   "size": 65,
+   "text": "# 奇怪的 lung disease\n\n## 內文\nIgG4 related disease in lung\n"
+  },
+  {
+   "path": "醫學筆記/Chest/插管.md",
+   "mtime": 1788137431687,
+   "size": 1652,
+   "text": "# 插管\n\n## 內文\n- 注意：要特別注意\n\n  牙齒有沒有鬆動，有沒有假牙\n\n### 藥物：sedation + muscle relaxant\n\n1. sedation\n   1. Ketamine 有升壓效果，最喜歡(Sedation 容易掉壓)，可能增加腦壓\n   2. Dormicum(Midazolam) / Propofol 有降壓效果\n   3. etomidate 要自費\n2. muscle relaxant\n\n   [[插管/succinylcholine 最棒，注意contraindication ⇒|摘要]]\n   2. Rocuronium: 有Sugammadex做為拮抗劑，可以解毒\n\n### 困難插管 LEMON 法則\n\n1. Look externally: 短下巴、短脖子、肥胖\n2. Evaluation: **3-3-2 rule**\n   1. 張嘴：超過3個橫指幅寬\n   2. 舌骨到下頷骨前端：超過3個橫指幅寬\n   3. 喉部突出到舌骨：超過2個橫指幅寬\n3. Mallampati: 難插程度評分\n\n   [[插管/圖|摘要]]\n4. Obstruction: 呼吸道內外有所阻礙\n5. Neck mobility: 脖子曾經受過傷、或是本來就很僵硬，較難插管\n\n### Masking：插管前充氧(pre-oxygenation)\n\n單手：**口訣3C**，大拇指和食指以C型放在mask上，另外三指**抬高下巴**，必要時可以一人masking一人ambu-bagging\n\n### 插管擺位\n\n維持在 **sniffing position**，讓口咽喉**三軸合一**\n\n1. **壓額抬下巴** head tilt-chin lift\n2. **Jaw thrust**：用在懷疑有頸椎受傷者！(不能**壓額抬下巴**)\n\n### CICO：cannot intubate、cannot oxygenate\n\n最害怕遇到的狀況，endo放不進去，扣mask也沒辦法把氣送入\n\n[[插管/cricothyroidotomy：在甲狀軟骨和環狀軟骨間的膜切開，放置endo進去，並接上呼吸器|摘要]]\n\n[[插管/插管效果不好：DOPE|摘要]]\n\n[[插管/Weaning parameter (By AI)|摘要]]\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Etiology 要分系統(肺／心／酸／精神) & 是哪個 Type.md",
+   "mtime": 1788137431674,
+   "size": 1018,
+   "text": "# Etiology: 要分系統(肺/心/酸/精神) & 是哪個 Type\n\n## 內文\n- 注意：如果不會喘但是 O2 掉：可能CNS壞掉了 ex: hyperammonemia, stroke\n\n### lung & airway:\n\n1. 肺內: pulmonary edema, fibrosis, **<u>pneumonia</u>**(bacterial, viral, tuberculosis, atypical, fungal)\n2. 出現奇怪的東西: pneumothorax, hemothorax, pleural effusion, pleuritis, lung tumor\n3. Airway: **<u>COPD</u>**(not COPD if no smoking), asthma, croup, **<u>bronchiolitis</u>**, airway tumor, foreign body\n4. Vascular: pulmonary hypertension, **<u>pulmonary embolism</u>**\n5. Neuro: MG, myopathy, neuropathy(ex: GBS)\n\n### left heart:\n\n1. **<u>heart failure</u>**\n2. **<u>AMI, ischemia</u>**\n3. arrthymia\n4. cardiomyopathy, pericarditis\n5. cardiac tempondae (Onco/外科病人), pericardial effusion\n\n### metabolic acidosis:\n\n1. lactate acidosis: sepsis, ischemia,\n2. ketoacidosis: DKA, alcohol\n3. renal cause: renal failure, RTA\n4. drug / toxic\n\n### others:\n\n1. **<u>hyperventilation</u>** / anxiety\n2. **<u>anemia</u>**\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management.md",
+   "mtime": 1788137431679,
+   "size": 171,
+   "text": "# Evaluation & management\n\n## 內文\n[[Evaluation & management/History|摘要]]\n\n[[Evaluation & management/PE|摘要]]\n\n[[Evaluation & management/Diagnostic test|摘要]]\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Fick's law of diffusion.md",
+   "mtime": 1788137431683,
+   "size": 70,
+   "text": "# Fick’s law of diffusion\n\n## 內文\n![](../圖片/Untitled-15.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/呼吸器設定：決定三件事 - Rate, Volume, FiO2，監測兩件事 - O2, CO2.md",
+   "mtime": 1788137470495,
+   "size": 3003,
+   "text": "# 呼吸器設定：決定三件事 - Rate, Volume, FiO2，監測兩件事 - O2, CO2\n\n## 內文\n- 注意：畫線 + 粗體\n\n  代表重要、常用、需要會調的參數\n\n### 決定三件事：Rate, Volume, FiO2\n\n**Rate:**\n\n1. Control mode: 按照要求規律給，一分鐘xxx次。適用於完全paralysis的病人\n2. Assisted mode: 設定 Flow trigger，病人有呼吸再給\n3. IMV mode(Intermittent Mandatory Ventilation): 最棒，病人有呼吸就給(設定**<u>Flow/Pressure trigger</u>**)，如果沒呼吸至少一分鐘給xxx次(**<u>Rate</u>**)當Back-up。適用於有一點自主呼吸能力的病人\n4. **<u>I-time</u>**: 給予 inspiratory volume OR pressure 的時間，即為吸氣時間，通常設定 0.9s\n   1. 如果呼吸太快，此時就有可能 E-time 比 I-time 快(E-time + I-time 即為一次呼吸所需時間，與Rate成反比)，稱為 I/E reverse，會肺氣腫\n   2. 調整 I/E ratio: I-time 調高可以增加 O2, E-time 調高可以增加 CO2 wash out，通常ratio 1:2，COPD/Asthma 病患會調成 1:3~1:4\n\n**Volume: 希望維持 Tidal volume(ml) = Predicted Body Weight(kg) \\* 6**\n\n1. Volume control: 直接決定給予的 <u>tidal volume(不常用)</u>(不常用的原因：1)因為有些 lung complicance 差的病人打固定體積肺泡會破；2)病人有時候會有翻身、咳嗽等行為，這時還給固定體積會造成麻煩)\n2. Pressure control: 安全、常用。設定 **<u>peak inspiratory pressure(IP，吸氣正壓</u>**，即為 = IPAP-EPAP（EPAP即為PEEP）**<u>)</u>**，再監測實際tidal volume情形做調整。IP 與 tidal volume 完全正相關 (tidal volume = IP \\* lung compliance)\n3. Pressure protection: 若病人lung compliance差，使用 Volume Control Mode 可能因 Pressure 過大而導致lung受傷，因此使用Pressure control。通常設定 IP+PEEP < 30。其實也可以設定 Volume protection 只是不常用。\n4. **<u>PEEP</u>**: 給予穩定正壓，促進氧氣交換 & 降低初始吸氣阻力\n\n**<u>FiO2</u>:** 氧佔給氣的比例，空氣為21%，超過 60% 怕Toxic\n\n### 監測兩件事：O2, CO2\n\nO2: 監測 **<u>SpO2</u>**。**與 PEEP、FiO2、I-time 相關**。\n\n- 由於氧氣交換仰賴的是平均呼吸道壓力(Paw, airway)與微血管中氧分壓的差，而IP只有吸氣時才會發揮作用 vs PEEP一直都在( <u>Paw = IP\\*(I-time)/(E-time+I-time) + PEEP</u> )，因此O2與PEEP 相關而不是 IP\n- PEEP & FiO2 兩個都影響氧氣，因此不能只調一個但不動另一個，要同步往上調 (Google 搜尋：PEEP FiO2 table)\n\nCO2: 監測 EtCO2、ABG/**<u>VBG</u>**。**與VE**(每分鐘通氣量，minute ventilation，正比於 **IP** = IPAP-EPAP )、**E-time 有關**。**VE = Rate \\* Tidal Volume**。\n\n1. VE高通常代表病人本身的 CO2 washout demand 高，可能 underlying 有sepsis / ischemia 在產酸\n2. EtCO2(End tidal CO2): 插管才準\n\n**詳細可以看這裡 ⇒**\n\n[兒童呼吸器使用的基本原則.pdf](../兒童呼吸器使用的基本原則.pdf)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/呼吸輔助道具：依SpO2判斷氧氣夠不夠.md",
+   "mtime": 1788137431681,
+   "size": 1378,
+   "text": "# 呼吸輔助道具：依SpO2判斷氧氣夠不夠\n\n## 內文\nSpO2 < 94會開始上呼吸器, 可以算 FiO2\n\n- 注意：Low flow (<15L/min) 與 High flow (>30L/min)  system 最大的區別在於 high flow 給的通氣量大於病人自己呼吸需要的量，因此不需要額外吸入任何 room air，可以更好的控制 FiO2 & SpO2\n\n以下有數學的部分為 FiO2 換算式\n\n1. Nasal Cannula: 20+4X, (X=1~6L/min) 直接吹鼻黏膜，很乾，如果>3L的話可以加潮濕瓶\n   - 注意：每 L/min 相當於 4 % FiO2, 是因為假設一個人一分鐘呼吸 20L (因此 demand 大的病人用這個公式算會不準)\n2. ⇒ Simple Mask: 40+5(Y-6), (Y=6~10L/min) flow 太低會一直吸到自己呼出來的CO2\n3. ⇒ Venturi mask: 5L-10L, 28%-98%。透過調整flow，精確調整FiO2(瓶身上有刻度)\n\n   [[呼吸輔助道具：依SpO2判斷氧氣夠不夠/換算圖，如果 Flow30L／min 時就可以算是 high flow system|摘要]]\n4. ⇒ Non Rebreathing Mask(NRM): 60+10(Z-6), (Z=6~15L/min)\n5. ⇒ Bipap 正壓呼吸器，IPAP 10~25 cm-H2O, EPAP 5~15 cm-H2O\n   Especially for COPD & lung edema. Contraindication: prone to aspiration\n   - 注意：NIPPV 很像但不是 BIPAP（N 是伸到鼻子裡面，兒科會用），另外還有NCPAP\n6. ⇒ High flow nasal cannula: 21-100%, 30-60L，還可以加溫加濕\n7. ⇒ Ventilator：P/F ratio < 200 為 ARDS\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management/Diagnostic test.md",
+   "mtime": 1788137431679,
+   "size": 447,
+   "text": "# Diagnostic test\n\n## 內文\n1. Lab: ABG, CBC, Troponin, Lactic acid\n2. EKG\n3. Chest X-ray:\n   1. Lung marking ⇒ PPH\n   2. <u>Pneumonia (gold standard)</u>\n   3. Abcesses: Caviting ⇒ K.P./ TB(apical lobe) / Staphylococcus(藥品注射) / Infective endocarditis(會有Lung abscess)\n   4. Pneumothorax\n   5. big bleb/bullae ⇒ Emphysema\n   6. 懷疑氣道阻塞 ⇒ neck X-ray\n4. echo: cardiac temponade, b-line, pleural effusion, pneumothorax\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management/History.md",
+   "mtime": 1788137431677,
+   "size": 1238,
+   "text": "# History\n\n## 內文\n1. **Pattern**:\n\n   [[History/Intermittent dyspnea|摘要]]\n   2. **<u>exertional dyspnea</u>**: 運動時venous return↑ ⇒ RV打入肺，但是因為LV太爛所以血液積在肺裡 ⇒ 刺激terminal alveolar的神經 ⇒ 形成呼吸困難的感覺。運動停止以後venous return 下降，於是就舒緩了\n   3. **<u>positional & paroxysmal nocturnal dyspnea</u>**: heart failure, improve with sitting or standing. **Bendopnea: shortness of breath felt when leaning forward.** Central obesity may mimic.\n\n      [[History/Pathophysiology：躺下時 redistribution of blood|摘要]]\n   3. Time course: 還沒寫\n2. **Severity**: Baseline Dyspnea Index / the Modified Medical Research Council (mMRC) dyspnea scale / Borg scale ⇒ assess the **<u>intensity of the provoking exercise & disability resulting from dyspnea</u>**\n3. **Associated symptoms**\n   1. Cough: bacterial(yellow or green) or viral(clear or white)\n   2. nasal congestion?\n   3. chest pain?\n   4. fever?\n   5. Raynaud phenomenon(blue finger)? ⇒ rheumatic diseases that are associated with interstitial lung disease or pulmonary hypertension\n4. **Occupational** history\n5. [[History/Other Descriptions 主觀描述，看看就好|扁平]]\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management/PE.md",
+   "mtime": 1788137431678,
+   "size": 1239,
+   "text": "# PE\n\n## 內文\n1. 聽診：\n   1. lung: stridor / wheezing / crackles\n   2. heart: murmurs / gallop / tachycardia / arrhythmia + decreased or distant heart sounds\n2. Jugular vein engorgment: indicate right heart failure，所以代表左右心都有問題 or 右心+肺\n   1. 右心+肺: PPH, PE\n   2. 左心+右心: cardiac tempnade, heart failure\n   3. **Tension pneumothroax**\n3. Pulsus paradoxus: 吸氣掉10 mmHg以上，此時心音聽得到但Pulse摸不到(paradox)，有可能心臟被包住、RV壓力過大、吸氣時LV壓力過小\n   ![](../../圖片/WJC-11-282-g001.png)\n   1. 心臟被包住: **<u>Cardiac temponade</u>**, constrictive pericarditis（吸氣時septum擠壓LV，呼氣時擠壓RV）\n   2. RV 壓力過大: **<u>PE</u>**\n   3. 吸氣時 LV 壓力過小: Lung hyperinflation(吸氣時肺泡張開血液不回LV，如**<u>COPD, asthma</u>**)、Anaphylactic shock(vasodilation)\n4. Respiratory distress sign:\n   1. accessory muscle\n   2. 腹肌：正常人胸腹一起起伏，有用腹肌呼吸時胸腹會錯開起伏\n   3. 小兒: 鼻翼擅動\n5. edema alike? ⇒ 皮膚乾不乾、最近的I/O(AKI?)、echo(pleural&ascites)\n   - if peripheral edema ⇒ asymmetric or bilateral?\n6. muscle weakness / dysphonia\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management/History/Intermittent dyspnea.md",
+   "mtime": 1788137431675,
+   "size": 286,
+   "text": "# Intermittent dyspnea\n\n## 內文\n1. **<u>asthma</u>**(**<u>cold air</u>** / animal dander exposure)\n2. occupational asthma(work-related dyspnea)\n3. COPD or asthma(dyspnea following URI)\n4. recurrent pulmonary emboli and heart failure(wax and wane with a baseline level of dysfunction)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management/History/Other Descriptions 主觀描述，看看就好.md",
+   "mtime": 1788137431677,
+   "size": 479,
+   "text": "# Other Descriptions: 主觀描述，看看就好\n\n## 內文\n1. air hunger ⇒ COPD / asthma / heart failure / pulmonary embolism/ restricted thoracic motion / any acute hypercapnia\n2. mind the chest tightness, might be mild dyspnea ex: asthma\n3. increased work of breathing ⇒ COPD / severe asthma / myopathy / pulmonary fibrosis\n4. cannot get a deep breath ⇒ COPD\n5. sensation of rapid, shallow breathing ⇒ reduced lung compliance\n6. suffocation(窒息) ⇒ heart failure\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/Evaluation & management/History/Pathophysiology：躺下時 redistribution of blood.md",
+   "mtime": 1788137431676,
+   "size": 213,
+   "text": "# Pathophysiology：躺下時 redistribution of blood volume from the lower extremities and splanchnic beds to the lungs，形成 pulmonary edema & plerual effusion\n\n## 內文\n![](../../../圖片/Untitled-13.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Dyspnea & 呼吸器設定/呼吸輔助道具：依SpO2判斷氧氣夠不夠/換算圖，如果 Flow30L／min 時就可以算是 high flow system.md",
+   "mtime": 1788137431680,
+   "size": 115,
+   "text": "# 換算圖，如果 Flow>30L/min 時就可以算是 high flow system\n\n## 內文\n![](../../圖片/Untitled-14.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Connective tissue disease related (CTD-ILD) RA.md",
+   "mtime": 1788137431670,
+   "size": 370,
+   "text": "# Connective tissue disease related (CTD-ILD): RA, SLE, SSc (systemic sclerosis), polymyositis / dermatomysitis, mixed connective tissue disease\n\n## 內文\n[Editorial: Interstitial Lung Disease in the Context of Systemic Disease: Pathophysiology, Treatment and Outcomes](https://www.frontiersin.org/articles/10.3389/fmed.2020.644075/full)\n\n![](../圖片/Untitled-6.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Etiology 互相交織、互相影響.md",
+   "mtime": 1788137431671,
+   "size": 206,
+   "text": "# Etiology 互相交織、互相影響\n\n## 內文\n![](../圖片/Untitled-7.png)\n\n[Update in diagnosis and management of interstitial lung disease](https://www.rcpjournals.org/content/clinmedicine/17/2/146)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Pathophysiology tissue injury in lung parechyma ⇒.md",
+   "mtime": 1788137431669,
+   "size": 105,
+   "text": "# Pathophysiology: tissue injury in lung parechyma ⇒ fibrosis\n\n## 內文\n![](../圖片/Untitled-5.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/主要是看 HRCT(high-resolution CT)、病理切片、進程速度.md",
+   "mtime": 1788137431672,
+   "size": 142,
+   "text": "# 主要是看 HRCT(high-resolution CT)、病理切片、進程速度\n\n## 內文\n![](../圖片/Untitled-8.png)\n\n![](../圖片/Untitled-9.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/Asthma ⇒ GINA guideline.md",
+   "mtime": 1788137431668,
+   "size": 851,
+   "text": "# Asthma ⇒ GINA guideline\n\n## 內文\n1. 分成很多phenotype ex:\n\n   [[Asthma ⇒ GINA guideline/eosinophilic asthma vs allergic asthma|摘要]]\n\n   [[Asthma ⇒ GINA guideline/T2 asthma vs non-T2 asthma|摘要]]\n2. 目前 guideline：ICS + LABA 最重要\n3. ICS：**<u>Fluticasone</u>**、**<u>Budesonide</u>**\n4. 支氣管擴張劑：\n   1. SABAs (Short-Acting b2 Agonists ): **<u>Salbutamol</u>**、**<u>Terbutaline</u>**、**<u>Fenoterol</u>**\n   2. SAMAs (Short-Acting Antimuscarinic Agents)：**<u>Ipratropium</u>**\n   3. LABAs (Long-Acting b2 Agonists)：**<u>Salmeterol</u>**、**<u>Formoterol</u>**\n   4. LAMAs (Long-Acting Antimuscarinic Agents)：**<u>Tiotropium</u>**、**<u>Glycopyrronium</u>**\n5. 更高階用藥：anti-IgE (omalizumab)、anti-IL5/5R、anti-IL4R\n6. 其他急性救命用藥：MgSO4（平滑肌舒張）、Epinephrine\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/COPD ⇒ GOLD guideline.md",
+   "mtime": 1788137431665,
+   "size": 1090,
+   "text": "# COPD ⇒ GOLD guideline\n\n## 內文\n1. [[COPD ⇒ GOLD guideline/GOLD guideline|扁平]]\n2. Diagnostic criteria: FEV1/FVC < 0.7\n3. etiology & pathophysiology: chronic bronchitis(airway) and/or emphysema(alveoli)\n3. COPD acute exacerbation: 14天內急性症狀加重（dyspnea / sputum / cough）\n4. Treatment: LABA + LAMA (dual bronchodilator) 最重要\n\n   [[COPD ⇒ GOLD guideline/要不要加 ICS：看紅綠燈|摘要]]\n   - non-pharmalogical: long term oxygen, 正壓呼吸, 呼吸復健\n5. 其他\n   1. Pre-COPD: FEV1/FVC > 0.7 但有下呼吸道症狀\n      - 注意：可能已經有其他問題(ex: emphysema / gas trapping / hyperinflation / DLCO↓)\n   2. PRISm: FEV1/FVC > 0.7 但 Predicted FEV1 or FVC < 80%\n   3. Smoking COPD ⇒ 戒菸\n   4. Non-smoking COPD\n      1. More common in females & younger\n      2. Lesser rate of decline in lung function\n      3. small airways obstruction, less emphysema\n      4. Sputum: neutrophils↓, eosinophil ↑\n      5. Similar to smoking COPD: similar defect in macrophage phagocytosis, similar spirometric indices, similar symptoms\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/Lung Function Test.md",
+   "mtime": 1788137431661,
+   "size": 683,
+   "text": "# Lung Function Test\n\n## 內文\n[[Lung Function Test/在 ABG 或 CXR 有變化以前就先抓到疾病|摘要]]\n\n重點要看的數值：\n\n- 注意：% Predicted 意思為相較模型預測（以性別、年齡、身高、體重、種族下去算），此病人的實際測量值為模型的幾%\n\n1. FEV1 / FVC (Observed)：看像不像 obstructive\n2. FVC (% Predicted)：看像不像 restrictive，如果像要測 TLC\n3. TLC (% Predicted)：restrictive lung disease 的診斷標準 （但是難測）\n4. DLCO：看氣體（一氧化碳）擴散到肺部血液的能力好不好\n\n![](../圖片/截圖_2023-05-11_下午4.49.29.png)\n\n![](../圖片/截圖_2023-05-11_下午4.47.40.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/Asthma ⇒ GINA guideline/T2 asthma vs non-T2 asthma.md",
+   "mtime": 1788137431667,
+   "size": 73,
+   "text": "# T2 asthma vs non-T2 asthma\n\n## 內文\n![](../../圖片/Untitled-4.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/Asthma ⇒ GINA guideline/eosinophilic asthma vs allergic asthma.md",
+   "mtime": 1788137431666,
+   "size": 106,
+   "text": "# eosinophilic asthma vs allergic asthma\n\n## 內文\n![](../../圖片/截圖_2023-05-11_下午4.43.00.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/COPD ⇒ GOLD guideline/GOLD guideline.md",
+   "mtime": 1788137431664,
+   "size": 134,
+   "text": "# GOLD guideline\n\n## 內文\n![](../../圖片/Untitled.png)\n\n[[GOLD guideline/mMRC score|摘要]]\n\n[[GOLD guideline/CAT score|摘要]]\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/COPD ⇒ GOLD guideline/要不要加 ICS：看紅綠燈.md",
+   "mtime": 1788137431665,
+   "size": 78,
+   "text": "# 要不要加 ICS：看紅綠燈\n\n## 內文\n![](../../圖片/Untitled-3.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/COPD ⇒ GOLD guideline/GOLD guideline/CAT score.md",
+   "mtime": 1788137431663,
+   "size": 59,
+   "text": "# CAT score\n\n## 內文\n![](../../../圖片/Untitled-2.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/COPD ⇒ GOLD guideline/GOLD guideline/mMRC score.md",
+   "mtime": 1788137431662,
+   "size": 60,
+   "text": "# mMRC score\n\n## 內文\n![](../../../圖片/Untitled-1.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/Obstructive lung disease/Lung Function Test/在 ABG 或 CXR 有變化以前就先抓到疾病.md",
+   "mtime": 1788137431660,
+   "size": 117,
+   "text": "# 在 ABG 或 CXR 有變化以前就先抓到疾病\n\n## 內文\n![](../../圖片/截圖_2023-05-11_下午4.45.51.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/插管/Weaning parameter (By AI).md",
+   "mtime": 1788137431687,
+   "size": 553,
+   "text": "# Weaning parameter (By AI)\n\n## 內文\n當病人已經做好拔管的準備，就需要觀察他們是否符合拔管的標準。以下是一些常見的拔管評估指標：\n\n- Spontaneous breathing trial (SBT)\n- Rapid shallow breathing index (RSBI)\n- Negative inspiratory force (NIF)\n- Maximum inspiratory pressure (MIP)\n- Vital capacity (VC)\n- Minute ventilation (VE)\n\n通常，如果病人通過了以上的標準，就可以考慮進行拔管。但是，最好還是要和醫生一起討論，確定病人是否真的已經可以安全地拔管。\n"
+  },
+  {
+   "path": "醫學筆記/Chest/插管/cricothyroidotomy：在甲狀軟骨和環狀軟骨間的膜切開，放置endo進去，並接上呼吸器.md",
+   "mtime": 1788137431686,
+   "size": 425,
+   "text": "# cricothyroidotomy：在甲狀軟骨和環狀軟骨間的膜切開，放置endo進去，並接上呼吸器\n\n## 內文\n困難氣切族群：**SHORT**\n\n1. **S**urgery: 會導致氣管的結構發生變異\n2. **H**ematoma: 如果在切開處附近有感染/血腫→不建議做\n3. **O**besity\n4. **R**adiation: 做過放療，皮膚較爛\n5. **T**umor: 腫瘤塞在氣管切開位置的下方，劃開了也無法有效通氣\n"
+  },
+  {
+   "path": "醫學筆記/Chest/插管/succinylcholine 最棒，注意contraindication ⇒.md",
+   "mtime": 1788137431684,
+   "size": 344,
+   "text": "# succinylcholine: 最棒，注意contraindication ⇒\n\n## 內文\n1. Hyperkalemia: 腎燒頭腎衰竭, 頭部外傷, 大面積燒傷病人\n2. Malignant hyperthermia history\n3. recent burns or trauma within 24 to 72 hours\n4. Myasthenia gravis\n5. muscle myopathies ex: Muscular/Myotonic dystrophy\n6. Guillain-Barre syndrome\n7. Spinal cord injury\n"
+  },
+  {
+   "path": "醫學筆記/Chest/插管/圖.md",
+   "mtime": 1788137431685,
+   "size": 48,
+   "text": "# 圖\n\n## 內文\n![](../圖片/Untitled-16.png)\n"
+  },
+  {
+   "path": "醫學筆記/Chest/插管/插管效果不好：DOPE.md",
+   "mtime": 1788137431686,
+   "size": 68,
+   "text": "# 插管效果不好：DOPE\n\n## 內文\n![](../圖片/IMG_4126.jpeg)\n"
   },
   {
    "path": "醫學筆記/Hema/Anemia.md",
