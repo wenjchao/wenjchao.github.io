@@ -3,7 +3,7 @@
 ## 摘要
 
 ## 內文
-[[CV/Heart Echo|摘要]]
+[[CV/Heart Echo]]
 
 [[CV/Valvular disease]]
 

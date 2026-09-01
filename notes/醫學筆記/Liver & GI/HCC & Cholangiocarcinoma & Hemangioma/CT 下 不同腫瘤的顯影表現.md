@@ -7,7 +7,7 @@
 
 CT 下的顯影表現
 
-| ![](https://www.notion.so/icons/font_gray.svg)Property | ![](https://www.notion.so/icons/list_gray.svg)Non-contrast | ![](https://www.notion.so/icons/list_gray.svg)Arterial phase | ![](https://www.notion.so/icons/list_gray.svg)Portal phase | ![](https://www.notion.so/icons/list_gray.svg)Delayed phase (>180s) |
+| Property | Non-contrast | Arterial phase | Portal phase | Delayed phase (>180s) |
 |---|---|---|---|---|
 | HCC | low (iso) | high(亮) | washout(low) | washout(low) |
 | Cholangiocarcinoma | low (iso) |  |  |  |

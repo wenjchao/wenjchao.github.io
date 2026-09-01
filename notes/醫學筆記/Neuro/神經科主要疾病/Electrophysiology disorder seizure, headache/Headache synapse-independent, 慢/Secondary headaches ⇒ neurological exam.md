@@ -1,7 +1,8 @@
 # Secondary headaches: ⇒ neurological exam
 
 ## 內文
-Red flags ⚑: First, Worst, Cursed
+
+### Red flags ⚑: First, Worst, Cursed
 
 1. **meningeal sign** (畏光、噁心嘔吐、脖子僵硬)：<u>meningitis</u>? <u>SAH</u>? <u>migraine</u>?
 2. fever or rash：meningitis?

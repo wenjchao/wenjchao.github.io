@@ -41,7 +41,7 @@
    2. refractory fever, bacteria-infection-like signs(ex: ≥ 2 SIRS criteria or qSOFA criteria)
    3. rule out all above transfusion reaction
 
-前面都屬於 Acute reaction；以下屬於 delayed reaction
+### 前面都屬於 Acute reaction；以下屬於 delayed reaction
 
 7. **Delayed hemolytic transfusion reaction**(>24hr): minor group antigen ex: Kidd or D (Rh)
    1. memory antibody response（需要時間召喚所以慢） to RBC antigen

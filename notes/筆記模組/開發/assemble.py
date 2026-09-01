@@ -13,6 +13,7 @@ css = (src / 'style.css').read_text(encoding='utf-8')
 body = (src / 'body.html').read_text(encoding='utf-8')
 marked = (W / 'marked.min.js').read_text(encoding='utf-8').strip()
 katex_js = (W / 'katex.min.js').read_text(encoding='utf-8').strip()
+mhchem_js = (W / 'mhchem.min.js').read_text(encoding='utf-8').strip()   # \ce 化學式（D44）
 app = (src / 'app.js').read_text(encoding='utf-8')
 
 # KaTeX 的 CSS：字型改成內嵌的 data URI（只留 woff2），離線也能正確排版
@@ -27,6 +28,7 @@ assert 'url(fonts/' not in katex_css, 'KaTeX 字型沒有全部內嵌'
 
 scripts = ('<script>/* marked v18 — MIT License, https://github.com/markedjs/marked */\n' + marked + '\n</script>\n'
            '<script>/* KaTeX — MIT License, https://katex.org */\n' + katex_js + '\n</script>\n'
+           '<script>/* KaTeX mhchem 擴充（\\ce 化學式）— MIT＋Apache-2.0，見 mhchem-LICENSE */\n' + mhchem_js + '\n</script>\n'
            '<script>\n' + app + '\n</script>')
 out = tpl.replace('/* @@CSS@@ */', css + '\n/* ===== KaTeX（MIT） ===== */\n' + katex_css).replace('<!-- @@BODY@@ -->', body + '\n' + scripts)
 assert '@@' not in out

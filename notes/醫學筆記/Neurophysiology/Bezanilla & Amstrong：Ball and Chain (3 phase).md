@@ -9,7 +9,7 @@
 2. 發現二：隨著 conditioning pulse 的持續時間越久，testing pulse 的 peak 越小
 3. 發現三：在一開始 conditioning pulse 持續時間很短的時候，對 testing pulse 的影響不大，然後 conditioning pulse 的持續時間才開始對 testing pulse 產生影響
 
-該如何解釋？
+### 該如何解釋？
 
 1. testing pulse 的 peak 大小，代表的是此時有多少 Na 可以用，即 [C] + [O]
 2. 目前已知的是 Hodgkin–Huxley 的 model：activate 與 inactivate 為互不相關的事件，如下圖

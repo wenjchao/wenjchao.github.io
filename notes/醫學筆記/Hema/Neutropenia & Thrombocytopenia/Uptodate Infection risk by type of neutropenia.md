@@ -3,7 +3,7 @@
 ## 內文
 Infection risk by type of neutropenia
 
-| ![](https://www.notion.so/icons/font_gray.svg)Diagnosis | ![](https://www.notion.so/icons/arrow-circle-down_gray.svg)Risk | ![](https://www.notion.so/icons/list_gray.svg)Marrow reserve | ![](https://www.notion.so/icons/list_gray.svg)T/B immunity | ![](https://www.notion.so/icons/list_gray.svg)Relation to ANC |
+| Diagnosis | Risk | Marrow reserve | T/B immunity | Relation to ANC |
 |---|---|---|---|---|
 | Chronic benign | Low to no risk | Normal | Normal | No |
 | Duffy-null associated neutrophil count (DANC) | Low to no risk | Normal | Normal | No |

@@ -10,7 +10,7 @@ Bezanilla & Amstrong 的 $\ce{C <=>[v_\alpha][v_\beta] O <=>[v_\gamma][v_\delta]
    ![](圖片/截圖_2024-04-21_凌晨1.55.17.png)
 3. **<u>問題三</u>**：但是也看到上圖，在 channel 開始 recover 之前，依然有一個 delay。為什麼？
 
-New model for Na channel
+### New model for Na channel
 
 ![](圖片/截圖_2024-04-21_上午1.38.21.png)
 

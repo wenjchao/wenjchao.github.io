@@ -5,39 +5,39 @@
 
 膜電位產生的原因是因為 1. 離子濃度差 2. leaky channel ⇒ 離子往濃度低那邊跑導致電位差
 
-[[Neurophysiology/Membrane as RC circuit|摘要]]
+[[Neurophysiology/Membrane as RC circuit]]
 
-[[Neurophysiology/RC circuit analysis：Current Clamp|摘要]]
+[[Neurophysiology/RC circuit analysis：Current Clamp]]
 
-[[Neurophysiology/RC circuit analysis：Voltage Clamp|摘要]]
+[[Neurophysiology/RC circuit analysis：Voltage Clamp]]
 
-[[Neurophysiology/Driving force & Nernst Equation & reversal|摘要]]
+[[Neurophysiology/Driving force & Nernst Equation & reversal]]
 
-[[Neurophysiology/GHK equation|摘要]]
+[[Neurophysiology/GHK equation]]
 
-[[Neurophysiology/Patch clamp|摘要]]
+[[Neurophysiology/Patch clamp]]
 
-[[Neurophysiology/Propagation in axon|摘要]]
+[[Neurophysiology/Propagation in axon]]
 
 ### Ion channel 如何打開
 
-[[Neurophysiology/Ion channel 為何可以打開|摘要]]
+[[Neurophysiology/Ion channel 為何可以打開]]
 
 [[Neurophysiology/Channel opening probability：Boltzmann distribution|摘要]]
 
-[[Neurophysiology/Hodgkin–Huxley：發現 Na channel 會 Inactivation & K|摘要]]
+[[Neurophysiology/Hodgkin–Huxley：發現 Na channel 會 Inactivation & K]]
 
-[[Neurophysiology/Bezanilla & Amstrong：Ball and Chain (3 phase)|摘要]]
+[[Neurophysiology/Bezanilla & Amstrong：Ball and Chain (3 phase)]]
 
-[[Neurophysiology/更新 Na channel 模型：Recovery delay ⇒ 4 phase model|摘要]]
+[[Neurophysiology/更新 Na channel 模型：Recovery delay ⇒ 4 phase model]]
 
-[[Neurophysiology/如何測量 P(Open)？ ⇒ Tail current|摘要]]
+[[Neurophysiology/如何測量 P(Open)？ ⇒ Tail current]]
 
-[[Neurophysiology/如何測量 P(Open)？ ⇒ Gating current|摘要]]
+[[Neurophysiology/如何測量 P(Open)？ ⇒ Gating current]]
 
 [[Neurophysiology/會 inactivate 的 channel，越 depolarize 越不會有反應|摘要]]
 
-[[Neurophysiology/P(Open) 與 Conductance 的關係|摘要]]
+[[Neurophysiology/P(Open) 與 Conductance 的關係]]
 
 ### Ion channel 個論
 

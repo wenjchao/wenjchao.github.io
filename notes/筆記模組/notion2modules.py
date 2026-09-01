@@ -30,6 +30,11 @@ SPLIT_RE = re.compile(r'^(.{3,60}?)\s*(?:：|:\s|⇒|→)\s*(.+)$')   # 「主�
 TRAILING_PUNCT = '：:，,、;；'                                       # 標題尾端的冒號等不進檔名與標題
 
 
+# 行內層級標籤：blocks() 遇到時和相鄰文字併成同一段（callout 內文常是「文字＋<style>＋數學 token」直接混排）
+INLINE_TAGS = {'span', 'a', 'strong', 'b', 'em', 'i', 'del', 's', 'code', 'mark', 'u',
+               'sup', 'sub', 'kbd', 'br', 'img', 'style', 'script', 'math', 'annotation', 'svg'}
+
+
 def clean_filename(title, limit=50):
     t = re.sub(r'\$([^$]*)\$', lambda m: re.sub(r'[\\{}^_]', '', m.group(1)), title)   # 數學式只留字母
     t = t.replace('\ufeff', '')
@@ -72,6 +77,8 @@ class Converter:
         for a, b in ov.get('fixes', []):
             raw = raw.replace(a, b)
         self.soup = BeautifulSoup(raw, 'lxml')
+        for s in self.soup.find_all(['style', 'script']):
+            s.decompose()                            # 樣式表／腳本永遠不是內容（曾把 @import 倒進 callout 文字）
         self.page_title = page_name or self.soup.select_one('.page-title').get_text(' ', strip=True)
         self.out = pathlib.Path(out_dir)
         self.split = split_title                     # --split-title：「主題：重點」→ 標題＋摘要（預設關閉）
@@ -126,7 +133,7 @@ class Converter:
             return '\n'
         if name == 'span' and 'katex' in cls:
             ann = node.find('annotation')
-            tex = ann.get_text().strip() if ann else node.get_text(' ', strip=True)
+            tex = ' '.join(ann.get_text().split()) if ann else node.get_text(' ', strip=True)   # 摺成單行：行內 $…$ 不得含換行（檢視器規格 §5）
             return f'${tex}$'
         if name == 'annotation' or (name == 'span' and 'katex' in ' '.join(node.parent.get('class', []))):
             return ''
@@ -200,10 +207,14 @@ class Converter:
                 continue
             if shift and self.list_kind(el) != 'ol':
                 shift = 0
-            if isinstance(el, NavigableString):
-                t = str(el).strip()
+            if isinstance(el, NavigableString) or el.name in INLINE_TAGS:
+                j = i                                 # 行內節點聚成同一段：文字與數學 token 不再被拆成各自的區塊
+                while j < len(flat) and (isinstance(flat[j], NavigableString) or (isinstance(flat[j], Tag) and flat[j].name in INLINE_TAGS)):
+                    j += 1
+                t = re.sub(r'[ \t]+', ' ', ''.join(self.inline(c, ctx) for c in flat[i:j])).strip()
                 if t:
                     push([indent + t], 'p')
+                skip_until = j
                 continue
             if not isinstance(el, Tag):
                 continue
@@ -420,6 +431,49 @@ class Converter:
                     rest.append(k.__copy__())
             lines += self.blocks(rest, dict(ctx, section_level=level + 1), indent)
             return lines
+        # 引言二用法（R72、D46）：單行＝小節標題 → ###；多行＝完整內容 → 獨立子模組（原位 [[…|全文]]）
+        isblock = lambda k: isinstance(k, Tag) and (k.name in ('div', 'ul', 'ol', 'figure', 'blockquote', 'details', 'table', 'p') or 'display:contents' in (k.get('style') or ''))
+        plain = lambda s: re.sub(r'\*\*|</?u>|</?mark>', '', s).replace('﻿', '').strip()
+        mlen = lambda s: len(re.sub(r'\$[^$\n]*\$', '□□', plain(s)))   # 標題長度：數學式折算兩字
+        lead_kids = []
+        for k in kids:
+            if isblock(k):
+                break
+            lead_kids.append(k)
+        lead = ''.join(self.inline(k, ctx) for k in lead_kids).strip()
+        if not any(isblock(k) for k in kids):
+            if not indent and lead:                       # 頂層單行 → 小節標題；清單內單行＝說明句，保留原樣
+                level = max(3, min(ctx['section_level'], 6))
+                return [indent + '#' * level + ' ' + lead, '']
+        else:
+            title_raw, consumed = None, 0
+            if kids and isinstance(kids[0], Tag) and kids[0].name in ('strong', 'b', 'u', 'mark'):
+                t = plain(self.inline(kids[0], ctx))
+                if t and mlen(t) <= 40:
+                    title_raw, consumed = t, 1
+            if title_raw is None and lead and mlen(lead) <= 40:
+                title_raw, consumed = lead, len(lead_kids)
+            if title_raw:
+                title_plain = plain(title_raw)
+                folder = ctx['folder']
+                norm = title_plain.replace('\\*', '*')
+                override = find_override(self.names, folder, norm)
+                title_override = find_override(self.titles, folder, norm)
+                fname = self.unique(folder, override or clean_filename(title_plain))
+                rest_kids = list(kids[consumed:])
+                if consumed == 1 and rest_kids and isinstance(rest_kids[0], NavigableString):
+                    rest_kids[0] = NavigableString(str(rest_kids[0]).lstrip('：: '))   # 粗體標題後的冒號不進內文
+                content = Tag(name='div')
+                for k in rest_kids:
+                    content.append(k.__copy__() if isinstance(k, Tag) else NavigableString(str(k)))
+                sub_folder = f'{folder}/{fname}'
+                sub_ctx = dict(depth=ctx['depth'] + 1, folder=sub_folder, section_level=3, path=f'{sub_folder}.md')
+                body_lines = self.blocks(content, sub_ctx, '')
+                title = (title_override or re.sub(r'[：:]\s*$', '', title_raw)).replace('\\*', '*').replace('﻿', '')
+                self.modules[f'{sub_folder}.md'] = self.module_text(title, self.summaries.get(sub_folder, ''), body_lines)
+                link = f'{pathlib.Path(folder).name}/{fname}'
+                return [indent + f'[[{link}|全文]]']
+            self.warnings.append(f'引言未拆（取不出標題）：{ctx.get("path", "?")} ← 「{(plain(lead)[:24] or "（以區塊開頭）")}…」')
         inner = self.blocks(el, dict(ctx, inline_sections=True), '')
         if not inner:
             inner = [self.inline_block(el, ctx)]
@@ -586,3 +640,5 @@ if __name__ == '__main__':
     nosum = [rel for rel, text in c.modules.items() if '## 摘要' not in text]
     if nosum:
         print(f'沒有摘要的模組（{len(nosum)}）——原樣搬運，不必補。')
+    for w in c.warnings:
+        print('警告：' + w)

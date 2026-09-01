@@ -20,6 +20,16 @@ KATEX = ('<span class="katex"><span class="katex-mathml"><math><semantics><mrow>
          '<annotation encoding="application/x-tex">E=mc^2</annotation></semantics></math></span>'
          '<span class="katex-html">E=mc2</span></span>')
 
+CALLOUT = ('<div style="display:contents"><figure class="block-color-gray_background callout" style="display:flex">'
+           '<div style="font-size:1.5em"><span class="icon">\U0001F4A1</span></div>'
+           '<div style="width:100%">除了<style>@import url(https://cdn/katex-swap.min.css)</style>'
+           '<span class="notion-text-equation-token"><span>' + KATEX + '</span></span>'
+           '<strong><u>以外</u></strong>都有交換律</div></figure></div>')
+
+
+KATEX2 = KATEX.replace('E=mc^2', 'a =\nb+c')   # annotation 含換行（R73）
+
+
 def toggle(title, inner):
     return (f'<div style="display:contents"><ul class="toggle"><li><details open="">'
             f'<summary>{title}</summary>{inner}</details></li></ul></div>')
@@ -33,9 +43,10 @@ def p(text):
 HTML = f'''<html><body><article id="x" class="page sans"><header><h1 class="page-title">測試頁</h1></header>
 <div class="page-body">
 {p('頁面開頭的散落段落。')}
+{CALLOUT}
 {img('%E6%B8%AC%E8%A9%A6%E9%A0%81/Untitled.png')}
 {toggle('主題一：重點一', p('主題一的內文。') + img('%E6%B8%AC%E8%A9%A6%E9%A0%81/a%20b.png')
-        + toggle('子題', p('子題內文。') + toggle('孫題目：重點三', p('孫題內文 ' + KATEX + '。') + img('%E6%B8%AC%E8%A9%A6%E9%A0%81/a%20b.png')))
+        + toggle('子題', p('子題內文。') + toggle('孫題目：重點三', p('孫題內文 ' + KATEX + ' 和 ' + KATEX2 + '。') + img('%E6%B8%AC%E8%A9%A6%E9%A0%81/a%20b.png')))
         + p('子題後面的段落。')
         + '<div style="display:contents"><ol class="numbered-list" start="1"><li>第一項' + toggle('清單裡的', p('清單 toggle 內文。')) + '</li></ol></div>'
         + '<div style="display:contents"><ul class="bulleted-list"><li>甲</li></ul></div>'
@@ -45,6 +56,8 @@ HTML = f'''<html><body><article id="x" class="page sans"><header><h1 class="page
         + toggle('編號前的', p('排在編號清單前面。'))
         + '<div style="display:contents"><ol class="numbered-list" start="1"><li>編號一</li></ol></div>'
         + '<div style="display:contents"><ol class="numbered-list" start="2"><li>編號二</li></ol></div>'
+        + '<div style="display:contents"><blockquote class="">單行標題引言</blockquote></div>'
+        + '<div style="display:contents"><blockquote class="">推導：<p>第一步 ' + KATEX + '</p><div style="display:contents"><ol class="numbered-list" start="1"><li>第二步</li></ol></div></blockquote></div>'
         + '<div style="display:contents"><blockquote class=""><strong>小節標題</strong>' + toggle('引言裡的', p('引言 toggle 內文。')) + '</blockquote></div>')}
 {toggle('圖示：', img('%E6%B8%AC%E8%A9%A6%E9%A0%81/Untitled%201.png'))}
 {toggle('圖示', p('另一個圖示。'))}
@@ -84,6 +97,11 @@ def main():
         assert read(out0, '測試頁/備註.md').startswith('# 備註\n\n## 內文\n'), '尾端冒號仍然不進檔名與標題'
         assert '沒有摘要的模組' in r.stdout
 
+        # callout 裡的行內數學式與粗體（R71）：聚成同一段、式子從 annotation 來、<style> 不得洩入
+        hub0 = read(out0, '測試頁.md')
+        assert '@import' not in hub0 and 'katex-swap' not in hub0, hub0
+        assert '> \U0001F4A1 除了$E=mc^2$**<u>以外</u>**都有交換律' in hub0, hub0
+
         # 下面用 --split-title（舊行為：「主題：重點」拆成標題＋摘要）驗其餘規則
         r = subprocess.run([sys.executable, str(SCRIPT), str(html), str(out), '--overrides', str(ov), '--no-images', '--split-title'],
                            capture_output=True, text=True)
@@ -92,7 +110,7 @@ def main():
 
         files = sorted(str(p.relative_to(out)) for p in out.rglob('*.md'))
         expect = ['測試頁.md', '測試頁/主題一.md', '測試頁/主題一/子題.md', '測試頁/主題一/子題/孫題目.md',
-                  '測試頁/主題一/清單裡的.md', '測試頁/主題一/引言裡的.md', '測試頁/主題一/清單中的.md', '測試頁/主題一/編號前的.md',
+                  '測試頁/主題一/清單裡的.md', '測試頁/主題一/引言裡的.md', '測試頁/主題一/推導.md', '測試頁/主題一/清單中的.md', '測試頁/主題一/編號前的.md',
                   '測試頁/第二個圖示.md', '測試頁/圖示.md', '測試頁/備註.md', '測試頁/其他.md']
         assert sorted(files) == sorted(expect), files
 
@@ -108,6 +126,10 @@ def main():
         assert '- 甲\n- [[主題一/清單中的|扁平]]\n- 乙\n' in m1, m1                    # 和清單項目相鄰的 toggle → 同一個清單裡的扁平項目（D27）
         assert '1. [[主題一/編號前的|扁平]]\n2. 編號一\n3. 編號二' in m1, m1             # 排在編號清單前：從 1 起算，後面的號碼往後挪
         assert re.search(r'### 小節標題\n\n\[\[主題一/引言裡的\|摘要\]\]', m1), m1   # 粗體開頭的引言 → 小節，裡面的 toggle 成卡片
+        assert '\n### 單行標題引言\n' in m1, m1                                   # 單行引言 → 小節標題（R72）
+        assert '[[主題一/推導|全文]]' in m1, m1                                    # 多行引言 → 子模組、原位全文嵌入（R72）
+        d8 = read(out, '測試頁/主題一/推導.md')
+        assert d8.startswith('# 推導\n') and '第一步' in d8 and '$E=mc^2$' in d8 and '1. 第二步' in d8, d8
 
         sub = read(out, '測試頁/主題一/子題.md')
         assert '## 摘要\n手寫的子題摘要\n' in sub, sub                               # overrides.summaries
@@ -116,6 +138,7 @@ def main():
         g = read(out, '測試頁/主題一/子題/孫題目.md')
         assert g.startswith('# 孫題目\n\n## 摘要\n重點三\n'), g
         assert '$E=mc^2$' in g, g                                                 # KaTeX → $…$
+        assert '$a = b+c$' in g and 'b+c\n' not in g, g                          # 含換行的 annotation 摺成單行（R73）
         assert '![](../../圖片/a-b.png)' in g, g                                   # 第 3 層：../../圖片/
 
         s2 = read(out, '測試頁/第二個圖示.md')
@@ -131,7 +154,7 @@ def main():
                 target = (f.parent / (m.group(1).split('|')[0] + '.md'))
                 assert target.exists(), f'{f.relative_to(out)} → {m.group(1)}'
                 n += 1
-        assert n == 11, n
+        assert n == 12, n
     print('TEST8 OK')
 
 

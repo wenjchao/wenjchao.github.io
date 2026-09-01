@@ -1,7 +1,8 @@
 # Hodgkin–Huxley：發現 Na channel 會 Inactivation & K channel 由四扇門構成
 
 ## 內文
-Hodgkin–Huxley 的發現
+
+### Hodgkin–Huxley 的發現
 
 ![](圖片/截圖_2024-04-19_晚上7.36.17.png)
 
@@ -22,7 +23,7 @@ Hodgkin–Huxley 利用 voltage clamp + squid axon 進行實驗，發現細胞�
 
 - 注意：一般的 $\ce{Close state <=> Open state}$ scheme 無法解釋這兩個發現
 
-如何解釋這些發現？
+### 如何解釋這些發現？
 
 [[Hodgkin–Huxley：發現 Na channel 會 Inactivation & K/發現一： ceNa+ current 會變小 ⇒ 發現 Na channel 有|摘要]]
 

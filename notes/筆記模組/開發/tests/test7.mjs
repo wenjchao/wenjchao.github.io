@@ -15,7 +15,7 @@ const errors = []; page.on('pageerror', e => errors.push('pageerror: ' + e.messa
 
 await page.goto('file://' + D + '/index.html'); await page.waitForSelector('.welcome');
 await page.setInputFiles('#pickFiles', [
-  md('數學.md', '# 數學 $E=mc^2$\n\n## 摘要\n行內 $\\frac{a}{b}$ 與區塊。\n\n## 內文\n$$\\int_0^1 x^2\\,dx = \\tfrac{1}{3}$$\n\n也可以 \\(\\alpha+\\beta\\) 和\n\n\\[ \\sum_{i=1}^n i = \\frac{n(n+1)}{2} \\]\n\n價格 $5 和 $10 不是數學；NT$100 也不是。\n\n回歸 $10 之後接著一個 `$` 程式碼，再一個 `$x$`。\n\n`$x$` 在程式碼裡不渲染。\n\n```\n$$ 區塊程式碼裡也不渲染 $$\n```\n\n[[數學]]\n'),
+  md('數學.md', '# 數學 $E=mc^2$\n\n## 摘要\n行內 $\\frac{a}{b}$ 與區塊。\n\n## 內文\n$$\\int_0^1 x^2\\,dx = \\tfrac{1}{3}$$\n\n也可以 \\(\\alpha+\\beta\\) 和\n\n\\[ \\sum_{i=1}^n i = \\frac{n(n+1)}{2} \\]\n\n價格 $5 和 $10 不是數學；NT$100 也不是。\n\n回歸 $10 之後接著一個 `$` 程式碼，再一個 `$x$`。\n\n`$x$` 在程式碼裡不渲染。\n\n```\n$$ 區塊程式碼裡也不渲染 $$\n```\n\n化學式 $\\ce{Na+}$ 和 $\\ce{C <=>[v_1][v_2] O}$ 和 $\\pu{123 kJ/mol}$ 都要渲染\n\n[[數學]]\n'),
 ]);
 await page.waitForSelector('.root');
 assert.ok((await page.$eval('.root-title', e => e.innerHTML)).includes('katex'), '根標題的 $E=mc^2$ 要渲染');
@@ -29,6 +29,10 @@ assert.deepEqual(await page.$$eval('.root-body p code', cs => cs.map(c => c.text
 // 孤零零的 $ 不可以跨過後面的行內程式碼去配對（回歸：寫作規範裡的走法段落曾被吃掉）
 assert.ok(body.includes('回歸 $10 之後') && !body.includes('katex">回歸'), '孤立的 $ 不能跨過反引號配對：' + body.slice(body.indexOf('回歸'), body.indexOf('回歸') + 80));
 assert.ok(body.includes('$$ 區塊程式碼裡也不渲染 $$'));
+// 化學式（mhchem，R70）：\ce 與 \pu 要真的渲染、不能出現紅字錯誤
+const chem = body.slice(body.indexOf('化學式'), body.indexOf('都要渲染'));
+assert.equal((chem.match(/class="katex"/g) || []).length, 3, '\\ce 與 \\pu 要渲染成 KaTeX（mhchem）：' + chem.slice(0, 160));
+assert.ok(!chem.includes('katex-error') && !chem.includes('#cc0000'), '\\ce 出現紅字錯誤（mhchem 沒載入？）：' + chem.slice(0, 160));
 assert.ok(await page.$('.root-body .card[data-id="數學"] .card-title .katex'), '卡片標題也渲染');
 const fontOk = await page.evaluate(async () => { await document.fonts.ready; return [...document.fonts].some(f => f.family === 'KaTeX_Main' && f.status === 'loaded'); });
 assert.ok(fontOk, 'KaTeX 字型應已內嵌載入');

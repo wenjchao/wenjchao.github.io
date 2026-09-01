@@ -1,7 +1,8 @@
 # Gastric & duodenal ulcer & H. pylori
 
 ## 內文
-刺激 Parietal cell 產生 HCI 的激素：
+
+### 刺激 Parietal cell 產生 HCI 的激素：
 
 1. Vagus nerve ⇒ acetylcholine
 2. G cells (胃) ⇒ Gastrin
@@ -9,7 +10,7 @@
 
 - D cell (胃) 產的 somatostatin 同時 anti-G cell & anti-ECL cell
 
-阻止 Parietal cell 產生 HCI 的藥物：
+### 阻止 Parietal cell 產生 HCI 的藥物：
 
 1. Atropine: anti-acetylcholine
 2. Cimetidime: anti-histamine
