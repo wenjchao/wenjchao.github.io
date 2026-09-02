@@ -1,5 +1,5 @@
 {
- "generated": 1788308301772,
+ "generated": 1788325869562,
  "modules": [
   {
    "path": "物理化學.md",
@@ -1551,9 +1551,9 @@
   },
   {
    "path": "筆記模組/說明/如何編輯內容/怎麼寫出好筆記.md",
-   "mtime": 1788283352896,
-   "size": 3966,
-   "text": "# 怎麼寫出好筆記\n\n## 摘要\n\n**字數是成本、理解是收益。** 字越多，每個字換到的新資訊越少——所以「寫多少」是在曲線上挑位置：摘要與內文是同一條曲線上的兩個甜蜜點。\n\n註：標題本身也是同一條曲線上的第三個甜蜜點。收合時讀者只看得到標題，所以標題本身就要是資訊——可以寫成結論或問題（ex:「為什麼剩下單心室就要改成單循環？」）\n\n## 內文\n\n### 怎麼寫出好摘要\n\n摘要＝「字極少、資訊還很多」的那個點：**用 10% 的文字傳遞 90% 的資訊**，不點開內文就知道全貌。例：咳嗽藥的摘要——「分成止咳（opioid 為主）、氣管擴張（常作為止咳藥的輔助）、化痰（讓痰不黏）三大類。注意：兩種 opioid 不要同時併用」——一句話，分幾類、每一類是什麼、最重要的禁忌，都在了。\n\n1. 拿掉也不會少懂的句子，刪；不是移去內文。\n2. 裝不進 10% 的（劑量、例外、原因），是內文的資訊。\n3. 內容太少、摘要會和內文講一樣的話：不寫摘要，整份放內文，連結用 `|全文`。\n\n### 怎麼寫出好內文\n\n內文＝另一個甜蜜點：資訊接近全部，但每一句仍然要划算——可以長，不可以稀。\n寫作的對象是人：人不讀冗長的、記不住生澀的、會被錯的直覺帶偏。所以——\n\n1. 一句只講一件事：連環長句要讀兩次——資訊沒變，成本翻倍。\n2. 白話、用具體動作講：生澀的句子有資訊也傳不出去。例：「凹槽可能抓住被排開的非目標 DNA 股」→「凹槽可能抓錯 DNA」。\n3. 講機制，少背規則：一句機制頂好幾條規則。例：記住「MTX 有肺毒性」，就不用背「interstitial lung disease 不可用 MTX」。\n4. 舉例和比喻用同一個標準：更少的字、更深的理解，做得到就留；純裝飾的刪；會建立錯誤直覺的（「MAC 像送貨到大門」讓人以為 MAC 能跨網路）比不寫更糟。\n5. 一個東西一個名字：一下「群組縮排」、一下「group」，讀者得自己對照，白花成本。\n6. 要比較就用表格：一張表講完的事，散在幾段裡就是加字不加資訊。\n7. 這篇用不到的深度，抽成子模組讓人自己展開——模組系統就是為此存在。\n\n### 寫作與分級格式\n\n1. 一切的格式都是為了人的閱讀與記憶服務。善用列點、項目、小標題、模組可以把複雜的內容分組成容易理解與記憶的單位\n2. 單一文章內列點不要超過三層。太多層的話\n   1. 實際內容不多則應該扁平化，不要用太多層包裝\n   2. 實際內容很多則應該善用模組，把內容完整的文字打包成獨立的子模組\n3. 單一文章內不要超過 1500 字。太多字的話應該精簡或是把內容完整的文字打包成獨立的子模組\n4. 若是字數太少、內容不夠獨立且不會被別處引用，則可以不切（模組往回併）。幾行字撐不起一個模組，切了只是把「一眼看完」變成「多點一次」。\n\n### 卡片還是晶片\n\n連結有兩種長相，看**周圍的字有沒有意義**來選。一句話判準：**把連結拿掉，剩下的話還有意義 → 晶片；只剩「相關：」這種空殼 → 卡片。**\n\n1. 晶片：句子本身在講一件事、連結只是順帶帶到。寫法是連結放**行內**（前面有字）。例：「anti-postsynaptic ACh receptors（Type II）」——句子在講機轉，Type II 順帶連到 Hypersensitivity。\n2. 卡片：連結本身就是重點——目錄、「相關：」這類列舉，周圍的字只是指標。寫法是連結**獨佔一行、前後空行**。一頁的功能若是目錄，就整排卡片。\n3. 反例：「相關：肉芽腫 ⟨晶片⟩」——「相關：肉芽腫」和連結重複、沒有額外意義，該改成卡片：「相關：」一行、連結自己一行。\n"
+   "mtime": 1788324972570,
+   "size": 4605,
+   "text": "# 怎麼寫出好筆記\n\n## 摘要\n\n**字數是成本、理解是收益。** 字越多，每個字換到的新資訊越少——所以「寫多少」是在曲線上挑位置：摘要與內文是同一條曲線上的兩個甜蜜點。\n\n註：標題本身也是同一條曲線上的第三個甜蜜點。收合時讀者只看得到標題，所以標題本身就要是資訊——可以寫成結論或問題（ex:「為什麼剩下單心室就要改成單循環？」）\n\n## 內文\n\n### 怎麼寫出好摘要\n\n摘要＝「字極少、資訊還很多」的那個點：**用 10% 的文字傳遞 90% 的資訊**，不點開內文就知道全貌。例：咳嗽藥的摘要——「分成止咳（opioid 為主）、氣管擴張（常作為止咳藥的輔助）、化痰（讓痰不黏）三大類。注意：兩種 opioid 不要同時併用」——一句話，分幾類、每一類是什麼、最重要的禁忌，都在了。\n\n1. 拿掉也不會少懂的句子，刪；不是移去內文。\n2. 裝不進 10% 的（劑量、例外、原因），是內文的資訊。\n3. 內容太少、摘要會和內文講一樣的話：不寫摘要，整份放內文，連結用 `|全文`。\n4. 摘要不一定是一段話：**分點＋箭頭串因果**常常更好掃——一句核心（粗體）→ 逐點列（有先後用編號、並列用項目）→ 用 `→` 串起因果與對應。\n\n### 怎麼寫出好內文\n\n內文＝另一個甜蜜點：資訊接近全部，但每一句仍然要划算——可以長，不可以稀。\n寫作的對象是人：人不讀冗長的、記不住生澀的、會被錯的直覺帶偏。所以——\n\n1. 一句只講一件事：連環長句要讀兩次——資訊沒變，成本翻倍。\n2. 白話、用具體動作講：生澀的句子有資訊也傳不出去。例：「凹槽可能抓住被排開的非目標 DNA 股」→「凹槽可能抓錯 DNA」。\n3. 講機制，少背規則：一句機制頂好幾條規則。例：記住「MTX 有肺毒性」，就不用背「interstitial lung disease 不可用 MTX」。\n4. 舉例和比喻用同一個標準：更少的字、更深的理解，做得到就留；純裝飾的刪；會建立錯誤直覺的（「MAC 像送貨到大門」讓人以為 MAC 能跨網路）比不寫更糟。\n5. 一個東西一個名字：一下「群組縮排」、一下「group」，讀者得自己對照，白花成本。\n6. 要比較就用表格：一張表講完的事，散在幾段裡就是加字不加資訊。\n7. 這篇用不到的深度、或會被多處引用的內容，抽成獨立模組——模組系統就是為此存在。注意**嵌入只能嵌整個檔、不能嵌某一節**：要被別頁引用／嵌入的東西，本身就得是一個模組（一份正本、到處嵌）。\n\n### 寫作與分級格式\n\n1. 一切的格式都是為了人的閱讀與記憶服務。善用列點、項目、小標題、模組可以把複雜的內容分組成容易理解與記憶的單位\n2. 單一文章內列點不要超過三層。太多層的話\n   1. 實際內容不多則應該扁平化，不要用太多層包裝\n   2. 實際內容很多則應該善用模組，把內容完整的文字打包成獨立的子模組\n3. 單一文章內不要超過 1500 字。太多字的話應該精簡或是把內容完整的文字打包成獨立的子模組\n4. 若是字數太少、內容不夠獨立且不會被別處引用，則可以不切（模組往回併）。幾行字撐不起一個模組，切了只是把「一眼看完」變成「多點一次」。\n5. 粗體是給**重點**用的、不是裝飾：粗的是**總稱**（胞內菌、莢膜菌、catalase(+) 菌）或**決定性關聯**（C5–9 → Neisseria）。全粗＝沒有重點；平行列舉一串、沒有誰特別跳出來時，就不硬挑一個粗。\n\n### 卡片還是晶片\n\n連結有兩種長相，看**周圍的字有沒有意義**來選。一句話判準：**把連結拿掉，剩下的話還有意義 → 晶片；只剩「相關：」這種空殼 → 卡片。**\n\n1. 晶片：句子本身在講一件事、連結只是順帶帶到。寫法是連結放**行內**（前面有字）。例：「anti-postsynaptic ACh receptors（Type II）」——句子在講機轉，Type II 順帶連到 Hypersensitivity。\n2. 卡片：連結本身就是重點——目錄、「相關：」這類列舉，周圍的字只是指標。寫法是連結**獨佔一行、前後空行**。一頁的功能若是目錄，就整排卡片。\n3. 反例：「相關：肉芽腫 ⟨晶片⟩」——「相關：肉芽腫」和連結重複、沒有額外意義，該改成卡片：「相關：」一行、連結自己一行。\n"
   },
   {
    "path": "筆記模組/說明/如何編輯內容/模組操作.md",
@@ -1575,9 +1575,9 @@
   },
   {
    "path": "筆記模組/說明/如何編輯內容/連結與嵌入.md",
-   "mtime": 1788283183428,
-   "size": 2273,
-   "text": "# 連結與嵌入\n\n## 內文\n### 嵌入方式（兩種）\n\n- **獨立一行**：`[[模組名]]` 自己占一行，展開成一塊，裡面還能再裝模組。\n- **句中嵌入**：寫在句子中間，變成一個連結，點旁邊的 ▾ 就地展開。\n- 在清單項目裡也算獨立一行：`- [[模組名]]`。\n\n### 展開方式（三種）\n\n- `[[x]]` 只顯示標題、`[[x|摘要]]` 顯示到摘要、`[[x|全文]]` 全部展開。\n- 這只是預設值：讀者按卡片上的 標題／摘要／全文 隨時切換。\n- 切換的結果會寫回檔案（連結裡的字自動改），下次打開維持原樣。\n\n### 顯示方式（三種）\n\n- **卡片**（預設）：有外框的一張卡。\n- **扁平**：`[[x|扁平]]`，無框，看起來就是清單裡的一個普通項目；標題半粗＋淺底線，和純文字區得開。\n- **群組縮排**：`[[x|群組縮排]]`，無框區塊，標題帶底線、首尾細線，像頁面裡的一節。\n- 參數可以同時寫、順序不拘：`[[x|摘要|群組縮排]]`。\n\n### 連結怎麼寫\n\n- 同資料夾：只寫檔名 `[[想法]]`。\n- 跨資料夾：`[[專案/想法]]`；也可以 `[[../上一層]]`、`[[/從最上層]]`。\n- 顯示別的文字：豎線後面放不是模式、外觀的字，就當成顯示文字。例：`[[Unstable angina|UA：No ST elevation + normal troponin]]` 顯示後面那串、連到前面那個模組；可以和模式外觀一起用：`[[Unstable angina|摘要|扁平|顯示文字]]`（順序不拘）。顯示文字裡的**粗體**、底線、刪除線照常渲染。\n- 連到還不存在的名字：畫面出現虛線框，按一下就建檔。\n\n### 其他規則（用到再看）\n\n- 表格格子裡的 `|` 要寫 `\\|`，連結也一樣：`[[x\\|摘要]]`。\n- 允許循環引用（會標「循環引用」、最多展到摘要）；巢狀最多 10 層。\n- 「全部展開／收合」與句中的就地展開不寫回檔案。\n- 模組 X 的子模組放在同名資料夾 `X/`，側欄會合併成一個節點；每頁底部「被引用於」列出誰連到它。\n- 找目標的順序：完整路徑 → 同資料夾 → 不分大小寫 → 檔名 → 標題。同名模組盡量避免。\n- 也支援 `![[x]]`（＝全文）與一般 Markdown 連結 `[文字](檔.md)`。\n"
+   "mtime": 1788324972565,
+   "size": 2546,
+   "text": "# 連結與嵌入\n\n## 內文\n### 嵌入方式（兩種）\n\n- **獨立一行**：`[[模組名]]` 自己占一行，展開成一塊，裡面還能再裝模組。\n- **句中嵌入**：寫在句子中間，變成一個連結，點旁邊的 ▾ 就地展開。\n- 在清單項目裡也算獨立一行：`- [[模組名]]`。\n\n### 展開方式（三種）\n\n- `[[x]]` 只顯示標題、`[[x|摘要]]` 顯示到摘要、`[[x|全文]]` 全部展開。\n- 這只是預設值：讀者按卡片上的 標題／摘要／全文 隨時切換。\n- 切換的結果會寫回檔案（連結裡的字自動改），下次打開維持原樣。\n\n### 顯示方式（三種）\n\n- **卡片**（預設）：有外框的一張卡。\n- **扁平**：`[[x|扁平]]`，無框，看起來就是清單裡的一個普通項目；標題半粗＋淺底線，和純文字區得開。\n- **群組縮排**：`[[x|群組縮排]]`，無框區塊，標題帶底線、首尾細線，像頁面裡的一節。\n- 參數可以同時寫、順序不拘：`[[x|摘要|群組縮排]]`。\n\n### 連結怎麼寫\n\n- 同資料夾：只寫檔名 `[[想法]]`。\n- 跨資料夾：`[[專案/想法]]`；也可以 `[[../上一層]]`、`[[/從最上層]]`。\n- **優先寫檔名、少帶路徑**：解析會退回檔名（見下方「找目標的順序」），所以 `[[檔名]]` 搬到哪個資料夾都連得到；帶路徑 `[[資料夾/檔名]]` 一搬檔就指向舊位置、斷掉。只有同名檔要區分時才帶路徑。\n- 顯示別的文字：豎線後面放不是模式、外觀的字，就當成顯示文字。例：`[[Unstable angina|UA：No ST elevation + normal troponin]]` 顯示後面那串、連到前面那個模組；可以和模式外觀一起用：`[[Unstable angina|摘要|扁平|顯示文字]]`（順序不拘）。顯示文字裡的**粗體**、底線、刪除線照常渲染。\n- 連到還不存在的名字：畫面出現虛線框，按一下就建檔。\n\n### 其他規則（用到再看）\n\n- 表格格子裡的 `|` 要寫 `\\|`，連結也一樣：`[[x\\|摘要]]`。\n- 允許循環引用（會標「循環引用」、最多展到摘要）；巢狀最多 10 層。\n- 「全部展開／收合」與句中的就地展開不寫回檔案。\n- 模組 X 的子模組放在同名資料夾 `X/`，側欄會合併成一個節點；每頁底部「被引用於」列出誰連到它。\n- 找目標的順序：完整路徑 → 同資料夾 → 不分大小寫 → 檔名 → 標題。同名模組盡量避免。\n- 也支援 `![[x]]`（＝全文）與一般 Markdown 連結 `[文字](檔.md)`。\n"
   },
   {
    "path": "醫學筆記/ACLS.md",
@@ -1593,9 +1593,9 @@
   },
   {
    "path": "醫學筆記/CV.md",
-   "mtime": 1788232191381,
-   "size": 582,
-   "text": "# CV\n\n## 摘要\n\n## 內文\n[[CV/Heart Echo]]\n\n[[CV/Valvular disease]]\n\n[[CV/Coronary artery disease]]\n\n[[CV/Hypertrophic cardiomyopathy]]\n\n[[CV/Arrhythmia]]\n\n[[CV/Heart failure]]\n\n[[CV/Aortic dissection]]\n\n[[CV/Aortic aneurysm]]\n\n[[CV/Infective endocarditis]]\n\n[[Pediatric/Infective myocarditis]]\n\n[[CV/Congenital Heart disease]]\n\n[[CV/Syncope]]\n\n### Others\n\n[[CV/VA ecmo contraindication]]\n\n[[CV/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
+   "mtime": 1788314839769,
+   "size": 589,
+   "text": "# CV\n\n## 摘要\n\n## 內文\n[[CV/Heart Echo]]\n\n[[CV/Valvular disease]]\n\n[[CV/Coronary artery disease]]\n\n[[CV/Hypertrophic cardiomyopathy]]\n\n[[CV/Arrhythmia]]\n\n[[CV/Heart failure]]\n\n[[CV/Aortic dissection]]\n\n[[CV/Aortic aneurysm]]\n\n[[CV/Infective endocarditis]]\n\n[[Pediatric/Infective myocarditis]]\n\n[[CV/Congenital Heart disease|全文]]\n\n[[CV/Syncope]]\n\n### Others\n\n[[CV/VA ecmo contraindication]]\n\n[[CV/EKG for Anterior ischemia]]\n\n- LV有問題 肺部血管會自己收縮 形成 pulmonary hypertension 外側肺紋反而變少\n\n- HRV：http://yuhsuanlinmd.blogspot.com/2021/07/hrv.html\n"
   },
   {
    "path": "醫學筆記/Chest pain Chest tightness.md",
@@ -1629,15 +1629,15 @@
   },
   {
    "path": "醫學筆記/Hema.md",
-   "mtime": 1788296580395,
-   "size": 853,
-   "text": "# Hema\n\n## 內文\n### 血球 / 貧血\n\n[[Hema/Neutropenia & Thrombocytopenia]]\n\n[[Hema/Anemia|摘要]]\n\n[[Hema/MAHA (Microangiopathic hemolytic anemia) ⇒|摘要]]\n\n### 出血 / 凝血 / 輸血\n\n[[Hema/值班出血]]\n\n[[Hema/Transfusion reaction ⇒ 立即暫停]]\n\n[[Hema/Anti-Coagulation & Anti-platelet]]\n\n### 腫瘤治療 / 免疫低下\n\n[[CAR-T|標題]]\n\n[[Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise]]\n\n### 零星補充\n\nMethemoglobinemia 用 methylene blue 治療：contraindication 為 G6PD dificiency（關鍵氧化酵素沒了）\n\nHemophilia & Vitamin K deficiency: bleeding time 不變, PT/aPTT 上升 (Hemophilia 只有 PT)\n\n**von Willebrand disease & DIC: mixed platelet & coagulation**\n\n**von Willebrand disease:** Symptoms worsen with acetylsalicylic acid (ASA) use ⇒ Desmopressin\n\nmultiple myeloma: CRAB\n"
+   "mtime": 1788311272876,
+   "size": 872,
+   "text": "# Hema\n\n## 內文\n### 血球 / 貧血\n\n[[Hema/Neutropenia & Thrombocytopenia]]\n\n[[Hema/Anemia|摘要]]\n\n[[Hema/MAHA (Microangiopathic hemolytic anemia) ⇒|摘要]]\n\n### 出血 / 凝血 / 輸血\n\n[[Hema/值班出血]]\n\n[[Hema/Transfusion reaction ⇒ 立即暫停]]\n\n[[Hema/Anti-Coagulation & Anti-platelet]]\n\n### 腫瘤治療 / 免疫低下\n\n[[CAR-T|標題]]\n\n[[Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌|摘要]]\n\n### 零星補充\n\nMethemoglobinemia 用 methylene blue 治療：contraindication 為 G6PD dificiency（關鍵氧化酵素沒了）\n\nHemophilia & Vitamin K deficiency: bleeding time 不變, PT/aPTT 上升 (Hemophilia 只有 PT)\n\n**von Willebrand disease & DIC: mixed platelet & coagulation**\n\n**von Willebrand disease:** Symptoms worsen with acetylsalicylic acid (ASA) use ⇒ Desmopressin\n\nmultiple myeloma: CRAB\n"
   },
   {
    "path": "醫學筆記/Infectious Disease.md",
-   "mtime": 1788123706548,
-   "size": 2410,
-   "text": "# Infectious Disease\n\n## 內文\n### 總論\n\n[[Infectious Disease/Disease course|全文|群組縮排]]\n\n[[Infectious Disease/什麼時候可以換口服抗生素？|全文|群組縮排]]\n\n### 病原體相關\n\n[[Infectious Disease/細菌整理]]\n\n[[Infectious Disease/TB]]\n\n[[Infectious Disease/Fungus infection]]\n\n[[Infectious Disease/梅毒]]\n\n[[Infectious Disease/Leptospirosis]]\n\n### 藥物相關\n\n[[Infectious Disease/藥物整理]]\n\n### 器官 / 症狀相關\n\n[[Infectious Disease/Fever work-up (sepsis)]]\n\n[[Infectious Disease/Granuloma (innate immunity)]]\n\n[[Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise]]\n\n[[Infectious Disease/CRBSI]]\n\n[[Infectious Disease/Skin and soft tissue infection]]\n\n[[Infectious Disease/Osteomyelitis：思考感染路徑 ⇒ penetration ? blood stream infection ?]]\n\n[[Infectious Disease/UTI ⇒ PEcK，院內 ⇒ + PsA + Enterococcus, 有 Foley ⇒ + PsA + Yeast + S.aureus (常是MDR)]]\n\n[[Infectious Disease/Diarrhea]]\n\n[[Infectious Disease/Liver abscess]]\n\n[[Infectious Disease/Peritonitis 待補]]\n\n[[Infectious Disease/Meningitis: 經不起拖延，當作抗藥性感染]]\n\n[[Infectious Disease/Pneumonia]]\n\n[[CV/Infective endocarditis]]\n\n[[Infectious Disease/婦科感染]]\n\n[[Infectious Disease/兒童感染]]\n\n### 零星補充\n\n燒3-10天 退3-10天：malaria、TB、Hodgkin lymphoma\n\n關隔離室：麻疹 水痘 瀰漫性帶狀疱疹 tb\n\n注意眼睛：KP ⇒ 眼內炎 (endophthalmitis)，Clamydia、leptospirosis ⇒ conjuntivitis / uvelitis\n\nMRSA、VRE、CRAB 比例超高，都 > 50%\n\nGonadococcus 會一路往上感染，PID ⇒ parahepatitis (Fitz-Hugh-Curtis)\n\nLegionella & pneumococcus 可以尿液檢測\n\nIAI (anaeorbic + 腸內菌 + 少數 GPC ex: Strep, Enterococcus)可用：<u>2.5 代 cefa</u>、<u>3 代 cefa + metronidazole</u>、<u>moxifloxacin</u>、<u>ertapenem</u>、<u>Tazocin</u> < <u>Mepem</u>（最強）\n\nCholecystitis: Tokyo guideline\n\n抗結核 & 抗 HIV 藥物易交互，一個開始後另一個隔兩週再開始\n\n水媒病:喝了相同的水，得了相同的病 \n台灣不會診斷出水媒病，因為台灣病人希望當場給藥 \n診斷出水媒病需要糞便檢體 \n通常是因為糞便汙染 \n檢測方式是懷疑某個馬桶汙染了地下水，於是在裡面加了紅色染劑，再看地下水有沒有染色 \n霍亂(cholera)常常跟水污染有關，可能是河水或地下水(井水)\n"
+   "mtime": 1788314902932,
+   "size": 2422,
+   "text": "# Infectious Disease\n\n## 內文\n### 總論\n\n[[Infectious Disease/Disease course|全文|群組縮排]]\n\n[[Infectious Disease/什麼時候可以換口服抗生素？|全文|群組縮排]]\n\n### 病原體相關\n\n[[Infectious Disease/細菌整理]]\n\n[[Infectious Disease/TB]]\n\n[[Infectious Disease/Fungus infection]]\n\n[[Infectious Disease/梅毒]]\n\n[[Infectious Disease/Leptospirosis]]\n\n### 藥物相關\n\n[[Infectious Disease/藥物整理]]\n\n### 器官 / 症狀相關\n\n[[Infectious Disease/Fever work-up (sepsis)]]\n\n[[Infectious Disease/Granuloma (innate immunity)]]\n\n[[Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌]]\n\n[[Infectious Disease/CRBSI]]\n\n[[Infectious Disease/Skin and soft tissue infection]]\n\n[[Infectious Disease/Osteomyelitis：思考感染路徑 ⇒ penetration ? blood stream infection ?]]\n\n[[Infectious Disease/UTI ⇒ PEcK，院內 ⇒ + PsA + Enterococcus, 有 Foley ⇒ + PsA + Yeast + S.aureus (常是MDR)]]\n\n[[Infectious Disease/Diarrhea]]\n\n[[Infectious Disease/Liver abscess]]\n\n[[Infectious Disease/Peritonitis 待補]]\n\n[[Infectious Disease/Meningitis: 經不起拖延，當作抗藥性感染]]\n\n[[Infectious Disease/Pneumonia]]\n\n[[CV/Infective endocarditis]]\n\n[[Infectious Disease/婦科感染]]\n\n[[Infectious Disease/兒童感染]]\n\n### 零星補充\n\n燒3-10天 退3-10天：malaria、TB、Hodgkin lymphoma\n\n關隔離室：麻疹 水痘 瀰漫性帶狀疱疹 tb\n\n注意眼睛：KP ⇒ 眼內炎 (endophthalmitis)，Clamydia、leptospirosis ⇒ conjuntivitis / uvelitis\n\nMRSA、VRE、CRAB 比例超高，都 > 50%\n\nGonadococcus 會一路往上感染，PID ⇒ parahepatitis (Fitz-Hugh-Curtis)\n\nLegionella & pneumococcus 可以尿液檢測\n\nIAI (anaeorbic + 腸內菌 + 少數 GPC ex: Strep, Enterococcus)可用：<u>2.5 代 cefa</u>、<u>3 代 cefa + metronidazole</u>、<u>moxifloxacin</u>、<u>ertapenem</u>、<u>Tazocin</u> < <u>Mepem</u>（最強）\n\nCholecystitis: Tokyo guideline\n\n抗結核 & 抗 HIV 藥物易交互，一個開始後另一個隔兩週再開始\n\n水媒病:喝了相同的水，得了相同的病 \n台灣不會診斷出水媒病，因為台灣病人希望當場給藥 \n診斷出水媒病需要糞便檢體 \n通常是因為糞便汙染 \n檢測方式是懷疑某個馬桶汙染了地下水，於是在裡面加了紅色染劑，再看地下水有沒有染色 \n霍亂(cholera)常常跟水污染有關，可能是河水或地下水(井水)\n"
   },
   {
    "path": "醫學筆記/Lab.md",
@@ -1827,9 +1827,9 @@
   },
   {
    "path": "醫學筆記/醫學筆記寫作注意.md",
-   "mtime": 1788297302414,
-   "size": 2248,
-   "text": "# 醫學筆記寫作注意\n\n## 摘要\n醫學筆記分三種頁面——A 臨床系統（疾病）、B 臨床症狀與處置、C 基礎醫學（機制）。每種只寫自己的本分，其餘靠引用串起：一份正本、到處引用、視如己出。\n\n## 內文\n### 三種頁面\n1. **A 臨床系統**：按系統分（Rheuma、CV、Nephro…），寫疾病本身與 guideline。\n2. **B 臨床症狀與處置**：按症狀／任務分，寫 workup、鑑別診斷、急診與病房的緊急處置。例：Transfusion reaction、Urticaria 的處置。\n3. **C 基礎醫學**：按機制分（免疫學、生理…），寫原理與機制，**只提及疾病、不展開**（展開留給 A）。\n\n### 誰引用誰（六條邊）\n一塊知識只住一處，別頁要用就引用。判準是「對方對我重不重要」：\n\n1. A→B：疾病引用自己的症狀與處置（尤其急診、鑑別）。\n2. A→C：疾病引用自己的機制。\n3. B→A：症狀引用背後的疾病與 guideline（用疾病視角幫流程背書）。\n4. B→C：症狀引用相關機制。\n5. C→A：機制引用系統內的疾病（只點名、不展開）。\n6. C→B：機制引用它在臨床會遇到的情境。\n\n### 一份正本、到處引用\n1. 同一塊知識只寫一次，放它本質所屬的頁；別處用引用拉過來，不複製、不各寫一份。\n2. 引用**視如己出**：不要標「這段借自別科」。該引用就引用，讀起來是一個整體。\n3. 沒寫或不確定的，留「（… 待補 by claude）」占位，**不自己編醫學內容**進筆記。\n\n### 看本質，不看科名\n內容住哪看本質，不是它現在掛哪科。例：腎移植抗排斥的本質是移植免疫；廖士程「傾聽與情緒調節」是醫病溝通、不是精神疾病。一份內容被多科需要，就抽成正本讓大家引用。\n\n### 頁面內怎麼排（以 C 頁為例）\n先講自己的本分，再依「引用 A → 引用 B」順序展開，最後補雜項。例：免疫學（C）＝基本機制、過敏與排斥（C 自身）→ 自體免疫（引用 A）→ 免疫治療、免疫缺損與感染（引用 B）→ 其他。\n\n### 其餘\n格式、卡片與晶片、連結寫法等，見 [[怎麼寫出好筆記|標題]]。\n"
+   "mtime": 1788324972572,
+   "size": 2657,
+   "text": "# 醫學筆記寫作注意\n\n## 摘要\n醫學筆記分三種頁面——A 臨床系統（疾病）、B 臨床症狀與處置、C 基礎醫學（機制）。每種只寫自己的本分，其餘靠引用串起：一份正本、到處引用、視如己出。\n\n## 內文\n### 三種頁面\n1. **A 臨床系統**：按系統分（Rheuma、CV、Nephro…），寫疾病本身與 guideline。\n2. **B 臨床症狀與處置**：按症狀／任務分，寫 workup、鑑別診斷、急診與病房的緊急處置。例：Transfusion reaction、Urticaria 的處置。\n3. **C 基礎醫學**：按機制分（免疫學、生理…），寫原理與機制，**只提及疾病、不展開**（展開留給 A）；**看到治療步驟／劑量就抽去 B**——那是處置、不是機制。\n\n### 誰引用誰（六條邊）\n一塊知識只住一處，別頁要用就引用。判準是「對方對我重不重要」：\n\n1. A→B：疾病引用自己的症狀與處置（尤其急診、鑑別）。\n2. A→C：疾病引用自己的機制。\n3. B→A：症狀引用背後的疾病與 guideline（用疾病視角幫流程背書）。\n4. B→C：症狀引用相關機制。\n5. C→A：機制引用系統內的疾病（只點名、不展開）。\n6. C→B：機制引用它在臨床會遇到的情境。\n\n### 一份正本、到處引用\n1. 同一塊知識只寫一次，放它本質所屬的頁；別處用引用拉過來，不複製、不各寫一份。\n2. 引用**視如己出**：不要標「這段借自別科」。該引用就引用，讀起來是一個整體。\n3. 沒寫或不確定的，留「（… 待補 by claude）」占位，**不自己編醫學內容**進筆記。\n\n### 看本質，不看科名\n內容住哪看本質，不是它現在掛哪科。例：腎移植抗排斥的本質是移植免疫；廖士程「傾聽與情緒調節」是醫病溝通、不是精神疾病。一份內容被多科需要，就抽成正本讓大家引用。\n\n### 頁面內怎麼排（以 C 頁為例）\n先講自己的本分，再依「引用 A → 引用 B」順序展開，最後補雜項。例：免疫學（C）＝基本機制、過敏與排斥（C 自身）→ 自體免疫（引用 A）→ 免疫治療、免疫缺損與感染（引用 B）→ 其他。\n\n### 縮寫與用詞（讀者是醫學系）\n1. 縮寫第一次出現補**英文**全名、不翻中文：LAD1（leukocyte adhesion deficiency）、HSCT（hematopoietic stem cell transplant）。\n2. 純英文名詞（functional asplenia、engraftment…）直接用、不加註；普遍熟知的（CMV、TB、SLE…）也不加。\n\n### 其餘\n格式、卡片與晶片、連結寫法等，見 [[怎麼寫出好筆記|標題]]。\n"
   },
   {
    "path": "醫學筆記/CV/Aortic aneurysm.md",
@@ -2961,9 +2961,9 @@
   },
   {
    "path": "醫學筆記/Dermatology/Hypersensitivity reaction/Urticaria 蕁麻疹.md",
-   "mtime": 1788281105633,
-   "size": 79,
-   "text": "# Urticaria 蕁麻疹\n\n## 內文\n急性與慢性的區分是以六週為分界\n"
+   "mtime": 1788321386914,
+   "size": 373,
+   "text": "# Urticaria 蕁麻疹\n\n## 內文\n急性與慢性的區分是以六週為分界。\n\n### 處置（Type I 急性過敏）\n1. urticaria ⇒ anti-histamine (H1 > H2)\n2. anaphylactic shock ⇒ epinephrine + 輸液\n3. urticaria vasculitis ⇒ steroid, colchicine, hydroxychloroquine\n4. chronic urticaria ⇒ anti-histamine, hydroxychloroquine, cyclosporine, anti-IgE (omalizumab)\n"
   },
   {
    "path": "醫學筆記/Dermatology/Hypersensitivity reaction/Drug induced hypersensitivity reaction/Drug reaction with eosinophilia and systemic.md",
@@ -3465,9 +3465,9 @@
   },
   {
    "path": "醫學筆記/Hema/Anemia/Normocytic (MCV 80100) ：Hemolytic amenia 為主 +.md",
-   "mtime": 1788282863712,
-   "size": 1540,
-   "text": "# Normocytic (MCV 80~100)\n\n## 摘要\nHemolytic amenia 為主 + aplastic + anemia of chronic disease\n\n## 內文\n### Non-hemolytic\n\n1. Aplastic anemia: 其實是 pancytopenia，骨髓 myeloid lineage 空光光\n2. Anemia of chronic disease\n3. Chronic kidney diasease\n\n### Hemolytic amenia\n\n⇒ <u>**indirect bilirubin**</u> ↑, urobilinogen ↑, LDH ↑, reticulocyte ↑\n\n1. [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Intravascular (血管內，RBC 自己裂開) vs Extravascular|扁平]]\n2. Intrinsic (RBC 本身有問題)\n   1. **<u>G6PD deficiency</u>**: **<u>X-link</u>** , <u>NADPH ↓ + oxidative stress</u> ⇒ **Intrinsic hemolytic anemia**\n      - histology: bite cells\n\n      [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/不要用 sulfa drug、SU、Hydroxychloroquine、Ciprofloxacin|摘要]]\n\n   [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Sickle cell anemia Point mutation in β-globin ⇒|摘要]]\n\n   [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Paroxysmal nocturnal hemoglobinuria|摘要]]\n   4. Pyruvate kinase deficiency\n   5. Hereditary spherocytosis\n   6. HbC disease: HbSC 比 HbSS 好 (sickle cell)\n3. Extrinsic (有外力傷害 RBC)\n   1. Autoimmune hemolytic anemia: Direct Coombs (+) ⇒ rituximab\n      1. Warm AIHA (IgG) vs Cold AIHA (IgM)\n      2. Hb < 6 一樣得輸血，就算血清測試沒過（一定不會過）\n   2. Macroangiopathic hemolytic anemia: Prosthetic heart valves & aortic stenosis\n   3. MAHA (見下面)\n   4. infective RBC destruction: malaria, Babesia\n"
+   "mtime": 1788325828674,
+   "size": 1851,
+   "text": "# Normocytic (MCV 80~100)\n\n## 摘要\nHemolytic amenia 為主 + aplastic + anemia of chronic disease\n\n## 內文\n### Non-hemolytic\n\n1. Aplastic anemia: 其實是 pancytopenia，骨髓 myeloid lineage 空光光\n2. Anemia of chronic disease\n3. Chronic kidney diasease\n\n### Hemolytic amenia\n\n⇒ <u>**indirect bilirubin**</u> ↑, urobilinogen ↑, LDH ↑, reticulocyte ↑\n\n1. **Intravascular (血管內，RBC 自己裂開) vs Extravascular (血管外，被 Spleen 清除)**\n\n   1. **Intravascular** ⇒ <u>hemoglobinuria</u> & <u>hemosiderinuria</u>, haptoglobin ↓\n      - haptoglobin 會跟游離 hemoglobin 結合，然後一起被吃掉\n   2. **Extravascular** ⇒ <u>**No**</u> <u>hemoglobinuria</u> & <u>hemosiderinuria</u>\n\n   這兩種不好分，也常一起出現，看看就好\n2. Intrinsic (RBC 本身有問題)\n   1. **<u>G6PD deficiency</u>**: **<u>X-link</u>** , <u>NADPH ↓ + oxidative stress</u> ⇒ **Intrinsic hemolytic anemia**\n      - histology: bite cells\n\n      - [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/不要用 sulfa drug、SU、Hydroxychloroquine、Ciprofloxacin|摘要|扁平]]\n\n   2. [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Sickle cell anemia Point mutation in β-globin ⇒|扁平]]\n\n   3. [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Paroxysmal nocturnal hemoglobinuria|摘要|扁平]]\n   4. Pyruvate kinase deficiency\n   5. Hereditary spherocytosis\n   6. HbC disease: HbSC 比 HbSS 好 (sickle cell)\n3. Extrinsic (有外力傷害 RBC)\n   1. Autoimmune hemolytic anemia: Direct Coombs (+) ⇒ rituximab\n      1. Warm AIHA (IgG) vs Cold AIHA (IgM)\n      2. Hb < 6 一樣得輸血，就算血清測試沒過（一定不會過）\n   2. Macroangiopathic hemolytic anemia: Prosthetic heart valves & aortic stenosis\n   3. MAHA (見下面)\n   4. infective RBC destruction: malaria, Babesia\n"
   },
   {
    "path": "醫學筆記/Hema/Anemia/重要參數：RPI RDW serumFe Ferritin TIBC %saturation Hb.md",
@@ -3504,12 +3504,6 @@
    "mtime": 1788129829258,
    "size": 210,
    "text": "# β-thalassemia: β-chain 只有一個 gene ⇒ 兩種帶原\n\n## 內文\n1. [β / -]: 無症狀但 HbA2 (α2δ2) 大量出現\n2. [- / -]: 很嚴重，需輸血，大量 <u>HbF(α2γ2)</u> & <u>HbA2(α2δ2)</u>\n"
-  },
-  {
-   "path": "醫學筆記/Hema/Anemia/Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Intravascular (血管內，RBC 自己裂開) vs Extravascular.md",
-   "mtime": 1788129829258,
-   "size": 410,
-   "text": "# Intravascular (血管內，RBC 自己裂開) vs Extravascular (血管外，被 Spleen 清除)\n\n## 內文\n1. **Intravascular** ⇒ <u>hemoglobinuria</u> & <u>hemosiderinuria</u>, haptoglobin ↓\n   - haptoglobin 會跟游離 hemoglobin 結合，然後一起被吃掉\n2. **Extravascular** ⇒ <u>**No**</u> <u>hemoglobinuria</u> & <u>hemosiderinuria</u>\n\n這兩種不好分，也常一起出現，看看就好\n"
   },
   {
    "path": "醫學筆記/Hema/Anemia/Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Paroxysmal nocturnal hemoglobinuria.md",
@@ -3603,15 +3597,15 @@
   },
   {
    "path": "醫學筆記/Infectious Disease/Granuloma (innate immunity).md",
-   "mtime": 1788123706546,
-   "size": 2704,
-   "text": "# Granuloma (innate immunity)\n\n## 內文\n- [[Granuloma (innate immunity)/Mechanism: IL-12 ⇒ Th1 ⇒ IFN-γ ⇒ Macrophage(M1) ⇒ Granuloma|扁平]]\n- 同屬 Th1：IL-12 ⇒ Th1 ⇒ **<u>IL-2</u>** ⇒ **<u>cytotoxic T cell</u>** (CD8)\n- 對比 Th2：**<u>IL-4 ⇒ Th2</u>** ⇒ IL-4, 5, 10, 13 ⇒ B-cell ⇒ plasma cell ⇒ **<u>antibody</u>**\n- IFN-γ 抑制 Th2，IL-10 抑制 Th1 (Th1 & Th2 均為 CD4 T cell)\n- Etiology of granuloma:\n  1. Caseating granulomas: infection induced\n\n     - [[Granuloma (innate immunity)/Mycobacteria(TB, NTM), Salmonella (intracellular pathogens), Parasites, Protozoa, Fungus (ex: cryptococcus), Tertiary syphilis|扁平]]\n  2. Noncaseating granulomas\n     1. Foreign body: **<u>implants, gout, dust / mineral inhaled</u>**\n        1. asbestosis（石綿肺）\n        2. Silicosis（矽肺病，礦場/工地工人吸入矽塵）\n        3. Anthracosis / Coal workers’ pneumoconiosis （碳）\n        4. Aluminosis（鋁） / Berylliosis（鈹） / Pulmonary siderosis（鐵）\n        5. Organ dust toxic syndrome（農場）/ Byssinosis（棉塵症，紡織工人）\n     2. Immune-mediated diseases: **<u>Sarcoidosis</u>**, Crohn disease, Primary biliary cholangitis\n        - **Sarcoidosis:** CXR ⇒ lambda sign、Ga-67 scan ⇒ panda sign\n     3. Vasculitis: **<u>Granulomatous with polyangiitis (c-ANCA), Eosinophilic granulomatous with polyangiitis (p-ANCA),</u>** Giant cell arteritis\n  - 注意：Granuloma 會製造 1,25-OH vit D ⇒ 有機率 hypercalcemia\n- Disorders\n  1. Chronic granulomatous disease (CGD, XR or AR):\n     1. congenital deficiency of superoxide production ⇒ impaired to digest microorganisms\n     2. **<u>Catalase-positive organisms</u>:** S.aureus, E.coli, Klebsiella, Pseudomonas, Candida, Aspergillus, Serratia, Nocardia\n     3. Treatment: **IFN-γ, steroid,** Life-long prophylactic antibiotics / transplant\n  2. Chédiak-Higashi syndrome: lysosome-fusion disorder ⇒ **<u>pyogenic</u>** infections: S. pyogenes, S. aureus, Pseudomonas\n  3. Leukocyte adhesion deficiency type 1 (LAD1) : integrin defect ⇒ defect in the leukocytic chemotaxis ⇒ **<u>nonsuppurative</u>** bacterial infections（neutrophil 到不了，無法殺敵產生pus）& **<u>Delayed separation of the umbilical cord</u>**\n  - 注意：以上三個屬於 Phagocyte disorder\n  4. Anti-IFN-γ autoantibodies (Adult-onset immunodeficiency): severe opportunistic infections such as **<u>disseminated nontuberculous mycobacterium</u>**\n  5. IL-12 receptor deficiency (T cell disorder, AR): 原理同上，易 mycobacterial infection (& Salmonella)\n  6. Complement deficiency (也算是innate): encapulated bacteria (因為需要打洞)\n"
+   "mtime": 1788323019395,
+   "size": 1536,
+   "text": "# Granuloma (innate immunity)\n\n## 內文\n- [[Granuloma (innate immunity)/Mechanism: IL-12 ⇒ Th1 ⇒ IFN-γ ⇒ Macrophage(M1) ⇒ Granuloma|扁平]]\n- 同屬 Th1：IL-12 ⇒ Th1 ⇒ **<u>IL-2</u>** ⇒ **<u>cytotoxic T cell</u>** (CD8)\n- 對比 Th2：**<u>IL-4 ⇒ Th2</u>** ⇒ IL-4, 5, 10, 13 ⇒ B-cell ⇒ plasma cell ⇒ **<u>antibody</u>**\n- IFN-γ 抑制 Th2，IL-10 抑制 Th1 (Th1 & Th2 均為 CD4 T cell)\n- Etiology of granuloma:\n  1. Caseating granulomas: infection induced\n\n     - [[Granuloma (innate immunity)/Mycobacteria(TB, NTM), Salmonella (intracellular pathogens), Parasites, Protozoa, Fungus (ex: cryptococcus), Tertiary syphilis|扁平]]\n  2. Noncaseating granulomas\n     1. Foreign body: **<u>implants, gout, dust / mineral inhaled</u>**\n        1. asbestosis（石綿肺）\n        2. Silicosis（矽肺病，礦場/工地工人吸入矽塵）\n        3. Anthracosis / Coal workers’ pneumoconiosis （碳）\n        4. Aluminosis（鋁） / Berylliosis（鈹） / Pulmonary siderosis（鐵）\n        5. Organ dust toxic syndrome（農場）/ Byssinosis（棉塵症，紡織工人）\n     2. Immune-mediated diseases: **<u>Sarcoidosis</u>**, Crohn disease, Primary biliary cholangitis\n        - **Sarcoidosis:** CXR ⇒ lambda sign、Ga-67 scan ⇒ panda sign\n     3. Vasculitis: **<u>Granulomatous with polyangiitis (c-ANCA), Eosinophilic granulomatous with polyangiitis (p-ANCA),</u>** Giant cell arteritis\n  - 注意：Granuloma 會製造 1,25-OH vit D ⇒ 有機率 hypercalcemia\n\n[[先天免疫缺損]]\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise.md",
-   "mtime": 1788308300199,
-   "size": 678,
-   "text": "# Infection in AIDS / Lymphopenia / immunocompromise\n\n## 內文\nLymphopenia：HIV, DiGeorge, SCID\n\n- in AIDS\n  1. CD4 > 200: TB, MRSA\n  2. CD4 < 200: PJP, CMV, Cryptococcus, TB/NTM, Talaromyces\n\n  [[Infection in AIDS ／ Lymphopenia ／ immunocompromise/圖。有時候 lymphoma ／ Kaposi sarcoma 會表現得像感染]]\n- [[Infection in AIDS ／ Lymphopenia ／ immunocompromise/infection in immunocompromised: T cell 好，打病毒就不會差|扁平]]\n- [[Infection in AIDS ／ Lymphopenia ／ immunocompromise/infection after bone marrow transplantation|扁平]]\n- [[Infection in AIDS ／ Lymphopenia ／ immunocompromise/infection in anticytokine autoantibodies|扁平]]\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌.md",
+   "mtime": 1788323793810,
+   "size": 3560,
+   "text": "# Infection in immunocompromised：缺哪段免疫，就來哪類菌\n\n## 摘要\n**免疫分四段，每段掉了各有一組招牌病原；所有情境都是這四段的組合。**\n\n1. **neutrophil ↓**（化療、先天）→ 皮膚腸道菌、Candida、Aspergillus\n2. **T cell ↓**（HIV、移植抗排斥）→ 胞內菌、疱疹類病毒、PJP、Cryptococcus\n3. **B cell／抗體 ↓**（CAR-T 後、asplenia）→ 莢膜菌\n4. **complement ↓** → 莢膜菌、Neisseria\n\n情境＝組合：AIDS 是 T cell 慢慢掉（CD4 當刻度）；化療是 neutrophil 掉；HSCT、CAR-T 是先全掉、再依 neutrophil → T → B 回來換班。預防用藥也照這四段對位。\n\n## 內文\n### 總表：缺哪段 → 來哪類\n\n| 掉了什麼 | 常見原因 | 細菌 | 病毒 | 黴菌／寄生蟲 |\n|---|---|---|---|---|\n| **Neutrophil／phagocyte** | 化療；先天：CGD、LAD1、Chédiak-Higashi、MPO 缺損 | **皮膚腸道 flora**；Staph、Pseudomonas、Nocardia、Serratia、Burkholderia | — | 全身性 [[Candida]]、Aspergillus、Mucor |\n| **T cell** | HIV、DiGeorge、SCID（severe combined immunodeficiency）；移植後抗排斥藥 | Sepsis；**胞內菌**：[[TB]]／NTM（nontuberculous mycobacteria）、Salmonella | CMV、VZV、EBV、JC virus | PJP（Pneumocystis jirovecii pneumonia）、[[Cryptococcus]]、局部 Candida、Talaromyces |\n| **B cell／抗體** | CAR-T 後 B-cell aplasia；HSCT 晚期 functional asplenia | **[[莢膜菌]]**：S. pneumoniae、Hib（Haemophilus influenzae type b）、N. meningitidis、GBS、Salmonella、E. coli、Klebsiella、Pseudomonas | Enterovirus（可致腦炎）；活的小兒麻痺疫苗禁忌 | IgA 缺損 → Giardia |\n| **Complement** | C3 缺損；C5–9 缺損 | 早期（C3）→ **莢膜菌**；晚期（C5–9）→ **Neisseria** | — | — |\n\n一句話記：**T cell 好，打病毒就不會差；neutrophil 好，皮膚腸道菌進不來；抗體好，莢膜菌不會反覆。**\n\n### 先天免疫缺損\n\n[[先天免疫缺損|摘要]]\n\n### 情境一 AIDS：CD4 是 T cell 的刻度\n\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌/AIDS 伺機性感染：看 CD4|摘要]]\n\n### 情境二 化療 neutropenia：只有 neutrophil 掉\n\n病原就是總表第一列——皮膚、黏膜、腸道菌因為屏障差闖進來。發燒是急症：\n\n[[Neutropenic fever (emergency!) septic work-up +|摘要]]\n\n[[Uptodate Infection risk by type of neutropenia|標題]]\n\n### 情境三 HSCT（hematopoietic stem cell transplant）：三期換班\n\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌/HSCT 後感染：三期與預防|摘要]]\n\n### 情境四 CAR-T（chimeric antigen receptor T cell）：三期換班，最後剩 B cell 缺\n\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌/CAR-T 後感染預防|摘要]]\n\n### 情境五 後天關掉單一條路\n\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌/Anticytokine autoantibodies：後天關掉單一路徑|摘要]]\n\n### 預防用藥：對回總表\n\n| 藥 | 顧什麼 | 對應哪一段 |\n|---|---|---|\n| Levofloxacin | 細菌 | neutrophil（neutropenia 期） |\n| Fluconazole／micafungin | Candida | neutrophil（neutropenia 期） |\n| Acyclovir／valacyclovir | HSV、VZV | T cell |\n| TMP-SMX（Bactrim） | PJP | T cell |\n| pneumococcal、meningococcal 疫苗 | 莢膜菌 | B cell／asplenia |\n\n各情境的起迄時間見 HSCT、CAR-T 兩張表。\n\n### 原始圖表\n\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌/原始圖表|標題]]\n"
   },
   {
    "path": "醫學筆記/Infectious Disease/Leptospirosis.md",
@@ -3675,7 +3669,7 @@
   },
   {
    "path": "醫學筆記/Infectious Disease/兒童感染.md",
-   "mtime": 1788116221788,
+   "mtime": 1788314881225,
    "size": 557,
    "text": "# 兒童感染\n\n## 內文\n[[兒童感染/前提一：健康兒童(not immunocompromised)|摘要]]\n\n[[兒童感染/前提二：要了解台灣細菌的抗藥性|摘要]]\n\n[[兒童感染/前提三：哪些抗生素不能給兒童？|摘要]]\n\n[[Pneumonia/兒童細菌性肺炎]]\n\n[[兒童感染/其他常見感染|摘要]]\n\n[[兒童感染/神奇的病毒感染|摘要]]\n\n- 注意：antibiotics 可以治 post streptococcal rheumatic fever，但對 post streptococcal glomerulonephritis 的病程無影響\n- Post-Streptococcal Reactive Arthritis 窩不知道\n\n"
   },
@@ -3693,9 +3687,9 @@
   },
   {
    "path": "醫學筆記/Infectious Disease/細菌整理.md",
-   "mtime": 1788113366405,
-   "size": 205,
-   "text": "# 細菌整理\n\n## 內文\n[[細菌整理/GPC|全文|群組縮排]]\n\n[[細菌整理/GNB|全文|群組縮排]]\n\n[[細菌整理/厭氧菌|全文|群組縮排]]\n\n[[細菌整理/非典型|全文|群組縮排]]\n"
+   "mtime": 1788321423227,
+   "size": 240,
+   "text": "# 細菌整理\n\n## 內文\n[[細菌整理/GPC|全文|群組縮排]]\n\n[[細菌整理/GNB|全文|群組縮排]]\n\n[[細菌整理/厭氧菌|全文|群組縮排]]\n\n[[細菌整理/非典型|全文|群組縮排]]\n\n[[細菌整理/莢膜菌|摘要]]\n"
   },
   {
    "path": "醫學筆記/Infectious Disease/藥物整理.md",
@@ -3782,40 +3776,40 @@
    "text": "# Mycobacteria(TB, NTM), Salmonella (intracellular pathogens), Parasites, Protozoa, Fungus (ex: cryptococcus), Tertiary syphilis\n\n## 內文\n![](../圖片/Infectious-disease/Untitled-6.png)\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise/Antimicrobial prophylaxis in HSCT.md",
-   "mtime": 1788293198521,
-   "size": 300,
-   "text": "# Antimicrobial prophylaxis in HSCT recipients\n\n## 內文\n![](圖片/截圖_2023-02-21_下午8.34.42.png)\n\n[Infectious Complications in Paediatric Haematopoetic Cell Transplantation for Acute Lymphoblastic Leukemia: Current Status](https://www.frontiersin.org/articles/10.3389/fped.2021.782530/full)\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌/AIDS 伺機性感染：看 CD4.md",
+   "mtime": 1788315871133,
+   "size": 1627,
+   "text": "# AIDS 伺機性感染：看 CD4\n\n## 摘要\n**CD4 越低，能來的病原越多、越深（低的層包含高的層）：**\n\n1. **> 200**：一般細菌、TB、MRSA\n2. **< 200**：加 PJP、Cryptococcus、Talaromyces\n3. **< 100**：加 Toxoplasma、食道 Candida、Kaposi sarcoma\n4. **< 50**：加 CMV、NTM／MAC\n\n- TB 任何 CD4 都會，只是 reactivation → primary → atypical\n- NHL、Kaposi sarcoma 也會表現得像感染（NHL 任何 CD4、KS < 100）\n\n## 內文\n### 依 CD4 分層（往下累加：低的層包含高的層）\n\n| CD4 | 這一層開始出現 | 備註 |\n|---|---|---|\n| 任何 | 細菌性肺炎（CD4 越低越容易變 bacteremia）；TB；NHL（non-Hodgkin lymphoma） | 非感染的肺病（COPD、asthma、PAH、ILD 如 LIP、sarcoidosis）和 HIV 陰性者一樣會有 |\n| > 200 | 主要還是 [[TB]]、MRSA | TB 隨 CD4 變臉：> 500 reactivation TB → 約 200 primary TB → < 100 atypical TB |\n| < 200 | **PJP**（Pneumocystis jirovecii pneumonia）、[[Cryptococcus]]、Talaromyces（台灣） | PJP、Cryptococcus 的長條都從 200 開始，< 100 最深 |\n| < 100 | **Toxoplasmosis**、**食道 candidiasis**、其他黴菌、**Kaposi sarcoma** | |\n| < 50 | **CMV end-organ disease**、**NTM／MAC**（nontuberculous mycobacteria） | 最深的兩個 |\n\n### 像感染但不是感染\n\n1. [[Kaposi sarcoma (Malignant)|Kaposi sarcoma]]（< 100）、NHL（任何 CD4）：都在 HIV 肺部併發症的圖上，表現得像感染。\n2. 治好之後的 IRIS（immune reconstitution inflammatory syndrome）：免疫恢復才誘發大量發炎反應，也像感染，見 [[Cryptococcus]]。\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise/CAR-T 後感染預防.md",
-   "mtime": 1788296485575,
-   "size": 699,
-   "text": "# CAR-T 後感染預防\n\n## 內文\n目前 For DLBCL, B-ALL, MM\n\n1. 收之前：要收健康的細胞，所以收之前要停一陣子化療，也不能打G-CSF（這樣收集的T細胞效果不好）\n2. 打進去之前：CAR-T輸進身體之前要先化療一下，先把細胞清一清(不然CAR-T細胞有可能被我們自己的免疫細胞攻擊)\n\n（以上為 CAR-T 療程前情提要 → [[CAR-T|標題]]）\n\n[How I prevent infections in patients receiving CD19-targeted chimeric antigen receptor T cells for B-cell malignancies](https://ashpublications.org/blood/article/136/8/925/461120/How-I-prevent-infections-in-patients-receiving)\n\n![](圖片/Untitled-6.png)\n\n![](圖片/Untitled-7.png)\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌/Anticytokine autoantibodies：後天關掉單一路徑.md",
+   "mtime": 1788323333398,
+   "size": 1724,
+   "text": "# Anticytokine autoantibodies：後天關掉單一路徑\n\n## 摘要\n**成人沒 HIV、沒吃免疫抑制劑，卻反覆某類伺機性感染 → 想到自體抗體把一條 cytokine 路徑中和掉了。** 對應關係：\n\n- **抗 IFN-γ** → 播散性 NTM（adult-onset immunodeficiency）\n- **抗 IL-17／IL-22** → 慢性皮膚黏膜 candidiasis\n- **抗 GM-CSF** → Cryptococcus、Nocardia、Aspergillus、PAP\n- **抗 IFN-α／ω** → 重症 COVID-19\n\n治療（實驗性）：拿掉抗體，或補回 cytokine。\n\n## 內文\n| 自體抗體 | 易感染 | 背景／機制 |\n|---|---|---|\n| Anti-IFN-γ | 胞內菌（intramacrophagic）：**播散性 NTM**（nontuberculous mycobacteria） | Adult-onset immunodeficiency；IL-12 → Th1 → IFN-γ → macrophage → [[Granuloma (innate immunity)]] 這條路被關掉 |\n| Anti-IL-12／IL-23 | **Mycobacteria**、Coccidioides | 同一條路的上游；Thymic neoplasia、Good syndrome（thymoma with immunodeficiency） |\n| Anti-IL-17／IL-22 | **Chronic mucocutaneous candidiasis** | APECED（autoimmune polyendocrinopathy-candidiasis-ectodermal dystrophy） |\n| Anti-GM-CSF | **Cryptococcus**（播散、CNS）、Nocardia、Aspergillus；pulmonary alveolar proteinosis（PAP） | — |\n| Anti-IFN-α／ω | **重症 COVID-19** | — |\n| Anti-IL-6 | **Staphylococcus** | — |\n\n治療（實驗性）：\n\n1. 減少抗體：rituximab（CD20）、bortezomib、daratumumab（CD38）、cyclophosphamide、abatacept（CTLA-4）。\n2. 補回 cytokine：rh-GM-CSF、rh-IFN-γ。\n\n來源：台大感染科鄭醫師；[Anticytokine autoantibodies: Autoimmunity trespassing on antimicrobial immunity (JACI 2021)](https://www.sciencedirect.com/science/article/pii/S0091674921018005)\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise/infection after bone marrow transplantation.md",
-   "mtime": 1788113366417,
-   "size": 107,
-   "text": "# infection after bone marrow transplantation\n\n## 內文\n![](../圖片/Infectious-disease/Untitled-14.png)\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌/CAR-T 後感染預防.md",
+   "mtime": 1788315239875,
+   "size": 2484,
+   "text": "# CAR-T 後感染預防\n\n## 摘要\n**和 HSCT 同一套三期，結尾不同——最後剩 B cell 一直缺。**\n\n1. **期 1（→ day 28）**：neutropenia＋CRS／ICANS（steroid、tocilizumab 壓）→ 細菌、Candida\n2. **期 2（→ day 90）**：細胞與體液免疫都差 → PJP、mold\n3. **期 3（> day 90）**：CD19 B cell 被一起殺光 → B-cell aplasia、hypogammaglobulinemia → 莢膜菌肺炎\n\n預防：**levofloxacin＋fluconazole** 顧 neutropenia 期、**acyclovir** 一年、**TMP-SMX** day 21–28 → 180。\n\n## 內文\nCAR-T（chimeric antigen receptor T cell）目前用於 DLBCL（diffuse large B-cell lymphoma）、B-ALL（B-cell acute lymphoblastic leukemia）、MM（multiple myeloma）。療程前情提要（→ [[CAR-T|標題]]）：\n\n1. 收之前：要收健康的細胞，所以收之前要停一陣子化療，也不能打 G-CSF（granulocyte colony-stimulating factor）（這樣收集的 T 細胞效果不好）。\n2. 打進去之前：先化療（lymphodepletion）把細胞清一清，不然 CAR-T 細胞有可能被我們自己的免疫細胞攻擊。\n\n### 三期換班\n\n| | 期 1：急性毒性 | 期 2：延遲毒性 | 期 3：晚期 |\n|---|---|---|---|\n| 時間 | 輸注 → day 28 | day 28 → 90 | day 90 → 365 以後 |\n| 免疫狀態 | neutropenia；CRS（cytokine release syndrome）、ICANS（immune effector cell–associated neurotoxicity）→ 用 steroid、tocilizumab（抗 IL-6）壓發炎 | 細胞與體液免疫都差 | CD19+ B cell 持續缺失、hypogammaglobulinemia |\n| 細菌 | **bacteremia**、C. difficile 腸炎、肺炎（莢膜菌） | 肺炎（少） | 肺炎（莢膜菌、病毒）持續 |\n| 病毒 | HSV／VZV、其他疱疹病毒、呼吸道病毒 | HSV／VZV、呼吸道病毒 | HSV／VZV、呼吸道病毒 |\n| 黴菌 | **Candida**；day 14 起 Aspergillus 等 mold | mold（→ 約 day 60）、**PJP**（day 28 起） | PJP（→ day 180） |\n| 預防 | levofloxacin、fluconazole／micafungin（輸注 → day 14）；acyclovir／valacyclovir（lymphodepletion 起） | acyclovir 持續；TMP-SMX（day 21–28 起） | acyclovir（→ day 365）；TMP-SMX（→ day 180） |\n\n輸注前先做篩檢（文獻 Table 1）。CRS、ICANS 本身見 [[CRS & ICANS post CAR-T]]。\n\n參考：[How I prevent infections in patients receiving CD19-targeted CAR T cells for B-cell malignancies (Blood 2020)](https://ashpublications.org/blood/article/136/8/925/461120/How-I-prevent-infections-in-patients-receiving)\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise/infection in anticytokine autoantibodies.md",
-   "mtime": 1788113366415,
-   "size": 291,
-   "text": "# infection in anticytokine autoantibodies\n\n## 內文\n![](../圖片/Infectious-disease/Untitled-15.png)\n\n[Anticytokine autoantibodies: Autoimmunity trespassing on antimicrobial immunity](https://www.sciencedirect.com/science/article/pii/S0091674921018005)\n\n來源：台大感染科鄭醫師\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌/HSCT 後感染：三期與預防.md",
+   "mtime": 1788315049755,
+   "size": 2667,
+   "text": "# HSCT 後感染：三期與預防\n\n## 摘要\n**免疫照 neutrophil → T cell → B cell 的順序回來，病原就照這順序換班，預防藥也跟著對位。** 三期：\n\n1. **期 I／pre-engraftment（day 0–30）**：全血球低下＋黏膜屏障破 → 皮膚腸道菌、Candida、Aspergillus\n2. **期 II／post-engraftment（day 30–100）**：細胞免疫回來、體液還沒 → CMV、呼吸道病毒、PJP\n3. **期 III／late（day 100 起）**：還在吃抗 GVHD、functional asplenia → 莢膜菌、VZV\n\n預防對位：**acyclovir** 從 day 0、**Bactrim**（PJP）6 個月、**pneumococcal／meningococcal 疫苗** 在晚期。\n\n## 內文\nHSCT＝hematopoietic stem cell transplant（≈ bone marrow transplant）。\n\nEngraftment 定義：granulocyte > 500/μL 且 platelet > 20,000，不輸血也能維持。\n\n### 三期換班\n\n| | 期 I：pre-engraftment | 期 II：post-engraftment | 期 III：late |\n|---|---|---|---|\n| 時間 | day 0 → 15–45 | → day 100 | day 100 → 365 以後 |\n| 免疫狀態 | 全沒了：pancytopenia＋屏障破（mucositis、中心靜脈導管） | 細胞免疫回來、體液免疫還沒；NK 先回、CD8 增加但 repertoire 窄 | 兩者都慢慢回來、repertoire 變多；但仍在吃抗 GVHD（graft-versus-host disease）藥，且 functional asplenia |\n| GVHD | acute 開始 | acute | chronic |\n| 細菌 | 口腔皮膚腸道 flora：Staph、Strep viridans；GNB（gram-negative bacilli：Klebsiella、E. coli）；neutropenic enterocolitis（polymicrobial）；Nocardia 肺炎 | GNB、G(+) 漸少 | **莢膜菌**：S. pneumoniae、N. meningitidis |\n| 病毒 | HSV（gingivostomatitis）、呼吸道／腸道病毒 | **CMV**（肺炎、肝炎、腸炎）、HHV-6、EBV PTLD（post-transplant lymphoproliferative disorder）、呼吸道病毒（adenovirus、RSV、parainfluenza、influenza）、HSV 軟組織潰瘍 | **VZV**（約 5 個月）；CMV、EBV PTLD、呼吸道病毒持續 |\n| 黴菌 | **Candida** fungemia、**Aspergillus** 肺炎 | **PJP**（Pneumocystis jirovecii pneumonia）、Aspergillus | PJP、Aspergillus 持續 |\n| 預防 | acyclovir（day 0 起，到 mucositis 好為止）；Bactrim（PJP，共 6 個月） | Bactrim 持續 | pneumococcal＋meningococcal 疫苗 |\n\n移植前（pre-transplant）：免疫視原本疾病而定；感染以泌尿道來源的 GNB（60%）、systemic sepsis（24%）、pneumonia（10%）為主。\n\nCAR-T 是同一套三期，但期 3 換成 B cell 一直回不來，見 [[CAR-T 後感染預防]]。\n\n參考：[Infectious Complications in Paediatric HCT for ALL (Front Pediatr 2021)](https://www.frontiersin.org/articles/10.3389/fped.2021.782530/full)\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise/infection in immunocompromised: T cell 好，打病毒就不會差.md",
-   "mtime": 1788113366414,
-   "size": 221,
-   "text": "# infection in immunocompromised: T cell 好，打病毒就不會差\n\n## 內文\n![](../圖片/Infectious-disease/截圖_2023-04-13_上午9.54.44.png)\n\n![](../圖片/Infectious-disease/截圖_2023-04-13_上午9.54.22.png)\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌/先天免疫缺損.md",
+   "mtime": 1788323230698,
+   "size": 1819,
+   "text": "# 先天免疫缺損\n\n## 摘要\nneutrophil 殺菌要**造得出 → 到得了 → 殺得死**；卡在哪一步決定來什麼菌，補體與 T cell 另計。\n\n## 內文\n### Phagocyte：卡在殺菌流水線的哪一步\n\n| 卡在哪一步 | 疾病（全名） | 易感染 | 治療 |\n|---|---|---|---|\n| 白血球太少 | 化療、Fanconi anemia、severe congenital neutropenia | **廣泛皮膚腸道菌**（Staph、Strep、腸道 G(–) 桿菌）＋Candida、Aspergillus | （待補 by claude） |\n| 爬不到感染處 | LAD1（leukocyte adhesion deficiency） | 皮膚黏膜反覆感染卻**化不了膿**（沒 pus）；新生兒臍帶晚脫落 | （待補 by claude） |\n| 造不出活性氧 | CGD（chronic granulomatous disease） | **catalase(+) 菌**（S. aureus、Serratia、Burkholderia、Nocardia）＋Candida、Aspergillus | IFN-γ、steroid、終身預防性抗生素／移植 |\n| 過氧化酶缺乏 | MPO deficiency（myeloperoxidase） | 反覆 **Candida**：oral thrush、vulvovaginitis | 通常很輕（待補 by claude） |\n| 消化不掉 | Chédiak-Higashi syndrome（lysosome-fusion defect） | **pyogenic**：S. pyogenes、S. aureus、Pseudomonas | （待補 by claude） |\n\n殺菌那步是接力：先造活性氧，再靠過氧化酶變成更強的殺菌力。CGD 連活性氧都造不出（**最嚴重**）；MPO 缺乏只是少了後段酵素（**通常很輕**）。\n\n### Complement\nC3、terminal complement（C5–9）缺損：C3 → **[[莢膜菌]]**；C5–9 → **Neisseria**\n\n### T cell\n- IL-12 receptor deficiency（AR）：易 **mycobacteria**（& Salmonella）\n- SCID、DiGeorge（待補 by claude）\n\n### 後天對照（本質是後天自體抗體）\nAnti-IFN-γ autoantibodies（adult-onset）：**播散性 NTM** ⇒ [[Anticytokine autoantibodies：後天關掉單一路徑|標題]]\n"
   },
   {
-   "path": "醫學筆記/Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise/圖。有時候 lymphoma ／ Kaposi sarcoma 會表現得像感染.md",
-   "mtime": 1788307344549,
-   "size": 129,
-   "text": "# 圖\n\n## 摘要\n\n## 內文\n![](../圖片/Infectious-disease/Untitled-12.png)\n\n![](../圖片/Infectious-disease/Untitled-13.png)\n"
+   "path": "醫學筆記/Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌/原始圖表.md",
+   "mtime": 1788311253855,
+   "size": 879,
+   "text": "# 原始圖表\n\n## 內文\n本頁各表格的原圖，備查用；按圖可放大。\n\n### 總表（AMBOSS）\n\n![免疫缺損與感染總表](../圖片/Infectious-disease/截圖_2023-04-13_上午9.54.22.png)\n\n![先天免疫缺損](../圖片/Infectious-disease/截圖_2023-04-13_上午9.54.44.png)\n\n### AIDS：依 CD4\n\n![CD4 分層與伺機性感染](../圖片/Infectious-disease/Untitled-12.png)\n\n![HIV 肺部併發症依 CD4](../圖片/Infectious-disease/Untitled-13.png)\n\n### HSCT\n\n![骨髓移植後感染時間軸與預防](../圖片/Infectious-disease/Untitled-14.png)\n\n![HSCT 三期病原體](圖片/截圖_2023-02-21_下午8.34.42.png)\n\n### CAR-T\n\n![CAR-T 後感染三期](圖片/Untitled-6.png)\n\n![CAR-T 預防用藥時程](圖片/Untitled-7.png)\n\n### Anticytokine autoantibodies\n\n![Anticytokine autoantibodies 與相關疾病](../圖片/Infectious-disease/Untitled-15.png)\n"
   },
   {
    "path": "醫學筆記/Infectious Disease/Leptospirosis/Mild form（anicteric, 無黃疸）.md",
@@ -3978,6 +3972,12 @@
    "mtime": 1788113884330,
    "size": 235,
    "text": "# 厭氧菌 Anaerobes\n\n## 內文\n橫膈以下 metronidazole，橫膈以上 clindamycin。\n\n其他選項：2.5 代 Cefa (Cefamycin 類：Cefmetazole/Cefoxitin/Flomoxef/Brosym)、Unasyn/Augmentin/Tazocin ⇒ Carbapenem、Moxifloxacin。\n"
+  },
+  {
+   "path": "醫學筆記/Infectious Disease/細菌整理/莢膜菌.md",
+   "mtime": 1788321423225,
+   "size": 876,
+   "text": "# 莢膜菌\n\n## 摘要\n莢膜擋住吞噬 → 要 antibody＋complement 先調理（opsonization）才吞得掉；所以**抗體缺損、補體缺損、無脾（asplenia）**三種人最怕莢膜菌，預防靠疫苗。\n\n## 內文\n### 有哪些\nS. pneumoniae、H. influenzae type b（Hib）、N. meningitidis、GBS、Klebsiella pneumoniae、Pseudomonas、Salmonella、E. coli…\n\n### 誰怕它（為什麼）\n莢膜菌要靠 opsonin（antibody ＋ C3b）才吞得掉，缺 opsonin 的人最怕：\n\n1. 抗體／B cell 缺損\n2. 補體缺損（尤其 C3）\n3. 無脾 asplenia（脾是清莢膜菌的主場；功能性無脾如 sickle cell）\n\n整合速查（按缺哪段免疫）：[[Infection in immunocompromised：缺哪段免疫，就來哪類菌|標題|缺哪段免疫 → 來哪類菌]]\n\n### 預防\n疫苗（pneumococcal、Hib、meningococcal）：[[兒童疫苗|標題]]\n"
   },
   {
    "path": "醫學筆記/Infectious Disease/細菌整理/非典型.md",
@@ -6507,9 +6507,9 @@
   },
   {
    "path": "醫學筆記/Pediatric/Kawasaki sign (also for MIS-C).md",
-   "mtime": 1788128190786,
-   "size": 1576,
-   "text": "# Kawasaki sign (also for MIS-C)\n\n## 內文\nAHA guideline: [https://www.ahajournals.org/doi/10.1161/CIR.0000000000000484](https://www.ahajournals.org/doi/10.1161/CIR.0000000000000484)\n\n- 注意：Kawasaki disease 通常發生在5歲以下（90%）\n\n[[Kawasaki sign (also for MIS-C)/Diagnosis criteria Fever ≥ 5 day + 五中四以上|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Supplemental laboratory criteria for suspected KD|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Other symptoms|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Symptoms 圖|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Algorithm from Uptodate|摘要]]\n\n1. Pathophysiology: antoimmune vasculitis (mechanism unknown), may lead to aneurysm and myocarditis\n2. Treatment: IVIG + aspirin\n   1. IVIG: gold standard, 通常 48hrs 內燒會退\n   2. aspirin:\n      1. 急性期給 high dose 50 mg/kg/day\n      2. 慢性期給 low dose 5 mg/kg/day，至少吃兩個月，直到追蹤coronary artery沒問題。原理：血管 endothelium 被破壞，需要aspirin。如果擴大得太嚴重可能要用 wafarin / heparin 防止 turbulent flow 形成血栓\n   3. if IVIG-resistent: 再打一次 IVIG，可以考慮加 steroid\n3. D/D : MIS-C, viral infection (roseola, measles)\n   1. MIS-C 更常見 shock, multi-organ >2 involved (ex:GI)，且要在COVID確診2~6週出現比較像MIS-C。MIS-C發病年齡也比較大（ <18 ）\n\n      [[Kawasaki sign (also for MIS-C)/MIS-C|摘要]]\n   2. viral infection (roseola, measles)：Rash 在燒的哪個時間點出現？一開始就有 / 燒到一半出現 / 退燒才出現\n"
+   "mtime": 1788316732039,
+   "size": 1577,
+   "text": "# Kawasaki sign (also for MIS-C)\n\n## 內文\nAHA guideline: [https://www.ahajournals.org/doi/10.1161/CIR.0000000000000484](https://www.ahajournals.org/doi/10.1161/CIR.0000000000000484)\n\n- 注意：Kawasaki disease 通常發生在5歲以下（90%）\n\n[[Kawasaki sign (also for MIS-C)/Diagnosis criteria Fever ≥ 5 day + 五中四以上|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Supplemental laboratory criteria for suspected KD|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Other symptoms|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Symptoms 圖|摘要]]\n\n[[Kawasaki sign (also for MIS-C)/Algorithm from Uptodate|摘要]]\n\n1. Pathophysiology: autoimmune vasculitis (mechanism unknown), may lead to aneurysm and myocarditis\n2. Treatment: IVIG + aspirin\n   1. IVIG: gold standard, 通常 48hrs 內燒會退\n   2. aspirin:\n      1. 急性期給 high dose 50 mg/kg/day\n      2. 慢性期給 low dose 5 mg/kg/day，至少吃兩個月，直到追蹤coronary artery沒問題。原理：血管 endothelium 被破壞，需要aspirin。如果擴大得太嚴重可能要用 warfarin / heparin 防止 turbulent flow 形成血栓\n   3. if IVIG-resistant: 再打一次 IVIG，可以考慮加 steroid\n3. D/D : MIS-C, viral infection (roseola, measles)\n   1. MIS-C 更常見 shock, multi-organ >2 involved (ex:GI)，且要在COVID確診2~6週出現比較像MIS-C。MIS-C發病年齡也比較大（ <18 ）\n\n      [[Kawasaki sign (also for MIS-C)/MIS-C|摘要]]\n   2. viral infection (roseola, measles)：Rash 在燒的哪個時間點出現？一開始就有 / 燒到一半出現 / 退燒才出現\n"
   },
   {
    "path": "醫學筆記/Pediatric/SGA（PR 10）.md",
@@ -7575,9 +7575,9 @@
   },
   {
    "path": "醫學筆記/Rheuma/SLE.md",
-   "mtime": 1788281105370,
-   "size": 2017,
-   "text": "# SLE\n\n## 內文\n1. [[SLE/2019 EULAR／ACR classification criteria for SLE|扁平]]\n2. Gene: HLA-DR2 / DR3\n3. **<u>Symptoms</u>**\n   1. Fever\n   2. [[SLE/Skin(85%) acute ／ subacute ／ discoid cutaneous|摘要]]\n   3. Joint(>90%): MCP + PIP, 似 RA 但無 bone erosion & defomities\n   4. CNS: seizure, psychosis, personality / behavior change (與 anti-ribosomal P 有關)\n   5. Hema: **leukopenia** or **hemolytic anemia** or **thrombocytopenia**\n   6. [[SLE/Renal (Lupus nephritis) proteinuria & urinary|摘要]]\n   7. Serositis: **pleuritis** / **pericarditis** / **endocarditis**(不算 serositis，不在 criteria 內)\n4. **<u>Lab</u>**\n   1. <u>ANA</u>: sensitive\n   2. <u>anti-Sm & anti-dsDNA</u>: specific\n      - 注意：anti-dsDNA level 與 disease activity 相關（vasculitis, nephritis）\n   3. <u>anti-phospholipid ab</u>: **Antiphospholipid syndrome(APS)**，常與 SLE 一起出現\n   4. anti-histone: **Drug-induced lupus**\n   5. anti-ribosomal P: **CNS involvement**\n   6. anti-Ro/SSA and anti-La/SSB: **Neonatal lupus**\n   7. <u>low C3C4</u>\n5. **<u>Treatment</u>**\n   1. Hydroxychloroquine for all patients\n   2. NSAID for mild, low dose glucocorticoid for severe\n   3. organ-threatening / life-threatening(ex: **RPGN, hemolysis, systemic vasculitis**): induction ⇒ maintainance\n      1. Induction: high-dose glucocorticoid + cyclophosphamide / MMF\n      2. Maintainance: cyclophosphamide 要換成 MMF / AZA\n6. **<u>Other associated disease</u>**\n   1. [[SLE/Antiphospholipid syndrome|摘要]]\n   2. Drug-induced lupus: **anti-histone (+)**, anti-Sm & anti-dsDNA 常 (-)\n\n      [[SLE/藥物種類（重點：hydralazine & procainamide）|摘要]]\n      - Symptoms: Constitutional symptoms + malar rash + myalgia / polyarthragia\n   3. neonatal lupus: **AV block, hepatitis**\n      - Pathophysiology: transfer of maternal antibodies (**anti-Ro/SSA and anti-La/SSB**)\n   4. **Cardiovascular disease**: Most common cause of death in SLE\n      - atherosclerosis ⇒ Coronary artery disease\n"
+   "mtime": 1788324024374,
+   "size": 2045,
+   "text": "# SLE\n\n## 內文\n1. [[SLE/2019 EULAR／ACR classification criteria for SLE|扁平]]\n2. Gene: HLA-DR2 / DR3\n3. **<u>Symptoms</u>**\n   1. Fever\n   2. [[SLE/Skin(85%) acute ／ subacute ／ discoid cutaneous|摘要|扁平]]\n   3. Joint(>90%): MCP + PIP, 似 RA 但無 bone erosion & defomities\n   4. CNS: seizure, psychosis, personality / behavior change (與 anti-ribosomal P 有關)\n   5. Hema: **leukopenia** or **hemolytic anemia** or **thrombocytopenia**\n   6. [[SLE/Renal (Lupus nephritis) proteinuria & urinary|摘要|扁平]]\n   7. Serositis: **pleuritis** / **pericarditis** / **endocarditis**(不算 serositis，不在 criteria 內)\n4. **<u>Lab</u>**\n   1. <u>ANA</u>: sensitive\n   2. <u>anti-Sm & anti-dsDNA</u>: specific\n      - 注意：anti-dsDNA level 與 disease activity 相關（vasculitis, nephritis）\n   3. <u>anti-phospholipid ab</u>: **Antiphospholipid syndrome(APS)**，常與 SLE 一起出現\n   4. anti-histone: **Drug-induced lupus**\n   5. anti-ribosomal P: **CNS involvement**\n   6. anti-Ro/SSA and anti-La/SSB: **Neonatal lupus**\n   7. <u>low C3C4</u>\n5. **<u>Treatment</u>**\n   1. Hydroxychloroquine for all patients\n   2. NSAID for mild, low dose glucocorticoid for severe\n   3. organ-threatening / life-threatening(ex: **RPGN, hemolysis, systemic vasculitis**): induction ⇒ maintainance\n      1. Induction: high-dose glucocorticoid + cyclophosphamide / MMF\n      2. Maintainance: cyclophosphamide 要換成 MMF / AZA\n6. **<u>Other associated disease</u>**\n   1. [[SLE/Antiphospholipid syndrome|摘要|扁平]]\n   2. Drug-induced lupus: **anti-histone (+)**, anti-Sm & anti-dsDNA 常 (-)\n\n      [[SLE/藥物種類（重點：hydralazine & procainamide）|摘要|扁平]]\n      - Symptoms: Constitutional symptoms + malar rash + myalgia / polyarthragia\n   3. neonatal lupus: **AV block, hepatitis**\n      - Pathophysiology: transfer of maternal antibodies (**anti-Ro/SSA and anti-La/SSB**)\n   4. **Cardiovascular disease**: Most common cause of death in SLE\n      - atherosclerosis ⇒ Coronary artery disease\n"
   },
   {
    "path": "醫學筆記/Rheuma/Sjogren's syndrome.md",
@@ -7953,45 +7953,51 @@
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學.md",
-   "mtime": 1788308300202,
-   "size": 1049,
-   "text": "# 免疫學\n\n## 摘要\n免疫學知識地圖：基本機制 → 自體免疫 → 免疫治療 → 免疫缺損 → 其他。\n\n## 內文\n### 一、基本機制\n\n[[先天免疫 Innate immunity|標題]]\n\n[[Complement 補體系統|標題]]\n\n[[後天免疫 ① 體液（B／抗體）|標題|後天①體液B]]\n\n[[後天免疫 ② 細胞（T）|標題|後天②細胞T]]\n\n[[HLA-MHC|標題]]\n\n[[Hypersensitivity 四型]]\n\n### 二、自體免疫疾病\n\n[[Rheuma|標題|Rheuma 風濕免疫科]]\n\n### 三、免疫治療\n\n免疫抑制（壓下免疫）：\n\n[[Rheuma/免疫抑制劑|免疫抑制劑]]\n\n腫瘤免疫治療（放出免疫打腫瘤）：\n\n[[CAR-T]]\n\n[[免疫檢查點抑制劑]]\n\n[[免疫治療副作用]]\n\n### 四、免疫缺損與感染\n\n[[Infection in AIDS ／ Lymphopenia ／ immunocompromise|標題|AIDS／免疫低下感染]]\n\n[[infection after bone marrow transplantation|標題|骨髓移植後感染]]\n\n[[CAR-T 後感染預防|標題]]\n\n\n### 五、其他\n\n[[兒童疫苗|標題]]\n\n[[Kawasaki sign (also for MIS-C)|標題|Kawasaki／MIS-C]]\n"
+   "mtime": 1788323044889,
+   "size": 1251,
+   "text": "# 免疫學\n\n## 摘要\n免疫學地圖，一條軸：**怎麼運作（機制）→ 出問題（太強＝自體免疫／過敏、太弱＝免疫缺損）→ 人為調控（壓下＝免疫抑制、放出＝腫瘤免疫）→ 應用（疫苗）。**\n\n## 內文\n### 一、基本機制：免疫怎麼運作\n\n先天 innate：\n\n[[先天免疫 Innate immunity|標題]]\n\n[[Complement 補體系統|標題]]\n\n後天 adaptive：\n\n[[後天免疫 ① 體液（B／抗體）|標題|後天①體液B]]\n\n[[後天免疫 ② 細胞（T）|標題|後天②細胞T]]\n\n橋樑與其他：\n\n[[HLA-MHC|標題]]\n\n[[細胞激素 Cytokines|標題]]\n\n[[Hypersensitivity 四型|標題]]\n\n### 二、免疫失衡\n\n太強 → 自體免疫（器官特異性住各科，這裡只點名）：\n\n[[Rheuma|Rheuma 風濕免疫科]]\n\n太弱 → 免疫缺損：\n\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌|缺哪段免疫 → 來哪類病原]]\n\n### 三、免疫治療：人為調控\n\n壓下（免疫抑制）：\n\n[[免疫抑制劑|標題]]\n\n放出（腫瘤免疫治療）：\n\n[[CAR-T|標題]]\n\n[[免疫檢查點抑制劑|標題]]\n\n[[免疫治療副作用|標題]]\n\n### 四、應用\n\n[[兒童疫苗|標題]]\n\n[[Kawasaki sign (also for MIS-C)|標題|Kawasaki／MIS-C]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/Complement 補體系統.md",
-   "mtime": 1788296485561,
-   "size": 140,
-   "text": "# Complement 補體系統\n\n## 內文\n（補體活化路徑與臨床 待補 by claude）\n\n相關：\n\n[[Paroxysmal nocturnal hemoglobinuria]]\n"
+   "mtime": 1788317529622,
+   "size": 332,
+   "text": "# Complement 補體系統\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### 三條活化路徑（classical／lectin／alternative）\n（待補 by claude）\n\n### 功能（opsonization／MAC／anaphylatoxin）\n（待補 by claude）\n\n### 補體缺損與疾病\n（待補 by claude）\n\n相關：\n\n[[Paroxysmal nocturnal hemoglobinuria]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/HLA-MHC.md",
-   "mtime": 1788277268487,
-   "size": 322,
-   "text": "# HLA-MHC\n\n## 內文\n### 疾病關聯\n- HLA-DR2：Goodpasture’s、MS\n- HLA-DR3：Graves’s、MG、SLE、PSC\n- HLA-DR4：RA、PV\n- HLA-DR5：Hashimoto’s\n\n（Class I／II 框架、B27 與藥物基因 待補 by claude）\n\n![](圖片/截圖_2023-06-12_下午8.25.04.png)\n\n![](圖片/截圖_2023-06-13_上午10.06.11.png)\n"
+   "mtime": 1788317529625,
+   "size": 454,
+   "text": "# HLA-MHC\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### Class I vs Class II（誰呈現給誰）\n（待補 by claude）\n\n### 疾病關聯\n- HLA-DR2：Goodpasture's、MS\n- HLA-DR3：Graves's、MG、SLE、PSC\n- HLA-DR4：RA、PV\n- HLA-DR5：Hashimoto's\n- HLA-B27：（待補 by claude）\n\n### 藥物基因（HLA 與藥物過敏）\n（待補 by claude）\n\n![](圖片/截圖_2023-06-12_下午8.25.04.png)\n\n![](圖片/截圖_2023-06-13_上午10.06.11.png)\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/Hypersensitivity 四型.md",
-   "mtime": 1788303260314,
-   "size": 1251,
-   "text": "# Hypersensitivity 四型過敏反應\n\n## 內文\n### Type 1: Mast cell + IgE ⇒ vasoactive\n\n[[Urticaria 蕁麻疹|標題|urticaria]] & anaphylactic shock（& [[Transfusion reaction ⇒ 立即暫停|標題|transfusion-related allergic]] / anaphylactic reaction）\n\n1. urticaria ⇒ anti-histamine (H1 > H2)\n2. anaphylactic shock ⇒ epinephine + 輸液\n3. urticaria vasculitis ⇒ steroid, colchicine, hydroxychoroquine\n4. chronic urticaria ⇒ anti-histamine, hydroxychoroquine, cyclosporine, anti-IgE(omalizumab)\n\n[[Asthma ⇒ GINA guideline|Asthma]]\n\nfood / bee allergy\n\n### Type 2: antibody → attack\n\n[[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +|標題|Autoimmune hemolytic anemia]]\n\nerythroblastosis fetalis\nGoodpasture syndrome\n**<u>rheumatic fever</u>**\n\n### Type 3: antibody → immune complex\n\n[[Vasculitis|標題|Polyarteritis nodosa]]\n\nimmune complex glomerulonephritis\n\n[[SLE|標題]]\n\n[[Rheumatoid arthritis|標題|rheumatoid arthritis]]\n\n### Type 4: cell-mediated\n\nTB skin tests\n\ntransplant rejection：hyperacute＝Type II（預存／de novo 抗體，AMR）、acute cellular＝Type IV。臨床 workup 見 [[腎臟移植前抗排斥評估|標題|腎移植]]\n\n[[Allergic contact dermatitis|標題|allergic contact dermatitis]]\n"
+   "mtime": 1788325235146,
+   "size": 942,
+   "text": "# Hypersensitivity 四型過敏反應\n\n## 內文\n### Type 1: Mast cell + IgE ⇒ vasoactive\n\n[[Urticaria 蕁麻疹|Urticaria & anaphylactic shock]]\n\n[[Transfusion reaction ⇒ 立即暫停|Transfusion-related allergic]]\n\n[[Asthma ⇒ GINA guideline|Asthma]]\n\nfood / bee allergy\n\n### Type 2: antibody → attack\n\n[[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +|Autoimmune hemolytic anemia]]\n\nerythroblastosis fetalis\nGoodpasture syndrome\n**<u>rheumatic fever</u>**\n\n### Type 3: antibody → immune complex\n\n[[Vasculitis|Polyarteritis nodosa]]\n\nimmune complex glomerulonephritis\n\n[[SLE|標題]]\n\n[[Rheumatoid arthritis|標題|rheumatoid arthritis]]\n\n### Type 4: cell-mediated\n\nTB skin tests\n\ntransplant rejection：hyperacute＝Type II（預存／de novo 抗體，AMR）、acute cellular＝Type IV。臨床 workup 見 [[腎臟移植前抗排斥評估|標題|腎移植]]\n\n[[Allergic contact dermatitis|標題|allergic contact dermatitis]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/先天免疫 Innate immunity.md",
-   "mtime": 1788282897618,
-   "size": 126,
-   "text": "# 先天免疫 Innate immunity\n\n## 內文\n（待補 by claude）\n\n相關：\n\n[[Granuloma (innate immunity)|標題|Granuloma]]\n"
+   "mtime": 1788321423234,
+   "size": 442,
+   "text": "# 先天免疫 Innate immunity\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### 屏障 Barriers\n（待補 by claude）\n\n### 模式辨識 PRR（辨識 PAMP／DAMP）\n（待補 by claude）\n\n### 吞噬細胞 Phagocytes（neutrophil、macrophage、dendritic cell）\n（待補 by claude）\n\n### NK cell\n（待補 by claude）\n\n### 發炎反應 Inflammation\n（待補 by claude）\n\n### 先天免疫缺損（臨床）\n[[先天免疫缺損|標題]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/後天免疫 ① 體液（B／抗體）.md",
-   "mtime": 1788281105754,
-   "size": 76,
-   "text": "# 後天免疫 ① 體液（B／抗體）\n\n## 內文\n（待補 by claude）\n"
+   "mtime": 1788317529623,
+   "size": 430,
+   "text": "# 後天免疫 ① 體液（B／抗體）\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### B cell 活化與抗體產生\n（待補 by claude）\n\n### 抗體五類（IgG／IgA／IgM／IgE／IgD）與功能\n（待補 by claude）\n\n### 記憶與 class switching\n（待補 by claude）\n\n### 體液免疫缺損（臨床）\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌|標題|B cell／抗體缺損 → 莢膜菌]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/後天免疫 ② 細胞（T）.md",
-   "mtime": 1788281105755,
-   "size": 67,
-   "text": "# 後天免疫 ② 細胞（T）\n\n## 內文\n（待補 by claude）\n"
+   "mtime": 1788317529624,
+   "size": 469,
+   "text": "# 後天免疫 ② 細胞（T）\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### T cell 分化（CD4 vs CD8）\n（待補 by claude）\n\n### CD4 亞群（Th1／Th2／Th17／Treg）\n（待補 by claude）\n\n### CD8 胞毒 T cell\n（待補 by claude）\n\n### 活化訊號（TCR–MHC、共刺激）\n（待補 by claude）\n\n### T cell 缺損（臨床）\n[[Infection in immunocompromised：缺哪段免疫，就來哪類菌|標題|T cell 缺損 → 胞內菌／病毒／PJP]]\n"
+  },
+  {
+   "path": "醫學筆記/基礎醫學/免疫學/細胞激素 Cytokines.md",
+   "mtime": 1788318879008,
+   "size": 425,
+   "text": "# 細胞激素 Cytokines\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### 分類與來源\n（待補 by claude）\n\n### 重要 cytokine（IL-2／IL-6／IL-12／IFN-γ／TNF-α…）\n（待補 by claude）\n\n### 臨床應用與相關\n[[Anticytokine autoantibodies：後天關掉單一路徑|抗 cytokine 自體抗體]]\n\n[[CRS & ICANS post CAR-T|CRS：cytokine 風暴]]\n\n[[免疫抑制劑|生物製劑：anti-TNF／anti-IL-6…]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/腫瘤免疫治療/CAR-T.md",
@@ -8001,9 +8007,9 @@
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/腫瘤免疫治療/免疫檢查點抑制劑.md",
-   "mtime": 1788306593821,
-   "size": 154,
-   "text": "# 免疫檢查點抑制劑\n\n## 內文\n（PD-1／PD-L1／CTLA-4 機轉與應用 待補 by claude）\n\n副作用 irAE，見 [[免疫治療副作用|標題]]\n"
+   "mtime": 1788317529627,
+   "size": 303,
+   "text": "# 免疫檢查點抑制劑\n\n## 摘要\n（待補 by claude）\n\n## 內文\n### 機轉：放開 T cell 的煞車\n（待補 by claude）\n\n### 靶點（PD-1／PD-L1／CTLA-4）\n（待補 by claude）\n\n### 臨床應用（適應症）\n（待補 by claude）\n\n### 副作用 irAE\n[[免疫治療副作用|標題]]\n"
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/腫瘤免疫治療/免疫治療副作用.md",
@@ -8019,9 +8025,9 @@
   },
   {
    "path": "醫學筆記/基礎醫學/免疫學/腫瘤免疫治療/CAR-T/CRS & ICANS post CAR-T.md",
-   "mtime": 1788306593826,
-   "size": 433,
-   "text": "# CRS & ICANS post CAR-T\n\n## 內文\nCRS：注意三件事 O2? Hypotension? Fever?(⇒ infection focus?)\n\n![](圖片/Unknown.jpeg)\n\n![](圖片/Untitled-8.png)\n\nBiomarker: CRP, ferritin & IL-6\n\nCAPD（兒童 delirium 分級）\n\n![](圖片/Untitled-9.png)\n\nICE score（成人 ICANS 分級）\n\n![](圖片/Untitled-10.png)\n\n![](圖片/Untitled-11.png)\n\n![](圖片/Untitled-12.png)\n\n[](https://www.nejm.org/doi/full/10.1056/NEJMra2026131)\n"
+   "mtime": 1788316732043,
+   "size": 452,
+   "text": "# CRS & ICANS post CAR-T\n\n## 內文\nCRS：注意三件事 O2? Hypotension? Fever?(⇒ infection focus?)\n\n![](圖片/Unknown.jpeg)\n\n![](圖片/Untitled-8.png)\n\nBiomarker: CRP, ferritin & IL-6\n\nCAPD（兒童 delirium 分級）\n\n![](圖片/Untitled-9.png)\n\nICE score（成人 ICANS 分級）\n\n![](圖片/Untitled-10.png)\n\n![](圖片/Untitled-11.png)\n\n![](圖片/Untitled-12.png)\n\n[NEJM：CAR-T 綜論](https://www.nejm.org/doi/full/10.1056/NEJMra2026131)\n"
   },
   {
    "path": "醫學筆記/外科隨記/腸衰竭.md",
@@ -8460,6 +8466,6 @@
   "owner": "wenjchao",
   "repo": "wenjchao.github.io",
   "branch": "master",
-  "dir": ""
+  "dir": "notes"
  }
 }
