@@ -1,4 +1,7 @@
-# Microcytic (MCV < 80)：Hemoglobin 製造有問題
+# Microcytic (MCV < 80)
+
+## 摘要
+Hemoglobin 製造有問題
 
 ## 內文
 1. [[Microcytic (MCV 80)：Hemoglobin 製造有問題/Hb = Heme + globin = Iron + protophorphrin +|扁平]]

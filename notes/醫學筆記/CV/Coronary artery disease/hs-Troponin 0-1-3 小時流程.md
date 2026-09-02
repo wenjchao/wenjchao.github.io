@@ -1,6 +1,8 @@
 # High-Troponin rapid algorithm for suspected ACS (0/1/3 hour)
 
 ## 內文
+[[hs-Troponin 0-1-3 小時流程/第一步先 Evaluate patients through Symptoms, Vital signs, EKG, Troponin 0 hr|摘要]]
+
 1. 0 hour(initial) Troponin, rule out if very low, rule in if high(>99%)，剩下繼續觀察
 2. 1 hour Troponin, rule out if no elevation，rule in if elevation (3~4 ng/l 一定算elevation)
 3. 真的很不確定的人，3 hours再抽一次

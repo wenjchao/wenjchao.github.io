@@ -18,7 +18,7 @@
 
 [[Dermatology/Bullous disease|摘要]]
 
-[[Dermatology/Hypersensitivity reaction|摘要]]
+[[Dermatology/Hypersensitivity reaction]]
 
 [[Dermatology/Infection|摘要]]
 
@@ -30,12 +30,10 @@
 
 [[Dermatology/Acne, Rosacea, Miliaria and Others|摘要]]
 
-[[Dermatology/Alopecia|摘要]]
+[[Dermatology/Alopecia]]
 
-[[Dermatology/會癢|摘要]]
+[[Dermatology/會癢]]
 
 [[Dermatology/會痛|摘要]]
 
 [[Dermatology/起水泡|摘要]]
-
-[[Dermatology/國考|摘要]]

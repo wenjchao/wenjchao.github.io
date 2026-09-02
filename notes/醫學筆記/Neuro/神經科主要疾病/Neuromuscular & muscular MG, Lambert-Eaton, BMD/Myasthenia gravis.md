@@ -1,7 +1,7 @@
 # Myasthenia gravis
 
 ## 內文
-1. Pathophysiology: anti-postsynaptic acetylcholine (ACh) receptors
+1. Pathophysiology: anti-postsynaptic acetylcholine (ACh) receptors（[[基礎醫學/免疫學/Hypersensitivity 四型|標題|Type II hypersensitivity]]）
 2. Association with **thymoma**
 3. Clinical features:
    1. ptosis, double vision, dysarthria, dysphagia, proximal muscle weakness

@@ -1,4 +1,6 @@
-# 圖。有時候 lymphoma / Kaposi sarcoma 會表現得像感染
+# 圖
+
+## 摘要
 
 ## 內文
 ![](../圖片/Infectious-disease/Untitled-12.png)

@@ -7,13 +7,13 @@
 
 ### 做一切的事情之前：**<u>Vital sign & EKG & saturation first</u>**
 
-[[Chest pain Chest tightness/Differential diagnosis Lung2 Heart1 Vascular1|摘要]]
+[[Chest pain Chest tightness/Differential diagnosis Lung2 Heart1 Vascular1]]
 
-[[Chest pain Chest tightness/Algorithm for acute chest pain Sign & Symptoms|摘要]]
+[[Chest pain Chest tightness/Algorithm for acute chest pain Sign & Symptoms]]
 
-[[Chest pain Chest tightness/High-Troponin rapid algorithm for suspected Acute|摘要]]
+[[CV/Coronary artery disease/hs-Troponin 0-1-3 小時流程]]
 
-[[Chest pain Chest tightness/PE 聽診(murmur, breathing sound, friction rub)|摘要]]
+[[Chest pain Chest tightness/PE 聽診(murmur, breathing sound, friction rub)]]
 
 ACS: Pallor, sweating, or tremor may point towards precipitating
 conditions such as anaemia and thyrotoxicosis.

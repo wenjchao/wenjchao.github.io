@@ -9,9 +9,9 @@
 
 ### 疾病 · 神外
 
-[[Neuro/急診常見：Stroke, Diplopia, Hearing loss, Vertigo|全文]]
+[[Neuro/急診常見：Stroke, Diplopia, Hearing loss, Vertigo]]
 
-[[Neuro/神經科主要疾病|摘要]]
+[[Neuro/神經科主要疾病]]
 
 [[Neuro/神外 NICU & IICP (Increased intracranial pressure)]]
 

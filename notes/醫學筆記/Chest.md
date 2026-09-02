@@ -5,7 +5,7 @@ Xray 判讀：ABCDEFGH Airway, Bone, Cardiac, Diaphragm, Effusion, lung Field, G
 
 Cough D/D: post-nasal drip, GERD, asthma, COPD, infection(pneumonia, larnygitis, TB), PE(咳血), lung cancer, Vasculitis(p-ANCA, c-ANCA) Drug(ACEi)
 
-[[Infectious Disease/Pneumonia|摘要]]
+[[Infectious Disease/Pneumonia]]
 
 [[Chest/Atelectasis|摘要]]
 

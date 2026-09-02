@@ -4,9 +4,9 @@
 1. EKG: find STEMI
 2. Find 4 criticals:
 
-   [[Algorithm for acute chest pain Sign & Symptoms/ACS( stable angina／unstable angina／NSTEMI )|摘要]]
+   [[CV/Coronary artery disease|摘要]]
 
-   [[Algorithm for acute chest pain Sign & Symptoms/Aortic dissection ／ aortic aneurysm|摘要]]
+   [[CV/Aortic dissection|摘要]]
 
    [[Algorithm for acute chest pain Sign & Symptoms/Pulmonary embolism|摘要]]
 

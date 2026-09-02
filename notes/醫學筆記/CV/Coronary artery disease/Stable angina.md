@@ -15,3 +15,5 @@
 > 3. relieved by **<u>rest or NTG(3)</u>**
 >
 > - 三項症狀 ≥ 兩項 ⇒ stable angina， ≤ 一項 ⇒ noncardiac schest pain
+
+![](../圖片/Untitled-16.png)

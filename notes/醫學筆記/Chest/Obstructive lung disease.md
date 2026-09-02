@@ -11,6 +11,6 @@
 
 [[Obstructive lung disease/Lung Function Test|摘要]]
 
-[[Obstructive lung disease/COPD ⇒ GOLD guideline|摘要]]
+[[Obstructive lung disease/COPD ⇒ GOLD guideline]]
 
-[[Obstructive lung disease/Asthma ⇒ GINA guideline|摘要]]
+[[Obstructive lung disease/Asthma ⇒ GINA guideline]]

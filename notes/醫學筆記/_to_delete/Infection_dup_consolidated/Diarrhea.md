@@ -4,8 +4,7 @@
 1. Diarrhea pathophysiology：osmotic（腸子裡有東西把水拉出來）、secretory（腸子自己分泌鹽水）、inflammatory（腸壁發炎出血，通常是侵犯型細菌感染）
    - 注意：fecal osmotic gap:
      serum osmolality(大概290)
-     -
-     2*( stool Na+ + stool K+)
+     - 2*( stool Na+ + stool K+)
      1. 如果 FOG > 120 ⇒ osmotic diarrhea；FOG < 50 ⇒ secretory；介於中間無法判斷
      2. 通常 diarrhea 的 osmolality 會和 serum 差不多，如果是 secretory diarrhea 則不會有太大的 FOG，如果有神秘的東西 ex: 乳糖 無法被腸子吸收，那就會產生大的 FOG（乳糖不是鈉鉀，不會被測出來）
 2. Diarrhea 種類

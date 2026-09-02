@@ -23,7 +23,7 @@
 
 [[Pediatric/Infective myocarditis]]
 
-[[CV/Congenital Heart disease]]
+[[CV/Congenital Heart disease|全文]]
 
 [[CV/Syncope]]
 

@@ -14,4 +14,4 @@
 
 [[Patient with Altered Mental Status/Further assessment & workup|摘要]]
 
-[[Patient with Altered Mental Status/Syncope sudden loss of consciousness & muscle tone|摘要]]
+[[CV/Syncope|摘要]]

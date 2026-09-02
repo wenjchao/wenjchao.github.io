@@ -1,4 +1,7 @@
-# Normocytic (MCV 80~100) ：Hemolytic amenia 為主 + aplastic + anemia of chronic disease
+# Normocytic (MCV 80~100)
+
+## 摘要
+Hemolytic amenia 為主 + aplastic + anemia of chronic disease
 
 ## 內文
 ### Non-hemolytic
@@ -11,16 +14,22 @@
 
 ⇒ <u>**indirect bilirubin**</u> ↑, urobilinogen ↑, LDH ↑, reticulocyte ↑
 
-1. [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Intravascular (血管內，RBC 自己裂開) vs Extravascular|扁平]]
+1. **Intravascular (血管內，RBC 自己裂開) vs Extravascular (血管外，被 Spleen 清除)**
+
+   1. **Intravascular** ⇒ <u>hemoglobinuria</u> & <u>hemosiderinuria</u>, haptoglobin ↓
+      - haptoglobin 會跟游離 hemoglobin 結合，然後一起被吃掉
+   2. **Extravascular** ⇒ <u>**No**</u> <u>hemoglobinuria</u> & <u>hemosiderinuria</u>
+
+   這兩種不好分，也常一起出現，看看就好
 2. Intrinsic (RBC 本身有問題)
    1. **<u>G6PD deficiency</u>**: **<u>X-link</u>** , <u>NADPH ↓ + oxidative stress</u> ⇒ **Intrinsic hemolytic anemia**
       - histology: bite cells
 
-      [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/不要用 sulfa drug、SU、Hydroxychloroquine、Ciprofloxacin|摘要]]
+      - [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/不要用 sulfa drug、SU、Hydroxychloroquine、Ciprofloxacin|摘要|扁平]]
 
-   [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Sickle cell anemia Point mutation in β-globin ⇒|摘要]]
+   2. [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Sickle cell anemia Point mutation in β-globin ⇒|扁平]]
 
-   [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Paroxysmal nocturnal hemoglobinuria|摘要]]
+   3. [[Normocytic (MCV 80100) ：Hemolytic amenia 為主 +/Paroxysmal nocturnal hemoglobinuria|摘要|扁平]]
    4. Pyruvate kinase deficiency
    5. Hereditary spherocytosis
    6. HbC disease: HbSC 比 HbSS 好 (sickle cell)

@@ -15,13 +15,13 @@ AHA guideline: [https://www.ahajournals.org/doi/10.1161/CIR.0000000000000484](ht
 
 [[Kawasaki sign (also for MIS-C)/Algorithm from Uptodate|摘要]]
 
-1. Pathophysiology: antoimmune vasculitis (mechanism unknown), may lead to aneurysm and myocarditis
+1. Pathophysiology: autoimmune vasculitis (mechanism unknown), may lead to aneurysm and myocarditis
 2. Treatment: IVIG + aspirin
    1. IVIG: gold standard, 通常 48hrs 內燒會退
    2. aspirin:
       1. 急性期給 high dose 50 mg/kg/day
-      2. 慢性期給 low dose 5 mg/kg/day，至少吃兩個月，直到追蹤coronary artery沒問題。原理：血管 endothelium 被破壞，需要aspirin。如果擴大得太嚴重可能要用 wafarin / heparin 防止 turbulent flow 形成血栓
-   3. if IVIG-resistent: 再打一次 IVIG，可以考慮加 steroid
+      2. 慢性期給 low dose 5 mg/kg/day，至少吃兩個月，直到追蹤coronary artery沒問題。原理：血管 endothelium 被破壞，需要aspirin。如果擴大得太嚴重可能要用 warfarin / heparin 防止 turbulent flow 形成血栓
+   3. if IVIG-resistant: 再打一次 IVIG，可以考慮加 steroid
 3. D/D : MIS-C, viral infection (roseola, measles)
    1. MIS-C 更常見 shock, multi-organ >2 involved (ex:GI)，且要在COVID確診2~6週出現比較像MIS-C。MIS-C發病年齡也比較大（ <18 ）
 

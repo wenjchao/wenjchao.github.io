@@ -45,7 +45,7 @@ Rheuma 一定要檢查眼睛：
 
 ### 過敏
 
-[[Rheuma/Hypersensitivity|摘要]]
+[[基礎醫學/免疫學/Hypersensitivity 四型|摘要]]
 
 ### 零星補充
 

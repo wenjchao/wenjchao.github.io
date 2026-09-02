@@ -52,7 +52,8 @@ await page.evaluate(() => { document.documentElement.dataset.style = 'ink'; });
 // R26：清單裡的扁平卡片——沒有框、標題一般字重、粗箭頭在標題後面、號碼照舊；R27：有「卡片」切換鈕
 const flat = await page.$eval('.root-body ol > li > .card.flat[data-id="範例/第二小點"]', c => ({ style: c.dataset.style, weight: getComputedStyle(c.querySelector('.card-title')).fontWeight, border: getComputedStyle(c).borderTopWidth, mode: c.dataset.mode, triAfterTitle: getComputedStyle(c.querySelector('.tri')).order === '2' && getComputedStyle(c.querySelector('.card-title')).order === '1', bold: c.querySelector('.tri svg path').getAttribute('fill') === 'currentColor', seg: [...c.querySelectorAll('.style-seg button')].map(b => b.dataset.st + (b.classList.contains('on') ? '*' : '')).join(','), marker: getComputedStyle(c.parentElement).listStyleType, n: c.parentElement.dataset.n, before: getComputedStyle(c.parentElement, '::before').content, tnum: getComputedStyle(c.parentElement, '::before').fontVariantNumeric }));
 // D28、R66：卡片項的號碼掛在 li（不是卡片標題列——Safari 對 flex 容器的絕對定位 ::before 會算錯位置疊到標題）
-assert.deepEqual(flat, { style: 'flat', weight: '400', border: '0px', mode: '1', triAfterTitle: true, bold: true, seg: 'card,flat*,group', marker: 'none', n: '2', before: '"2. "', tnum: 'tabular-nums' });
+assert.deepEqual(flat, { style: 'flat', weight: '500', border: '0px', mode: '1', triAfterTitle: true, bold: true, seg: 'card,flat*,group', marker: 'none', n: '2', before: '"2. "', tnum: 'tabular-nums' });
+assert.equal(await page.$eval('.root-body ol > li > .card.flat[data-id="範例/第二小點"] .card-title', t => getComputedStyle(t).borderBottomStyle), 'solid', 'R74：扁平標題要有淺底線');
 // R62：純文字項的記號也由檢視器畫（Safari 的原生記號度量與自畫的不同，永遠對不齊——所以全部自畫）
 const plainLi = await page.$eval('.root-body ol > li:first-child', li => ({ n: li.dataset.n, ls: getComputedStyle(li).listStyleType, mk: getComputedStyle(li, '::before').content }));
 assert.deepEqual(plainLi, { n: '1', ls: 'none', mk: '"1.\u00a0"' }, JSON.stringify(plainLi));

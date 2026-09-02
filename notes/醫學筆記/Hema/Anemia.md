@@ -8,6 +8,6 @@
 
 [[Anemia/Microcytic (MCV 80)：Hemoglobin 製造有問題|摘要]]
 
-[[Anemia/Normocytic (MCV 80100) ：Hemolytic amenia 為主 +|摘要]]
+[[Anemia/Normocytic (MCV 80100) ：Hemolytic amenia 為主 +]]
 
 [[Anemia/Macrocytic (MCV 100)：RBC cells 製造有問題|摘要]]

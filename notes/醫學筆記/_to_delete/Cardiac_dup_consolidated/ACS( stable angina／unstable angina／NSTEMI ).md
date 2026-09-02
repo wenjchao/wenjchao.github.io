@@ -1,7 +1,7 @@
 # ACS( stable angina/unstable angina/NSTEMI )
 
 ## 內文
-[[ACS( stable angina／unstable angina／NSTEMI )/stable angina retrosternal(1) heaviness with|摘要]]
+[[ACS( stable angina／unstable angina／NSTEMI )/stable angina retrosternal(1) heaviness with]]
 
 - 注意：3/3 stable angina; 2/3 stable angina; 1/3 noncardiac schest pain
 

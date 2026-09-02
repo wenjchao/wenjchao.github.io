@@ -29,7 +29,7 @@
 
 [[Infectious Disease/Granuloma (innate immunity)]]
 
-[[Infectious Disease/Infection in AIDS ／ Lymphopenia ／ immunocompromise]]
+[[Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌]]
 
 [[Infectious Disease/CRBSI]]
 

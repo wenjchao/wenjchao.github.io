@@ -23,7 +23,7 @@
 
 ### ◼︎ GI
 
-[[Liver & GI/Diarrhea|摘要]]
+[[Infectious Disease/Diarrhea|摘要]]
 
 [[Liver & GI/吞嚥困難|摘要]]
 
@@ -37,7 +37,7 @@
 
 [[Liver & GI/Polyposis syndromes 全部會癌化|摘要]]
 
-[[Liver & GI/Peritonitis 待補|摘要]]
+[[Infectious Disease/Peritonitis 待補|摘要]]
 
 ### 零星補充
 
