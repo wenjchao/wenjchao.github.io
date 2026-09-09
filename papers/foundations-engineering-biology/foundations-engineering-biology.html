@@ -1,0 +1,1332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="citation_title" content="Foundations for engineering biology">
+  <meta name="citation_author" content="Drew Endy">
+  <meta name="citation_publication_date" content="2005/11/24">
+  <meta name="citation_journal_title" content="Nature">
+  <meta name="citation_volume" content="438">
+  <meta name="citation_firstpage" content="449">
+  <meta name="citation_lastpage" content="453">
+  <meta name="citation_doi" content="10.1038/nature04342">
+  <title>Foundations for engineering biology</title>
+  <style>
+    :root {
+      --paper: #fff;
+      --ink: #202020;
+      --muted: #666;
+      --rule: #c7c7c7;
+      --accent: #e6292f;
+      --link: #365d84;
+    }
+    * { box-sizing: border-box; }
+    html { background: #ececec; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.48;
+    }
+    .paper {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: 44px clamp(24px, 6vw, 78px) 64px;
+    }
+    .journal-bar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 46px;
+      padding: 12px 16px;
+      border-top: 1px solid #999;
+      border-bottom: 1px solid #999;
+      background: #e5e5e5;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+    }
+    .journal-bar .section-label {
+      color: var(--accent);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .front-matter { border-top: 2px solid #333; padding-top: 22px; }
+    h1 {
+      margin: 0 0 8px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+    .authors {
+      margin: 20px 0 18px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.22rem;
+    }
+    .authors sup, .affiliation sup { font-size: 0.65em; }
+    .abstract {
+      margin: 0 0 34px;
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.42;
+    }
+    .article-flow { max-width: 820px; margin-inline: auto; }
+    p { margin: 0 0 0.82em; text-align: justify; hyphens: auto; }
+    .opening::first-letter {
+      float: left;
+      margin: 0.05em 0.08em -0.05em 0;
+      color: var(--accent);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 4.4em;
+      font-weight: 300;
+      line-height: 0.78;
+    }
+    h2 {
+      margin: 1.25em 0 0.22em;
+      break-after: avoid;
+      color: var(--accent);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.22rem;
+      line-height: 1.2;
+    }
+    a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+    sup { font-size: 0.66em; line-height: 0; }
+    sup a { color: inherit; text-decoration: none; }
+    figure {
+      margin: 28px 0 34px;
+      padding: 14px;
+      break-inside: avoid;
+      border: 1px solid #aaa;
+      background: #fafafa;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #bbb;
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.84rem;
+      line-height: 1.42;
+    }
+    figcaption .figure-label { font-weight: 700; }
+    .emphasis-lead { font-weight: 700; }
+    .back-matter {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 2px solid #333;
+    }
+    .back-matter h2 { color: var(--ink); }
+    .references {
+      margin: 0;
+      padding-left: 2.2em;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.32;
+    }
+    .references li { margin: 0 0 0.38em; padding-left: 0.25em; break-inside: avoid; }
+    .notes {
+      margin-top: 28px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+    .notes p { text-align: left; }
+    .affiliation {
+      margin: 0 0 18px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.78rem;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+    @media (min-width: 900px) {
+      .references { column-count: 2; column-gap: 42px; }
+    }
+    @media (max-width: 620px) {
+      .paper { padding-inline: 18px; }
+      .journal-bar { align-items: flex-start; flex-direction: column-reverse; gap: 6px; }
+      p { text-align: left; }
+    }
+    @media print {
+      html { background: #fff; }
+      body { font-size: 10.25pt; }
+      .paper { width: auto; padding: 0; }
+      a { color: inherit; text-decoration: none; }
+      figure { background: #fff; }
+    }
+  </style>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <main class="paper">
+<style id="reader-panel-style">
+
+/* Layout override */
+/* Some source papers set `main { width: min(1120px, …) }` (a fixed width, not max-width).
+   Plain `max-width` doesn't override that — we'd end up with a 1120px main minus 340px
+   rail padding = narrow content. Set both width and max-width to win in either case. */
+main { width: min(1320px, calc(100vw - 40px)) !important; max-width: 1320px !important; padding-right: 340px !important; position: relative !important; box-sizing: border-box !important; margin: 0 auto !important; }
+@media (max-width: 1100px) {
+  main { padding-right: 28px !important; }
+  .margin-rail { position: absolute !important; left:0; top:0; width:100%; height:0; overflow:visible; background:transparent; border:0; box-shadow:none; }
+}
+
+/* Reader panel */
+.reader-panel { background: rgba(255,255,255,0.85); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 14px 16px; margin: 0 0 24px; font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; line-height: 1.7; }
+.reader-panel .layer-title { font-size: 1.5em; font-weight: 700; margin: 0.7em 0 0.4em; color: #1f2428; }
+.reader-panel .layer-title:first-child { margin-top: 0; }
+.reader-panel .module-block { padding: 10px 12px; border-radius: 8px; margin: 0 0 12px; border: 1px solid rgba(0,0,0,0.06); }
+.reader-panel .module-thesis { margin: 0 0 8px; font-size: 0.98em; color: #1f2428; line-height: 1.75; }
+.reader-panel details.version { margin: 6px 0; border-radius: 6px; padding: 2px 0; border: 1px solid rgba(0,0,0,0.05); }
+.reader-panel details.version > summary { cursor: pointer; list-style: none; font-weight: 500; padding: 6px 8px; border-radius: 6px; }
+.reader-panel details.version > summary::-webkit-details-marker { display: none; }
+.reader-panel details.version > summary::before { content: "▸"; display: inline-block; margin-right: 6px; transition: transform 0.2s; }
+.reader-panel details.version[open] > summary::before { transform: rotate(90deg); }
+.reader-panel .hdr { display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.reader-panel .rank-badge { font-size: 12px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,0.08); }
+.reader-panel .vote { font-size: 12px; color: #555; }
+.reader-panel .panel-body { padding: 8px 12px 10px; font-size: 0.95em; }
+.reader-panel .panel-body p { margin: 6px 0; line-height: 1.85; }
+.reader-panel .main-line-inline { font-weight: 600; margin-left: 4px; }
+.reader-panel .main-line { margin: 6px 0; line-height: 1.7; padding: 0 12px; }
+.reader-panel .terms-list { padding-left: 1.2em; margin: 0; }
+.reader-panel .terms-list li { margin: 4px 0; line-height: 1.6; }
+.reader-panel a.hl { padding: 0 1px; border-radius: 3px; cursor: pointer; text-decoration: none; }
+
+/* Margin rail / notes */
+.margin-rail { position: absolute; top: 0; right: 16px; width: 308px; pointer-events: none; }
+body.notes-closed .margin-note { display:none !important; }
+.margin-note { display:block; position: absolute; right: 0; width: 296px; box-sizing: border-box; pointer-events: auto; cursor: pointer; padding: 8px 10px; border-radius: 6px; font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-size: 13px; line-height: 1.55; transition: top 0.2s ease; background: #fff; border: 1px solid rgba(0,0,0,0.08); }
+.margin-note.is-active { box-shadow: 0 0 0 1px rgba(0,0,0,0.15); }
+.margin-note.is-selected { box-shadow: 0 6px 18px rgba(0,0,0,0.2); z-index: 5; }
+.mobile-note-slot { display:none; }
+@media (max-width: 1100px) {
+  .mobile-note-slot { display:block; clear:both; }
+  body.notes-closed .mobile-note-slot { display:none !important; }
+  .margin-note { position: static !important; right:auto; width:min(300px, calc(100vw - 28px)); max-width:calc(100vw - 28px); margin:5px 0 9px; font-size:12.5px; box-shadow:0 6px 20px rgba(0,0,0,0.18); }
+}
+.note-next { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(0,0,0,0.06); font-size: 11.5px; color: #444; cursor: pointer; }
+.note-next:hover { background: rgba(0,0,0,0.12); }
+
+/* Generic selected outline */
+mark.hl.is-selected { outline: 2.5px solid var(--sel-color, #444); outline-offset: 1px; border-radius: 2px; }
+a.hl.is-selected { box-shadow: 0 0 0 2.5px var(--sel-color, #444), 0 4px 12px rgba(0,0,0,0.18); border-radius: 3px; position: relative; z-index: 2; }
+mark.hl.hl-none { background: transparent !important; box-shadow: none !important; outline: none !important; cursor: text !important; padding: 0 !important; }
+
+/* Floating toggle */
+.color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; background: #fff; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.15); padding: 8px 10px; font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-size: 12px; max-height: 80vh; overflow-y: auto; }
+.color-toggle .ct-title { cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; user-select: none; font-weight: 700; margin-bottom: 6px; }
+.color-toggle .ct-caret { transition: transform 0.15s ease; font-size: 11px; color: #666; }
+.color-toggle.is-collapsed .ct-items { display: none; }
+.color-toggle.is-collapsed .ct-caret { transform: rotate(-90deg); }
+.color-toggle .ct-items { display: flex; flex-direction: column; gap: 4px; }
+.color-toggle .ct-item { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+.color-toggle .ct-item:hover { background: rgba(0,0,0,0.04); }
+.color-toggle .ct-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.15); }
+.color-toggle .ct-swatch-notes { background: #30363d; border-color: #1a1d22; }
+.color-toggle .ct-item.is-off { color: #888; }
+.color-toggle .ct-item.is-off .ct-swatch { background: transparent !important; border-style: dashed !important; }
+
+/* Synthesis module-block */
+.module-block.c-synth { background: #f5f5f560; border-left: 4px solid #909090; }
+.synth-body h4 { font-size: 0.95em; margin: 14px 0 6px; color: #303030; }
+.synth-body h4:first-child { margin-top: 4px; }
+.synth-body p { margin: 6px 0; }
+.synth-body ul { padding-left: 1.4em; margin: 4px 0; }
+.synth-body li { margin: 4px 0; line-height: 1.65; }
+
+
+.reader-panel details.version.c-summary > summary { background: #FFF3B033; border-left: 3px solid #E8C75A; }
+.reader-panel details.version.c-summary[open] > summary { background: #FFF3B055; }
+.reader-panel .module-block.c-summary { background: #FFF3B026; border-left: 4px solid #E8C75A; }
+.hl-summary { background: #FFF3B0; box-shadow: inset 0 -2px 0 0 #E8C75A; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-summary { color: #7a5a00; text-decoration: none; }
+mark.hl.is-selected.sel-summary { --sel-color: #7a5a00; }
+a.hl.is-selected.sel-summary { --sel-color: #7a5a00; }
+.margin-note.n-summary { background: #FFF3B040; border-left: 3px solid #E8C75A; color: #7a5a00; }
+.margin-note.n-summary.is-selected { background: #FFF3B080; outline: 2.5px solid #7a5a00; outline-offset: 1px; }
+.color-toggle .ct-swatch-summary { background: #FFF3B0; border-color: #E8C75A; }
+body.off-summary .margin-note.n-summary { display: none; }
+
+
+.reader-panel details.version.c-m1 > summary { background: #FFB3BA33; border-left: 3px solid #E08594; }
+.reader-panel details.version.c-m1[open] > summary { background: #FFB3BA55; }
+.reader-panel .module-block.c-m1 { background: #FFB3BA26; border-left: 4px solid #E08594; }
+.hl-m1 { background: #FFB3BA; box-shadow: inset 0 -2px 0 0 #E08594; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m1 { color: #8a2330; text-decoration: none; }
+mark.hl.is-selected.sel-m1 { --sel-color: #8a2330; }
+a.hl.is-selected.sel-m1 { --sel-color: #8a2330; }
+.margin-note.n-m1 { background: #FFB3BA40; border-left: 3px solid #E08594; color: #8a2330; }
+.margin-note.n-m1.is-selected { background: #FFB3BA80; outline: 2.5px solid #8a2330; outline-offset: 1px; }
+.color-toggle .ct-swatch-m1 { background: #FFB3BA; border-color: #E08594; }
+body.off-m1 .margin-note.n-m1 { display: none; }
+
+
+.reader-panel details.version.c-m2 > summary { background: #C8E6C933; border-left: 3px solid #88BF8B; }
+.reader-panel details.version.c-m2[open] > summary { background: #C8E6C955; }
+.reader-panel .module-block.c-m2 { background: #C8E6C926; border-left: 4px solid #88BF8B; }
+.hl-m2 { background: #C8E6C9; box-shadow: inset 0 -2px 0 0 #88BF8B; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m2 { color: #1f5c2e; text-decoration: none; }
+mark.hl.is-selected.sel-m2 { --sel-color: #1f5c2e; }
+a.hl.is-selected.sel-m2 { --sel-color: #1f5c2e; }
+.margin-note.n-m2 { background: #C8E6C940; border-left: 3px solid #88BF8B; color: #1f5c2e; }
+.margin-note.n-m2.is-selected { background: #C8E6C980; outline: 2.5px solid #1f5c2e; outline-offset: 1px; }
+.color-toggle .ct-swatch-m2 { background: #C8E6C9; border-color: #88BF8B; }
+body.off-m2 .margin-note.n-m2 { display: none; }
+
+
+.reader-panel details.version.c-m3 > summary { background: #B3D9FF33; border-left: 3px solid #7AB2E0; }
+.reader-panel details.version.c-m3[open] > summary { background: #B3D9FF55; }
+.reader-panel .module-block.c-m3 { background: #B3D9FF26; border-left: 4px solid #7AB2E0; }
+.hl-m3 { background: #B3D9FF; box-shadow: inset 0 -2px 0 0 #7AB2E0; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m3 { color: #1b4d80; text-decoration: none; }
+mark.hl.is-selected.sel-m3 { --sel-color: #1b4d80; }
+a.hl.is-selected.sel-m3 { --sel-color: #1b4d80; }
+.margin-note.n-m3 { background: #B3D9FF40; border-left: 3px solid #7AB2E0; color: #1b4d80; }
+.margin-note.n-m3.is-selected { background: #B3D9FF80; outline: 2.5px solid #1b4d80; outline-offset: 1px; }
+.color-toggle .ct-swatch-m3 { background: #B3D9FF; border-color: #7AB2E0; }
+body.off-m3 .margin-note.n-m3 { display: none; }
+
+
+.reader-panel details.version.c-m4 > summary { background: #FFD9B333; border-left: 3px solid #E0A66E; }
+.reader-panel details.version.c-m4[open] > summary { background: #FFD9B355; }
+.reader-panel .module-block.c-m4 { background: #FFD9B326; border-left: 4px solid #E0A66E; }
+.hl-m4 { background: #FFD9B3; box-shadow: inset 0 -2px 0 0 #E0A66E; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m4 { color: #7a3d00; text-decoration: none; }
+mark.hl.is-selected.sel-m4 { --sel-color: #7a3d00; }
+a.hl.is-selected.sel-m4 { --sel-color: #7a3d00; }
+.margin-note.n-m4 { background: #FFD9B340; border-left: 3px solid #E0A66E; color: #7a3d00; }
+.margin-note.n-m4.is-selected { background: #FFD9B380; outline: 2.5px solid #7a3d00; outline-offset: 1px; }
+.color-toggle .ct-swatch-m4 { background: #FFD9B3; border-color: #E0A66E; }
+body.off-m4 .margin-note.n-m4 { display: none; }
+
+
+.reader-panel details.version.c-m5 > summary { background: #E1BEE733; border-left: 3px solid #B287B9; }
+.reader-panel details.version.c-m5[open] > summary { background: #E1BEE755; }
+.reader-panel .module-block.c-m5 { background: #E1BEE726; border-left: 4px solid #B287B9; }
+.hl-m5 { background: #E1BEE7; box-shadow: inset 0 -2px 0 0 #B287B9; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m5 { color: #5a2a6e; text-decoration: none; }
+mark.hl.is-selected.sel-m5 { --sel-color: #5a2a6e; }
+a.hl.is-selected.sel-m5 { --sel-color: #5a2a6e; }
+.margin-note.n-m5 { background: #E1BEE740; border-left: 3px solid #B287B9; color: #5a2a6e; }
+.margin-note.n-m5.is-selected { background: #E1BEE780; outline: 2.5px solid #5a2a6e; outline-offset: 1px; }
+.color-toggle .ct-swatch-m5 { background: #E1BEE7; border-color: #B287B9; }
+body.off-m5 .margin-note.n-m5 { display: none; }
+
+
+.reader-panel details.version.c-m6 > summary { background: #B2EBF233; border-left: 3px solid #7DC6CF; }
+.reader-panel details.version.c-m6[open] > summary { background: #B2EBF255; }
+.reader-panel .module-block.c-m6 { background: #B2EBF226; border-left: 4px solid #7DC6CF; }
+.hl-m6 { background: #B2EBF2; box-shadow: inset 0 -2px 0 0 #7DC6CF; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m6 { color: #1d5d68; text-decoration: none; }
+mark.hl.is-selected.sel-m6 { --sel-color: #1d5d68; }
+a.hl.is-selected.sel-m6 { --sel-color: #1d5d68; }
+.margin-note.n-m6 { background: #B2EBF240; border-left: 3px solid #7DC6CF; color: #1d5d68; }
+.margin-note.n-m6.is-selected { background: #B2EBF280; outline: 2.5px solid #1d5d68; outline-offset: 1px; }
+.color-toggle .ct-swatch-m6 { background: #B2EBF2; border-color: #7DC6CF; }
+body.off-m6 .margin-note.n-m6 { display: none; }
+
+
+.reader-panel details.version.c-m7 > summary { background: #EFC1CD33; border-left: 3px solid #D2798F; }
+.reader-panel details.version.c-m7[open] > summary { background: #EFC1CD55; }
+.reader-panel .module-block.c-m7 { background: #EFC1CD26; border-left: 4px solid #D2798F; }
+.hl-m7 { background: #EFC1CD; box-shadow: inset 0 -2px 0 0 #D2798F; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m7 { color: #6C1329; text-decoration: none; }
+mark.hl.is-selected.sel-m7 { --sel-color: #6C1329; }
+a.hl.is-selected.sel-m7 { --sel-color: #6C1329; }
+.margin-note.n-m7 { background: #EFC1CD40; border-left: 3px solid #D2798F; color: #6C1329; }
+.margin-note.n-m7.is-selected { background: #EFC1CD80; outline: 2.5px solid #6C1329; outline-offset: 1px; }
+.color-toggle .ct-swatch-m7 { background: #EFC1CD; border-color: #D2798F; }
+body.off-m7 .margin-note.n-m7 { display: none; }
+
+
+.reader-panel details.version.c-m8 > summary { background: #EFDCC133; border-left: 3px solid #D2AC79; }
+.reader-panel details.version.c-m8[open] > summary { background: #EFDCC155; }
+.reader-panel .module-block.c-m8 { background: #EFDCC126; border-left: 4px solid #D2AC79; }
+.hl-m8 { background: #EFDCC1; box-shadow: inset 0 -2px 0 0 #D2AC79; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m8 { color: #6C4613; text-decoration: none; }
+mark.hl.is-selected.sel-m8 { --sel-color: #6C4613; }
+a.hl.is-selected.sel-m8 { --sel-color: #6C4613; }
+.margin-note.n-m8 { background: #EFDCC140; border-left: 3px solid #D2AC79; color: #6C4613; }
+.margin-note.n-m8.is-selected { background: #EFDCC180; outline: 2.5px solid #6C4613; outline-offset: 1px; }
+.color-toggle .ct-swatch-m8 { background: #EFDCC1; border-color: #D2AC79; }
+body.off-m8 .margin-note.n-m8 { display: none; }
+
+
+.reader-panel details.version.c-m9 > summary { background: #DDEFC133; border-left: 3px solid #AED279; }
+.reader-panel details.version.c-m9[open] > summary { background: #DDEFC155; }
+.reader-panel .module-block.c-m9 { background: #DDEFC126; border-left: 4px solid #AED279; }
+.hl-m9 { background: #DDEFC1; box-shadow: inset 0 -2px 0 0 #AED279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m9 { color: #486C13; text-decoration: none; }
+mark.hl.is-selected.sel-m9 { --sel-color: #486C13; }
+a.hl.is-selected.sel-m9 { --sel-color: #486C13; }
+.margin-note.n-m9 { background: #DDEFC140; border-left: 3px solid #AED279; color: #486C13; }
+.margin-note.n-m9.is-selected { background: #DDEFC180; outline: 2.5px solid #486C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m9 { background: #DDEFC1; border-color: #AED279; }
+body.off-m9 .margin-note.n-m9 { display: none; }
+
+
+.reader-panel details.version.c-m10 > summary { background: #C1EFCB33; border-left: 3px solid #79D28C; }
+.reader-panel details.version.c-m10[open] > summary { background: #C1EFCB55; }
+.reader-panel .module-block.c-m10 { background: #C1EFCB26; border-left: 4px solid #79D28C; }
+.hl-m10 { background: #C1EFCB; box-shadow: inset 0 -2px 0 0 #79D28C; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m10 { color: #136C26; text-decoration: none; }
+mark.hl.is-selected.sel-m10 { --sel-color: #136C26; }
+a.hl.is-selected.sel-m10 { --sel-color: #136C26; }
+.margin-note.n-m10 { background: #C1EFCB40; border-left: 3px solid #79D28C; color: #136C26; }
+.margin-note.n-m10.is-selected { background: #C1EFCB80; outline: 2.5px solid #136C26; outline-offset: 1px; }
+.color-toggle .ct-swatch-m10 { background: #C1EFCB; border-color: #79D28C; }
+body.off-m10 .margin-note.n-m10 { display: none; }
+
+
+.reader-panel details.version.c-m11 > summary { background: #C1EDEF33; border-left: 3px solid #79CED2; }
+.reader-panel details.version.c-m11[open] > summary { background: #C1EDEF55; }
+.reader-panel .module-block.c-m11 { background: #C1EDEF26; border-left: 4px solid #79CED2; }
+.hl-m11 { background: #C1EDEF; box-shadow: inset 0 -2px 0 0 #79CED2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m11 { color: #13686C; text-decoration: none; }
+mark.hl.is-selected.sel-m11 { --sel-color: #13686C; }
+a.hl.is-selected.sel-m11 { --sel-color: #13686C; }
+.margin-note.n-m11 { background: #C1EDEF40; border-left: 3px solid #79CED2; color: #13686C; }
+.margin-note.n-m11.is-selected { background: #C1EDEF80; outline: 2.5px solid #13686C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m11 { background: #C1EDEF; border-color: #79CED2; }
+body.off-m11 .margin-note.n-m11 { display: none; }
+
+
+.reader-panel details.version.c-m12 > summary { background: #C1C8EF33; border-left: 3px solid #7985D2; }
+.reader-panel details.version.c-m12[open] > summary { background: #C1C8EF55; }
+.reader-panel .module-block.c-m12 { background: #C1C8EF26; border-left: 4px solid #7985D2; }
+.hl-m12 { background: #C1C8EF; box-shadow: inset 0 -2px 0 0 #7985D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m12 { color: #131F6C; text-decoration: none; }
+mark.hl.is-selected.sel-m12 { --sel-color: #131F6C; }
+a.hl.is-selected.sel-m12 { --sel-color: #131F6C; }
+.margin-note.n-m12 { background: #C1C8EF40; border-left: 3px solid #7985D2; color: #131F6C; }
+.margin-note.n-m12.is-selected { background: #C1C8EF80; outline: 2.5px solid #131F6C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m12 { background: #C1C8EF; border-color: #7985D2; }
+body.off-m12 .margin-note.n-m12 { display: none; }
+
+
+.reader-panel details.version.c-m13 > summary { background: #E1C1EF33; border-left: 3px solid #B679D2; }
+.reader-panel details.version.c-m13[open] > summary { background: #E1C1EF55; }
+.reader-panel .module-block.c-m13 { background: #E1C1EF26; border-left: 4px solid #B679D2; }
+.hl-m13 { background: #E1C1EF; box-shadow: inset 0 -2px 0 0 #B679D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m13 { color: #50136C; text-decoration: none; }
+mark.hl.is-selected.sel-m13 { --sel-color: #50136C; }
+a.hl.is-selected.sel-m13 { --sel-color: #50136C; }
+.margin-note.n-m13 { background: #E1C1EF40; border-left: 3px solid #B679D2; color: #50136C; }
+.margin-note.n-m13.is-selected { background: #E1C1EF80; outline: 2.5px solid #50136C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m13 { background: #E1C1EF; border-color: #B679D2; }
+body.off-m13 .margin-note.n-m13 { display: none; }
+
+
+.reader-panel details.version.c-m14 > summary { background: #EFC1D833; border-left: 3px solid #D279A5; }
+.reader-panel details.version.c-m14[open] > summary { background: #EFC1D855; }
+.reader-panel .module-block.c-m14 { background: #EFC1D826; border-left: 4px solid #D279A5; }
+.hl-m14 { background: #EFC1D8; box-shadow: inset 0 -2px 0 0 #D279A5; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m14 { color: #6C133F; text-decoration: none; }
+mark.hl.is-selected.sel-m14 { --sel-color: #6C133F; }
+a.hl.is-selected.sel-m14 { --sel-color: #6C133F; }
+.margin-note.n-m14 { background: #EFC1D840; border-left: 3px solid #D279A5; color: #6C133F; }
+.margin-note.n-m14.is-selected { background: #EFC1D880; outline: 2.5px solid #6C133F; outline-offset: 1px; }
+.color-toggle .ct-swatch-m14 { background: #EFC1D8; border-color: #D279A5; }
+body.off-m14 .margin-note.n-m14 { display: none; }
+
+
+.reader-panel details.version.c-m15 > summary { background: #EFD0C133; border-left: 3px solid #D29679; }
+.reader-panel details.version.c-m15[open] > summary { background: #EFD0C155; }
+.reader-panel .module-block.c-m15 { background: #EFD0C126; border-left: 4px solid #D29679; }
+.hl-m15 { background: #EFD0C1; box-shadow: inset 0 -2px 0 0 #D29679; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m15 { color: #6C3013; text-decoration: none; }
+mark.hl.is-selected.sel-m15 { --sel-color: #6C3013; }
+a.hl.is-selected.sel-m15 { --sel-color: #6C3013; }
+.margin-note.n-m15 { background: #EFD0C140; border-left: 3px solid #D29679; color: #6C3013; }
+.margin-note.n-m15.is-selected { background: #EFD0C180; outline: 2.5px solid #6C3013; outline-offset: 1px; }
+.color-toggle .ct-swatch-m15 { background: #EFD0C1; border-color: #D29679; }
+body.off-m15 .margin-note.n-m15 { display: none; }
+
+
+.reader-panel details.version.c-m16 > summary { background: #E8EFC133; border-left: 3px solid #C4D279; }
+.reader-panel details.version.c-m16[open] > summary { background: #E8EFC155; }
+.reader-panel .module-block.c-m16 { background: #E8EFC126; border-left: 4px solid #C4D279; }
+.hl-m16 { background: #E8EFC1; box-shadow: inset 0 -2px 0 0 #C4D279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m16 { color: #5E6C13; text-decoration: none; }
+mark.hl.is-selected.sel-m16 { --sel-color: #5E6C13; }
+a.hl.is-selected.sel-m16 { --sel-color: #5E6C13; }
+.margin-note.n-m16 { background: #E8EFC140; border-left: 3px solid #C4D279; color: #5E6C13; }
+.margin-note.n-m16.is-selected { background: #E8EFC180; outline: 2.5px solid #5E6C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m16 { background: #E8EFC1; border-color: #C4D279; }
+body.off-m16 .margin-note.n-m16 { display: none; }
+
+
+.reader-panel details.version.c-m17 > summary { background: #C2EFC133; border-left: 3px solid #7BD279; }
+.reader-panel details.version.c-m17[open] > summary { background: #C2EFC155; }
+.reader-panel .module-block.c-m17 { background: #C2EFC126; border-left: 4px solid #7BD279; }
+.hl-m17 { background: #C2EFC1; box-shadow: inset 0 -2px 0 0 #7BD279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m17 { color: #156C13; text-decoration: none; }
+mark.hl.is-selected.sel-m17 { --sel-color: #156C13; }
+a.hl.is-selected.sel-m17 { --sel-color: #156C13; }
+.margin-note.n-m17 { background: #C2EFC140; border-left: 3px solid #7BD279; color: #156C13; }
+.margin-note.n-m17.is-selected { background: #C2EFC180; outline: 2.5px solid #156C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m17 { background: #C2EFC1; border-color: #7BD279; }
+body.off-m17 .margin-note.n-m17 { display: none; }
+
+
+.reader-panel details.version.c-m18 > summary { background: #C1EFE633; border-left: 3px solid #79D2C0; }
+.reader-panel details.version.c-m18[open] > summary { background: #C1EFE655; }
+.reader-panel .module-block.c-m18 { background: #C1EFE626; border-left: 4px solid #79D2C0; }
+.hl-m18 { background: #C1EFE6; box-shadow: inset 0 -2px 0 0 #79D2C0; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m18 { color: #136C5A; text-decoration: none; }
+mark.hl.is-selected.sel-m18 { --sel-color: #136C5A; }
+a.hl.is-selected.sel-m18 { --sel-color: #136C5A; }
+.margin-note.n-m18 { background: #C1EFE640; border-left: 3px solid #79D2C0; color: #136C5A; }
+.margin-note.n-m18.is-selected { background: #C1EFE680; outline: 2.5px solid #136C5A; outline-offset: 1px; }
+.color-toggle .ct-swatch-m18 { background: #C1EFE6; border-color: #79D2C0; }
+body.off-m18 .margin-note.n-m18 { display: none; }
+
+
+.reader-panel details.version.c-m19 > summary { background: #C1D3EF33; border-left: 3px solid #799BD2; }
+.reader-panel details.version.c-m19[open] > summary { background: #C1D3EF55; }
+.reader-panel .module-block.c-m19 { background: #C1D3EF26; border-left: 4px solid #799BD2; }
+.hl-m19 { background: #C1D3EF; box-shadow: inset 0 -2px 0 0 #799BD2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m19 { color: #13356C; text-decoration: none; }
+mark.hl.is-selected.sel-m19 { --sel-color: #13356C; }
+a.hl.is-selected.sel-m19 { --sel-color: #13356C; }
+.margin-note.n-m19 { background: #C1D3EF40; border-left: 3px solid #799BD2; color: #13356C; }
+.margin-note.n-m19.is-selected { background: #C1D3EF80; outline: 2.5px solid #13356C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m19 { background: #C1D3EF; border-color: #799BD2; }
+body.off-m19 .margin-note.n-m19 { display: none; }
+
+
+.reader-panel details.version.c-m20 > summary { background: #D5C1EF33; border-left: 3px solid #A079D2; }
+.reader-panel details.version.c-m20[open] > summary { background: #D5C1EF55; }
+.reader-panel .module-block.c-m20 { background: #D5C1EF26; border-left: 4px solid #A079D2; }
+.hl-m20 { background: #D5C1EF; box-shadow: inset 0 -2px 0 0 #A079D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m20 { color: #3A136C; text-decoration: none; }
+mark.hl.is-selected.sel-m20 { --sel-color: #3A136C; }
+a.hl.is-selected.sel-m20 { --sel-color: #3A136C; }
+.margin-note.n-m20 { background: #D5C1EF40; border-left: 3px solid #A079D2; color: #3A136C; }
+.margin-note.n-m20.is-selected { background: #D5C1EF80; outline: 2.5px solid #3A136C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m20 { background: #D5C1EF; border-color: #A079D2; }
+body.off-m20 .margin-note.n-m20 { display: none; }
+
+
+.reader-panel details.version.c-m21 > summary { background: #EFC1E333; border-left: 3px solid #D279BA; }
+.reader-panel details.version.c-m21[open] > summary { background: #EFC1E355; }
+.reader-panel .module-block.c-m21 { background: #EFC1E326; border-left: 4px solid #D279BA; }
+.hl-m21 { background: #EFC1E3; box-shadow: inset 0 -2px 0 0 #D279BA; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m21 { color: #6C1354; text-decoration: none; }
+mark.hl.is-selected.sel-m21 { --sel-color: #6C1354; }
+a.hl.is-selected.sel-m21 { --sel-color: #6C1354; }
+.margin-note.n-m21 { background: #EFC1E340; border-left: 3px solid #D279BA; color: #6C1354; }
+.margin-note.n-m21.is-selected { background: #EFC1E380; outline: 2.5px solid #6C1354; outline-offset: 1px; }
+.color-toggle .ct-swatch-m21 { background: #EFC1E3; border-color: #D279BA; }
+body.off-m21 .margin-note.n-m21 { display: none; }
+
+
+.reader-panel details.version.c-m22 > summary { background: #EFC5C133; border-left: 3px solid #D28079; }
+.reader-panel details.version.c-m22[open] > summary { background: #EFC5C155; }
+.reader-panel .module-block.c-m22 { background: #EFC5C126; border-left: 4px solid #D28079; }
+.hl-m22 { background: #EFC5C1; box-shadow: inset 0 -2px 0 0 #D28079; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m22 { color: #6C1A13; text-decoration: none; }
+mark.hl.is-selected.sel-m22 { --sel-color: #6C1A13; }
+a.hl.is-selected.sel-m22 { --sel-color: #6C1A13; }
+.margin-note.n-m22 { background: #EFC5C140; border-left: 3px solid #D28079; color: #6C1A13; }
+.margin-note.n-m22.is-selected { background: #EFC5C180; outline: 2.5px solid #6C1A13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m22 { background: #EFC5C1; border-color: #D28079; }
+body.off-m22 .margin-note.n-m22 { display: none; }
+
+
+.reader-panel details.version.c-m23 > summary { background: #EFEBC133; border-left: 3px solid #D2C979; }
+.reader-panel details.version.c-m23[open] > summary { background: #EFEBC155; }
+.reader-panel .module-block.c-m23 { background: #EFEBC126; border-left: 4px solid #D2C979; }
+.hl-m23 { background: #EFEBC1; box-shadow: inset 0 -2px 0 0 #D2C979; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m23 { color: #6C6313; text-decoration: none; }
+mark.hl.is-selected.sel-m23 { --sel-color: #6C6313; }
+a.hl.is-selected.sel-m23 { --sel-color: #6C6313; }
+.margin-note.n-m23 { background: #EFEBC140; border-left: 3px solid #D2C979; color: #6C6313; }
+.margin-note.n-m23.is-selected { background: #EFEBC180; outline: 2.5px solid #6C6313; outline-offset: 1px; }
+.color-toggle .ct-swatch-m23 { background: #EFEBC1; border-color: #D2C979; }
+body.off-m23 .margin-note.n-m23 { display: none; }
+
+
+.reader-panel details.version.c-m24 > summary { background: #CEEFC133; border-left: 3px solid #91D279; }
+.reader-panel details.version.c-m24[open] > summary { background: #CEEFC155; }
+.reader-panel .module-block.c-m24 { background: #CEEFC126; border-left: 4px solid #91D279; }
+.hl-m24 { background: #CEEFC1; box-shadow: inset 0 -2px 0 0 #91D279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m24 { color: #2B6C13; text-decoration: none; }
+mark.hl.is-selected.sel-m24 { --sel-color: #2B6C13; }
+a.hl.is-selected.sel-m24 { --sel-color: #2B6C13; }
+.margin-note.n-m24 { background: #CEEFC140; border-left: 3px solid #91D279; color: #2B6C13; }
+.margin-note.n-m24.is-selected { background: #CEEFC180; outline: 2.5px solid #2B6C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m24 { background: #CEEFC1; border-color: #91D279; }
+body.off-m24 .margin-note.n-m24 { display: none; }
+
+
+.reader-panel details.version.c-m25 > summary { background: #C1EFDB33; border-left: 3px solid #79D2AA; }
+.reader-panel details.version.c-m25[open] > summary { background: #C1EFDB55; }
+.reader-panel .module-block.c-m25 { background: #C1EFDB26; border-left: 4px solid #79D2AA; }
+.hl-m25 { background: #C1EFDB; box-shadow: inset 0 -2px 0 0 #79D2AA; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m25 { color: #136C44; text-decoration: none; }
+mark.hl.is-selected.sel-m25 { --sel-color: #136C44; }
+a.hl.is-selected.sel-m25 { --sel-color: #136C44; }
+.margin-note.n-m25 { background: #C1EFDB40; border-left: 3px solid #79D2AA; color: #136C44; }
+.margin-note.n-m25.is-selected { background: #C1EFDB80; outline: 2.5px solid #136C44; outline-offset: 1px; }
+.color-toggle .ct-swatch-m25 { background: #C1EFDB; border-color: #79D2AA; }
+body.off-m25 .margin-note.n-m25 { display: none; }
+
+
+.reader-panel details.version.c-m26 > summary { background: #C1DEEF33; border-left: 3px solid #79B1D2; }
+.reader-panel details.version.c-m26[open] > summary { background: #C1DEEF55; }
+.reader-panel .module-block.c-m26 { background: #C1DEEF26; border-left: 4px solid #79B1D2; }
+.hl-m26 { background: #C1DEEF; box-shadow: inset 0 -2px 0 0 #79B1D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m26 { color: #134B6C; text-decoration: none; }
+mark.hl.is-selected.sel-m26 { --sel-color: #134B6C; }
+a.hl.is-selected.sel-m26 { --sel-color: #134B6C; }
+.margin-note.n-m26 { background: #C1DEEF40; border-left: 3px solid #79B1D2; color: #134B6C; }
+.margin-note.n-m26.is-selected { background: #C1DEEF80; outline: 2.5px solid #134B6C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m26 { background: #C1DEEF; border-color: #79B1D2; }
+body.off-m26 .margin-note.n-m26 { display: none; }
+
+
+.reader-panel details.version.c-m27 > summary { background: #CAC1EF33; border-left: 3px solid #8A79D2; }
+.reader-panel details.version.c-m27[open] > summary { background: #CAC1EF55; }
+.reader-panel .module-block.c-m27 { background: #CAC1EF26; border-left: 4px solid #8A79D2; }
+.hl-m27 { background: #CAC1EF; box-shadow: inset 0 -2px 0 0 #8A79D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m27 { color: #24136C; text-decoration: none; }
+mark.hl.is-selected.sel-m27 { --sel-color: #24136C; }
+a.hl.is-selected.sel-m27 { --sel-color: #24136C; }
+.margin-note.n-m27 { background: #CAC1EF40; border-left: 3px solid #8A79D2; color: #24136C; }
+.margin-note.n-m27.is-selected { background: #CAC1EF80; outline: 2.5px solid #24136C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m27 { background: #CAC1EF; border-color: #8A79D2; }
+body.off-m27 .margin-note.n-m27 { display: none; }
+
+
+.reader-panel details.version.c-m28 > summary { background: #EFC1EE33; border-left: 3px solid #D279D0; }
+.reader-panel details.version.c-m28[open] > summary { background: #EFC1EE55; }
+.reader-panel .module-block.c-m28 { background: #EFC1EE26; border-left: 4px solid #D279D0; }
+.hl-m28 { background: #EFC1EE; box-shadow: inset 0 -2px 0 0 #D279D0; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m28 { color: #6C136A; text-decoration: none; }
+mark.hl.is-selected.sel-m28 { --sel-color: #6C136A; }
+a.hl.is-selected.sel-m28 { --sel-color: #6C136A; }
+.margin-note.n-m28 { background: #EFC1EE40; border-left: 3px solid #D279D0; color: #6C136A; }
+.margin-note.n-m28.is-selected { background: #EFC1EE80; outline: 2.5px solid #6C136A; outline-offset: 1px; }
+.color-toggle .ct-swatch-m28 { background: #EFC1EE; border-color: #D279D0; }
+body.off-m28 .margin-note.n-m28 { display: none; }
+
+
+.reader-panel details.version.c-m29 > summary { background: #EFC1C933; border-left: 3px solid #D27987; }
+.reader-panel details.version.c-m29[open] > summary { background: #EFC1C955; }
+.reader-panel .module-block.c-m29 { background: #EFC1C926; border-left: 4px solid #D27987; }
+.hl-m29 { background: #EFC1C9; box-shadow: inset 0 -2px 0 0 #D27987; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m29 { color: #6C1321; text-decoration: none; }
+mark.hl.is-selected.sel-m29 { --sel-color: #6C1321; }
+a.hl.is-selected.sel-m29 { --sel-color: #6C1321; }
+.margin-note.n-m29 { background: #EFC1C940; border-left: 3px solid #D27987; color: #6C1321; }
+.margin-note.n-m29.is-selected { background: #EFC1C980; outline: 2.5px solid #6C1321; outline-offset: 1px; }
+.color-toggle .ct-swatch-m29 { background: #EFC1C9; border-color: #D27987; }
+body.off-m29 .margin-note.n-m29 { display: none; }
+
+
+.reader-panel details.version.c-m30 > summary { background: #EFE0C133; border-left: 3px solid #D2B479; }
+.reader-panel details.version.c-m30[open] > summary { background: #EFE0C155; }
+.reader-panel .module-block.c-m30 { background: #EFE0C126; border-left: 4px solid #D2B479; }
+.hl-m30 { background: #EFE0C1; box-shadow: inset 0 -2px 0 0 #D2B479; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m30 { color: #6C4E13; text-decoration: none; }
+mark.hl.is-selected.sel-m30 { --sel-color: #6C4E13; }
+a.hl.is-selected.sel-m30 { --sel-color: #6C4E13; }
+.margin-note.n-m30 { background: #EFE0C140; border-left: 3px solid #D2B479; color: #6C4E13; }
+.margin-note.n-m30.is-selected { background: #EFE0C180; outline: 2.5px solid #6C4E13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m30 { background: #EFE0C1; border-color: #D2B479; }
+body.off-m30 .margin-note.n-m30 { display: none; }
+
+</style>
+<aside class="reader-panel">
+<div class="layer-title">全文摘要</div><details class="version c-summary" open><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 6</span></span><span class="main-line-inline"><a class="hl hl-summary" id="sum-h-l1-001" data-id="h-l1-001" data-targets="h-l1-001-a">改造活細胞、讓它照著人類設計運作</a>，<a class="hl hl-summary" id="sum-h-l1-002" data-id="h-l1-002" data-targets="h-l1-017-a">至今仍然又貴又慢又不可靠</a>；作者主張<a class="hl hl-summary" id="sum-h-l1-003" data-id="h-l1-003" data-targets="h-l1-018-a">真正的瓶頸不是生物太難懂</a>，而是<a class="hl hl-summary" id="sum-h-l1-004" data-id="h-l1-004" data-targets="h-l1-004-a">這個領域從未打造出能把工程變簡單的基礎工具</a>，因此<a class="hl hl-summary" id="sum-h-l1-005" data-id="h-l1-005" data-targets="h-l1-005-a">提出三個借自成熟工程的觀念（標準化、解耦、抽象化）</a>，再加上<a class="hl hl-summary" id="sum-h-l1-006" data-id="h-l1-006" data-targets="h-l1-006-a">如何面對生物會自我複製又變異的演化難題</a>。</span></summary><div class="panel-body"><p>想像一下，<a class="hl hl-summary" id="sum-h-l1-007" data-id="h-l1-007" data-targets="h-l1-007-a">有人要你在一小時內寫出一段 DNA 密碼</a>，<a class="hl hl-summary" id="sum-h-l1-008" data-id="h-l1-008" data-targets="h-l1-008-a">讓一整層細菌像底片一樣『拍』下一張照片</a>，或是<a class="hl hl-summary" id="sum-h-l1-009" data-id="h-l1-009" data-targets="h-l1-009-a">讓某種細胞內部自己跑出規律的週期訊號</a>。<a class="hl hl-summary" id="sum-h-l1-010" data-id="h-l1-010" data-targets="h-l1-010-a">這些任務在原理上都辦得到</a>，但每一個拿到今天來做，<a class="hl hl-summary" id="sum-h-l1-011" data-id="h-l1-011" data-targets="h-l1-011-a">都會變成一個得靠專家、花上一整年、還不保證成功的研究計畫</a>。<a class="hl hl-summary" id="sum-h-l1-012" data-id="h-l1-012" data-targets="h-l1-012-a">這種把活細胞改造成能執行人類指定任務的領域，就叫合成生物學 (synthetic biology)</a>。作者用一個對比點出問題：<a class="hl hl-summary" id="sum-h-l1-013" data-id="h-l1-013" data-targets="h-l1-013-a">史上第一個會規律閃爍的基因線路（稱作環形振盪器，ring oscillator）</a>，<a class="hl hl-summary" id="sum-h-l1-014" data-id="h-l1-014" data-targets="h-l1-014-a">是兩位頂尖科學家花了至少一年才做出來的</a>；可是在電子電路的世界裡，<a class="hl hl-summary" id="sum-h-l1-015" data-id="h-l1-015" data-targets="h-l1-015-a">任何一個普通的電機系學生，都能在一小時內做出好幾個</a>。這就是全文的核心落差——<a class="hl hl-summary" id="sum-h-l1-016" data-id="h-l1-016" data-targets="h-l1-017-a">改造生物、讓它照著我們的設計運作，至今仍然又貴、又不可靠</a>，而且每次都得從頭摸索。</p><p>那麼，都過了幾十年，<a class="hl hl-summary" id="sum-h-l1-017" data-id="h-l1-017" data-targets="h-l1-017-a">改造生物為什麼還是這麼難</a>？作者說有兩種可能。<a class="hl hl-summary" id="sum-h-l1-018" data-id="h-l1-018" data-targets="h-l1-018-a">一種是生物本身太複雜、我們懂得還不夠</a>；另一種是，<a class="hl hl-summary" id="sum-h-l1-019" data-id="h-l1-019" data-targets="h-l1-004-a">我們從來沒有真正去打造那些能『把困難變簡單』的基礎工具</a>。他選擇把重心押在第二種上，理由很務實：<a class="hl hl-summary" id="sum-h-l1-020" data-id="h-l1-020" data-targets="h-l1-020-a">一件事到底能不能變簡單，最好的檢驗方式就是動手去把它變簡單</a>。換句話說，<a class="hl hl-summary" id="sum-h-l1-021" data-id="h-l1-021" data-targets="h-l1-021-a">問題或許不在生物天生無法被工程化</a>，而在於這個領域還缺一套像其他成熟工程那樣紮實的地基。</p><p>作者接著說明，<a class="hl hl-summary" id="sum-h-l1-022" data-id="h-l1-022" data-targets="h-l1-022-a">一直拖住生物工程的麻煩有四個</a>：<a class="hl hl-summary" id="sum-h-l1-023" data-id="h-l1-023" data-targets="h-l1-023-a">生物本身太複雜、很難駕馭</a>，<a class="hl hl-summary" id="sum-h-l1-024" data-id="h-l1-024" data-targets="h-l1-024-a">光是把零件做出來再一一測試又既繁瑣又不可靠</a>，<a class="hl hl-summary" id="sum-h-l1-025" data-id="h-l1-025" data-targets="h-l1-025-a">同一套設計每次跑出來的表現還會莫名其妙地飄移</a>，<a class="hl hl-summary" id="sum-h-l1-026" data-id="h-l1-026" data-targets="h-l1-026-a">而生物更會自己演化</a>。為了對付前三個，<a class="hl hl-summary" id="sum-h-l1-027" data-id="h-l1-027" data-targets="h-l1-005-a">他向其他早已成熟的工程領域借了三個老觀念——標準化、解耦與抽象化</a>。</p><p><a class="hl hl-summary" id="sum-h-l1-028" data-id="h-l1-028" data-targets="h-l1-028-a">第一個觀念是標準化</a>。在蓋房子或鋪鐵軌的世界裡，<a class="hl hl-summary" id="sum-h-l1-029" data-id="h-l1-029" data-targets="h-l1-029-a">螺紋、鋼筋、軌距都有統一規格</a>，<a class="hl hl-summary" id="sum-h-l1-030" data-id="h-l1-030" data-targets="h-l1-030-a">拿來就能用、行為也可以預期</a>；但生物工程裡幾乎沒有這種東西。<a class="hl hl-summary" id="sum-h-l1-031" data-id="h-l1-031" data-targets="h-l1-031-a">同一個在甲實驗室被標為『很強』的零件，到了乙實驗室可能只算普通</a>。更麻煩的是，<a class="hl hl-summary" id="sum-h-l1-032" data-id="h-l1-032" data-targets="h-l1-032-a">別人做出來的一個基因開關，用的是某一種特定的大腸桿菌菌株、泡在某一種特定的培養液裡</a>，<a class="hl hl-summary" id="sum-h-l1-033" data-id="h-l1-033" data-targets="h-l1-033-a">你光是把這些背景資料查清楚，就得花掉大半個鐘頭</a>。因此作者主張，<a class="hl hl-summary" id="sum-h-l1-034" data-id="h-l1-034" data-targets="h-l1-034-a">整個社群需要為最基本的生物功能零件、測量方式與操作條件訂出公認的標準</a>。一個很早期的嘗試，就是<a class="hl hl-summary" id="sum-h-l1-035" data-id="h-l1-035" data-targets="h-l1-035-a h-l1-035-b">一個公開的『標準生物零件登錄庫 (Registry of Standard Biological Parts)』</a>，<a class="hl hl-summary" id="sum-h-l1-036" data-id="h-l1-036" data-targets="h-l1-036-a">任何人都可以取用、貢獻或改良裡面的零件</a>。</p><p>第二個觀念是<a class="hl hl-summary" id="sum-h-l1-037" data-id="h-l1-037" data-targets="h-method_m6-005-a">解耦，意思是把一個複雜的大問題，切成許多可以各自獨立處理的小問題</a>，<a class="hl hl-summary" id="sum-h-l1-038" data-id="h-l1-038" data-targets="h-l1-038-a">最後再拼回一個能運作的整體</a>。<a class="hl hl-summary" id="sum-h-l1-039" data-id="h-l1-039" data-targets="h-l1-039-a">蓋房子時，設計、施工、監工本來就是分開的</a>；在晶片產業裡，也是<a class="hl hl-summary" id="sum-h-l1-040" data-id="h-l1-040" data-targets="h-l1-040-a">等到『設計晶片』和『製造晶片』這兩件事能被切開之後，大規模電路才真正變得實用</a>。在生物工程裡，<a class="hl hl-summary" id="sum-h-l1-041" data-id="h-l1-041" data-targets="h-l1-041-a">最容易先下的一刀，就是把『設計 DNA』和『製造 DNA』分開</a>。這要歸功於 <a class="hl hl-summary" id="sum-h-l1-042" data-id="h-l1-042" data-targets="h-l1-042-a">DNA 合成——也就是用化學方法直接照著序列，把 DNA 一段段做出來</a>——的快速進步：<a class="hl hl-summary" id="sum-h-l1-043" data-id="h-l1-043" data-targets="h-l1-043-a">產能大約每一年半就翻一倍</a>，<a class="hl hl-summary" id="sum-h-l1-044" data-id="h-l1-044" data-targets="h-l1-044-a">長片段的價格則幾乎每年腰斬</a>。於是<a class="hl hl-summary" id="sum-h-l1-045" data-id="h-l1-045" data-targets="h-l1-045-a">有些人可以專心設計有用的 DNA，另一些人專心把 DNA 做出來</a>，<a class="hl hl-summary" id="sum-h-l1-046" data-id="h-l1-046" data-targets="h-l1-046-a">各自只要當好自己那一行的專家就行</a>。</p><p>第三個觀念是<a class="hl hl-summary" id="sum-h-l1-047" data-id="h-l1-047" data-targets="h-l1-047-a">抽象化，精神是『分層，並刻意把細節藏起來』</a>。<a class="hl hl-summary" id="sum-h-l1-048" data-id="h-l1-048" data-targets="h-l1-048-a">作者把生物系統由小到大分成四層</a>：<a class="hl hl-summary" id="sum-h-l1-049" data-id="h-l1-049" data-targets="h-method_m5-005-a">最底層是 DNA</a>，<a class="hl hl-summary" id="sum-h-l1-050" data-id="h-l1-050" data-targets="h-method_m5-005-a">往上一層是『零件』（最基本的生物功能，例如一段會抓住 DNA 的蛋白質）</a>，<a class="hl hl-summary" id="sum-h-l1-051" data-id="h-l1-051" data-targets="h-method_m5-005-a">再把零件組成能完成某個人類指定任務的『裝置』</a>，<a class="hl hl-summary" id="sum-h-l1-052" data-id="h-l1-052" data-targets="h-method_m5-005-a">最後把裝置組成『系統』</a>。<a class="hl hl-summary" id="sum-h-l1-053" data-id="h-l1-053" data-targets="h-l1-053-a">層與層之間隔著一道牆，只透過少量、有規矩的介面交換資訊</a>，這樣<a class="hl hl-summary" id="sum-h-l1-054" data-id="h-l1-054" data-targets="h-method_m5-004-a h-method_m5-022-a">每一層的人都能專心在自己那一層做事，不必去懂別層的細節</a>。除了分層，<a class="hl hl-summary" id="sum-h-l1-055" data-id="h-l1-055" data-targets="h-l1-055-a">作者還主張把天然零件重新設計過，讓它們更好預測、也更好組合</a>。他舉了一個具體的麻煩：<a class="hl hl-summary" id="sum-h-l1-056" data-id="h-l1-056" data-targets="h-method_m7-004-a">細胞要靠一套機器照著基因去製造蛋白質</a>，而<a class="hl hl-summary" id="sum-h-l1-057" data-id="h-l1-057" data-targets="h-l1-058-a">有一小段叫核糖體結合位 (ribosome binding site) 的序列，負責招呼這套機器上工</a>；可是<a class="hl hl-summary" id="sum-h-l1-058" data-id="h-l1-058" data-targets="h-l1-058-a">當我們把天然的啟動序列、這段核糖體結合位和基因硬拼在一起時</a>，<a class="hl hl-summary" id="sum-h-l1-059" data-id="h-l1-059" data-targets="h-l1-059-a">交接處的 RNA 有時會自己折出一個形狀，把機器擋在外頭</a>，<a class="hl hl-summary" id="sum-h-l1-060" data-id="h-l1-060" data-targets="h-l1-060-a">結果一個本來『很強』的零件就發不動了</a>。</p><p>至於<a class="hl hl-summary" id="sum-h-l1-061" data-id="h-l1-061" data-targets="h-l1-061-a">第四個麻煩——演化——則是前人的工程經驗幾乎沒碰過的</a>。<a class="hl hl-summary" id="sum-h-l1-062" data-id="h-l1-062" data-targets="h-l1-062-a">我們的電腦、手機、汽車都是『用完就丟』的東西</a>，<a class="hl hl-summary" id="sum-h-l1-063" data-id="h-l1-063" data-targets="h-l1-063-a">它們不會自己生出下一代</a>；<a class="hl hl-summary" id="sum-h-l1-064" data-id="h-l1-064" data-targets="h-l1-006-a">但生物是會自我複製的機器，而且複製時會出錯、會悄悄變異</a>。<a class="hl hl-summary" id="sum-h-l1-065" data-id="h-l1-065" data-targets="h-l1-065-a">我們目前還沒有一套能設計『會複製的生物機器』的實用理論</a>。作者提出可以先從幾個方向摸索，例如<a class="hl hl-summary" id="sum-h-l1-066" data-id="h-l1-066" data-targets="h-method_m8-001-a">怎麼用不可靠的零件湊出可靠的運算、怎麼做錯誤的偵測與更正</a>。萬一真的學不會駕馭複製過程中的變異，<a class="hl hl-summary" id="sum-h-l1-067" data-id="h-l1-067" data-targets="h-l1-067-a">退一步的做法，就是乾脆設計那種『用完就丟、不靠繁衍』的生物系統</a>。</p><p>如果這套地基真的蓋得起來，<a class="hl hl-summary" id="sum-h-l1-068" data-id="h-l1-068" data-targets="h-l1-068-a h-l1-068-b">改造生物就會從少數專家的苦工，變成像蓋房子一樣的例行工作</a>——作者甚至預期，<a class="hl hl-summary" id="sum-h-l1-069" data-id="h-l1-069" data-targets="h-l1-069-a">五年之內</a>，<a class="hl hl-summary" id="sum-h-l1-070" data-id="h-l1-070" data-targets="h-l1-070-a">沒受過生物訓練的高中生或大學生</a>，<a class="hl hl-summary" id="sum-h-l1-071" data-id="h-l1-071" data-targets="h-l1-071-a">都能用現成的標準零件設計出自己的生物系統</a>、<a class="hl hl-summary" id="sum-h-l1-072" data-id="h-l1-072" data-targets="h-l1-072-a">訂購 DNA，並讓它真的運作起來</a>。最後他也誠實面對風險：<a class="hl hl-summary" id="sum-h-l1-073" data-id="h-l1-073" data-targets="h-l1-073-a">同一套 DNA 合成技術，既曾被用來『復活』1918 年的流感病毒</a>，<a class="hl hl-summary" id="sum-h-l1-074" data-id="h-l1-074" data-targets="h-l1-074-a">卻也能在新威脅出現時，反過來被用來快速合成疫苗來反擊</a>。他的立場是，<a class="hl hl-summary" id="sum-h-l1-075" data-id="h-l1-075" data-targets="h-l1-075-a">與其封鎖技術（那只會拖垮研究，卻擋不住有心人）</a>，<a class="hl hl-summary" id="sum-h-l1-076" data-id="h-l1-076" data-targets="h-l1-076-a">真正的安全其實來自於快速偵測、理解並回應威脅的能力</a>，以及<a class="hl hl-summary" id="sum-h-l1-077" data-id="h-l1-077" data-targets="h-l1-077-a">需要政治領導帶頭，把整個領域導向建設性的方向</a>。</p><p>要提醒的是，這整篇其實是作者在 2005 年提出的觀點與研究議程，而不是已經完成的成果：<a class="hl hl-summary" id="sum-h-l1-079" data-id="h-l1-079" data-targets="h-l1-079-a">他自己也坦言這三個觀念和它們的先後順序未必正確</a>，而<a class="hl hl-summary" id="sum-h-l1-080" data-id="h-l1-080" data-targets="h-l1-069-a">『五年內沒受訓的學生就能上手』也只是一個預期、仍有待驗證</a>。</p></div></details><details class="version c-summary"><summary><span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">vote 5</span></span></summary><div class="panel-body"><div class="main-line">這篇 2005 年的觀點文章要回答一個問題：為什麼照著設計、可靠地造出想要的生物系統，到今天還是又慢、又貴、又靠運氣？作者主張關鍵不在『生物太複雜』，而在我們從未打造出能讓生物工程變簡單的底層技術；他從成熟工程借來三個想法——標準化、拆解分工、分層抽象——來補這個洞，並誠實點出演化是第四個過去工程幫不上忙的挑戰。</div><p>想像電機系學生一小時能兜出好幾個會規律開關的電子電路（工程上稱為環形振盪器 ring oscillator）；但要在細菌裡做出功能類似、會週期性開關的基因電路，兩位世界頂尖科學家卻至少花了整整一年，換一組人想再造一個還得從頭再耗同樣的工夫。這篇 2005 年的文章要問：為什麼照著設計、可靠地造出想要的生物系統，到今天還是這麼慢、這麼貴、這麼碰運氣？作者認為關鍵不在大家常說的『生物太複雜、我們懂得不夠』，而在我們從來沒打造出能讓生物工程變簡單的底層技術 (foundational technologies)。</p><p>作者用蓋房子來說明什麼叫『變簡單』：今天蓋樓是例行公事，靠的是三件事——一批規格統一、隨叫隨到、表現可預期的建材；一套告訴你哪些能怎麼搭的簡單規則；以及懂規則又會動手的人。生物工程缺的正是這一整套。作者因此從成熟工程借來三個想法來補洞：標準化、拆解分工、分層抽象。</p><p>先說標準化。問題是生物界到今天都沒有公認的尺度去描述『一個基本生物零件到底有多強』；同一段 DNA 開關，甲覺得很強、乙可能只覺得普通。更實際的麻煩是：某人做出一個在特定大腸桿菌菌株、特定培養液裡能用的基因開關，另一人做出一個在不同菌株、不同培養液裡能用、會規律開關的基因振盪器，想把兩者直接拼成新系統會不會成功？答案是『不知道，這又得當成一個研究題目』，光查清楚背景條件就得花掉半小時。作者舉了一個早期嘗試：一個開放共享的『標準生物零件登錄庫』(Registry of Standard Biological Parts)，任何人都能把基本功能零件放進去、取用或改良。</p><p>接著是拆解分工：把複雜問題切成能各自獨立處理、最後再拼回去的小問題；在生物工程裡最直接的一種，是把『設計基因』和『製造 DNA』分開。這之所以可行，是因為 DNA 合成——直接用機器把設計好的基因序列一段段印出來——這幾年又快又便宜：產能大約每一年半翻一倍，長片段價格每年大約砍半。於是有人專心設計、有人專心製造，各自精通一塊就好。</p><p>最後是分層抽象。作者把生物系統分成四層：最底下是 DNA，往上是『零件』（單一基本功能，例如一段會抓住 DNA 的蛋白質），再把零件組成有特定用途的『裝置』，最後組成『系統』。關鍵是每層的人都能只專心自己這層，不必管別層細節，就像寫軟體不必懂電晶體物理。除了分層，作者也主張把天然零件重新改造得更乾淨：因為天然零件拼起來常出意外，例如兩段 DNA 交界處的 RNA 會自己折疊打結、擋住製造蛋白質的機器，讓強零件失靈；改造乾淨後，組裝結果才更好預測。</p><p>不過作者誠實點出第四個挑戰——演化，是過去工程經驗都幫不上忙的。手機、汽車都是用壞就丟、不會自己生下一代的拋棄式產品；但生物本質上是『會自我複製、而且複製時會出錯的機器』，精心設計的系統繁殖幾代後可能自己變異、走樣。目前還沒有實用理論能教我們設計會可靠複製的生物機器，退一步的備案是把系統做成不靠繁殖、用完即丟。</p><p>最後談到這些技術與生物風險的關係。DNA 合成是一把雙面刃：曾被用來復活 1918 年的流感病毒，理論上也能照公開序列造出天花病毒；但同一技術在新威脅出現時也能快速分析病原、合成疫苗，而且它最大量的用途其實是加速日常正當研究、讓效率翻倍。作者因此主張，想靠封鎖技術求安全只會拖垮研究；真正的安全來自能偵測、理解並即時回應風險的能力，以及由政治領導凝聚一個開放、負責任的全球社群。</p><p>不過要記得，這整篇是作者在 2005 年提出的觀點與研究議程，他自己也坦言這三個想法和它們的優先順序都可能是錯的，並鼓勵別人提出更好的版本。</p></div></details><details class="version c-summary"><summary><span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">vote 4</span></span></summary><div class="panel-body"><div class="main-line">作者想解決一個矛盾：人類早就能用改造過的生物做很多事，但要『從頭設計並組裝出一個照預期運作的活體系統』卻仍然又慢、又貴、又靠運氣。他主張真正的瓶頸不是『生物太複雜、我們不夠懂』，而是我們從沒打造出讓這件事變簡單的基礎技術。於是他從蓋房子、做電子這些成熟工程借來三個老想法——標準化、分工拆解、分層抽象——再點出生物獨有、過去工程沒面對過的第四個難題『演化』，最後討論這些技術帶來的好處與生物安全風險。</div><p>作者 Drew Endy 想問一個矛盾：為什麼『設計並組裝出一個照預期運作的活細胞系統』，到今天還是又慢又貴又不可靠？他用一個對比點出這份痛苦：在電子工程裡，任何一個還算稱職的學生，一小時內就能做出好幾個能運作的環形震盪器（一種會規律在開和關之間來回切換的電路）；可是在生物學裡，要讓細菌體內出現第一個同樣概念的基因版震盪器，卻花了兩位世界頂尖科學家至少一整年。這門把 DNA 當成寫給細胞的程式、再照著組裝出新功能活體系統的學問，就叫合成生物學 (synthetic biology)。</p><p>那為什麼這麼難？一種常見的解釋是『我們還不夠懂生物、生物也太複雜』。但作者提出另一個更關鍵的看法：生物工程之所以一直停留在『做研究』的階段，是因為我們從來沒有打造出讓它變簡單的基礎技術 (foundational technologies)。換句話說，它複雜，是因為我們還沒把它變簡單。作者也坦承，這套想法和它的排序未必正確；與其空想生物是不是太難，不如動手試著把它變簡單，就算失敗，也會清楚照出我們對生命的理解到底缺在哪裡。</p><p>作者從蓋房子、做電子這些成熟工程借來三個老想法。第一個是標準化 (standardization)。蓋房子之所以可靠，是因為有一批規格固定、隨叫隨到、行為可預期的材料；生物工程卻連最基本的零件都沒有統一標準。甲的『強力』零件在乙手上可能只是普通貨，甚至光是要查清楚某個基因開關是在哪一株大腸桿菌、用哪種培養液裡測出來的，就得花上半小時。為了解決這件事，社群建立了一個公開的『標準生物零件登錄庫 (Registry of Standard Biological Parts)』，任何人都能從裡面取用、貢獻或改良這些代表基本生物功能的積木。</p><p>第二個想法是分工拆解 (decoupling)，也就是把一個大難題切成好幾個能各自獨立進行、最後再拼起來的小問題。最直接的一種分工，是把『設計 DNA 要長什麼樣』和『實際把 DNA 做出來』這兩件事分開。這件事之所以現在才變可行，是因為直接用化學方法把指定的 DNA 序列『印』出來的技術（DNA 合成）正在飛快變便宜：合成能力大約每一年半就翻倍，長片段的價格每年大約砍半。於是一群人可以專心設計 DNA，另一群人專心把 DNA 做出來，各自只需要精通自己那一段。</p><p>第三個想法是分層隱藏細節 (abstraction)。作者把生物系統的資訊由簡到繁分成四層：最底下是 DNA（遺傳物質本身），往上是『零件 (parts)』（單一的基本生物功能，例如一段會抓住 DNA 的蛋白質），再往上是『裝置』（好幾個零件組起來完成一件人想要的功能），最上面是『系統』（好幾個裝置再組起來）。分層的重點在於，每一層的人都能只專心做自己這一層，不必懂其他層的細節。作者還提醒，自然界的零件往往彼此牽連、行為難以預測：比方把兩個零件接在一起時，接縫處的 RNA 有時會自己折成一個形狀，擋住負責製造蛋白質的那部機器，讓原本很強的零件發不動——所以可能得先把它們重新改造過，才會更好預測、也更容易互相搭配。</p><p>前三個想法都有成熟工程的經驗可借，但生物還有第四個挑戰，是過去工程從沒真正面對過的：演化。我們的電腦和汽車不會自己生出下一代，壞了就丟掉；但生物系統是『會自我複製、而且複製時會出錯的機器』。這代表你設計好的系統，可能在一代代繁殖中慢慢變質。目前還沒有一套實用的理論能告訴我們，怎麼設計出會繁殖又不會跑掉的生物系統。作者說，萬一真的學不會，而 DNA 合成又夠便宜，一個退路就是乾脆設計『用完即丟、不靠自我繁殖』的生物系統。</p><p>如果這些基礎技術真的做成了，好處是連沒受過生物訓練的大學生甚至高中生，只要幾週就能用現成的標準零件設計出自己的活體系統、訂購 DNA，並讓它真的動起來。但作者也誠實面對風險：同一套便宜的 DNA 合成技術，已經被用來『復活』1918 年的流感病毒，理論上也能做出天花之類的危險病原。不過他主張，封鎖這種技術只會重創正當研究、卻擋不住有心人；真正的安全要靠能快速偵測、理解並回應生物威脅的能力，而不是限制技術本身。他最後強調，這些基礎技術終究會廣泛流傳、難以圍堵，因此更需要有遠見的領導，把整個社群引導到建設性的方向上。</p></div></details><div class="layer-title">技術及材料</div><div class="module-block c-m1"><p class="module-thesis"><strong>主題一：標準生物元件登錄庫與 BioBrick 開放共享</strong><br>建立一個<a class="hl hl-m1" id="sum-h-method_m1-001" data-id="h-method_m1-001" data-targets="h-method_m1-003-a">開放、免費</a>、<a class="hl hl-m1" id="sum-h-method_m1-002" data-id="h-method_m1-002" data-targets="h-l1-036-a">人人皆可貢獻與取用</a>的<a class="hl hl-m1" id="sum-h-method_m1-003" data-id="h-method_m1-003" data-targets="h-method_m1-003-a">「基礎生物功能（Parts）」實體共享庫</a>，<a class="hl hl-m1" id="sum-h-method_m1-004" data-id="h-method_m1-004" data-targets="h-method_m1-004-a">讓合成生物系統能像查元件型錄般以標準化零件組裝</a>，並<a class="hl hl-m1" id="sum-h-method_m1-005" data-id="h-method_m1-005" data-targets="h-method_m1-005-a">以新的低/零成本法律策略</a><a class="hl hl-m1" id="sum-h-method_m1-006" data-id="h-method_m1-006" data-targets="h-method_m1-006-a h-method_m1-006-b">取代耗時數週的材料轉移流程</a>。</p><details class="version c-m1"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>摘要已經提過<a class="hl hl-m1" id="sum-h-method_m1-007" data-id="h-method_m1-007" data-targets="h-l1-035-a">標準生物元件登錄庫 (Registry of Standard Biological Parts)</a>，這裡要補的是它「為什麼是一個庫」。<a class="hl hl-m1" id="sum-h-method_m1-008" data-id="h-method_m1-008" data-targets="h-method_m1-003-a">它是一個開放、免費的共享庫 (open commons)</a>：<a class="hl hl-m1" id="sum-h-method_m1-009" data-id="h-method_m1-009" data-targets="h-l1-036-a">任何人都能把自己做好的零件放進去、從裡面拿零件來用、或改良別人的零件</a>。跟論文附錄只給一段序列的描述不同，<a class="hl hl-m1" id="sum-h-method_m1-011" data-id="h-method_m1-011" data-targets="h-method_m1-003-a">共享庫給你的是一個能直接取用</a>、而且<a class="hl hl-m1" id="sum-h-method_m1-012" data-id="h-method_m1-012" data-targets="h-method_m1-012-a">附帶別人量測過的行為資料的零件</a>，就像電子材料型錄——查一個料號就知道規格、也能直接下單。<a class="hl hl-m1" id="sum-h-method_m1-014" data-id="h-method_m1-014" data-targets="h-method_m1-014-a">這批標準元件最早公開的一套叫 BioBrick</a>，<a class="hl hl-m1" id="sum-h-method_m1-015" data-id="h-method_m1-015" data-targets="h-method_m1-015-a">由 Knight 在 2002 年的一份 MIT 報告釋出</a>，可視為登錄庫的起點；<a class="hl hl-m1" id="sum-h-method_m1-017" data-id="h-method_m1-017" data-targets="h-method_m1-017-a">它的精神是把零件都做成同一套規格，讓任兩個零件都能以一致的方式拼接</a>。<a class="hl hl-m1" id="sum-h-method_m1-018" data-id="h-method_m1-018" data-targets="h-l1-001-a">共享庫之所以能讓設計變簡單</a>，靠的是<a class="hl hl-m1" id="sum-h-method_m1-019" data-id="h-method_m1-019" data-targets="h-l1-036-a">「貢獻一次、重用無數次」的累積機制</a>：<a class="hl hl-m1" id="sum-h-method_m1-020" data-id="h-method_m1-020" data-targets="h-method_m1-012-a">一個零件只要有人做好、量過一次行為、放進庫裡</a>，<a class="hl hl-m1" id="sum-h-method_m1-021" data-id="h-method_m1-021" data-targets="h-method_m1-017-a">後面所有人就能直接拿去組，不必從頭摸索</a>，<a class="hl hl-m1" id="sum-h-method_m1-022" data-id="h-method_m1-022" data-targets="h-method_m1-012-a">動手前還能憑特性化資料大致預期結果</a>。</p><p>不過，<a class="hl hl-m1" id="sum-h-method_m1-023" data-id="h-method_m1-023" data-targets="h-method_m1-023-a">讓這個庫真正運轉起來還缺一塊法律拼圖</a>。<a class="hl hl-m1" id="sum-h-method_m1-024" data-id="h-method_m1-024" data-targets="h-method_m1-024-a">傳統上不同機構要分享一段生物材料</a>，<a class="hl hl-m1" id="sum-h-method_m1-025" data-id="h-method_m1-025" data-targets="h-method_m1-006-a">得先簽一份叫材料轉移協議 (Materials Transfer Agreement, MTA) 的法律合約</a>，麻煩在於<a class="hl hl-m1" id="sum-h-method_m1-026" data-id="h-method_m1-026" data-targets="h-method_m1-006-b">它常要跑好幾週才簽得完</a>，而且<a class="hl hl-m1" id="sum-h-method_m1-027" data-id="h-method_m1-027" data-targets="h-method_m1-027-a">簽完往往還講不清楚你拿去能用來做什麼</a>。作者指出一條更快的路：<a class="hl hl-m1" id="sum-h-method_m1-028" data-id="h-method_m1-028" data-targets="h-method_m1-028-a">只要零件的 DNA 序列是公開的</a>，<a class="hl hl-m1" id="sum-h-method_m1-029" data-id="h-method_m1-029" data-targets="h-method_m1-032-a">就不必跟對方借實體材料，直接請商業的基因合成 (gene synthesis) 服務照序列把這段 DNA 從頭做出來即可</a>——<a class="hl hl-m1" id="sum-h-method_m1-030" data-id="h-method_m1-030" data-targets="h-l1-042-a">目前商用服務已能一次做出約 10,000 個鹼基對 (~10,000 bp) 的片段</a>，足以涵蓋多數零件，而且<a class="hl hl-m1" id="sum-h-method_m1-032" data-id="h-method_m1-032" data-targets="h-method_m1-032-a">往往比跑完一份 MTA 更便宜也更快</a>，<a class="hl hl-m1" id="sum-h-method_m1-033" data-id="h-method_m1-033" data-targets="h-method_m1-005-a">所以作者主張發展低成本或零成本的新法律策略</a>。除了法律，<a class="hl hl-m1" id="sum-h-method_m1-034" data-id="h-method_m1-034" data-targets="h-method_m7-002-a">他也認為社群該替工程化的 DNA 加上三種標記</a>：<a class="hl hl-m1" id="sum-h-method_m1-035" data-id="h-method_m1-035" data-targets="h-method_m7-002-a">條碼 (barcoding) 用來偵測這段 DNA 存不存在、簽章 (signing) 用來辨識它是誰做的、浮水印 (watermarking) 用來認證它是不是正版</a>，好在這個人人可貢獻、人人可取用的開放環境裡<a class="hl hl-m1" id="sum-h-method_m1-036" data-id="h-method_m1-036" data-targets="h-method_m7-002-a">仍追得出每段 DNA 的來歷與真偽</a>。</p><p>反過來看，<a class="hl hl-m1" id="sum-h-method_m1-037" data-id="h-method_m1-037" data-targets="h-method_m1-037-a">沒有這套共享與法律標準，生物工程會卡在三個地方</a>。<a class="hl hl-m1" id="sum-h-method_m1-038" data-id="h-method_m1-038" data-targets="h-method_m1-006-b">想用別人的零件，得先簽一份要跑好幾週的材料轉移協議，光等合約就拖垮進度</a>；<a class="hl hl-m1" id="sum-h-method_m1-039" data-id="h-method_m1-039" data-targets="h-l1-034-a">就算拿到零件，也因為缺乏統一規格與特性化資料</a>，<a class="hl hl-m1" id="sum-h-method_m1-040" data-id="h-method_m1-040" data-targets="h-l1-033-a">光查清楚它當初是在什麼條件下測的就得耗掉大把時間</a>，<a class="hl hl-m1" id="sum-h-method_m1-041" data-id="h-method_m1-041" data-targets="h-method_m1-041-a">每個新組合都變成一個新研究題目</a>；而零件散落在各實驗室、各篇論文裡，無法累積成愈來愈大的公共資產，<a class="hl hl-m1" id="sum-h-method_m1-043" data-id="h-method_m1-043" data-targets="h-method_m1-043-a">於是每個人都在重造輪子</a>。</p></div></details><details class="version c-m1"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>Registry of Standard Biological Parts</strong>：開放、免費的基礎生物功能零件共享庫（由 MIT 代管），任何人皆可貢獻、取用或改良，並附帶零件的特性化資料。</li><li><strong>BioBrick</strong>：最早公開發佈的一套標準元件（Knight 2002），是登錄庫的起點，精神是讓零件以同一套規格互相拼接。</li><li><strong>open commons（開放共享庫）</strong>：貢獻一次、重用無數次的公共零件池，讓設計從零開始的研究變成查型錄式的組裝。</li><li><strong>Materials Transfer Agreement (MTA)</strong>：機構間分享生物材料的法律合約，常需數週才能執行完成，且往往不釐清應用權。</li><li><strong>gene synthesis（直接化學合成）</strong>：照公開序列從頭做 DNA 的商業服務，一次可合成約 10,000 bp，序列公開時常比 MTA 更快更便宜。</li><li><strong>barcoding / signing / watermarking</strong>：替工程化 DNA 加上偵測、辨識、認證三種標記，支援在開放環境中追蹤來歷與真偽。</li></ul></div></details></div><div class="module-block c-m2"><p class="module-thesis"><strong>主題二：DNA 化學合成與寡核苷酸自動組裝</strong><br>透過<a class="hl hl-m2" id="sum-h-method_m2-001" data-id="h-method_m2-001" data-targets="h-l1-044-a">持續降價</a>、且能<a class="hl hl-m2" id="sum-h-method_m2-002" data-id="h-method_m2-002" data-targets="h-method_m2-016-a h-method_m5-030-a">自動把寡核苷酸與短片段組裝成長片段 DNA</a> 的化學合成技術，<a class="hl hl-m2" id="sum-h-method_m2-003" data-id="h-method_m2-003" data-targets="h-method_m2-026-a">把「取得實驗所需基因材料」</a><a class="hl hl-m2" id="sum-h-method_m2-004" data-id="h-method_m2-004" data-targets="h-method_m2-026-a">從佔研究者約一半心力的瓶頸</a>，<a class="hl hl-m2" id="sum-h-method_m2-005" data-id="h-method_m2-005" data-targets="h-l1-042-a">轉變成可隨需下單的商品</a>。</p><details class="version c-m2"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>摘要說 <a class="hl hl-m2" id="sum-h-method_m2-006" data-id="h-method_m2-006" data-targets="h-method_m6-009-a">DNA 合成是「照序列把 DNA 一段段做出來」</a>，這裡補它實際怎麼運作。<a class="hl hl-m2" id="sum-h-method_m2-007" data-id="h-method_m2-007" data-targets="h-l1-042-a">化學合成是用純化學反應</a>、一次只接上一個鹼基，像串珠子一樣把 DNA 一顆一顆接出來（<a class="hl hl-m2" id="sum-h-method_m2-009" data-id="h-method_m2-009" data-targets="h-method_m5-030-a">底層反應叫 phosphoramidite chemistry</a>），不需要活細胞或天然模板。但這套反應每一步都不是百分之百成功，接得愈長錯誤愈容易累積，所以它只在「短片段」這個長度內準確可信——<a class="hl hl-m2" id="sum-h-method_m2-013" data-id="h-method_m2-013" data-targets="h-method_m5-030-a h-method_m2-016-a">做出來的是短的單股 DNA，業界叫寡核苷酸 (oligonucleotide)</a>。<a class="hl hl-m2" id="sum-h-method_m2-014" data-id="h-method_m2-014" data-targets="h-method_m2-016-a">要得到一整個基因那麼長的 DNA</a>，<a class="hl hl-m2" id="sum-h-method_m2-015" data-id="h-method_m2-015" data-targets="h-method_m5-030-a">就得先大量做短片段、再精準組裝</a>。<a class="hl hl-m2" id="sum-h-method_m2-016" data-id="h-method_m2-016" data-targets="h-method_m2-016-a">作者引了三項讓這步自動化的技術</a>：<a class="hl hl-m2" id="sum-h-method_m2-017" data-id="h-method_m2-017" data-targets="h-method_m2-017-a">一步把大量短片段拼成整個基因甚至整個質體 (Stemmer et al. 1995)</a>、<a class="hl hl-m2" id="sum-h-method_m2-018" data-id="h-method_m2-018" data-targets="h-method_m2-018-a">用可程式化的 DNA 微晶片一次精確合成大量片段 (Tian et al. 2004)</a>、<a class="hl hl-m2" id="sum-h-method_m2-019" data-id="h-method_m2-019" data-targets="h-method_m2-019-a">把病毒那麼大的基因組有系統地一段段組起來 (Yount et al. 2000，以 TGEV 冠狀病毒為模型)</a>。<a class="hl hl-m2" id="sum-h-method_m2-020" data-id="h-method_m2-020" data-targets="h-method_m2-016-a">重點是這些組裝都能自動跑</a>，<a class="hl hl-m2" id="sum-h-method_m2-021" data-id="h-method_m2-021" data-targets="h-method_m2-021-a">使用者只要給序列就好</a>。</p><p>摘要已提過那條「<a class="hl hl-m2" id="sum-h-method_m2-022" data-id="h-method_m2-022" data-targets="h-l1-043-a">產能約每 18 個月翻倍</a>、<a class="hl hl-m2" id="sum-h-method_m2-023" data-id="h-method_m2-023" data-targets="h-l1-044-a">長片段（超過 500 個鹼基對）價格幾乎每年腰斬</a>」的降價曲線，作者真正的重點是它的後果：<a class="hl hl-m2" id="sum-h-method_m2-024" data-id="h-method_m2-024" data-targets="h-method_m2-016-a">當降價再配上「只要給序列就自動組裝出長片段」的能力</a>，<a class="hl hl-m2" id="sum-h-method_m2-025" data-id="h-method_m2-025" data-targets="h-method_m2-026-a h-l1-042-a">取得實驗用的基因材料就從一件苦差事變成上網下單的商品</a>。他用一個很具體的數字說明影響有多大——<a class="hl hl-m2" id="sum-h-method_m2-026" data-id="h-method_m2-026" data-targets="h-method_m2-026-a">現在的實驗生物學家約有一半心力其實都耗在「弄 DNA」以取得材料上</a>；<a class="hl hl-m2" id="sum-h-method_m2-027" data-id="h-method_m2-027" data-targets="h-method_m2-027-a">若 DNA 合成能做到隨叫隨到，整體研究生產力大約可以翻倍</a>。</p><p>要看出自動組裝有多關鍵，只要想像少了它會怎樣：<a class="hl hl-m2" id="sum-h-method_m2-028" data-id="h-method_m2-028" data-targets="h-method_m5-030-a">如果只能做短的寡核苷酸</a>、<a class="hl hl-m2" id="sum-h-method_m2-029" data-id="h-method_m2-029" data-targets="h-method_m2-016-a">沒有自動接成長片段的技術</a>，手上就永遠只有一堆零碎的短 DNA，<a class="hl hl-m2" id="sum-h-method_m2-031" data-id="h-method_m2-031" data-targets="h-method_m2-017-a">拼不出一整個基因或質體</a>。研究者只能回到用限制酶剪剪貼貼、一段段手工接的老路，<a class="hl hl-m2" id="sum-h-method_m2-033" data-id="h-method_m2-033" data-targets="h-method_m2-026-a">那個「一半心力耗在弄 DNA」的瓶頸原封不動</a>；而且<a class="hl hl-m2" id="sum-h-method_m2-034" data-id="h-method_m2-034" data-targets="h-l1-041-a">後面要談的「把設計和製造分開」也做不成</a>，<a class="hl hl-m2" id="sum-h-method_m2-035" data-id="h-method_m2-035" data-targets="h-l1-045-a">因為製造端根本交不出一段照設計長出來的完整 DNA</a>。</p></div></details><details class="version c-m2"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>oligonucleotide（寡核苷酸）</strong>：化學合成直接做出的短單股 DNA 片段，是組裝長片段的基本原料。</li><li><strong>phosphoramidite chemistry</strong>：一次接一個鹼基、像串珠子般做出 DNA 的底層化學反應；每步非百分之百成功，故只適合短片段。</li><li><strong>single-step assembly（Stemmer 1995）</strong>：一步就把大量短片段拼成完整基因甚至整個質體的組裝技術。</li><li><strong>programmable DNA microchip（Tian 2004）</strong>：用可程式化微晶片一次精確合成大量片段再組裝的多工基因合成法。</li><li><strong>TGEV genome assembly（Yount 2000）</strong>：以 TGEV 冠狀病毒為模型，把病毒那麼大的基因組有系統地一段段組起來的策略。</li><li><strong>on-demand commodity（隨需下單）</strong>：降價加自動組裝後，取得基因材料從苦差事變成上網下單即得的商品。</li></ul></div></details></div><div class="module-block c-m3"><p class="module-thesis"><strong>主題三：生物元件精煉與 ORF 密碼子重排</strong><br><a class="hl hl-m3" id="sum-h-method_m3-001" data-id="h-method_m3-001" data-targets="h-l1-055-a">把天然生物元件重新設計並建造成更易建模、更易組合的工程元件</a>——例如<a class="hl hl-m3" id="sum-h-method_m3-002" data-id="h-method_m3-002" data-targets="h-method_m3-002-a">統一 RBS–ORF 接面</a>、<a class="hl hl-m3" id="sum-h-method_m3-003" data-id="h-method_m3-003" data-targets="h-method_m3-003-a h-method_m3-003-b">以密碼子重排抹除隱藏的調控訊號</a>——<a class="hl hl-m3" id="sum-h-method_m3-004" data-id="h-method_m3-004" data-targets="h-method_m3-002-a">以提升「零件組合後功能表現」的可預測性</a>。</p><details class="version c-m3"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>所謂精煉生物元件，<a class="hl hl-m3" id="sum-h-method_m3-005" data-id="h-method_m3-005" data-targets="h-method_m3-003-b">問題根源在天然零件身上藏著「沒打算要的附加訊號」</a>。摘要提過的<a class="hl hl-m3" id="sum-h-method_m3-006" data-id="h-method_m3-006" data-targets="h-l1-058-a">核糖體結合位 (ribosome binding site)、啟動子、加上一段編碼蛋白的序列</a>，三者各自好好的，<a class="hl hl-m3" id="sum-h-method_m3-007" data-id="h-method_m3-007" data-targets="h-method_m5-005-a">一旦拼成新組合，做出多少蛋白卻常常很難預測</a>。<a class="hl hl-m3" id="sum-h-method_m3-008" data-id="h-method_m3-008" data-targets="h-l1-055-a">精煉就是把天然零件重新設計、重新建造一遍</a>，<a class="hl hl-m3" id="sum-h-method_m3-009" data-id="h-method_m3-009" data-targets="h-l1-055-a">讓它們更好用模型預測、也更好搭配</a>，而不是照搬野生型。<a class="hl hl-m3" id="sum-h-method_m3-010" data-id="h-method_m3-010" data-targets="h-method_m3-003-a">其中一招叫密碼子重排 (codon shuffling)</a>：利用「同一個胺基酸往往有好幾組密碼都能對應」這個事實，把編碼區的密碼換成意思一樣的另一組——翻譯出來的蛋白質一模一樣，但底層序列被換掉，藉此<a class="hl hl-m3" id="sum-h-method_m3-014" data-id="h-method_m3-014" data-targets="h-method_m3-003-b">把偷偷藏在序列裡的調控訊號 (cryptic regulatory elements) 洗掉</a>，並<a class="hl hl-m3" id="sum-h-method_m3-015" data-id="h-method_m3-015" data-targets="h-method_m3-003-b">讓每段編碼區折出的 mRNA 形狀趨於一致、好預測</a>。</p><p>接面為什麼會出事，值得把機制講透。<a class="hl hl-m3" id="sum-h-method_m3-016" data-id="h-method_m3-016" data-targets="h-l1-059-a">細胞要照 mRNA 做蛋白，得先讓核糖體停靠在核糖體結合位上開工</a>；但 <a class="hl hl-m3" id="sum-h-method_m3-017" data-id="h-method_m3-017" data-targets="h-l1-059-a">mRNA 是單股、會自己折成立體形狀</a>，當核糖體結合位和後面的編碼區拼成某個特定組合時，<a class="hl hl-m3" id="sum-h-method_m3-018" data-id="h-method_m3-018" data-targets="h-l1-059-a">交接的那一段 (part–part junction) 可能剛好折出一個結構</a>，<a class="hl hl-m3" id="sum-h-method_m3-019" data-id="h-method_m3-019" data-targets="h-l1-059-a">把核糖體要停靠的地方包起來、擋住它上工</a>。於是<a class="hl hl-m3" id="sum-h-method_m3-020" data-id="h-method_m3-020" data-targets="h-l1-060-a">一個單看很強的核糖體結合位，拼到某些編碼區後面就發不動</a>——強弱不是它自己決定的，而是被接面的摺疊綁架了。密碼子重排正是對症下藥：<a class="hl hl-m3" id="sum-h-method_m3-021" data-id="h-method_m3-021" data-targets="h-method_m3-021-a">研究發現細菌編碼區普遍帶著對局部 RNA 摺疊的偏好與隱藏訊號 (Katz &amp; Burge 2003)</a>，既然蛋白不變還能換序列，<a class="hl hl-m3" id="sum-h-method_m3-022" data-id="h-method_m3-022" data-targets="h-method_m3-003-a">就用重排把這些會亂折的密碼攤平</a>，<a class="hl hl-m3" id="sum-h-method_m3-023" data-id="h-method_m3-023" data-targets="h-method_m3-003-b">讓每段編碼區都提供共通、可預期的摺疊底</a>，<a class="hl hl-m3" id="sum-h-method_m3-024" data-id="h-method_m3-024" data-targets="h-method_m3-002-a">接面不再隨機長出擋路結構，核糖體結合位才能說多強就多強</a>。</p><p>為什麼值得費工重建天然零件而不直接用野生型？作者給了兩個類比。其一，<a class="hl hl-m3" id="sum-h-method_m3-025" data-id="h-method_m3-025" data-targets="h-method_m3-026-a h-method_m3-025-b">自然界本來就會主動淘汰那些亂黏、會惹麻煩的分子交互作用 (negative selection, Zarrinpar, Park &amp; Lim 2003)</a>，<a class="hl hl-m3" id="sum-h-method_m3-026" data-id="h-method_m3-026" data-targets="h-method_m3-026-a">精煉零件等於人工做同一件事——把互相干擾的雜訊挑掉</a>。其二，<a class="hl hl-m3" id="sum-h-method_m3-027" data-id="h-method_m3-027" data-targets="h-method_m3-027-a">別的工程領域本來就要先加工原料</a>：<a class="hl hl-m3" id="sum-h-method_m3-028" data-id="h-method_m3-028" data-targets="h-method_m3-028-a">微處理器不是拿路邊撿來的金屬塊直接做的</a>。把這套思路推到極致，就是<a class="hl hl-m3" id="sum-h-method_m3-029" data-id="h-method_m3-029" data-targets="h-method_m3-029-a">整段重寫一個天然系統、再建造行為更乾淨的版本（refactoring，作者團隊的 Refactoring bacteriophage T7 即是示範）</a>。精煉的目的不是改功能，而是<a class="hl hl-m3" id="sum-h-method_m3-030" data-id="h-method_m3-030" data-targets="h-l1-055-a">把天然零件變成行為可預測、彼此好搭的工程零件</a>。</p><p>反過來說，不精煉、直接沿用天然零件來組裝，<a class="hl hl-m3" id="sum-h-method_m3-031" data-id="h-method_m3-031" data-targets="h-method_m5-005-a">每換一種組合就得重測一次做出多少蛋白</a>，<a class="hl hl-m3" id="sum-h-method_m3-032" data-id="h-method_m3-032" data-targets="h-l1-059-a">因為接面會不會長出擋路結構無法事先知道</a>。<a class="hl hl-m3" id="sum-h-method_m3-033" data-id="h-method_m3-033" data-targets="h-l1-060-a">一個帳面上很強的零件可能悄悄失效</a>，你卻查不出是哪裡出錯。更糟的是，<a class="hl hl-m3" id="sum-h-method_m3-034" data-id="h-method_m3-034" data-targets="h-method_m5-005-a">組合後的行為既無法建模也無法預測</a>，每次組裝都淪為試誤——這正好把前面想建立的標準化與抽象化架空了，<a class="hl hl-m3" id="sum-h-method_m3-037" data-id="h-method_m3-037" data-targets="h-method_m3-037-a">因為零件不再行為如預期</a>。</p></div></details><details class="version c-m3"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>open reading frame (ORF)</strong>：會被翻譯成蛋白質的那段編碼區序列。</li><li><strong>codon shuffling（密碼子重排）</strong>：把編碼區的密碼換成同義的另一組，蛋白不變但序列改掉，用來抹除隱藏訊號、統一 mRNA 摺疊。</li><li><strong>cryptic regulatory elements</strong>：偷偷藏在序列裡、並非設計者要的調控訊號，會讓組合後表現難以預測。</li><li><strong>part–part junction（接面）</strong>：兩個零件交接的那一段；其 mRNA 可能折出結構擋住核糖體，使強零件失效。</li><li><strong>mRNA secondary structure</strong>：單股 mRNA 自己折出的立體形狀，會遮住核糖體結合位、影響轉譯。</li><li><strong>negative selection</strong>：自然界主動淘汰亂黏、有害的分子交互作用；精煉零件等於人工做同一件事。</li><li><strong>refactoring（Refactoring bacteriophage T7）</strong>：整段重寫一個天然系統、再造行為更乾淨版本的理念與示範。</li></ul></div></details></div><div class="module-block c-m4"><p class="module-thesis"><strong>主題四：合成轉錄因子的分子工程（鋅指–亮胺酸拉鍊嵌合體）</strong><br><a class="hl hl-m4" id="sum-h-method_m4-001" data-id="h-method_m4-001" data-targets="h-method_m4-001-a">以 zinc-finger–leucine-zipper 嵌合體為骨架</a>，<a class="hl hl-m4" id="sum-h-method_m4-002" data-id="h-method_m4-002" data-targets="h-method_m4-002-a">工程化出上千個</a><a class="hl hl-m4" id="sum-h-method_m4-003" data-id="h-method_m4-003" data-targets="h-method_m4-003-a">各自以極高專一性辨識獨特 DNA 位點的合成轉錄因子</a>，<a class="hl hl-m4" id="sum-h-method_m4-004" data-id="h-method_m4-004" data-targets="h-method_m4-028-a">作為可大量重用的標準訊號元件庫</a>。</p><details class="version c-m4"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m4" id="sum-h-method_m4-005" data-id="h-method_m4-005" data-targets="h-method_m5-005-a">轉錄因子 (transcription factor) 是一種會「貼」到特定 DNA 位置</a>、藉此把附近基因打開或關掉的蛋白質，等於細胞裡的一個開關。<a class="hl hl-m4" id="sum-h-method_m4-008" data-id="h-method_m4-008" data-targets="h-method_m5-005-a">摘要用過「一段會抓住 DNA 的蛋白質」當零件的例子</a>，這裡講的是它的進階版：<a class="hl hl-m4" id="sum-h-method_m4-009" data-id="h-method_m4-009" data-targets="h-method_m4-002-a">合成轉錄因子是人工設計</a>、<a class="hl hl-m4" id="sum-h-method_m4-010" data-id="h-method_m4-010" data-targets="h-method_m4-003-a">讓它去認「你指定的那一段 DNA」的開關</a>，<a class="hl hl-m4" id="sum-h-method_m4-011" data-id="h-method_m4-011" data-targets="h-method_m4-028-a">做得出一整組就等於手上有一整組可隨意接線的控制訊號</a>。<a class="hl hl-m4" id="sum-h-method_m4-012" data-id="h-method_m4-012" data-targets="h-method_m4-001-a">作者用的骨架是把兩個現成蛋白零件縫成一條（所以叫嵌合體，chimaera）</a>：<a class="hl hl-m4" id="sum-h-method_m4-013" data-id="h-method_m4-013" data-targets="h-method_m4-013-a">前半段是鋅指 (zinc finger)，負責認 DNA</a>——<a class="hl hl-m4" id="sum-h-method_m4-014" data-id="h-method_m4-014" data-targets="h-method_m4-003-a">抓住一小段特定序列</a>；<a class="hl hl-m4" id="sum-h-method_m4-015" data-id="h-method_m4-015" data-targets="h-method_m4-001-a">後半段是亮胺酸拉鍊 (leucine zipper)</a>，<a class="hl hl-m4" id="sum-h-method_m4-016" data-id="h-method_m4-016" data-targets="h-method_m4-025-a">負責讓兩條蛋白像拉鍊一樣扣成一對、成對工作</a>。<a class="hl hl-m4" id="sum-h-method_m4-017" data-id="h-method_m4-017" data-targets="h-method_m5-005-a">縫起來的成品，就是一個「認哪段 DNA 可以由你設計」的 DNA 結合蛋白</a>。</p><p>鋅指怎麼做到只認一個特定位點？<a class="hl hl-m4" id="sum-h-method_m4-018" data-id="h-method_m4-018" data-targets="h-method_m4-013-a">它靠胺基酸伸進 DNA 雙螺旋的溝槽、跟特定鹼基一一對上</a>（<a class="hl hl-m4" id="sum-h-method_m4-019" data-id="h-method_m4-019" data-targets="h-method_m4-013-a">論文 Figure 2 legend 就點出這是胺基酸與 DNA 大溝之間的原子級交互作用</a>）。一個鋅指大約認三個鹼基，<a class="hl hl-m4" id="sum-h-method_m4-021" data-id="h-method_m4-021" data-targets="h-method_m4-003-a">把好幾個鋅指串起來就能認出一段夠長、夠獨特的位點</a>；想改認別段 DNA，只要換掉鋅指、重排接觸點即可，辨識對象就跟著換。<a class="hl hl-m4" id="sum-h-method_m4-023" data-id="h-method_m4-023" data-targets="h-method_m4-025-a">後半段的亮胺酸拉鍊讓兩條這樣的蛋白扣成一對</a>，<a class="hl hl-m4" id="sum-h-method_m4-024" data-id="h-method_m4-024" data-targets="h-method_m4-003-a">把辨識長度再加倍、專一性更高</a>（<a class="hl hl-m4" id="sum-h-method_m4-025" data-id="h-method_m4-025" data-targets="h-method_m4-025-a">結構依據見 Wolfe, Grant &amp; Pabo 2003</a>）。</p><p><a class="hl hl-m4" id="sum-h-method_m4-026" data-id="h-method_m4-026" data-targets="h-method_m4-002-a">為什麼要一次做 1,000 個</a>、<a class="hl hl-m4" id="sum-h-method_m4-027" data-id="h-method_m4-027" data-targets="h-method_m4-003-a">而且各自專一性超過 99%</a>？<a class="hl hl-m4" id="sum-h-method_m4-028" data-id="h-method_m4-028" data-targets="h-method_m4-028-a">因為上層的裝置要能自由組合</a>，<a class="hl hl-m4" id="sum-h-method_m4-029" data-id="h-method_m4-029" data-targets="h-method_m4-028-a">就需要一大批彼此互不干擾的控制訊號</a>。<a class="hl hl-m4" id="sum-h-method_m4-030" data-id="h-method_m4-030" data-targets="h-method_m4-002-a">做出 1,000 個合成轉錄因子</a>、<a class="hl hl-m4" id="sum-h-method_m4-031" data-id="h-method_m4-031" data-targets="h-method_m4-003-a">每個只認自己專屬的一段 DNA (cognate DNA binding site) 且專一性超過 99%</a>，<a class="hl hl-m4" id="sum-h-method_m4-032" data-id="h-method_m4-032" data-targets="h-method_m4-002-a">等於一口氣備好 1,000 條獨立訊號線</a>，接哪條都不會誤觸別條——<a class="hl hl-m4" id="sum-h-method_m4-034" data-id="h-method_m4-034" data-targets="h-method_m4-028-a">這正是上層裝置重複組合所需的共通訊號載體 (common signal carriers)</a>。<a class="hl hl-m4" id="sum-h-method_m4-035" data-id="h-method_m4-035" data-targets="h-method_m4-028-a">有夠多、夠乾淨的標準訊號</a>，<a class="hl hl-m4" id="sum-h-method_m4-036" data-id="h-method_m4-036" data-targets="h-method_m3-037-a">才組得出複雜系統</a>，<a class="hl hl-m4" id="sum-h-method_m4-037" data-id="h-method_m4-037" data-targets="h-method_m4-037-a">所以作者把它列為抽象階層背後一個艱鉅的分子工程挑戰</a>。</p><p><a class="hl hl-m4" id="sum-h-method_m4-038" data-id="h-method_m4-038" data-targets="h-method_m4-003-a">那個「超過 99%」的門檻不是吹毛求疵</a>。如果專一性不夠就會串訊：本來只該去開 A 基因的轉錄因子，也跑去貼上 B 的位點，把不該動的開關也撥了。一旦訊號彼此滲漏，原本各自獨立的模組就會互相干擾，<a class="hl hl-m4" id="sum-h-method_m4-042" data-id="h-method_m4-042" data-targets="h-method_m4-028-a">裝置也沒辦法安心地拼在一起</a>，因為你永遠不確定這個訊號會不會順手誤觸隔壁。<a class="hl hl-m4" id="sum-h-method_m4-044" data-id="h-method_m4-044" data-targets="h-method_m4-028-a">「可大量重用、互不干擾」這個前提整個垮掉</a>，<a class="hl hl-m4" id="sum-h-method_m4-045" data-id="h-method_m4-045" data-targets="h-method_m4-003-a">這正是高專一性之所以是整套構想成敗關鍵的原因</a>。</p></div></details><details class="version c-m4"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>transcription factor（轉錄因子）</strong>：會貼到特定 DNA 位置、把附近基因打開或關掉的蛋白質，等於細胞裡的一個開關。</li><li><strong>zinc finger（鋅指）</strong>：靠胺基酸伸進 DNA 溝槽認鹼基的辨識模組，一指約認三個鹼基，串接即可認更長更獨特的位點。</li><li><strong>leucine zipper（亮胺酸拉鍊）</strong>：讓兩條蛋白像拉鍊般扣成一對的模組，使辨識長度加倍、專一性更高。</li><li><strong>chimaera（嵌合體）</strong>：把鋅指與亮胺酸拉鍊兩種功能縫成同一條蛋白的工程骨架。</li><li><strong>cognate DNA binding site</strong>：每個轉錄因子專屬的那一段 DNA 停靠點。</li><li><strong>&gt;99% specificity</strong>：每個合成轉錄因子辨識自身位點的專一性門檻，是避免訊號串擾的關鍵。</li><li><strong>common signal carriers（共通訊號載體）</strong>：上層裝置能重複組合所需、彼此互不干擾的大批標準控制訊號。</li></ul></div></details></div><div class="module-block c-m5"><p class="module-thesis"><strong>主題五：DNA–元件–裝置–系統 抽象化階層</strong><br><a class="hl hl-m5" id="sum-h-method_m5-001" data-id="h-method_m5-001" data-targets="h-l1-048-a h-method_m5-001-b">建立 DNA → Parts → Devices → Systems 的抽象化階層</a>，<a class="hl hl-m5" id="sum-h-method_m5-002" data-id="h-method_m5-002" data-targets="h-l1-053-a">透過抽象屏障隱藏跨層細節</a>、<a class="hl hl-m5" id="sum-h-method_m5-003" data-id="h-method_m5-003" data-targets="h-l1-053-a h-method_m5-022-a">僅以受控介面交換有限資訊</a>，<a class="hl hl-m5" id="sum-h-method_m5-004" data-id="h-method_m5-004" data-targets="h-method_m5-004-a h-method_m5-022-a">讓不同層級的工程師能各自獨立工作而不必理解他層細節</a>。</p><details class="version c-m5"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>摘要已經帶過 <a class="hl hl-m5" id="sum-h-method_m5-005" data-id="h-method_m5-005" data-targets="h-method_m5-005-a">DNA → 元件 (Parts) → 裝置 (Devices) → 系統 (Systems) 這四層</a>，也提過<a class="hl hl-m5" id="sum-h-method_m5-006" data-id="h-method_m5-006" data-targets="h-l1-053-a">層跟層之間有牆、靠介面往來</a>，這裡把兩者的分工講精準：<a class="hl hl-m5" id="sum-h-method_m5-007" data-id="h-method_m5-007" data-targets="h-l1-053-a">抽象屏障 (abstraction barrier) 是一道把所有跨層細節全擋掉的牆</a>；<a class="hl hl-m5" id="sum-h-method_m5-008" data-id="h-method_m5-008" data-targets="h-l1-053-a h-method_m5-022-a">介面 (interface) 則是牆上開的一個小窗口，只放有限、而且有規矩的資訊通過</a>。一個負責擋、一個負責有節制地放。論文給的例子很具體：<a class="hl hl-m5" id="sum-h-method_m5-009" data-id="h-method_m5-009" data-targets="h-method_m5-009-a">一個在元件層做事的研究者，該知道的是上層裝置想要什麼樣的零件</a>、<a class="hl hl-m5" id="sum-h-method_m5-010" data-id="h-method_m5-010" data-targets="h-method_m5-010-a">這些零件怎麼運作</a>、<a class="hl hl-m5" id="sum-h-method_m5-011" data-id="h-method_m5-011" data-targets="h-method_m2-021-a">以及怎麼下單一段 DNA</a>；但<a class="hl hl-m5" id="sum-h-method_m5-012" data-id="h-method_m5-012" data-targets="h-method_m5-030-a">他完全不需要懂 DNA 是用什麼化學反應 (phosphoramidite chemistry) 一個鹼基一個鹼基接出來的</a>、<a class="hl hl-m5" id="sum-h-method_m5-013" data-id="h-method_m5-013" data-targets="h-method_m5-030-a">短片段怎麼組裝成長片段</a>，<a class="hl hl-m5" id="sum-h-method_m5-014" data-id="h-method_m5-014" data-targets="h-method_m5-030-a">也不需要懂一個基因振盪器怎麼運作</a>——<a class="hl hl-m5" id="sum-h-method_m5-015" data-id="h-method_m5-015" data-targets="h-method_m5-022-a h-l1-053-a">這些屬於別層的細節，被牆擋在他的視線之外</a>。</p><p>為什麼刻意把細節藏起來反而能讓複雜系統做得起來？<a class="hl hl-m5" id="sum-h-method_m5-016" data-id="h-method_m5-016" data-targets="h-l1-047-a h-method_m5-016-b">抽象階層的目的一句話就是隱藏資訊、管理複雜度</a>。<a class="hl hl-m5" id="sum-h-method_m5-017" data-id="h-method_m5-017" data-targets="h-method_m5-022-a">它的機制是替每一層設一個「你最多需要知道這些」的上限</a>——<a class="hl hl-m5" id="sum-h-method_m5-018" data-id="h-method_m5-018" data-targets="h-method_m5-004-a">你只要顧好自己這層</a>，<a class="hl hl-m5" id="sum-h-method_m5-019" data-id="h-method_m5-019" data-targets="h-method_m5-022-a h-l1-053-a">再透過一個很薄的介面跟鄰層打交道就夠了</a>，其餘通通不必裝進腦袋，就像寫軟體的人不必懂電晶體物理。正因為每層要扛的複雜度被封頂，<a class="hl hl-m5" id="sum-h-method_m5-021" data-id="h-method_m5-021" data-targets="h-method_m3-037-a">人才有餘裕去組裝由很多元件構成、還能如預期運作的大系統</a>。</p><p>作者強調<a class="hl hl-m5" id="sum-h-method_m5-022" data-id="h-method_m5-022" data-targets="h-method_m5-022-a">「牆」和「窗口」這兩個條件缺一不可</a>。只有牆、沒有窗口，各層雖互不打擾，卻完全無法協調，拼不成整體；只有自由交換、沒有牆，別層細節又全灌進來，獨立工作的好處就沒了。所以得同時要求：<a class="hl hl-m5" id="sum-h-method_m5-025" data-id="h-method_m5-025" data-targets="h-l1-053-a">屏障把不相干的細節擋乾淨</a>，<a class="hl hl-m5" id="sum-h-method_m5-026" data-id="h-method_m5-026" data-targets="h-l1-053-a h-method_m5-022-a">介面只放彼此真正需要對接的那一點資訊</a>。一個具體要求是，<a class="hl hl-m5" id="sum-h-method_m5-027" data-id="h-method_m5-027" data-targets="h-method_m4-028-a">裝置層研究者必須用共通訊號載體 (common signal carriers) 來定義裝置</a>，<a class="hl hl-m5" id="sum-h-method_m5-028" data-id="h-method_m5-028" data-targets="h-method_m4-028-a">裝置才能被反覆拿來組合</a>——<a class="hl hl-m5" id="sum-h-method_m5-029" data-id="h-method_m5-029" data-targets="h-method_m5-022-a">這正是介面該放行的那種有限、有規矩的資訊</a>。</p><p>反過來看，<a class="hl hl-m5" id="sum-h-method_m5-030" data-id="h-method_m5-030" data-targets="h-method_m5-030-a">沒有這套分層，每個工程師就得從一段序列一路懂到底層化學、再懂到整個系統怎麼運作</a>——人腦裝不下，系統一複雜就卡死、擴張不上去。而若分了層、介面卻沒定義好（例如<a class="hl hl-m5" id="sum-h-method_m5-032" data-id="h-method_m5-032" data-targets="h-method_m4-028-a">裝置各用各的訊號、不共通</a>），<a class="hl hl-m5" id="sum-h-method_m5-033" data-id="h-method_m5-033" data-targets="h-method_m4-028-a">裝置就無法互相對接、重複組合</a>，每次想拼新系統都像在賭運氣。這也正好解釋為什麼<a class="hl hl-m5" id="sum-h-method_m5-035" data-id="h-method_m5-035" data-targets="h-method_m3-002-a">前面要精煉零件統一接面</a>、<a class="hl hl-m5" id="sum-h-method_m5-036" data-id="h-method_m5-036" data-targets="h-method_m4-028-a">要造大批互不干擾的共通訊號</a>——它們就是在把介面這一關做紮實。</p></div></details><details class="version c-m5"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>abstraction barrier（抽象屏障）</strong>：把所有跨層細節全部擋掉的牆（Figure 2 中以紅色表示），讓各層不受他層細節干擾。</li><li><strong>interface（介面）</strong>：牆上開的小窗口（綠色），只放有限、有規矩的資訊跨層通過。</li><li><strong>common signal carriers（共通訊號載體）</strong>：裝置層之間共用、可對接的訊號；裝置用它定義才能反覆組合，是介面該放行的那種資訊。</li><li><strong>兩個必要條件</strong>：各層能不顧他層細節獨立工作，且仍能跨層做有原則的有限資訊交換，兩者缺一不可。</li></ul></div></details></div><div class="module-block c-m6"><p class="module-thesis"><strong>主題六：設計與製造的解耦模型</strong><br><a class="hl hl-m6" id="sum-h-method_m6-001" data-id="h-method_m6-001" data-targets="h-l1-040-a">借鏡 VLSI 把晶片「設計」與「製造」分離的經驗</a>，<a class="hl hl-m6" id="sum-h-method_m6-002" data-id="h-method_m6-002" data-targets="h-l1-045-a">在生物工程中把「設計 DNA」與「建造 DNA」兩種角色解耦</a>，<a class="hl hl-m6" id="sum-h-method_m6-003" data-id="h-method_m6-003" data-targets="h-l1-046-a">使各方只需精通自己的任務</a><a class="hl hl-m6" id="sum-h-method_m6-004" data-id="h-method_m6-004" data-targets="h-l1-038-a">即可協作產出整體</a>。</p><details class="version c-m6"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>摘要已解釋過<a class="hl hl-m6" id="sum-h-method_m6-005" data-id="h-method_m6-005" data-targets="h-method_m6-005-a">解耦就是把一個大難題切成好幾個能各自獨立處理</a>、<a class="hl hl-m6" id="sum-h-method_m6-006" data-id="h-method_m6-006" data-targets="h-l1-038-a">最後再拼回去的小問題</a>，這個子項講其中最直接的一刀：<a class="hl hl-m6" id="sum-h-method_m6-007" data-id="h-method_m6-007" data-targets="h-l1-045-a">把「設計 DNA 要長什麼樣」和「實際把 DNA 做出來」分開</a>。<a class="hl hl-m6" id="sum-h-method_m6-008" data-id="h-method_m6-008" data-targets="h-l1-041-a">作者說這一刀最容易先下</a>，原因正是前面提過的——<a class="hl hl-m6" id="sum-h-method_m6-009" data-id="h-method_m6-009" data-targets="h-method_m6-009-a">DNA 合成又快又便宜了</a>，<a class="hl hl-m6" id="sum-h-method_m6-010" data-id="h-method_m6-010" data-targets="h-l1-045-a">製造端只要拿到序列就能照做</a>，<a class="hl hl-m6" id="sum-h-method_m6-011" data-id="h-method_m6-011" data-targets="h-l1-045-a">設計端因此不必再自己動手建造</a>。他用兩個類比佐證：<a class="hl hl-m6" id="sum-h-method_m6-012" data-id="h-method_m6-012" data-targets="h-l1-039-a">蓋房子被拆成設計、結構工程、施工、專案管理、監工等角色各司其職</a>；而 <a class="hl hl-m6" id="sum-h-method_m6-013" data-id="h-method_m6-013" data-targets="h-l1-040-a">VLSI（超大型積體電路）更關鍵</a>——<a class="hl hl-m6" id="sum-h-method_m6-014" data-id="h-method_m6-014" data-targets="h-l1-040-a">晶片業是「設計」和「製造」能切開之後才真正起飛的</a>，<a class="hl hl-m6" id="sum-h-method_m6-015" data-id="h-method_m6-015" data-targets="h-l1-040-a">作者並點名那份讓分離變可行的規則來源</a>，<a class="hl hl-m6" id="sum-h-method_m6-016" data-id="h-method_m6-016" data-targets="h-method_m6-016-a h-method_m6-016-b h-method_m6-016-c">Mead 與 Conway 的《Introduction to VLSI Systems》(1980)</a>。兩個類比的共同點是：<a class="hl hl-m6" id="sum-h-method_m6-017" data-id="h-method_m6-017" data-targets="h-method_m6-005-a">界線一畫清楚，不同專長的人就能平行推進</a>，<a class="hl hl-m6" id="sum-h-method_m6-018" data-id="h-method_m6-018" data-targets="h-l1-046-a">不必人人都懂全部</a>。</p><p><a class="hl hl-m6" id="sum-h-method_m6-019" data-id="h-method_m6-019" data-targets="h-l1-046-a">解耦能加速整體，靠的是讓每個人只需精通自己那一段</a>。<a class="hl hl-m6" id="sum-h-method_m6-020" data-id="h-method_m6-020" data-targets="h-l1-045-a">設計者專心設計、製造者專心製造</a>，<a class="hl hl-m6" id="sum-h-method_m6-021" data-id="h-method_m6-021" data-targets="h-method_m6-005-a">兩邊可以平行進行、互不卡住</a>，中間只靠一個乾淨的交付介面相接——在這裡，那個介面就是一份標準化的 DNA 序列規格：<a class="hl hl-m6" id="sum-h-method_m6-024" data-id="h-method_m6-024" data-targets="h-l1-045-a">設計者把序列交出去，製造者照著做回來</a>。這樣一來，<a class="hl hl-m6" id="sum-h-method_m6-025" data-id="h-method_m6-025" data-targets="h-l1-046-a">沒有人需要把整條鏈的知識都扛在身上</a>，<a class="hl hl-m6" id="sum-h-method_m6-026" data-id="h-method_m6-026" data-targets="h-l1-046-a">每個角色要懂的東西都大幅縮小</a>。</p><p>除了設計與製造，<a class="hl hl-m6" id="sum-h-method_m6-027" data-id="h-method_m6-027" data-targets="h-method_m6-027-a">作者還舉了另一種解耦：開發標準的底盤細胞 (power supply and chassis cell)</a>。<a class="hl hl-m6" id="sum-h-method_m6-028" data-id="h-method_m6-028" data-targets="h-method_m6-027-a">它的角色像一個規格固定的電源供應器加機殼</a>——<a class="hl hl-m6" id="sum-h-method_m6-029" data-id="h-method_m6-029" data-targets="h-method_m6-029-a">不管你放進去的是哪一套系統</a>，<a class="hl hl-m6" id="sum-h-method_m6-030" data-id="h-method_m6-030" data-targets="h-method_m6-030-a">它都以已知速率供應核苷酸、胺基酸等原料</a>，<a class="hl hl-m6" id="sum-h-method_m6-031" data-id="h-method_m6-031" data-targets="h-method_m6-031-a">而且與你系統的細節無關</a> <a class="hl hl-m6" id="sum-h-method_m6-032" data-id="h-method_m6-032" data-targets="h-method_m6-032-a h-method_m6-032-b">(Canton 2005)</a>。這也算解耦，是因為<a class="hl hl-m6" id="sum-h-method_m6-033" data-id="h-method_m6-033" data-targets="h-method_m6-031-a">它把「你設計的那套系統」和「維持細胞運轉的雜務」切開</a>：你不必每做一個新系統就重新調一次細胞的基礎代謝，拿現成底盤來用即可。</p><p>反過來看，如果設計和製造沒解耦、黏得太緊，設計者就被迫得懂底層化學、製造者又得去揣摩設計意圖，兩邊互相綁住；而且少了一個乾淨的交付介面，製造端交回來的 DNA 很可能跟設計者真正想要的對不上。平行推進的好處沒了，每個專案都卡在那種必須樣樣都懂的少數人身上。這也是為什麼<a class="hl hl-m6" id="sum-h-method_m6-044" data-id="h-method_m6-044" data-targets="h-method_m6-044-a">解耦還得同時仰賴標準化和抽象化</a>——沒有標準的序列規格與分層介面，這一刀根本切不乾淨。</p></div></details><details class="version c-m6"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>VLSI（超大型積體電路）</strong>：晶片業在把設計與製造分離的規則釐清後才真正起飛的經典案例（Mead &amp; Conway 1980）。</li><li><strong>標準化 DNA 序列規格</strong>：連接設計者與製造者的乾淨交付介面：設計者交出序列，製造者照做回來。</li><li><strong>power supply and chassis cell（底盤細胞）</strong>：規格固定、與系統細節無關地供應核苷酸與胺基酸等資源的標準宿主細胞（Canton 2005）。</li><li><strong>design–fabrication decoupling</strong>：把設計 DNA 與建造 DNA 分成兩種角色，各自平行推進、只精通己方任務。</li></ul></div></details></div><div class="module-block c-m7"><p class="module-thesis"><strong>主題七：生物資料與模型的標準格式</strong><br><a class="hl hl-m7" id="sum-h-method_m7-001" data-id="h-method_m7-001" data-targets="h-method_m7-001-a">推廣涵蓋序列、微陣列、結構、酵素、模型與限制酶活性的社群資料與模型標準格式</a>，<a class="hl hl-m7" id="sum-h-method_m7-002" data-id="h-method_m7-002" data-targets="h-method_m7-002-a">並為工程生物系統建立條碼、簽章與浮水印等可鑑別標準</a>，<a class="hl hl-m7" id="sum-h-method_m7-003" data-id="h-method_m7-003" data-targets="h-method_m1-037-a">以消除缺乏標準所累積的龐大溝通成本</a>。</p><details class="version c-m7"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>作者主張的第一件事，是<a class="hl hl-m7" id="sum-h-method_m7-004" data-id="h-method_m7-004" data-targets="h-method_m7-004-a">讓各類生物資料都有一套社群事先講好的標準格式</a>。所謂標準格式，就是整個社群事先約定某類資料要用哪些固定欄位、怎麼記錄，好比大家填同一張表格——欄位、單位、順序都一樣；這樣甲實驗室產出的資料，乙實驗室拿到就能直接讀、直接比對，不必回頭問「你這數字怎麼量的、單位是什麼」。好消息是，<a class="hl hl-m7" id="sum-h-method_m7-007" data-id="h-method_m7-007" data-targets="h-method_m7-001-a">有六大類資料其實已經各自長出公定標準</a>：<a class="hl hl-m7" id="sum-h-method_m7-008" data-id="h-method_m7-008" data-targets="h-method_m7-001-a h-method_m7-008-b">DNA 序列與遺傳特徵交給「國際核酸序列資料庫聯盟 (INSDC)」</a>；<a class="hl hl-m7" id="sum-h-method_m7-009" data-id="h-method_m7-009" data-targets="h-method_m7-009-a">一次量成千上萬個基因表現量的微陣列資料，用「微陣列實驗最低資訊規範 (MIAME)」規定至少要附哪些背景</a>；<a class="hl hl-m7" id="sum-h-method_m7-010" data-id="h-method_m7-010" data-targets="h-method_m7-010-a">蛋白質立體結構存進「蛋白質結構資料庫 (Protein Data Bank)」</a>；<a class="hl hl-m7" id="sum-h-method_m7-011" data-id="h-method_m7-011" data-targets="h-method_m7-011-a">酵素命名由「國際生化聯盟命名委員會 (NC-IUBMB)」統一</a>；<a class="hl hl-m7" id="sum-h-method_m7-012" data-id="h-method_m7-012" data-targets="h-method_m7-012-a">描述整套生化反應網路的數學模型用「系統生物學標記語言 (SBML)」寫</a>；<a class="hl hl-m7" id="sum-h-method_m7-013" data-id="h-method_m7-013" data-targets="h-method_m7-013-a">限制酶在哪裡切、活性如何，則查「限制酶資料庫 (REBASE)」</a>。</p><p>這些標準並不是憑空訂出來的，而是<a class="hl hl-m7" id="sum-h-method_m7-014" data-id="h-method_m7-014" data-targets="h-method_m7-014-a">圍著「大家天天在做、又會產出大量資料的方法」自然長出來的</a>。<a class="hl hl-m7" id="sum-h-method_m7-015" data-id="h-method_m7-015" data-targets="h-method_m7-014-a">定序、解結構、量微陣列都是成熟又普及的操作</a>，資料一多，<a class="hl hl-m7" id="sum-h-method_m7-016" data-id="h-method_m7-016" data-targets="h-method_m7-004-a">社群為了互通就逼出了統一格式</a>，而<a class="hl hl-m7" id="sum-h-method_m7-017" data-id="h-method_m7-017" data-targets="h-method_m7-004-a">它們又剛好都繞著描述生命運作的中心法則 (central dogma)</a>。<a class="hl hl-m7" id="sum-h-method_m7-018" data-id="h-method_m7-018" data-targets="h-method_m1-037-a">標準能省下溝通成本的關鍵在於「一次講好、終身受用」</a>：格式統一後，拿到別人的資料就直接讀得懂、比得了，不必每次重問條件。這也解釋了為什麼<a class="hl hl-m7" id="sum-h-method_m7-020" data-id="h-method_m7-020" data-targets="h-l1-034-a">工程最在乎的事反而沒有標準</a>——<a class="hl hl-m7" id="sum-h-method_m7-021" data-id="h-method_m7-021" data-targets="h-l1-034-a">「這個啟動子到底多強 (promoter activity)」</a><a class="hl hl-m7" id="sum-h-method_m7-022" data-id="h-method_m7-022" data-targets="h-l1-034-a">「蛋白質濃度多少」至今還沒有一套大家共用的量法</a>，自然也還沒長出對應的標準。</p><p><a class="hl hl-m7" id="sum-h-method_m7-023" data-id="h-method_m7-023" data-targets="h-method_m1-037-a">少了標準，最直接會壞在「根本不知道兩個零件能不能拼在一起」</a>。作者舉了一個例子：<a class="hl hl-m7" id="sum-h-method_m7-024" data-id="h-method_m7-024" data-targets="h-method_m7-024-a">一組基因開關 (toggle switch)</a> <a class="hl hl-m7" id="sum-h-method_m7-025" data-id="h-method_m7-025" data-targets="h-method_m7-025-a">要在大腸桿菌 JM2.300 株</a>、<a class="hl hl-m7" id="sum-h-method_m7-026" data-id="h-method_m7-026" data-targets="h-method_m7-026-a">泡在 Luria broth 裡才量得出效果</a>；<a class="hl hl-m7" id="sum-h-method_m7-027" data-id="h-method_m7-027" data-targets="h-method_m7-027-a">另一組會規律開關的基因振盪器</a><a class="hl hl-m7" id="sum-h-method_m7-028" data-id="h-method_m7-028" data-targets="h-l1-032-a">卻要在 MC4100 株、養在補充過的最小培養基裡才動得起來</a>。<a class="hl hl-m7" id="sum-h-method_m7-029" data-id="h-method_m7-029" data-targets="h-method_m7-029-a">想把兩者直接接成一個「邊切換邊震盪」的 toggle-lator，會成功嗎？</a><a class="hl hl-m7" id="sum-h-method_m7-030" data-id="h-method_m7-030" data-targets="h-method_m1-041-a">答案是「不知道，這本身又得當成一個研究題目」</a>。更糟的是，<a class="hl hl-m7" id="sum-h-method_m7-031" data-id="h-method_m7-031" data-targets="h-l1-033-a">光把這些菌株、培養基的背景條件一一查清楚，就得花掉大約 30 分鐘</a>——<a class="hl hl-m7" id="sum-h-method_m7-032" data-id="h-method_m7-032" data-targets="h-method_m1-037-a">這種看不見卻不斷累積的時間，正是缺標準的代價</a>。</p><p>除了資料格式，作者還主張<a class="hl hl-m7" id="sum-h-method_m7-033" data-id="h-method_m7-033" data-targets="h-method_m7-002-a">替工程生物的 DNA 建立三種「身分標記」標準</a>，<a class="hl hl-m7" id="sum-h-method_m7-034" data-id="h-method_m7-034" data-targets="h-method_m7-002-a">而且特意拆成三種、各對應一個不同用途</a>。<a class="hl hl-m7" id="sum-h-method_m7-035" data-id="h-method_m7-035" data-targets="h-method_m7-002-a">條碼 (barcoding) 是嵌一段大家都查得到的固定標記，對應「偵測」</a>——先判斷這裡到底有沒有工程生物；<a class="hl hl-m7" id="sum-h-method_m7-036" data-id="h-method_m7-036" data-targets="h-method_m7-002-a">簽章 (signing) 是蓋上「這是誰做的」記號，對應「識別」</a>——認出這段 DNA 的來源；<a class="hl hl-m7" id="sum-h-method_m7-037" data-id="h-method_m7-037" data-targets="h-method_m7-002-a">浮水印 (watermarking) 是藏一段驗真偽的隱藏訊息，對應「認證」</a>——確認它是不是真貨、有沒有被動過手腳。概念上就跟商品的條碼、廠商簽名、防偽浮水印一樣，只是改寫在鹼基序列上。<a class="hl hl-m7" id="sum-h-method_m7-039" data-id="h-method_m7-039" data-targets="h-method_m7-002-a">偵測、識別、認證本就是三件不同的事，所以需要三種標記分工</a>，少一種就有一類問題答不出來。</p></div></details><details class="version c-m7"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>社群標準格式 (community standard format)</strong>：整個社群事先約定某類資料用哪些固定欄位、怎麼記錄，好比大家填同一張表格，讓別人拿到就能直接讀懂、比對。</li><li><strong>INSDC</strong>：國際核酸序列資料庫聯盟，負責 DNA 序列與遺傳特徵的公定資料標準。</li><li><strong>MIAME</strong>：微陣列實驗最低資訊規範 (Brazma et al. 2001)，規定一次量成千上萬個基因表現量的微陣列資料至少要附哪些背景資訊。</li><li><strong>Protein Data Bank</strong>：蛋白質結構資料庫，存放蛋白質立體結構（結晶學）資料的公定標準。</li><li><strong>NC-IUBMB</strong>：國際生化與分子生物學聯盟命名委員會，統一酵素的命名標準。</li><li><strong>SBML</strong>：系統生物學標記語言 (Hucka et al. 2003)，用來書寫描述整套生化反應網路的數學模型。</li><li><strong>REBASE</strong>：限制酶資料庫 (Roberts et al. 2005)，收錄各種限制酶在哪裡切、活性如何。</li><li><strong>central dogma (中心法則)</strong>：描述生命核心運作的法則；現有的生物資料標準大多是圍著它、又圍著普及的產資料方法長出來的。</li><li><strong>promoter activity (啟動子活性)</strong>：工程最在乎的「這個零件有多強」指標之一，至今沒有大家共用的量法與標準，是尚缺的標準代表。</li><li><strong>barcoding / signing / watermarking</strong>：寫進工程生物 DNA 的三種身分標記，分別對應偵測、識別、認證，像商品的條碼、廠商簽名與防偽浮水印。</li><li><strong>toggle-lator</strong>：設想把一組基因開關 (toggle switch) 和一組基因振盪器直接拼成的新系統；因兩者所用菌株與培養基不同、又無操作條件標準，能否成功只能當成新研究題目。</li></ul></div></details></div><div class="module-block c-m8"><p class="module-thesis"><strong>主題八：可複製機器的計算理論與容錯編碼</strong><br><a class="hl hl-m8" id="sum-h-method_m8-001" data-id="h-method_m8-001" data-targets="h-method_m8-001-a">引入可靠計算、容錯編碼與自我複製自動機等理論</a>，<a class="hl hl-m8" id="sum-h-method_m8-002" data-id="h-method_m8-002" data-targets="h-l1-065-a">為「設計出我們能理解的可複製生物機器」建立目前仍缺席的工程理論基礎</a>，<a class="hl hl-m8" id="sum-h-method_m8-003" data-id="h-method_m8-003" data-targets="h-l1-067-a">或在退而求其次時改採與複製解耦的拋棄式系統</a>。</p><details class="version c-m8"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m8" id="sum-h-method_m8-004" data-id="h-method_m8-004" data-targets="h-method_m8-026-a">要真正「設計」出我們能理解的可複製生物機器</a>，作者認為<a class="hl hl-m8" id="sum-h-method_m8-005" data-id="h-method_m8-005" data-targets="h-method_m8-005-a">得回去接上三套現成、卻一直沒被生物工程借用的理論</a>，它們原本都來自計算與通訊領域。<a class="hl hl-m8" id="sum-h-method_m8-007" data-id="h-method_m8-007" data-targets="h-method_m8-001-a">「可靠計算 (reliable computing with unreliable components)」研究的是：手上的零件各自都不太可靠、會出錯，怎麼組出一台整體仍然可靠的機器</a>。<a class="hl hl-m8" id="sum-h-method_m8-008" data-id="h-method_m8-008" data-targets="h-method_m8-001-a">「容錯編碼 (error detection and correcting codes)」研究的是：怎麼把資訊編碼，讓它被抄錯時能被抓出來、甚至自動補回正確的值</a>。<a class="hl hl-m8" id="sum-h-method_m8-009" data-id="h-method_m8-009" data-targets="h-method_m8-001-a h-method_m8-009-b">「自我複製自動機 (self-replicating automata)」則是數學家 von Neumann 很早就建立的理論（收在他的 Collected Works）</a>——他用純數學問：一台機器要具備哪些零件與指令，才能不靠外力、自己造出一台一模一樣的自己？<a class="hl hl-m8" id="sum-h-method_m8-011" data-id="h-method_m8-011" data-targets="h-l1-006-a">這正是細胞照著 DNA 複製出下一個細胞每天在做的事</a>。</p><p>這兩套計算理論之所以特別適合借來對付生物，是因為生物的毛病剛好就是它們在處理的問題。<a class="hl hl-m8" id="sum-h-method_m8-013" data-id="h-method_m8-013" data-targets="h-method_m8-001-a">生物的零件（蛋白質、基因線路）本來就吵雜、會出錯，對應「用不可靠零件組出可靠機器」的可靠計算</a>；<a class="hl hl-m8" id="sum-h-method_m8-014" data-id="h-method_m8-014" data-targets="h-l1-006-a">而複製 DNA 時必然會抄錯</a>，<a class="hl hl-m8" id="sum-h-method_m8-015" data-id="h-method_m8-015" data-targets="h-method_m8-001-a">對應「把資訊編碼好、讓抄錯能被抓出來補回」的容錯編碼</a>。更關鍵的是，大自然其實早就在做這件事：<a class="hl hl-m8" id="sum-h-method_m8-016" data-id="h-method_m8-016" data-targets="h-method_m8-016-a">生物會把「複製時的錯誤偵測與修正」調校到剛好配合自身的適應度 (fitness)</a>。<a class="hl hl-m8" id="sum-h-method_m8-017" data-id="h-method_m8-017" data-targets="h-method_m8-017-a h-method_m8-017-b">作者引了研究佐證（Carroll 2005）</a>，其中 <a class="hl hl-m8" id="sum-h-method_m8-018" data-id="h-method_m8-018" data-targets="h-method_m8-018-a">Rutherford 與 Lindquist 發現一種叫 Hsp90 的蛋白質能像「演化電容器」一樣，平時把累積的變異藏住、壓力來時才一次釋放（Nature 1998）</a>。既然天然系統做得到，把它理論化、拿來設計就有了依據。</p><p>為什麼非得補上這套理論不可？因為如果放著不管，<a class="hl hl-m8" id="sum-h-method_m8-020" data-id="h-method_m8-020" data-targets="h-l1-006-a">一個精心設計又會自己繁殖的生物系統，會自己把你的設計改掉</a>。<a class="hl hl-m8" id="sum-h-method_m8-021" data-id="h-method_m8-021" data-targets="h-l1-006-a">它每繁殖一代就抄錯一點點，錯誤一代代累積</a>；更糟的是，你額外加進去的功能對細胞來說通常是負擔，於是那些「偷偷把這個功能弄壞」的變異反而長得更快、更省力，被天擇一路放大。結果是你設計的行為在繁殖幾代之後慢慢走樣，最後整個失效。<a class="hl hl-m8" id="sum-h-method_m8-024" data-id="h-method_m8-024" data-targets="h-l1-061-a h-l1-026-a">這正是第四個、也是過去工程經驗完全沒碰過的挑戰——演化</a>；<a class="hl hl-m8" id="sum-h-method_m8-025" data-id="h-method_m8-025" data-targets="h-l1-065-a">少了可複製機器的理論，你對這種漂移束手無策</a>。</p><p>不過作者也坦白，<a class="hl hl-m8" id="sum-h-method_m8-026" data-id="h-method_m8-026" data-targets="h-method_m8-026-a">學會設計「可理解的可複製機器」這件事，我們可能根本學不會</a>，<a class="hl hl-m8" id="sum-h-method_m8-027" data-id="h-method_m8-027" data-targets="h-l1-067-a">所以先備一條退路才穩妥：改採與複製解耦的拋棄式系統</a>。<a class="hl hl-m8" id="sum-h-method_m8-028" data-id="h-method_m8-028" data-targets="h-l1-067-a">做法是乾脆設計一種不讓它自己繁衍下一代、用完就報廢的生物系統</a>——<a class="hl hl-m8" id="sum-h-method_m8-029" data-id="h-method_m8-029" data-targets="h-l1-067-a">把系統設計和「直系傳承、而且複製時會帶錯」這件事切開</a>。它能繞過演化靠的是最乾脆的邏輯：演化的麻煩來自「一代傳一代、變異越攢越多」，而拋棄式系統根本不傳代，這個麻煩自然就不存在。<a class="hl hl-m8" id="sum-h-method_m8-031" data-id="h-method_m8-031" data-targets="h-method_m8-031-a">這條路之所以在今天變得可行，正是搭上了便宜的 DNA 合成</a>——不必靠生物繁殖來量產，每次要用就重新合成一批全新、沒被變異污染的系統。</p></div></details><details class="version c-m8"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>reliable computing with unreliable components (可靠計算)</strong>：研究怎麼用各自會出錯、不可靠的零件，組出一台整體仍然可靠的機器；對應生物零件吵雜易錯的毛病。</li><li><strong>error detection and correcting codes (容錯編碼)</strong>：把資訊編碼好，讓它被抄錯時能被抓出來、甚至自動補回正確值；對應 DNA 複製必然抄錯的問題。</li><li><strong>self-replicating automata (自我複製自動機)</strong>：數學家 von Neumann 建立的理論，研究一台機器要具備哪些零件與指令才能自己造出自己的副本；正對應細胞照 DNA 複製下一代。</li><li><strong>fitness (適應度)</strong>：生物生存與繁殖的相對優勢；天然系統會把複製時的錯誤偵測與修正調校到配合自身適應度。</li><li><strong>Hsp90 (演化電容器)</strong>：Rutherford 與 Lindquist 發現的一種蛋白質，能像電容器一樣平時把累積的變異藏住、壓力來時才一次釋放（Nature 1998），是自然界已在調校複製錯誤的佐證。</li><li><strong>disposable biological systems (拋棄式生物系統)</strong>：退而求其次的設計：做成不繁衍、用完就報廢的系統，把設計和「直系傳承與帶錯複製」解耦，以繞過演化；前提是 DNA 合成夠便宜。</li></ul></div></details></div><div class="module-block c-synth"><p class="module-thesis"><strong>方法組合策略 &amp; 借鑑價值</strong></p><details class="version c-synth"><summary><span class="hdr"><span class="rank-badge">展開</span></span></summary><div class="panel-body synth-body"><h4>方法組合策略</h4>
+<p>(Synergy &amp; Pipeline) 這篇研究的強大之處在於，它不是提出單一技術，而是指出三大理念如何互補成一條「讓生物工程變簡單」的 Pipeline：</p>
+<p>1.  <strong>「抽象分層定骨架、標準化供零件、解耦分工來落地」策略：</strong></p>
+<ul>
+<li><strong>Step 1（抽象化 / 3.A）：</strong> 先用 DNA→Parts→Devices→Systems 抽象階層切出工作層級，以抽象屏障隱藏跨層複雜度。</li>
+<li><strong>Step 2（標準化 / 2.A、2.C、3.C）：</strong> 在每一層定義標準介面與標準元件（含精煉後行為可預測的 parts、共通訊號載體、量測與操作條件標準），讓零件「行為如預期」並可組合。</li>
+<li><strong>Step 3（解耦 / 2.B、3.B）：</strong> 以廉價、可自動組裝的 DNA 合成把「設計」與「製造」拆開，讓設計者與建造者各自專精、平行推進。</li>
+<li><strong>效果（為何必須如此搭配）：</strong> 三者缺一不可——<strong>有抽象卻無標準</strong>，跨層介面不會行為一致，Devices 組合仍是賭博；<strong>有標準卻無抽象</strong>，研究者會淹沒在零件級細節而無法擴展到多元件系統；<strong>解耦需同時仰賴標準與抽象</strong>，否則製造端交付的 DNA 無法對應設計意圖，且設計者被迫去懂 phosphoramidite chemistry。三者合一，才可能把「每個專案都是獨一無二、由專家驅動、時程與成敗皆不確定的研究難題」轉化為「大學生數週內用數十個標準零件設計系統、下單取得 DNA、並驗證其運作」的例行工程。</li>
+<p>2.  <strong>把「演化」留作未解前沿：</strong> 第四挑戰（演化 / 3.D）無法被上述工程經驗涵蓋，因此本文明確將其標為尚待以新理論（容錯編碼、自我複製自動機）或「拋棄式系統」繞過的開放問題，避免讓前三者的樂觀掩蓋生物系統會自發變異與演化的本質。</p>
+</ul>
+<p>---</p>
+<h4>借鑑價值</h4>
+<p>(Takeaways for your research) 如果你未來的研究遇到以下狀況，可以借鑑這篇論文的思路：</p>
+<ul>
+<li><strong>[每個新建構都是一次性專家專案]：</strong> 如果你的領域裡，每做一個新系統都得由少數專家從頭摸索、時程與成本皆不可預測，可以考慮先建立一套「抽象階層 + 標準零件登錄庫」，把複雜度封裝到介面之後，讓非專家也能在數週內組裝出可運作的系統。</li>
+<li><strong>[元件行為隨上下文改變]：</strong> 如果你發現某個「零件」的表現會因與鄰近元件的組合而改變（例如強 RBS 因 RBS–ORF 接面的 mRNA 二級結構而失效），可以借鑑「精煉元件、統一 part–part junction、以密碼子重排抹除隱藏訊號」的做法，把天然零件改造成行為可預測的工程零件，而不是直接沿用野生型。</li>
+<li><strong>[設計與製造團隊互相卡住]：</strong> 如果你的瓶頸是設計端與製造端耦合過深、彼此都得懂對方細節，可以借鏡 VLSI 的解耦模型，定義清楚的交付介面（如標準化 DNA 序列規格），讓設計者只管設計、製造者只管建造。</li>
+<li><strong>[跨實驗室再現性差]：</strong> 如果你懷疑結果難以跨組重現（株別、培養基、生長速率、環境條件各異），可以借鑑本文主張，優先為量測指標與操作條件建立社群標準，並以可分享的資料/模型格式（如 SBML、MIAME 類比）記錄，降低「光查背景就耗掉半小時」的隱性成本。</li>
+<li><strong>[系統會自我複製與演化]：</strong> 如果你的系統必須自我複製、又會在複製中累積錯誤而漂移，可以考慮引入容錯編碼、可靠計算與自我複製自動機理論來設計可理解的複製機制；若暫時做不到，則退一步把系統設計與「直系複製」解耦，改採拋棄式系統以迴避演化帶來的不可控性。</li>
+</ul></div></details></div>
+</aside>
+<script id="reader-panel-js">
+
+(function() {
+  function init() {
+    var COLOR_KEYS = ["summary", "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18", "m19", "m20", "m21", "m22", "m23", "m24", "m25", "m26", "m27", "m28", "m29", "m30"];
+    var COLOR_LABELS = {"summary": "全文摘要", "m1": "1-標準元件", "m2": "2-DNA合成", "m3": "3-元件精煉", "m4": "4-轉錄因子", "m5": "5-抽象階層", "m6": "6-解耦", "m7": "7-資料標準", "m8": "8-複製理論"};
+    var enabled = new Set(['summary']);
+    var notesByMark = new Map();
+    var phraseTargets = new Map();
+    var mobileSlotByMark = new Map();
+    var mainEl = document.querySelector('main');
+    if (!mainEl) return;
+
+    function isNarrowViewport() { return window.innerWidth <= 1100; }
+    function colorIsOn(ck) { return enabled.has(ck) && !document.body.classList.contains('off-' + ck); }
+
+    function clearSelection() {
+      document.querySelectorAll('.margin-note.is-selected').forEach(function(n){
+        n.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ n.classList.remove('sel-' + k); });
+      });
+      document.querySelectorAll('mark.hl.is-selected').forEach(function(m){
+        m.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ m.classList.remove('sel-' + k); });
+      });
+      document.querySelectorAll('a.hl.is-selected').forEach(function(a){
+        a.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ a.classList.remove('sel-' + k); });
+      });
+    }
+
+    function selectPair(mark, note) {
+      clearSelection();
+      var colorKey = null;
+      if (note) {
+        note.classList.forEach(function(c){
+          var m = c.match(/^n-([a-z0-9]+)$/);
+          if (m) colorKey = m[1];
+        });
+        note.classList.add('is-selected');
+      }
+      if (mark) {
+        mark.classList.add('is-selected');
+        if (colorKey) mark.classList.add('sel-' + colorKey);
+        if (colorKey) {
+          var pids = (mark.getAttribute('data-pids-' + colorKey) || '').split(/\s+/).filter(Boolean);
+          pids.forEach(function(pid){
+            var a = document.getElementById('sum-' + pid);
+            if (a) {
+              a.classList.add('is-selected');
+              a.classList.add('sel-' + colorKey);
+            }
+          });
+        }
+      }
+    }
+
+    function noteForMarkColor(mark, ck) {
+      var entry = notesByMark.get(mark);
+      if (!entry) return null;
+      return entry[ck] || null;
+    }
+
+    // Anchor click
+    var anchorCycle = new Map();
+    document.querySelectorAll('.reader-panel a.hl[data-targets]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var targets = (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean);
+        if (!targets.length) return;
+        var aid = a.getAttribute('data-id');
+        var idx = anchorCycle.get(aid) || 0;
+        var tid = targets[idx % targets.length];
+        anchorCycle.set(aid, (idx + 1) % targets.length);
+        var mark = document.getElementById(tid);
+        if (!mark) return;
+        mark.scrollIntoView({behavior:'smooth', block:'center'});
+        // anchorColor from class
+        var anchorColor = null;
+        a.classList.forEach(function(c){
+          var m = c.match(/^hl-([a-z0-9]+)$/);
+          if (m) anchorColor = m[1];
+        });
+        if (anchorColor && !colorIsOn(anchorColor)) {
+          clearSelection();
+          return;
+        }
+        var note = noteForMarkColor(mark, anchorColor);
+        selectPair(mark, note);
+      });
+    });
+
+    // Build margin rail
+    var rail = document.createElement('div');
+    rail.className = 'margin-rail';
+    mainEl.appendChild(rail);
+
+    // Build phraseTargets
+    document.querySelectorAll('.reader-panel a.hl[data-targets][data-id]').forEach(function(a){
+      var pid = a.getAttribute('data-id');
+      var targets = (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean);
+      if (!phraseTargets.has(pid)) phraseTargets.set(pid, []);
+      var arr = phraseTargets.get(pid);
+      targets.forEach(function(t){ if (arr.indexOf(t) === -1) arr.push(t); });
+    });
+
+    function slotForMark(mark) {
+      var existing = mobileSlotByMark.get(mark);
+      if (existing) return existing;
+      var slot = document.createElement('span');
+      slot.className = 'mobile-note-slot';
+      // find punctuation after mark
+      var anchor = mark;
+      var next = mark.nextSibling;
+      if (next && next.nodeType === Node.TEXT_NODE) {
+        var t = next.textContent;
+        var m = t.match(/^([，。！？；：、,.!?;:)\]）？」』》]+)/);
+        if (m) {
+          var puncLen = m[1].length;
+          var before = t.slice(0, puncLen);
+          var rest = t.slice(puncLen);
+          var puncNode = document.createTextNode(before);
+          next.textContent = rest;
+          mark.parentNode.insertBefore(puncNode, next);
+          anchor = puncNode;
+        }
+      }
+      if (anchor.nextSibling) {
+        anchor.parentNode.insertBefore(slot, anchor.nextSibling);
+      } else {
+        anchor.parentNode.appendChild(slot);
+      }
+      mobileSlotByMark.set(mark, slot);
+      return slot;
+    }
+
+    // Helper to wrap bare math tokens in note text using greedy strategy
+    // Mirror Python wrapper using simple regex (only converts $...$ to \(...\))
+    function noteContentFromAttr(t) {
+      // HTML escape
+      var s = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      // Convert $...$ to \(...\)
+      s = s.replace(/(?<!\\)\$([^$\n]+?)(?<!\\)\$/g, '\\($1\\)');
+      return s;
+    }
+
+    // For each mark, build notes
+    document.querySelectorAll('mark.hl').forEach(function(mark){
+      var attrs = Array.from(mark.attributes);
+      var colorNotes = {};
+      attrs.forEach(function(at){
+        var m = at.name.match(/^data-zh-([a-z0-9]+)$/);
+        if (!m) return;
+        var ck = m[1];
+        var note = document.createElement('span');
+        note.className = 'margin-note n-' + ck;
+        note.innerHTML = noteContentFromAttr(at.value);
+        // Next button
+        var pidsAttr = mark.getAttribute('data-pids-' + ck) || '';
+        var pids = pidsAttr.split(/\s+/).filter(Boolean);
+        var union = [];
+        pids.forEach(function(pid){
+          var arr = phraseTargets.get(pid) || [];
+          arr.forEach(function(t){ if (union.indexOf(t) === -1) union.push(t); });
+        });
+        if (union.length > 1) {
+          var nextBtn = document.createElement('span');
+          nextBtn.className = 'note-next';
+          var n = union.length - 1;
+          nextBtn.textContent = '→ 其他 ' + n + ' 處';
+          nextBtn.title = '跳到下一處（共 ' + union.length + ' 處）';
+          nextBtn.addEventListener('click', function(ev){
+            ev.stopPropagation();
+            var idx = union.indexOf(mark.id);
+            if (idx < 0) idx = 0;
+            var nextId = union[(idx + 1) % union.length];
+            var nextMark = document.getElementById(nextId);
+            if (!nextMark) return;
+            var entry = notesByMark.get(nextMark);
+            var nextNote = entry ? (entry[ck] || null) : null;
+            selectPair(nextMark, nextNote);
+            nextMark.scrollIntoView({behavior:'smooth', block:'center'});
+          });
+          note.appendChild(nextBtn);
+        }
+        note.addEventListener('click', function(){
+          selectPair(mark, note);
+          mark.scrollIntoView({behavior:'smooth', block:'center'});
+        });
+        rail.appendChild(note);
+        colorNotes[ck] = note;
+      });
+      if (Object.keys(colorNotes).length) {
+        notesByMark.set(mark, colorNotes);
+      }
+    });
+
+    // Typeset MathJax then reposition
+    function doTypeset() {
+      if (window.MathJax) {
+        var ready = (MathJax.startup && MathJax.startup.promise) || Promise.resolve();
+        ready.then(function(){
+          if (MathJax.typesetPromise) {
+            return MathJax.typesetPromise([mainEl]).then(function(){ reposition(); });
+          }
+        });
+      }
+    }
+
+    function moveNotesToFlow() {
+      notesByMark.forEach(function(entry, mark){
+        var slot = slotForMark(mark);
+        var keys = Object.keys(entry).sort(function(a,b){
+          if (a === 'summary') return -1;
+          if (b === 'summary') return 1;
+          var ai = parseInt(a.replace('m',''),10);
+          var bi = parseInt(b.replace('m',''),10);
+          return ai - bi;
+        });
+        keys.forEach(function(k){
+          var n = entry[k];
+          n.style.top = '';
+          n.style.left = '';
+          n.style.right = '';
+          slot.appendChild(n);
+        });
+      });
+    }
+
+    function moveNotesToRail() {
+      notesByMark.forEach(function(entry){
+        Object.keys(entry).forEach(function(k){
+          var n = entry[k];
+          if (n.parentNode !== rail) rail.appendChild(n);
+        });
+      });
+    }
+
+    var inLayout = false;
+    function reposition() {
+      if (inLayout) return;
+      inLayout = true;
+      requestAnimationFrame(function(){
+        try {
+          // reset rail-pad
+          document.querySelectorAll('[data-rail-pad]').forEach(function(el){
+            el.style.marginBottom = '';
+            el.removeAttribute('data-rail-pad');
+          });
+          if (isNarrowViewport()) {
+            moveNotesToFlow();
+            return;
+          }
+          moveNotesToRail();
+
+          var mainRect = mainEl.getBoundingClientRect();
+          // Group notes by block
+          var blockEntries = new Map();
+          notesByMark.forEach(function(entry, mark){
+            var block = mark.closest('.table-block, .table-wrap');
+            if (!block) {
+              block = mark.closest('p, figcaption, .caption, .table-title, .table-caption, li, h2, h3, .equation');
+            }
+            if (!block) return;
+            if (mark.closest('.reader-panel')) return;
+            if (!blockEntries.has(block)) blockEntries.set(block, []);
+            var arr = blockEntries.get(block);
+            var keys = Object.keys(entry).sort(function(a,b){
+              if (a === 'summary') return -1;
+              if (b === 'summary') return 1;
+              var ai = parseInt(a.replace('m',''),10);
+              var bi = parseInt(b.replace('m',''),10);
+              return ai - bi;
+            });
+            keys.forEach(function(k){
+              arr.push({ mark: mark, note: entry[k], color: k });
+            });
+          });
+
+          // process in document order
+          var blocks = Array.from(blockEntries.keys());
+          blocks.sort(function(a,b){
+            var p = a.compareDocumentPosition(b);
+            if (p & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+            if (p & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+            return 0;
+          });
+          var gap = 8;
+          blocks.forEach(function(block){
+            var arr = blockEntries.get(block);
+            arr.forEach(function(it){
+              var mr = it.mark.getBoundingClientRect();
+              it.desired = mr.top - mainRect.top;
+            });
+            arr.sort(function(a,b){ return a.desired - b.desired; });
+            var prevBottom = -Infinity;
+            arr.forEach(function(it){
+              var top = Math.max(it.desired, prevBottom + gap);
+              it.note.style.top = top + 'px';
+              prevBottom = top + it.note.offsetHeight;
+            });
+            // check overflow
+            var br = block.getBoundingClientRect();
+            var blockBottom = br.bottom - mainRect.top;
+            if (prevBottom > blockBottom + 4) {
+              var extra = prevBottom - blockBottom + 16;
+              block.style.marginBottom = extra + 'px';
+              block.setAttribute('data-rail-pad', '1');
+            }
+          });
+        } finally {
+          inLayout = false;
+        }
+      });
+    }
+
+    // Mark click
+    var markCycle = new Map();
+    document.querySelectorAll('mark.hl').forEach(function(mark){
+      mark.addEventListener('click', function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        var ids = (mark.getAttribute('data-back') || '').split(/\s+/).filter(Boolean);
+        var pool = ids.filter(function(sid){
+          var anchor = document.getElementById(sid);
+          if (!anchor) return false;
+          var ck = null;
+          anchor.classList.forEach(function(c){
+            var m = c.match(/^hl-([a-z0-9]+)$/);
+            if (m) ck = m[1];
+          });
+          return ck && colorIsOn(ck);
+        });
+        if (!pool.length) { clearSelection(); return; }
+        var idx = markCycle.get(mark.id) || 0;
+        var sid = pool[idx % pool.length];
+        markCycle.set(mark.id, (idx + 1) % pool.length);
+        var anchor = document.getElementById(sid);
+        if (!anchor) return;
+        var p = anchor.parentElement;
+        while (p) {
+          if (p.tagName === 'DETAILS') p.open = true;
+          p = p.parentElement;
+        }
+        anchor.scrollIntoView({behavior:'smooth', block:'center'});
+        var ck = null;
+        anchor.classList.forEach(function(c){
+          var m = c.match(/^hl-([a-z0-9]+)$/);
+          if (m) ck = m[1];
+        });
+        var note = noteForMarkColor(mark, ck);
+        selectPair(mark, note);
+      });
+    });
+
+    // is-active observer
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(ent){
+        var mark = ent.target;
+        var entry = notesByMark.get(mark);
+        if (!entry) return;
+        if (ent.isIntersecting) {
+          Object.values(entry).forEach(function(n){ n.classList.add('is-active'); });
+        } else {
+          Object.values(entry).forEach(function(n){ n.classList.remove('is-active'); });
+        }
+      });
+    }, { rootMargin: '-30% 0px -50% 0px' });
+    document.querySelectorAll('mark.hl').forEach(function(m){ io.observe(m); });
+
+    // Color toggle floating panel
+    var toggle = document.createElement('div');
+    toggle.className = 'color-toggle';
+    var titleEl = document.createElement('div');
+    titleEl.className = 'ct-title';
+    titleEl.innerHTML = '<span class="ct-label">顯示</span><span class="ct-caret">▾</span>';
+    titleEl.addEventListener('click', function(){
+      toggle.classList.toggle('is-collapsed');
+    });
+    toggle.appendChild(titleEl);
+    var itemsBox = document.createElement('div');
+    itemsBox.className = 'ct-items';
+    toggle.appendChild(itemsBox);
+
+    // notes toggle
+    var notesItem = document.createElement('div');
+    notesItem.className = 'ct-item';
+    notesItem.setAttribute('data-action', 'notes');
+    notesItem.innerHTML = '<span class="ct-swatch ct-swatch-notes"></span><span>開啟卡片</span>';
+    notesItem.addEventListener('click', function(){
+      var off = document.body.classList.toggle('notes-closed');
+      notesItem.classList.toggle('is-off', off);
+      reposition();
+    });
+    itemsBox.appendChild(notesItem);
+
+    function chooseBase(mark) {
+      if (enabled.has('summary')) {
+        var v = (mark.getAttribute('data-pids-summary') || '').trim();
+        if (v) return 'summary';
+      }
+      var best = null;
+      var bestCount = -1;
+      for (var i = 0; i < COLOR_KEYS.length; i++) {
+        var k = COLOR_KEYS[i];
+        if (k === 'summary') continue;
+        if (!enabled.has(k)) continue;
+        var av = (mark.getAttribute('data-pids-' + k) || '').trim();
+        if (!av) continue;
+        var cnt = av.split(/\s+/).length;
+        if (cnt > bestCount) {
+          bestCount = cnt;
+          best = k;
+        }
+      }
+      return best;
+    }
+
+    function rebaseMarks() {
+      document.querySelectorAll('mark.hl').forEach(function(mark){
+        var classes = mark.className.split(/\s+/);
+        var keep = classes.filter(function(c){
+          return !(c.indexOf('hl-') === 0 || c.indexOf('sel-') === 0 || c === 'is-selected');
+        });
+        var base = chooseBase(mark);
+        if (base) keep.push('hl-' + base); else keep.push('hl-none');
+        mark.className = keep.join(' ');
+      });
+      document.querySelectorAll('.margin-note.is-selected').forEach(function(n){
+        n.classList.remove('is-selected');
+      });
+      document.querySelectorAll('a.hl.is-selected').forEach(function(a){
+        a.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ a.classList.remove('sel-' + k); });
+      });
+    }
+
+    COLOR_KEYS.forEach(function(k){
+      // Only emit toggle items for color keys this paper actually uses.
+      // `summary` is always present; method colors only when COLOR_LABELS has them.
+      if (k !== 'summary' && !(COLOR_LABELS && COLOR_LABELS[k])) return;
+      var item = document.createElement('div');
+      item.className = 'ct-item';
+      item.setAttribute('data-color', k);
+      var label = (COLOR_LABELS && COLOR_LABELS[k]) ? COLOR_LABELS[k] : k;
+      item.innerHTML = '<span class="ct-swatch ct-swatch-' + k + '"></span><span>' + label + '</span>';
+      if (k !== 'summary') {
+        document.body.classList.add('off-' + k);
+        item.classList.add('is-off');
+      }
+      item.addEventListener('click', function(){
+        if (enabled.has(k)) {
+          enabled.delete(k);
+          document.body.classList.add('off-' + k);
+          item.classList.add('is-off');
+        } else {
+          enabled.add(k);
+          document.body.classList.remove('off-' + k);
+          item.classList.remove('is-off');
+        }
+        rebaseMarks();
+        reposition();
+      });
+      itemsBox.appendChild(item);
+    });
+
+    document.body.appendChild(toggle);
+
+    // initial reposition + typeset
+    rebaseMarks();
+    reposition();
+    doTypeset();
+
+    window.addEventListener('resize', reposition);
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(reposition);
+      ro.observe(mainEl);
+    } else {
+      document.addEventListener('toggle', reposition, true);
+    }
+    document.querySelectorAll('main img').forEach(function(img){
+      if (!img.complete) img.addEventListener('load', reposition);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+
+    <header>
+      <div class="journal-bar">
+        <span>Nature · Vol 438 · 24 November 2005 · <a href="https://doi.org/10.1038/nature04342">doi:10.1038/nature04342</a></span>
+        <span class="section-label">Reviews</span>
+      </div>
+      <div class="front-matter">
+        <h1>Foundations for engineering biology</h1>
+        <p class="authors">Drew Endy<sup>1</sup></p>
+        <p class="affiliation"><sup>1</sup> Division of Biological Engineering, Massachusetts Institute of Technology, Room 68-580, Koch Biology Building, 31 Ames Street, Cambridge, Massachusetts 02139, USA.</p>
+        <p class="abstract">Engineered biological systems have been used to manipulate information, construct materials, process chemicals, produce energy, provide food, and help maintain or enhance human health and our environment. Unfortunately, our ability to quickly and reliably engineer biological systems that behave as expected remains quite limited. Foundational technologies that make routine the engineering of biology are needed. Vibrant, open research communities and strategic leadership are necessary to ensure that the development and application of biological technologies remains overwhelmingly constructive.</p>
+      </div>
+    </header>
+
+    <article class="article-flow">
+      <p class="opening"><mark class="hl hl-summary" id="h-l1-007-a" data-back="sum-h-l1-007" data-zh-summary="有人要你在一小時內寫出一段 DNA 密碼" data-pids-summary="h-l1-007">Please complete one of the following projects in the next hour: write down the DNA sequence</mark> that <mark class="hl hl-summary" id="h-l1-008-a" data-back="sum-h-l1-008" data-zh-summary="讓一整層細菌像底片一樣『拍』下一張照片" data-pids-summary="h-l1-008">programmes a biofilm to take a photograph and perform distributed edge-detection on the light-encoded image</mark>; or, <mark class="hl hl-summary" id="h-l1-009-a" data-back="sum-h-l1-009" data-zh-summary="讓某種細胞內部自己跑出規律的週期訊號" data-pids-summary="h-l1-009">the DNA sequence that encodes a ring oscillator that works inside yeast</mark>; or, the DNA sequence that programmes any mammalian cell to count up to 256 in response to a generic input signal; or, the DNA sequence that programmes any prokaryote to produce 25 g l<sup>−1</sup> artemisinic acid. Alternatively, describe in convincing detail the starting materials, experimental screens and genetic selections that could be used to evolve biological systems to perform these tasks… Time’s up!</p>
+
+      <p>The abovementioned applications of synthetic biology could find uses in the construction of templated surfaces for nanoscale materials fabrication, the characterization of physical performance limits for eukaryotic gene expression, the study and control of cell division, animal development, ageing and cancer by modest amounts of genetically encoded memory and logic, or the cost-effective production of an anti-malaria drug precursor, respectively. Furthermore, <mark class="hl hl-summary" id="h-l1-010-a" data-back="sum-h-l1-010" data-zh-summary="這些任務在原理上都辦得到" data-pids-summary="h-l1-010">each application is physically plausible, or is the direct extension of an already demonstrated result</mark><sup><a href="#ref-1">1–3</a></sup>. Yet, <mark class="hl hl-summary" id="h-l1-011-a" data-back="sum-h-l1-011" data-zh-summary="都會變成一個得靠專家、花上一整年、還不保證成功的研究計畫" data-pids-summary="h-l1-011">each project would be a unique, expert-driven research problem, with uncertain times to completion, costs and probabilities of success</mark>. For example, <mark class="hl hl-summary" id="h-l1-013-a" data-back="sum-h-l1-013" data-zh-summary="史上第一個會規律閃爍的基因線路（稱作環形振盪器，ring oscillator）" data-pids-summary="h-l1-013">construction of the first genetically encoded ‘ring oscillator’ in bacteria</mark> <mark class="hl hl-summary" id="h-l1-014-a" data-back="sum-h-l1-014" data-zh-summary="是兩位頂尖科學家花了至少一年才做出來的" data-pids-summary="h-l1-014">took two of the world’s best biophysicists at least one year of research</mark><sup><a href="#ref-2">2,4</a></sup>. <mark class="hl hl-m1" id="h-method_m1-043-a" data-back="sum-h-method_m1-043" data-zh-m1="於是每個人都在重造輪子" data-pids-m1="h-method_m1-043">Constructing a second genetically encoded ring oscillator would probably cost another group as much effort</mark>. In contrast, <mark class="hl hl-summary" id="h-l1-015-a" data-back="sum-h-l1-015" data-zh-summary="任何一個普通的電機系學生，都能在一小時內做出好幾個" data-pids-summary="h-l1-015">any competent electrical engineering student could build many working electronic ring oscillators in under one hour</mark>.</p>
+
+      <p>In 1978, Szybalksi and Skalka wrote<sup><a href="#ref-5">5</a></sup>, “The work on restriction nucleases not only permits us easily to construct recombinant DNA molecules and to analyse individual genes, but also has led us into <mark class="hl hl-summary" id="h-l1-012-a" data-back="sum-h-l1-012" data-zh-summary="這種把活細胞改造成能執行人類指定任務的領域，就叫合成生物學 (synthetic biology)" data-pids-summary="h-l1-012">the new era of ‘synthetic biology’ where not only existing genes are described and analyzed but also new gene arrangements can be constructed and evaluated</mark>.” Twenty-seven years later, despite tremendous individual successes in genetic engineering and biotechnology<sup><a href="#ref-6">6–8</a></sup>, <mark class="hl hl-summary" id="h-l1-017-a" data-back="sum-h-l1-002 sum-h-l1-016 sum-h-l1-017" data-zh-summary="至今仍然又貴又慢又不可靠 ／ 改造生物、讓它照著我們的設計運作，至今仍然又貴、又不可靠 ／ 改造生物為什麼還是這麼難" data-pids-summary="h-l1-002 h-l1-016 h-l1-017">why is the engineering of useful synthetic biological systems still an expensive, unreliable and</mark> <em>ad hoc</em> research process?</p>
+
+      <p>The first possibility is that <mark class="hl hl-summary" id="h-l1-018-a" data-back="sum-h-l1-003 sum-h-l1-018" data-zh-summary="真正的瓶頸不是生物太難懂 ／ 一種是生物本身太複雜、我們懂得還不夠" data-pids-summary="h-l1-003 h-l1-018">we don’t yet know enough about biological systems, or that biological systems are too complex to reliably engineer</mark>, or both. For example, some descriptions of natural biological systems are notoriously complex<sup><a href="#ref-9">9,10</a></sup>. The large number of unique functional components combined with unexpected interactions among components (for example, pleiotropy) makes it hard to imagine that we might reliably engineer the behaviour of complex biological systems. Furthermore, it is possible that the designs of natural biological systems are not optimized by evolution for the purposes of human understanding and engineering<sup><a href="#ref-11">11</a></sup>. Thankfully, these concerns are best evaluated by attempting to surmount them<sup><a href="#ref-12">12</a></sup>.</p>
+
+      <p>The second possibility is that the engineering of biology remains a research problem because <mark class="hl hl-summary" id="h-l1-004-a" data-back="sum-h-l1-004 sum-h-l1-019" data-zh-summary="這個領域從未打造出能把工程變簡單的基礎工具 ／ 我們從來沒有真正去打造那些能『把困難變簡單』的基礎工具" data-pids-summary="h-l1-004 h-l1-019">we have never invented and implemented foundational technologies that would make it an engineering problem</mark>. Stated plainly, <mark class="hl hl-summary" id="h-l1-021-a" data-back="sum-h-l1-021" data-zh-summary="問題或許不在生物天生無法被工程化" data-pids-summary="h-l1-021">the engineering of biology remains complex because we have never made it simple</mark> (T. F. Knight, personal communication). As above, <mark class="hl hl-summary" id="h-l1-020-a" data-back="sum-h-l1-020" data-zh-summary="一件事到底能不能變簡單，最好的檢驗方式就是動手去把它變簡單" data-pids-summary="h-l1-020">the practicality of making biological engineering simple can best be evaluated by attempting to make it simple</mark>. Success would help to “create the discipline of synthetic biology: an engineering technology based on living systems”<sup><a href="#ref-13">13</a></sup>. Failures would directly illuminate and help prioritize the most relevant gaps in our current understanding of natural living systems, and suggest how we might best eventually come to understand and apply nature’s original technology<sup><a href="#ref-14">14</a></sup>.</p>
+
+      <h2>What and why is synthetic biology?</h2>
+
+      <p>The recent and ongoing interest in ‘synthetic biology’ is being driven by at least four different groups: biologists, chemists, ‘re-writers’ and engineers. Briefly, for biologists, the ability to design and construct synthetic biological systems provides a direct and compelling method for testing our current understanding of natural biological systems<sup><a href="#ref-4">4,15</a></sup>; disagreements between expected and observed system behaviour can serve to highlight the science that is worth doing. For chemists, biology is chemistry, and thus synthetic biology is an extension of synthetic chemistry; the ability to create novel molecules and molecular systems allows the development of useful diagnostic assays and drugs, expansion of genetically encoded functions, study of the origins of life, and so on<sup><a href="#ref-16">16</a></sup>. For ‘re-writers’, the designs of natural biological systems may not be optimized for human intentions (for example, scientific understanding, health and medicine); synthetic biology provides an opportunity to test the hypothesis that the genomes encoding natural biological systems can be ‘re-written’, producing engineered surrogates that might usefully supplant some natural biological systems<sup><a href="#ref-11">11</a></sup>. Finally, for engineers, biology is a technology; building upon past work in genetic engineering, synthetic biology seeks to combine a broad expansion of biotechnology applications with—as the focus of this article—an emphasis on the development of foundational technologies that <mark class="hl hl-summary" id="h-l1-001-a" data-back="sum-h-l1-001 sum-h-method_m1-018" data-zh-summary="改造活細胞、讓它照著人類設計運作" data-pids-summary="h-l1-001" data-zh-m1="共享庫之所以能讓設計變簡單" data-pids-m1="h-method_m1-018">make the design and construction of engineered biological systems easier</mark>.</p>
+
+      <h2>Foundations for engineering biology</h2>
+
+      <p>Many times over, individuals and groups have adapted and applied different resources from nature to the service of human needs such as shelter, food, health and happiness; notably, natural resources are limited while our needs, in aggregate, may be unbounded. In this context, we should attempt to develop foundational technologies that make it easier and more efficient to satisfy human needs. For example, in the developed world, <mark class="hl hl-summary" id="h-l1-068-a" data-back="sum-h-l1-068" data-zh-summary="改造生物就會從少數專家的苦工，變成像蓋房子一樣的例行工作" data-pids-summary="h-l1-068">the design and construction of buildings is now a routine and reliable process</mark>. The success of the building process depends on (1) the existence of a limited set of predefined, refined materials <mark class="hl hl-summary" id="h-l1-030-a" data-back="sum-h-l1-030" data-zh-summary="拿來就能用、行為也可以預期" data-pids-summary="h-l1-030">that can be delivered on demand and that behave as expected</mark>, (2) generally useful rules (that is, simple models) that describe how materials can be used in combination (or not), and (3) skilled individuals with a working knowledge and means to apply these rules. Biology itself is a natural resource that can be further adapted to help satisfy human needs. What foundational engineering technologies would best enable the routine design and construction of useful synthetic biological systems?</p>
+
+      <p>Today, <mark class="hl hl-summary" id="h-l1-022-a" data-back="sum-h-l1-022" data-zh-summary="一直拖住生物工程的麻煩有四個" data-pids-summary="h-l1-022">four challenges that greatly limit the engineering of biology are</mark> (1) <mark class="hl hl-summary" id="h-l1-023-a" data-back="sum-h-l1-023" data-zh-summary="生物本身太複雜、很難駕馭" data-pids-summary="h-l1-023">an inability to avoid or manage biological complexity</mark>, (2) <mark class="hl hl-summary" id="h-l1-024-a" data-back="sum-h-l1-024" data-zh-summary="光是把零件做出來再一一測試又既繁瑣又不可靠" data-pids-summary="h-l1-024">the tedious and unreliable construction and characterization of synthetic biological systems</mark>, (3) <mark class="hl hl-summary" id="h-l1-025-a" data-back="sum-h-l1-025" data-zh-summary="同一套設計每次跑出來的表現還會莫名其妙地飄移" data-pids-summary="h-l1-025">the apparent spontaneous physical variation of biological system behaviour</mark>, <mark class="hl hl-summary" id="h-l1-026-a" data-back="sum-h-l1-026 sum-h-method_m8-024" data-zh-summary="而生物更會自己演化" data-pids-summary="h-l1-026" data-zh-m8="這正是第四個、也是過去工程經驗完全沒碰過的挑戰——演化" data-pids-m8="h-method_m8-024">and (4) evolution</mark>. In considering how best to address these engineering challenges, one practical starting point is to consider past lessons from when other engineering disciplines emerged from the natural sciences. Are any past lessons relevant to the engineering of biology today? For example, could we usefully consider adapting or extending ideas from structural engineering to synthetic biology?</p>
+
+      <p><mark class="hl hl-summary" id="h-l1-005-a" data-back="sum-h-l1-005 sum-h-l1-027" data-zh-summary="提出三個借自成熟工程的觀念（標準化、解耦、抽象化） ／ 他向其他早已成熟的工程領域借了三個老觀念——標準化、解耦與抽象化" data-pids-summary="h-l1-005 h-l1-027">The three past ideas that now seem most relevant to the engineering of biology are standardization, decoupling and abstraction</mark> (see the Acknowledgements for a list of people who have helped to contribute to these ideas). To be clear, <mark class="hl hl-summary" id="h-l1-079-a" data-back="sum-h-l1-079" data-zh-summary="他自己也坦言這三個觀念和它們的先後順序未必正確" data-pids-summary="h-l1-079">these ideas and my prioritization of them could be wrong; I would explicitly encourage the widespread invention and discussion of alternative ideas</mark>. However, as introduced below, the successful development of foundational technologies based on these ideas would greatly ameliorate the first three engineering challenges posed above. <mark class="hl hl-summary" id="h-l1-061-a" data-back="sum-h-l1-061 sum-h-method_m8-024" data-zh-summary="第四個麻煩——演化——則是前人的工程經驗幾乎沒碰過的" data-pids-summary="h-l1-061" data-zh-m8="這正是第四個、也是過去工程經驗完全沒碰過的挑戰——演化" data-pids-m8="h-method_m8-024">The fourth challenge, evolution, is largely unaddressed within past engineering experience</mark> (discussed below).</p>
+
+      <h2>Standardization</h2>
+
+      <p><mark class="hl hl-summary" id="h-l1-028-a" data-back="sum-h-l1-028" data-zh-summary="第一個觀念是標準化" data-pids-summary="h-l1-028">Standards underlie most aspects of the modern world</mark><sup><a href="#ref-17">17</a></sup>. <mark class="hl hl-summary" id="h-l1-029-a" data-back="sum-h-l1-029" data-zh-summary="螺紋、鋼筋、軌距都有統一規格" data-pids-summary="h-l1-029">Railroad gauges, screw threads, internet addresses, ‘rebar’ for reinforcing concrete, gasoline formulations, units of measure</mark>, and so on. In the science of biology, <mark class="hl hl-summary" id="h-method_m7-004-a" data-back="sum-h-l1-056 sum-h-method_m7-004 sum-h-method_m7-016 sum-h-method_m7-017" data-zh-summary="細胞要靠一套機器照著基因去製造蛋白質" data-pids-summary="h-l1-056" data-zh-m7="讓各類生物資料都有一套社群事先講好的標準格式 ／ 社群為了互通就逼出了統一格式 ／ 它們又剛好都繞著描述生命運作的中心法則 (central dogma)" data-pids-m7="h-method_m7-004 h-method_m7-016 h-method_m7-017">a number of useful standards have already arisen around the ‘central dogma’ that defines the core operations of most natural biological systems</mark>, and <mark class="hl hl-m7" id="h-method_m7-014-a" data-back="sum-h-method_m7-014 sum-h-method_m7-015" data-zh-m7="圍著「大家天天在做、又會產出大量資料的方法」自然長出來的 ／ 定序、解結構、量微陣列都是成熟又普及的操作" data-pids-m7="h-method_m7-014 h-method_m7-015">in response to the development of widely practiced methods that generate significant amounts of data</mark>. As representative examples, <mark class="hl hl-m7" id="h-method_m7-001-a" data-back="sum-h-method_m7-001 sum-h-method_m7-007 sum-h-method_m7-008" data-zh-m7="推廣涵蓋序列、微陣列、結構、酵素、模型與限制酶活性的社群資料與模型標準格式 ／ 有六大類資料其實已經各自長出公定標準 ／ DNA 序列與遺傳特徵交給「國際核酸序列資料庫聯盟 (INSDC)」" data-pids-m7="h-method_m7-001 h-method_m7-007 h-method_m7-008">standards of varying utility now exist for DNA sequence data and genetic features</mark><sup><a href="#ref-18">18</a></sup>, microarray data<sup><a href="#ref-19">19</a></sup>, protein crystallographic data<sup><a href="#ref-20">20</a></sup>, enzyme nomenclature<sup><a href="#ref-21">21</a></sup>, systems biology models<sup><a href="#ref-22">22</a></sup> and restriction endonuclease activities<sup><a href="#ref-23">23</a></sup>. However, <mark class="hl hl-summary" id="h-l1-034-a" data-back="sum-h-l1-034 sum-h-method_m1-039 sum-h-method_m7-020 sum-h-method_m7-021 sum-h-method_m7-022" data-zh-summary="整個社群需要為最基本的生物功能零件、測量方式與操作條件訂出公認的標準" data-pids-summary="h-l1-034" data-zh-m1="就算拿到零件，也因為缺乏統一規格與特性化資料" data-pids-m1="h-method_m1-039" data-zh-m7="工程最在乎的事反而沒有標準 ／ 「這個啟動子到底多強 (promoter activity)」 ／ 「蛋白質濃度多少」至今還沒有一套大家共用的量法" data-pids-m7="h-method_m7-020 h-method_m7-021 h-method_m7-022">the biological engineering community has yet to develop formal, widely used standards for most classes of basic biological functions (for example, promoter activity), experimental measurements (for example, protein concentrations) and system operation</mark> (for example, genetic background, media, growth rate, environmental conditions, and so on).</p>
+
+      <p><mark class="hl hl-m7" id="h-method_m1-037-a" data-back="sum-h-method_m1-037 sum-h-method_m7-003 sum-h-method_m7-018 sum-h-method_m7-023 sum-h-method_m7-032" data-zh-m1="沒有這套共享與法律標準，生物工程會卡在三個地方" data-pids-m1="h-method_m1-037" data-zh-m7="以消除缺乏標準所累積的龐大溝通成本 ／ 標準能省下溝通成本的關鍵在於「一次講好、終身受用」 ／ 少了標準，最直接會壞在「根本不知道兩個零件能不能拼在一起」 ／ 這種看不見卻不斷累積的時間，正是缺標準的代價" data-pids-m7="h-method_m7-003 h-method_m7-018 h-method_m7-023 h-method_m7-032">Tremendous costs accrue owing to the lack of standards in biological engineering</mark>. For example, <mark class="hl hl-summary" id="h-l1-031-a" data-back="sum-h-l1-031" data-zh-summary="同一個在甲實驗室被標為『很強』的零件，到了乙實驗室可能只算普通" data-pids-summary="h-l1-031">one would-be biological engineer’s ‘strong’ ribosome binding site may be merely middling to another</mark>. As a second example, <mark class="hl hl-m7" id="h-method_m7-024-a" data-back="sum-h-method_m7-024" data-zh-m7="一組基因開關 (toggle switch)" data-pids-m7="h-method_m7-024">one group’s genetic toggle switch may work in Jacques Monod’s</mark> <em>Escherichia coli</em> <mark class="hl hl-m7" id="h-method_m7-025-a" data-back="sum-h-method_m7-025" data-zh-m7="要在大腸桿菌 JM2.300 株" data-pids-m7="h-method_m7-025">strain JM2.300 (which may be the same as Sydney Brenner’s</mark> <em>E. coli</em> strain XAO) <mark class="hl hl-m7" id="h-method_m7-026-a" data-back="sum-h-method_m7-026" data-zh-m7="泡在 Luria broth 裡才量得出效果" data-pids-m7="h-method_m7-026">when the cells are grown in Luria broth</mark><sup><a href="#ref-24">24</a></sup>, while <mark class="hl hl-m7" id="h-method_m7-027-a" data-back="sum-h-method_m7-027" data-zh-m7="另一組會規律開關的基因振盪器" data-pids-m7="h-method_m7-027">another group’s synthetic genetic oscillatory network</mark> will work in Malcolm Casadaban’s <em>E. coli</em> <mark class="hl hl-summary" id="h-l1-032-a" data-back="sum-h-l1-032 sum-h-method_m7-028" data-zh-summary="別人做出來的一個基因開關，用的是某一種特定的大腸桿菌菌株、泡在某一種特定的培養液裡" data-pids-summary="h-l1-032" data-zh-m7="卻要在 MC4100 株、養在補充過的最小培養基裡才動得起來" data-pids-m7="h-method_m7-028">strain MC4100 when the cells are grown in supplemented minimal media</mark><sup><a href="#ref-2">2</a></sup>. <mark class="hl hl-m7" id="h-method_m7-029-a" data-back="sum-h-method_m7-029" data-zh-m7="想把兩者直接接成一個「邊切換邊震盪」的 toggle-lator，會成功嗎？" data-pids-m7="h-method_m7-029">Could another group directly combine these two systems to produce a working ‘toggle-lator’</mark><sup><a href="#ref-25">25</a></sup>? <mark class="hl hl-m1" id="h-method_m1-041-a" data-back="sum-h-method_m1-041 sum-h-method_m7-030" data-zh-m1="每個新組合都變成一個新研究題目" data-pids-m1="h-method_m1-041" data-zh-m7="答案是「不知道，這本身又得當成一個研究題目」" data-pids-m7="h-method_m7-030">The obvious engineering cost is that we don’t know—it’s a research project</mark>; but also note that <mark class="hl hl-summary" id="h-l1-033-a" data-back="sum-h-l1-033 sum-h-method_m1-040 sum-h-method_m7-031" data-zh-summary="你光是把這些背景資料查清楚，就得花掉大半個鐘頭" data-pids-summary="h-l1-033" data-zh-m1="光查清楚它當初是在什麼條件下測的就得耗掉大把時間" data-pids-m1="h-method_m1-040" data-zh-m7="光把這些菌株、培養基的背景條件一一查清楚，就得花掉大約 30 分鐘" data-pids-m7="h-method_m7-031">it costs approximately 30 minutes just to track down all of this background information</mark>.</p>
+
+      <figure id="figure-1" class="full-width">
+        <img src="figures/Figure_1.png" alt="Screenshot of the Registry of Standard Biological Parts website">
+        <figcaption><span class="figure-label"><mark class="hl hl-summary" id="h-l1-035-a" data-back="sum-h-l1-035 sum-h-method_m1-007" data-zh-summary="一個公開的『標準生物零件登錄庫 (Registry of Standard Biological Parts)』" data-pids-summary="h-l1-035" data-zh-m1="標準生物元件登錄庫 (Registry of Standard Biological Parts)" data-pids-m1="h-method_m1-007">Figure 1 | The Registry of Standard Biological Parts.</mark></span> This registry (<a href="http://parts.mit.edu/">http://parts.mit.edu/</a>; modified image from the homepage shown), hosted by the MIT, provides free access to <mark class="hl hl-m1" id="h-method_m1-003-a" data-back="sum-h-method_m1-003 sum-h-method_m1-001 sum-h-method_m1-008 sum-h-method_m1-011" data-zh-m1="「基礎生物功能（Parts）」實體共享庫 ／ 開放、免費 ／ 它是一個開放、免費的共享庫 (open commons) ／ 共享庫給你的是一個能直接取用" data-pids-m1="h-method_m1-003 h-method_m1-001 h-method_m1-008 h-method_m1-011">an open commons of basic biological functions</mark> <mark class="hl hl-m1" id="h-method_m1-004-a" data-back="sum-h-method_m1-004" data-zh-m1="讓合成生物系統能像查元件型錄般以標準化零件組裝" data-pids-m1="h-method_m1-004">that can be used to programme synthetic biological systems</mark><sup><a href="#ref-26">26</a></sup>. <mark class="hl hl-summary" id="h-l1-036-a" data-back="sum-h-l1-036 sum-h-method_m1-002 sum-h-method_m1-009 sum-h-method_m1-019" data-zh-summary="任何人都可以取用、貢獻或改良裡面的零件" data-pids-summary="h-l1-036" data-zh-m1="人人皆可貢獻與取用 ／ 任何人都能把自己做好的零件放進去、從裡面拿零件來用、或改良別人的零件 ／ 「貢獻一次、重用無數次」的累積機制" data-pids-m1="h-method_m1-002 h-method_m1-009 h-method_m1-019">Anybody may contribute, draw upon, or improve the parts maintained within the Registry.</mark></figcaption>
+      </figure>
+
+      <p>Looking forward, the biological engineering community would benefit from the development of technologies and the promulgation of standards that support the definition, <mark class="hl hl-m1" id="h-method_m1-012-a" data-back="sum-h-method_m1-012 sum-h-method_m1-020 sum-h-method_m1-022" data-zh-m1="附帶別人量測過的行為資料的零件 ／ 一個零件只要有人做好、量過一次行為、放進庫裡 ／ 動手前還能憑特性化資料大致預期結果" data-pids-m1="h-method_m1-012 h-method_m1-020 h-method_m1-022">description and characterization of the basic biological parts</mark><sup><a href="#ref-26">26</a></sup>, as well as <mark class="hl hl-m1" id="h-method_m1-017-a" data-back="sum-h-method_m1-017 sum-h-method_m1-021" data-zh-m1="它的精神是把零件都做成同一套規格，讓任兩個零件都能以一致的方式拼接 ／ 後面所有人就能直接拿去組，不必從頭摸索" data-pids-m1="h-method_m1-017 h-method_m1-021">standard conditions that support the use of parts in combination</mark> and overall system operation. One very preliminary example of such work is emerging as <mark class="hl hl-summary" id="h-l1-035-b" data-back="sum-h-l1-035" data-zh-summary="一個公開的『標準生物零件登錄庫 (Registry of Standard Biological Parts)』" data-pids-summary="h-l1-035">the Registry of Standard Biological Parts (Fig. 1)</mark>. However, beyond the technology itself, standards are also needed to support a vibrant, constructive and responsible community of biological engineers. For example, <mark class="hl hl-m1" id="h-method_m1-023-a" data-back="sum-h-method_m1-023" data-zh-m1="讓這個庫真正運轉起來還缺一塊法律拼圖" data-pids-m1="h-method_m1-023">legal standards are needed to define means by which large collections of parts</mark> encoding basic biological functions, from a myriad of sources, can be easily shared and used in combination to realize many applications. <mark class="hl hl-m1" id="h-method_m1-006-a" data-back="sum-h-method_m1-006 sum-h-method_m1-025" data-zh-m1="取代耗時數週的材料轉移流程 ／ 得先簽一份叫材料轉移協議 (Materials Transfer Agreement, MTA) 的法律合約" data-pids-m1="h-method_m1-006 h-method_m1-025">Current legal standards such as uniform Materials Transfer Agreements (MTAs)</mark>, which define the terms that <mark class="hl hl-m1" id="h-method_m1-024-a" data-back="sum-h-method_m1-024" data-zh-m1="傳統上不同機構要分享一段生物材料" data-pids-m1="h-method_m1-024">allow researchers at different organizations to share biological materials</mark>, <mark class="hl hl-m1" id="h-method_m1-006-b" data-back="sum-h-method_m1-006 sum-h-method_m1-026 sum-h-method_m1-038" data-zh-m1="取代耗時數週的材料轉移流程 ／ 它常要跑好幾週才簽得完 ／ 想用別人的零件，得先簽一份要跑好幾週的材料轉移協議，光等合約就拖垮進度" data-pids-m1="h-method_m1-006 h-method_m1-026 h-method_m1-038">can take several weeks to execute</mark>, and <mark class="hl hl-m1" id="h-method_m1-027-a" data-back="sum-h-method_m1-027" data-zh-m1="簽完往往還講不清楚你拿去能用來做什麼" data-pids-m1="h-method_m1-027">typically do not resolve application rights</mark>. Meanwhile, <mark class="hl hl-summary" id="h-l1-042-a" data-back="sum-h-l1-042 sum-h-method_m1-030 sum-h-method_m2-005 sum-h-method_m2-007 sum-h-method_m2-025" data-zh-summary="DNA 合成——也就是用化學方法直接照著序列，把 DNA 一段段做出來" data-pids-summary="h-l1-042" data-zh-m1="目前商用服務已能一次做出約 10,000 個鹼基對 (~10,000 bp) 的片段" data-pids-m1="h-method_m1-030" data-zh-m2="轉變成可隨需下單的商品 ／ 化學合成是用純化學反應 ／ 取得實驗用的基因材料就從一件苦差事變成上網下單的商品" data-pids-m2="h-method_m2-005 h-method_m2-007 h-method_m2-025">direct chemical synthesis of up to ~10,000-base-pair DNA fragments is a widely available commercial service</mark> (as entering “gene synthesis” into an internet search engine will confirm); <mark class="hl hl-m1" id="h-method_m1-028-a" data-back="sum-h-method_m1-028" data-zh-m1="只要零件的 DNA 序列是公開的" data-pids-m1="h-method_m1-028">for cases in which the DNA sequence information encoding the desired part is freely available</mark>, <mark class="hl hl-m1" id="h-method_m1-032-a" data-back="sum-h-method_m1-032 sum-h-method_m1-029" data-zh-m1="往往比跑完一份 MTA 更便宜也更快 ／ 就不必跟對方借實體材料，直接請商業的基因合成 (gene synthesis) 服務照序列把這段 DNA 從頭做出來即可" data-pids-m1="h-method_m1-032 h-method_m1-029">it is often cheaper and faster to directly synthesize the part from scratch</mark> instead of executing an MTA. Thus, <mark class="hl hl-m1" id="h-method_m1-005-a" data-back="sum-h-method_m1-005 sum-h-method_m1-033" data-zh-m1="以新的低/零成本法律策略 ／ 所以作者主張發展低成本或零成本的新法律策略" data-pids-m1="h-method_m1-005 h-method_m1-033">new low- or zero-cost legal strategies that facilitate and protect the exchange of the genetic information defining parts</mark>, and the use of parts in combination, are needed. As a second example, it seems prudent to develop <mark class="hl hl-m7" id="h-method_m7-002-a" data-back="sum-h-method_m1-034 sum-h-method_m1-035 sum-h-method_m1-036 sum-h-method_m7-002 sum-h-method_m7-033 sum-h-method_m7-034 sum-h-method_m7-035 sum-h-method_m7-036 sum-h-method_m7-037 sum-h-method_m7-039" data-zh-m1="他也認為社群該替工程化的 DNA 加上三種標記 ／ 條碼 (barcoding) 用來偵測這段 DNA 存不存在、簽章 (signing) 用來辨識它是誰做的、浮水印 (watermarking) 用來認證它是不是正版 ／ 仍追得出每段 DNA 的來歷與真偽" data-pids-m1="h-method_m1-034 h-method_m1-035 h-method_m1-036" data-zh-m7="並為工程生物系統建立條碼、簽章與浮水印等可鑑別標準 ／ 替工程生物的 DNA 建立三種「身分標記」標準 ／ 而且特意拆成三種、各對應一個不同用途 ／ 條碼 (barcoding) 是嵌一段大家都查得到的固定標記，對應「偵測」 ／ 簽章 (signing) 是蓋上「這是誰做的」記號，對應「識別」 ／ 浮水印 (watermarking) 是藏一段驗真偽的隱藏訊息，對應「認證」 ／ 偵測、識別、認證本就是三件不同的事，所以需要三種標記分工" data-pids-m7="h-method_m7-002 h-method_m7-033 h-method_m7-034 h-method_m7-035 h-method_m7-036 h-method_m7-037 h-method_m7-039">community-wide standards for barcoding, signing and watermarking DNA in order to support the detection, identification and authentication of engineered biological systems, respectively</mark><sup><a href="#ref-27">27</a></sup>.</p>
+
+      <h2>Decoupling</h2>
+
+      <p>Decoupling is the idea that it is useful <mark class="hl hl-summary" id="h-method_m6-005-a" data-back="sum-h-l1-037 sum-h-method_m6-005 sum-h-method_m6-017 sum-h-method_m6-021" data-zh-summary="解耦，意思是把一個複雜的大問題，切成許多可以各自獨立處理的小問題" data-pids-summary="h-l1-037" data-zh-m6="解耦就是把一個大難題切成好幾個能各自獨立處理 ／ 界線一畫清楚，不同專長的人就能平行推進 ／ 兩邊可以平行進行、互不卡住" data-pids-m6="h-method_m6-005 h-method_m6-017 h-method_m6-021">to separate a complicated problem into many simpler problems that can be worked on independently</mark>, such that <mark class="hl hl-summary" id="h-l1-038-a" data-back="sum-h-l1-038 sum-h-method_m6-004 sum-h-method_m6-006" data-zh-summary="最後再拼回一個能運作的整體" data-pids-summary="h-l1-038" data-zh-m6="即可協作產出整體 ／ 最後再拼回去的小問題" data-pids-m6="h-method_m6-004 h-method_m6-006">the resulting work can eventually be combined to produce a functioning whole</mark>. Two representative examples of decoupling include (1) <mark class="hl hl-summary" id="h-l1-039-a" data-back="sum-h-l1-039 sum-h-method_m6-012" data-zh-summary="蓋房子時，設計、施工、監工本來就是分開的" data-pids-summary="h-l1-039" data-zh-m6="蓋房子被拆成設計、結構工程、施工、專案管理、監工等角色各司其職" data-pids-m6="h-method_m6-012">building projects, which are often separated into architecture, engineering, construction, project management and inspection tasks</mark>, and (2) <mark class="hl hl-summary" id="h-l1-040-a" data-back="sum-h-l1-040 sum-h-method_m6-001 sum-h-method_m6-013 sum-h-method_m6-014 sum-h-method_m6-015" data-zh-summary="等到『設計晶片』和『製造晶片』這兩件事能被切開之後，大規模電路才真正變得實用" data-pids-summary="h-l1-040" data-zh-m6="借鏡 VLSI 把晶片「設計」與「製造」分離的經驗 ／ VLSI（超大型積體電路）更關鍵 ／ 晶片業是「設計」和「製造」能切開之後才真正起飛的 ／ 作者並點名那份讓分離變可行的規則來源" data-pids-m6="h-method_m6-001 h-method_m6-013 h-method_m6-014 h-method_m6-015">very-large scale integrated (VLSI) electronics, which is an engineering technology that only became practical once rules were worked out to enable the separation of chip design from chip fabrication</mark><sup><a href="#ref-28">28</a></sup>.</p>
+
+      <p>Today, in biological engineering, many useful types of decoupling could be developed <mark class="hl hl-m6" id="h-method_m6-044-a" data-back="sum-h-method_m6-044" data-zh-m6="解耦還得同時仰賴標準化和抽象化" data-pids-m6="h-method_m6-044">within the context of standardization (discussed above) and abstraction (discussed below)</mark>. For example, <mark class="hl hl-m6" id="h-method_m6-027-a" data-back="sum-h-method_m6-027 sum-h-method_m6-028" data-zh-m6="作者還舉了另一種解耦：開發標準的底盤細胞 (power supply and chassis cell) ／ 它的角色像一個規格固定的電源供應器加機殼" data-pids-m6="h-method_m6-027 h-method_m6-028">one engineer might develop standard ‘power supply and chassis’ cells</mark> that <mark class="hl hl-m6" id="h-method_m6-030-a" data-back="sum-h-method_m6-030" data-zh-m6="它都以已知速率供應核苷酸、胺基酸等原料" data-pids-m6="h-method_m6-030">provide known rates of nucleotides, amino acids and other resources</mark> <mark class="hl hl-m6" id="h-method_m6-029-a" data-back="sum-h-method_m6-029" data-zh-m6="不管你放進去的是哪一套系統" data-pids-m6="h-method_m6-029">to any engineered biological system placed within the cell</mark>, <mark class="hl hl-m6" id="h-method_m6-031-a" data-back="sum-h-method_m6-031 sum-h-method_m6-033" data-zh-m6="而且與你系統的細節無關 ／ 它把「你設計的那套系統」和「維持細胞運轉的雜務」切開" data-pids-m6="h-method_m6-031 h-method_m6-033">independent of the details of the system</mark><sup><a href="#ref-29">29</a></sup>. Another engineer might develop technologies that enable the decomposition of complicated ‘systems’ into sets of independent ‘devices’ (discussed below). However, <mark class="hl hl-summary" id="h-l1-041-a" data-back="sum-h-l1-041 sum-h-method_m2-034 sum-h-method_m6-008" data-zh-summary="最容易先下的一刀，就是把『設計 DNA』和『製造 DNA』分開" data-pids-summary="h-l1-041" data-zh-m2="後面要談的「把設計和製造分開」也做不成" data-pids-m2="h-method_m2-034" data-zh-m6="作者說這一刀最容易先下" data-pids-m6="h-method_m6-008">the simplest and most immediate type of decoupling is likely to be design from fabrication</mark>. The decoupling of design and fabrication in biological engineering <mark class="hl hl-m2" id="h-method_m6-009-a" data-back="sum-h-method_m2-006 sum-h-method_m6-009" data-zh-m2="DNA 合成是「照序列把 DNA 一段段做出來」" data-pids-m2="h-method_m2-006" data-zh-m6="DNA 合成又快又便宜了" data-pids-m6="h-method_m6-009">is being driven by recent and ongoing improvements in the process of DNA synthesis</mark>. <mark class="hl hl-summary" id="h-l1-043-a" data-back="sum-h-l1-043 sum-h-method_m2-022" data-zh-summary="產能大約每一年半就翻一倍" data-pids-summary="h-l1-043" data-zh-m2="產能約每 18 個月翻倍" data-pids-m2="h-method_m2-022">Bulk DNA synthesis capacity appears to have doubled every 18 months or so for the last ten years</mark>; <mark class="hl hl-summary" id="h-l1-044-a" data-back="sum-h-l1-044 sum-h-method_m2-001 sum-h-method_m2-023" data-zh-summary="長片段的價格則幾乎每年腰斬" data-pids-summary="h-l1-044" data-zh-m2="持續降價 ／ 長片段（超過 500 個鹼基對）價格幾乎每年腰斬" data-pids-m2="h-method_m2-001 h-method_m2-023">the commercial price of synthesis of long fragments of DNA (&gt;500 base pairs) has continued to decrease by a factor of approximately two in each of the past three years</mark><sup><a href="#ref-30">30</a></sup>—a trend that seems likely to continue over the next three years. More recently, <mark class="hl hl-m2" id="h-method_m2-016-a" data-back="sum-h-method_m2-002 sum-h-method_m2-013 sum-h-method_m2-014 sum-h-method_m2-016 sum-h-method_m2-020 sum-h-method_m2-024 sum-h-method_m2-029" data-zh-m2="自動把寡核苷酸與短片段組裝成長片段 DNA ／ 做出來的是短的單股 DNA，業界叫寡核苷酸 (oligonucleotide) ／ 要得到一整個基因那麼長的 DNA ／ 作者引了三項讓這步自動化的技術 ／ 重點是這些組裝都能自動跑 ／ 當降價再配上「只要給序列就自動組裝出長片段」的能力 ／ 沒有自動接成長片段的技術" data-pids-m2="h-method_m2-002 h-method_m2-013 h-method_m2-014 h-method_m2-016 h-method_m2-020 h-method_m2-024 h-method_m2-029">downstream technology has been developed that allows for the automatic assembly of oligonucleotides and short DNA fragments into much longer molecules</mark><sup><a href="#ref-31">31–33</a></sup>. Given gene and genome synthesis technology, <mark class="hl hl-summary" id="h-l1-045-a" data-back="sum-h-l1-045 sum-h-method_m2-035 sum-h-method_m6-002 sum-h-method_m6-007 sum-h-method_m6-010 sum-h-method_m6-011 sum-h-method_m6-020 sum-h-method_m6-024" data-zh-summary="有些人可以專心設計有用的 DNA，另一些人專心把 DNA 做出來" data-pids-summary="h-l1-045" data-zh-m2="因為製造端根本交不出一段照設計長出來的完整 DNA" data-pids-m2="h-method_m2-035" data-zh-m6="在生物工程中把「設計 DNA」與「建造 DNA」兩種角色解耦 ／ 把「設計 DNA 要長什麼樣」和「實際把 DNA 做出來」分開 ／ 製造端只要拿到序列就能照做 ／ 設計端因此不必再自己動手建造 ／ 設計者專心設計、製造者專心製造 ／ 設計者把序列交出去，製造者照著做回來" data-pids-m6="h-method_m6-002 h-method_m6-007 h-method_m6-010 h-method_m6-011 h-method_m6-020 h-method_m6-024">some individuals can and should focus on designing useful pieces of DNA, while other individuals focus on building DNA</mark>; <mark class="hl hl-summary" id="h-l1-046-a" data-back="sum-h-l1-046 sum-h-method_m6-003 sum-h-method_m6-018 sum-h-method_m6-019 sum-h-method_m6-025 sum-h-method_m6-026" data-zh-summary="各自只要當好自己那一行的專家就行" data-pids-summary="h-l1-046" data-zh-m6="使各方只需精通自己的任務 ／ 不必人人都懂全部 ／ 解耦能加速整體，靠的是讓每個人只需精通自己那一段 ／ 沒有人需要把整條鏈的知識都扛在身上 ／ 每個角色要懂的東西都大幅縮小" data-pids-m6="h-method_m6-003 h-method_m6-018 h-method_m6-019 h-method_m6-025 h-method_m6-026">each group need only be expert in their respective tasks</mark>.</p>
+
+      <h2>Abstraction</h2>
+
+      <p>Natural biological systems seem wonderfully complex. New molecular mechanisms that regulate cellular behaviour are still being discovered<sup><a href="#ref-34">34</a></sup> and ‘exceptions to rules’ abound<sup><a href="#ref-35">35</a></sup>. Given this context, how might we <mark class="hl hl-m3" id="h-method_m3-037-a" data-back="sum-h-method_m3-037 sum-h-method_m4-036 sum-h-method_m5-021" data-zh-m3="因為零件不再行為如預期" data-pids-m3="h-method_m3-037" data-zh-m4="才組得出複雜系統" data-pids-m4="h-method_m4-036" data-zh-m5="人才有餘裕去組裝由很多元件構成、還能如預期運作的大系統" data-pids-m5="h-method_m5-021">make routine the engineering of many-component biological systems that behave as expected</mark>?</p>
+
+      <figure id="figure-2" class="full-width">
+        <img src="figures/Figure_2.png" alt="Abstraction hierarchy from DNA to parts, devices and systems">
+        <figcaption><span class="figure-label">Figure 2 | An abstraction hierarchy that supports the engineering of integrated genetic systems.</span> <mark class="hl hl-summary" id="h-l1-047-a" data-back="sum-h-l1-047 sum-h-method_m5-016" data-zh-summary="抽象化，精神是『分層，並刻意把細節藏起來』" data-pids-summary="h-l1-047" data-zh-m5="抽象階層的目的一句話就是隱藏資訊、管理複雜度" data-pids-m5="h-method_m5-016">The purpose of an abstraction hierarchy is to hide information and manage complexity.</mark> <mark class="hl hl-summary" id="h-l1-048-a" data-back="sum-h-l1-048 sum-h-method_m5-001" data-zh-summary="作者把生物系統由小到大分成四層" data-pids-summary="h-l1-048" data-zh-m5="建立 DNA → Parts → Devices → Systems 的抽象化階層" data-pids-m5="h-method_m5-001">Abstraction levels are listed (‘DNA’, ‘Parts’, ‘Devices’, ‘Systems’).</mark> <mark class="hl hl-summary" id="h-method_m5-005-a" data-back="sum-h-l1-049 sum-h-l1-050 sum-h-l1-051 sum-h-l1-052 sum-h-method_m4-005 sum-h-method_m4-008 sum-h-method_m4-017 sum-h-method_m5-005 sum-h-method_m3-007 sum-h-method_m3-031 sum-h-method_m3-034" data-zh-summary="最底層是 DNA ／ 往上一層是『零件』（最基本的生物功能，例如一段會抓住 DNA 的蛋白質） ／ 再把零件組成能完成某個人類指定任務的『裝置』 ／ 最後把裝置組成『系統』" data-pids-summary="h-l1-049 h-l1-050 h-l1-051 h-l1-052" data-zh-m3="一旦拼成新組合，做出多少蛋白卻常常很難預測 ／ 每換一種組合就得重測一次做出多少蛋白 ／ 組合後的行為既無法建模也無法預測" data-pids-m3="h-method_m3-007 h-method_m3-031 h-method_m3-034" data-zh-m4="轉錄因子 (transcription factor) 是一種會「貼」到特定 DNA 位置 ／ 摘要用過「一段會抓住 DNA 的蛋白質」當零件的例子 ／ 縫起來的成品，就是一個「認哪段 DNA 可以由你設計」的 DNA 結合蛋白" data-pids-m4="h-method_m4-005 h-method_m4-008 h-method_m4-017" data-zh-m5="DNA → 元件 (Parts) → 裝置 (Devices) → 系統 (Systems) 這四層" data-pids-m5="h-method_m5-005">Here, ‘DNA’ is genetic material, ‘Parts’ are basic biological functions (for example, a DNA-binding protein), ‘Devices’ are any combination of ‘Parts’ that perform a human-defined function, and ‘Systems’ are any combination of ‘Devices’</mark>. <mark class="hl hl-summary" id="h-l1-053-a" data-back="sum-h-l1-053 sum-h-method_m5-002 sum-h-method_m5-003 sum-h-method_m5-006 sum-h-method_m5-007 sum-h-method_m5-008 sum-h-method_m5-015 sum-h-method_m5-019 sum-h-method_m5-025 sum-h-method_m5-026" data-zh-summary="層與層之間隔著一道牆，只透過少量、有規矩的介面交換資訊" data-pids-summary="h-l1-053" data-zh-m5="透過抽象屏障隱藏跨層細節 ／ 僅以受控介面交換有限資訊 ／ 層跟層之間有牆、靠介面往來 ／ 抽象屏障 (abstraction barrier) 是一道把所有跨層細節全擋掉的牆 ／ 介面 (interface) 則是牆上開的一個小窗口，只放有限、而且有規矩的資訊通過 ／ 這些屬於別層的細節，被牆擋在他的視線之外 ／ 再透過一個很薄的介面跟鄰層打交道就夠了 ／ 屏障把不相干的細節擋乾淨 ／ 介面只放彼此真正需要對接的那一點資訊" data-pids-m5="h-method_m5-002 h-method_m5-003 h-method_m5-006 h-method_m5-007 h-method_m5-008 h-method_m5-015 h-method_m5-019 h-method_m5-025 h-method_m5-026">Abstraction barriers (red) block all exchange of information between levels. Interfaces (green) enable the limited and principled exchange of information between levels.</mark> Naive exchanges are given in quotes. <mark class="hl hl-summary" id="h-method_m5-004-a" data-back="sum-h-l1-054 sum-h-method_m5-004 sum-h-method_m5-018" data-zh-summary="每一層的人都能專心在自己那一層做事，不必去懂別層的細節" data-pids-summary="h-l1-054" data-zh-m5="讓不同層級的工程師能各自獨立工作而不必理解他層細節 ／ 你只要顧好自己這層" data-pids-m5="h-method_m5-004 h-method_m5-018">To be useful, individuals must be able to work independently at each level of the hierarchy</mark>. In synthetic biology, for example, <mark class="hl hl-m5" id="h-method_m5-009-a" data-back="sum-h-method_m5-009" data-zh-m5="一個在元件層做事的研究者，該知道的是上層裝置想要什麼樣的零件" data-pids-m5="h-method_m5-009">parts-level researchers might need to know what sorts of parts that device-level researchers would like to use</mark>, <mark class="hl hl-m5" id="h-method_m5-010-a" data-back="sum-h-method_m5-010" data-zh-m5="這些零件怎麼運作" data-pids-m5="h-method_m5-010">how different types of parts actually work</mark> (for example, <mark class="hl hl-m4" id="h-method_m4-013-a" data-back="sum-h-method_m4-013 sum-h-method_m4-018 sum-h-method_m4-019" data-zh-m4="前半段是鋅指 (zinc finger)，負責認 DNA ／ 它靠胺基酸伸進 DNA 雙螺旋的溝槽、跟特定鹼基一一對上 ／ 論文 Figure 2 legend 就點出這是胺基酸與 DNA 大溝之間的原子級交互作用" data-pids-m4="h-method_m4-013 h-method_m4-018 h-method_m4-019">atomic interactions between amino acids and the major groove of DNA</mark>), and <mark class="hl hl-m2" id="h-method_m2-021-a" data-back="sum-h-method_m2-021 sum-h-method_m5-011" data-zh-m2="使用者只要給序列就好" data-pids-m2="h-method_m2-021" data-zh-m5="以及怎麼下單一段 DNA" data-pids-m5="h-method_m5-011">how to order a piece of DNA</mark>. But, parts-level researchers <mark class="hl hl-m2" id="h-method_m5-030-a" data-back="sum-h-method_m2-002 sum-h-method_m2-009 sum-h-method_m2-013 sum-h-method_m2-015 sum-h-method_m2-028 sum-h-method_m5-012 sum-h-method_m5-013 sum-h-method_m5-014 sum-h-method_m5-030" data-zh-m2="自動把寡核苷酸與短片段組裝成長片段 DNA ／ 底層反應叫 phosphoramidite chemistry ／ 做出來的是短的單股 DNA，業界叫寡核苷酸 (oligonucleotide) ／ 就得先大量做短片段、再精準組裝 ／ 如果只能做短的寡核苷酸" data-pids-m2="h-method_m2-002 h-method_m2-009 h-method_m2-013 h-method_m2-015 h-method_m2-028" data-zh-m5="他完全不需要懂 DNA 是用什麼化學反應 (phosphoramidite chemistry) 一個鹼基一個鹼基接出來的 ／ 短片段怎麼組裝成長片段 ／ 也不需要懂一個基因振盪器怎麼運作 ／ 沒有這套分層，每個工程師就得從一段序列一路懂到底層化學、再懂到整個系統怎麼運作" data-pids-m5="h-method_m5-012 h-method_m5-013 h-method_m5-014 h-method_m5-030">should not need to know anything about phosphoramidite chemistry, how short oligonucleotides are assembled into longer, contiguous DNA fragments, or how a genetic oscillator works</mark>, and so on. As a second example, <mark class="hl hl-m4" id="h-method_m4-028-a" data-back="sum-h-method_m4-004 sum-h-method_m4-011 sum-h-method_m4-028 sum-h-method_m4-029 sum-h-method_m4-034 sum-h-method_m4-035 sum-h-method_m4-042 sum-h-method_m4-044 sum-h-method_m5-027 sum-h-method_m5-028 sum-h-method_m5-032 sum-h-method_m5-033 sum-h-method_m5-036" data-zh-m4="作為可大量重用的標準訊號元件庫 ／ 做得出一整組就等於手上有一整組可隨意接線的控制訊號 ／ 因為上層的裝置要能自由組合 ／ 就需要一大批彼此互不干擾的控制訊號 ／ 這正是上層裝置重複組合所需的共通訊號載體 (common signal carriers) ／ 有夠多、夠乾淨的標準訊號 ／ 裝置也沒辦法安心地拼在一起 ／ 「可大量重用、互不干擾」這個前提整個垮掉" data-pids-m4="h-method_m4-004 h-method_m4-011 h-method_m4-028 h-method_m4-029 h-method_m4-034 h-method_m4-035 h-method_m4-042 h-method_m4-044" data-zh-m5="裝置層研究者必須用共通訊號載體 (common signal carriers) 來定義裝置 ／ 裝置才能被反覆拿來組合 ／ 裝置各用各的訊號、不共通 ／ 裝置就無法互相對接、重複組合 ／ 要造大批互不干擾的共通訊號" data-pids-m5="h-method_m5-027 h-method_m5-028 h-method_m5-032 h-method_m5-033 h-method_m5-036">device-level researchers must define devices that use common signal carriers, and thus can be reused in combination</mark> (A. Che <em>et al.</em>, manuscript in preparation). <mark class="hl hl-m4" id="h-method_m4-037-a" data-back="sum-h-method_m4-037" data-zh-m4="所以作者把它列為抽象階層背後一個艱鉅的分子工程挑戰" data-pids-m4="h-method_m4-037">Implicit in this hierarchy are formidable molecular engineering challenges</mark>; for example, <mark class="hl hl-m4" id="h-method_m4-002-a" data-back="sum-h-method_m4-002 sum-h-method_m4-009 sum-h-method_m4-026 sum-h-method_m4-030 sum-h-method_m4-032" data-zh-m4="工程化出上千個 ／ 合成轉錄因子是人工設計 ／ 為什麼要一次做 1,000 個 ／ 做出 1,000 個合成轉錄因子 ／ 等於一口氣備好 1,000 條獨立訊號線" data-pids-m4="h-method_m4-002 h-method_m4-009 h-method_m4-026 h-method_m4-030 h-method_m4-032">engineering a set of 1,000 synthetic transcription factors</mark> <mark class="hl hl-m4" id="h-method_m4-001-a" data-back="sum-h-method_m4-001 sum-h-method_m4-012 sum-h-method_m4-015" data-zh-m4="以 zinc-finger–leucine-zipper 嵌合體為骨架 ／ 作者用的骨架是把兩個現成蛋白零件縫成一條（所以叫嵌合體，chimaera） ／ 後半段是亮胺酸拉鍊 (leucine zipper)" data-pids-m4="h-method_m4-001 h-method_m4-012 h-method_m4-015">based on zinc-finger–leucine-zipper chimaeras</mark><sup><a href="#ref-45">45</a></sup>, <mark class="hl hl-m4" id="h-method_m4-003-a" data-back="sum-h-method_m4-003 sum-h-method_m4-010 sum-h-method_m4-014 sum-h-method_m4-021 sum-h-method_m4-024 sum-h-method_m4-027 sum-h-method_m4-031 sum-h-method_m4-038 sum-h-method_m4-045" data-zh-m4="各自以極高專一性辨識獨特 DNA 位點的合成轉錄因子 ／ 讓它去認「你指定的那一段 DNA」的開關 ／ 抓住一小段特定序列 ／ 把好幾個鋅指串起來就能認出一段夠長、夠獨特的位點 ／ 把辨識長度再加倍、專一性更高 ／ 而且各自專一性超過 99% ／ 每個只認自己專屬的一段 DNA (cognate DNA binding site) 且專一性超過 99% ／ 那個「超過 99%」的門檻不是吹毛求疵 ／ 這正是高專一性之所以是整套構想成敗關鍵的原因" data-pids-m4="h-method_m4-003 h-method_m4-010 h-method_m4-014 h-method_m4-021 h-method_m4-024 h-method_m4-027 h-method_m4-031 h-method_m4-038 h-method_m4-045">each recognizing a unique cognate DNA binding site with &gt;99% specificity</mark> (C. O. Pabo, personal communication).</figcaption>
+      </figure>
+
+      <p><mark class="hl hl-m5" id="h-method_m5-016-b" data-back="sum-h-method_m5-016" data-zh-m5="抽象階層的目的一句話就是隱藏資訊、管理複雜度" data-pids-m5="h-method_m5-016">One powerful technology for managing complexity is abstraction</mark>. Two forms of abstraction now seem worth exploring in biological engineering. First, the information describing biological functions might be <mark class="hl hl-m5" id="h-method_m5-001-b" data-back="sum-h-method_m5-001" data-zh-m5="建立 DNA → Parts → Devices → Systems 的抽象化階層" data-pids-m5="h-method_m5-001">organized across levels of complexity using abstraction hierarchies (Fig. 2)</mark>. To be useful, <mark class="hl hl-summary" id="h-method_m5-022-a" data-back="sum-h-l1-054 sum-h-method_m5-003 sum-h-method_m5-004 sum-h-method_m5-008 sum-h-method_m5-015 sum-h-method_m5-017 sum-h-method_m5-019 sum-h-method_m5-022 sum-h-method_m5-026 sum-h-method_m5-029" data-zh-summary="每一層的人都能專心在自己那一層做事，不必去懂別層的細節" data-pids-summary="h-l1-054" data-zh-m5="僅以受控介面交換有限資訊 ／ 讓不同層級的工程師能各自獨立工作而不必理解他層細節 ／ 介面 (interface) 則是牆上開的一個小窗口，只放有限、而且有規矩的資訊通過 ／ 這些屬於別層的細節，被牆擋在他的視線之外 ／ 它的機制是替每一層設一個「你最多需要知道這些」的上限 ／ 再透過一個很薄的介面跟鄰層打交道就夠了 ／ 「牆」和「窗口」這兩個條件缺一不可 ／ 介面只放彼此真正需要對接的那一點資訊 ／ 這正是介面該放行的那種有限、有規矩的資訊" data-pids-m5="h-method_m5-003 h-method_m5-004 h-method_m5-008 h-method_m5-015 h-method_m5-017 h-method_m5-019 h-method_m5-022 h-method_m5-026 h-method_m5-029">biological engineering abstraction hierarchies must (1) allow individuals to work at any one level of complexity without regard for the details that define other levels, yet (2) allow for the principled exchange of limited information across levels</mark> (see Fig. 2 legend for more information). Second, <mark class="hl hl-summary" id="h-l1-055-a" data-back="sum-h-l1-055 sum-h-method_m3-001 sum-h-method_m3-008 sum-h-method_m3-009 sum-h-method_m3-030" data-zh-summary="作者還主張把天然零件重新設計過，讓它們更好預測、也更好組合" data-pids-summary="h-l1-055" data-zh-m3="把天然生物元件重新設計並建造成更易建模、更易組合的工程元件 ／ 精煉就是把天然零件重新設計、重新建造一遍 ／ 讓它們更好用模型預測、也更好搭配 ／ 把天然零件變成行為可預測、彼此好搭的工程零件" data-pids-m3="h-method_m3-001 h-method_m3-008 h-method_m3-009 h-method_m3-030">the parts and devices that comprise engineered biological systems should probably be redesigned and built anew so that they are simpler to model and easier to use in combination</mark>. For example, it is often hard to predict the expressed protein level that will be produced by <mark class="hl hl-summary" id="h-l1-058-a" data-back="sum-h-l1-057 sum-h-l1-058 sum-h-method_m3-006" data-zh-summary="有一小段叫核糖體結合位 (ribosome binding site) 的序列，負責招呼這套機器上工 ／ 當我們把天然的啟動序列、這段核糖體結合位和基因硬拼在一起時" data-pids-summary="h-l1-057 h-l1-058" data-zh-m3="核糖體結合位 (ribosome binding site)、啟動子、加上一段編碼蛋白的序列" data-pids-m3="h-method_m3-006">the novel combination of a natural transcription promoter, ribosome binding site (RBS) and open reading frame (ORF)</mark>; <mark class="hl hl-summary" id="h-l1-059-a" data-back="sum-h-l1-059 sum-h-method_m3-016 sum-h-method_m3-017 sum-h-method_m3-018 sum-h-method_m3-019 sum-h-method_m3-032" data-zh-summary="交接處的 RNA 有時會自己折出一個形狀，把機器擋在外頭" data-pids-summary="h-l1-059" data-zh-m3="細胞要照 mRNA 做蛋白，得先讓核糖體停靠在核糖體結合位上開工 ／ mRNA 是單股、會自己折成立體形狀 ／ 交接的那一段 (part–part junction) 可能剛好折出一個結構 ／ 把核糖體要停靠的地方包起來、擋住它上工 ／ 因為接面會不會長出擋路結構無法事先知道" data-pids-m3="h-method_m3-016 h-method_m3-017 h-method_m3-018 h-method_m3-019 h-method_m3-032">combination-specific messenger RNA secondary structures created across RBS–ORF junctions might occlude ribosome loading</mark> and <mark class="hl hl-summary" id="h-l1-060-a" data-back="sum-h-l1-060 sum-h-method_m3-020 sum-h-method_m3-033" data-zh-summary="結果一個本來『很強』的零件就發不動了" data-pids-summary="h-l1-060" data-zh-m3="一個單看很強的核糖體結合位，拼到某些編碼區後面就發不動 ／ 一個帳面上很強的零件可能悄悄失效" data-pids-m3="h-method_m3-020 h-method_m3-033">prevent an otherwise ‘strong’ RBS from initiating protein synthesis</mark>. Thus, in this example, it is worth exploring whether <mark class="hl hl-m3" id="h-method_m3-002-a" data-back="sum-h-method_m3-002 sum-h-method_m3-004 sum-h-method_m3-024 sum-h-method_m5-035" data-zh-m3="統一 RBS–ORF 接面 ／ 以提升「零件組合後功能表現」的可預測性 ／ 接面不再隨機長出擋路結構，核糖體結合位才能說多強就多強" data-pids-m3="h-method_m3-002 h-method_m3-004 h-method_m3-024" data-zh-m5="前面要精煉零件統一接面" data-pids-m5="h-method_m5-035">libraries of parts might be refined to produce common part–part junctions at the genetic level to help simplify the prediction of function when parts are used in combination</mark>. As a related example, <mark class="hl hl-m3" id="h-method_m3-003-a" data-back="sum-h-method_m3-003 sum-h-method_m3-010 sum-h-method_m3-022" data-zh-m3="以密碼子重排抹除隱藏的調控訊號 ／ 其中一招叫密碼子重排 (codon shuffling) ／ 就用重排把這些會亂折的密碼攤平" data-pids-m3="h-method_m3-003 h-method_m3-010 h-method_m3-022">ORF sets might be codon shuffled</mark><sup><a href="#ref-36">36</a></sup> <mark class="hl hl-m3" id="h-method_m3-003-b" data-back="sum-h-method_m3-003 sum-h-method_m3-005 sum-h-method_m3-014 sum-h-method_m3-015 sum-h-method_m3-023" data-zh-m3="以密碼子重排抹除隱藏的調控訊號 ／ 問題根源在天然零件身上藏著「沒打算要的附加訊號」 ／ 把偷偷藏在序列裡的調控訊號 (cryptic regulatory elements) 洗掉 ／ 讓每段編碼區折出的 mRNA 形狀趨於一致、好預測 ／ 讓每段編碼區都提供共通、可預期的摺疊底" data-pids-m3="h-method_m3-003 h-method_m3-005 h-method_m3-014 h-method_m3-015 h-method_m3-023">to ‘erase’ any cryptic regulatory elements and provide a common putative mRNA secondary structure</mark>, and so on. <mark class="hl hl-m3" id="h-method_m3-026-a" data-back="sum-h-method_m3-025 sum-h-method_m3-026" data-zh-m3="自然界本來就會主動淘汰那些亂黏、會惹麻煩的分子交互作用 (negative selection, Zarrinpar, Park &amp; Lim 2003) ／ 精煉零件等於人工做同一件事——把互相干擾的雜訊挑掉" data-pids-m3="h-method_m3-025 h-method_m3-026">The refining of natural parts to produce engineered biological parts may be similar to nature’s use of negative selection against promiscuous, deleterious molecular interactions within specific cell types</mark><sup><a href="#ref-37">37</a></sup>, and <mark class="hl hl-m3" id="h-method_m3-027-a" data-back="sum-h-method_m3-027" data-zh-m3="別的工程領域本來就要先加工原料" data-pids-m3="h-method_m3-027">is analogous to the processing of physical materials in other engineering disciplines</mark>. For comparison, <mark class="hl hl-m3" id="h-method_m3-028-a" data-back="sum-h-method_m3-028" data-zh-m3="微處理器不是拿路邊撿來的金屬塊直接做的" data-pids-m3="h-method_m3-028">microprocessors and other electronic systems are not built directly from chunks of metal and silicon found lying about the countryside</mark>.</p>
+
+      <h2>Evolution or design of reproducing machines</h2>
+
+      <p>Today, <mark class="hl hl-summary" id="h-l1-062-a" data-back="sum-h-l1-062" data-zh-summary="我們的電腦、手機、汽車都是『用完就丟』的東西" data-pids-summary="h-l1-062">almost all of engineering is limited to the design and production of disposable systems</mark>. For example, <mark class="hl hl-summary" id="h-l1-063-a" data-back="sum-h-l1-063" data-zh-summary="它們不會自己生出下一代" data-pids-summary="h-l1-063">our computers, mobile phones and cars are not themselves designed to directly produce the next generation of computers, phones and cars</mark>; beyond some level of failure, engineered artefacts are recycled or abandoned. To an engineer, <mark class="hl hl-summary" id="h-l1-006-a" data-back="sum-h-l1-006 sum-h-l1-064 sum-h-method_m8-011 sum-h-method_m8-014 sum-h-method_m8-020 sum-h-method_m8-021" data-zh-summary="如何面對生物會自我複製又變異的演化難題 ／ 但生物是會自我複製的機器，而且複製時會出錯、會悄悄變異" data-pids-summary="h-l1-006 h-l1-064" data-zh-m8="這正是細胞照著 DNA 複製出下一個細胞每天在做的事 ／ 而複製 DNA 時必然會抄錯 ／ 一個精心設計又會自己繁殖的生物系統，會自己把你的設計改掉 ／ 它每繁殖一代就抄錯一點點，錯誤一代代累積" data-pids-m8="h-method_m8-011 h-method_m8-014 h-method_m8-020 h-method_m8-021">biological systems are replicating machines that make mistakes during the replication process (that is, biological systems are reproducing machines)</mark>. At present, <mark class="hl hl-summary" id="h-l1-065-a" data-back="sum-h-l1-065 sum-h-method_m8-002 sum-h-method_m8-025" data-zh-summary="我們目前還沒有一套能設計『會複製的生物機器』的實用理論" data-pids-summary="h-l1-065" data-zh-m8="為「設計出我們能理解的可複製生物機器」建立目前仍缺席的工程理論基礎 ／ 少了可複製機器的理論，你對這種漂移束手無策" data-pids-m8="h-method_m8-002 h-method_m8-025">we do not have a practical theory that supports the design of reproducing biological machines</mark>, despite great progress in understanding <mark class="hl hl-m8" id="h-method_m8-016-a" data-back="sum-h-method_m8-016" data-zh-m8="生物會把「複製時的錯誤偵測與修正」調校到剛好配合自身的適應度 (fitness)" data-pids-m8="h-method_m8-016">how natural biological systems couple and tune error detection and correction during machine replication to organism fitness</mark> <mark class="hl hl-m8" id="h-method_m8-017-b" data-back="sum-h-method_m8-017" data-zh-m8="作者引了研究佐證（Carroll 2005）" data-pids-m8="h-method_m8-017">(for example, see refs 38, 39)</mark>. <mark class="hl hl-m8" id="h-method_m8-005-a" data-back="sum-h-method_m8-005" data-zh-m8="得回去接上三套現成、卻一直沒被生物工程借用的理論" data-pids-m8="h-method_m8-005">To develop such a theory, areas worth exploring may initially include</mark> <mark class="hl hl-summary" id="h-method_m8-001-a" data-back="sum-h-l1-066 sum-h-method_m8-001 sum-h-method_m8-007 sum-h-method_m8-008 sum-h-method_m8-009 sum-h-method_m8-013 sum-h-method_m8-015" data-zh-summary="怎麼用不可靠的零件湊出可靠的運算、怎麼做錯誤的偵測與更正" data-pids-summary="h-l1-066" data-zh-m8="引入可靠計算、容錯編碼與自我複製自動機等理論 ／ 「可靠計算 (reliable computing with unreliable components)」研究的是：手上的零件各自都不太可靠、會出錯，怎麼組出一台整體仍然可靠的機器 ／ 「容錯編碼 (error detection and correcting codes)」研究的是：怎麼把資訊編碼，讓它被抄錯時能被抓出來、甚至自動補回正確的值 ／ 「自我複製自動機 (self-replicating automata)」則是數學家 von Neumann 很早就建立的理論（收在他的 Collected Works） ／ 生物的零件（蛋白質、基因線路）本來就吵雜、會出錯，對應「用不可靠零件組出可靠機器」的可靠計算 ／ 對應「把資訊編碼好、讓抄錯能被抓出來補回」的容錯編碼" data-pids-m8="h-method_m8-001 h-method_m8-007 h-method_m8-008 h-method_m8-009 h-method_m8-013 h-method_m8-015">reliable computing with unreliable components, error detection and correcting codes, and theory of self-replicating automata</mark><sup><a href="#ref-40">40</a></sup>. <mark class="hl hl-m8" id="h-method_m8-026-a" data-back="sum-h-method_m8-004 sum-h-method_m8-026" data-zh-m8="要真正「設計」出我們能理解的可複製生物機器 ／ 學會設計「可理解的可複製機器」這件事，我們可能根本學不會" data-pids-m8="h-method_m8-004 h-method_m8-026">If we fail to learn how to programme reproducing biological machines that we can understand</mark>, <mark class="hl hl-m8" id="h-method_m8-031-a" data-back="sum-h-method_m8-031" data-zh-m8="這條路之所以在今天變得可行，正是搭上了便宜的 DNA 合成" data-pids-m8="h-method_m8-031">but can afford enough DNA synthesis</mark>, <mark class="hl hl-summary" id="h-l1-067-a" data-back="sum-h-l1-067 sum-h-method_m8-003 sum-h-method_m8-027 sum-h-method_m8-028 sum-h-method_m8-029" data-zh-summary="退一步的做法，就是乾脆設計那種『用完就丟、不靠繁衍』的生物系統" data-pids-summary="h-l1-067" data-zh-m8="或在退而求其次時改採與複製解耦的拋棄式系統 ／ 所以先備一條退路才穩妥：改採與複製解耦的拋棄式系統 ／ 做法是乾脆設計一種不讓它自己繁衍下一代、用完就報廢的生物系統 ／ 把系統設計和「直系傳承、而且複製時會帶錯」這件事切開" data-pids-m8="h-method_m8-003 h-method_m8-027 h-method_m8-028 h-method_m8-029">one fall-back option may be to engineer disposable biological systems, in which the system designs are decoupled from the constraints of direct descent and replication with error</mark>.</p>
+
+      <h2>Consequences of success</h2>
+
+      <p>The successful development of foundational technologies based on the ideas of standardization, decoupling and abstraction <mark class="hl hl-summary" id="h-l1-068-b" data-back="sum-h-l1-068" data-zh-summary="改造生物就會從少數專家的苦工，變成像蓋房子一樣的例行工作" data-pids-summary="h-l1-068">would help make routine the engineering of synthetic biological systems that behave as expected</mark>. Once developed, many of these foundational technologies will take the form of ideas or information, and thus are likely to be freely distributed worldwide to the service of diverse human needs. By definition, foundational technologies would help to broadly enable many applications (that is, more than can be enumerated). The general utility of such technologies is what justifies the planning, investment and community organization needed for their development. In support of such work, what follows are a few representative examples that illustrate <mark class="hl hl-summary" id="h-l1-069-a" data-back="sum-h-l1-069 sum-h-l1-080" data-zh-summary="五年之內 ／ 『五年內沒受訓的學生就能上手』也只是一個預期、仍有待驗證" data-pids-summary="h-l1-069 h-l1-080">what should become possible within the next five years</mark>, given investment and advances in each technology class.</p>
+
+      <p><span class="emphasis-lead">Standardization.</span> <mark class="hl hl-summary" id="h-l1-070-a" data-back="sum-h-l1-070" data-zh-summary="沒受過生物訓練的高中生或大學生" data-pids-summary="h-l1-070">Undergraduates and high school students, without prior training in biology or biological engineering</mark>, should, over a period of weeks, be able to <mark class="hl hl-summary" id="h-l1-071-a" data-back="sum-h-l1-071" data-zh-summary="都能用現成的標準零件設計出自己的生物系統" data-pids-summary="h-l1-071">design synthetic biological systems of their own invention comprised of several dozen pre-existing standard biological parts</mark>, <mark class="hl hl-summary" id="h-l1-072-a" data-back="sum-h-l1-072" data-zh-summary="訂購 DNA，並讓它真的運作起來" data-pids-summary="h-l1-072">order and receive the DNA encoding the system, and show it to work</mark>.</p>
+
+      <p><span class="emphasis-lead">Decoupling.</span> Systematic engineering of bacterial genomes and eukaryotic and plant chromosomes should be made possible by continued advances in DNA synthesis. Applications of genome and chromosome engineering will range from automated scientific discovery (for example, the annotation of a newly sequenced organism might be used to define a second genome that encodes only the annotated functions; synthesis of the second genome, in parts and in whole, could be used to test the accuracy of the original sequence and the sufficiency of its annotation) to biological safety (for example, orthogonal and ‘fail-fast’ codon tables that reduce the ecological impact of horizontal gene transfer) to biological defence (for example, rapid synthesis of DNA vaccines).</p>
+
+      <p><span class="emphasis-lead">Abstraction.</span> Performance characteristics and signal carriers that delimit how engineered biological parts can be combined into many-part devices and systems will be defined and may, in turn, spur the development of new measurement technologies for the characterization of cellular state<sup><a href="#ref-41">41</a></sup>.</p>
+
+      <h2>Biological risks, strategy and leadership</h2>
+
+      <figure id="figure-3">
+        <img src="figures/Figure_3.png" alt="Manipulation, detection, analysis and response technologies shown in relation to biological risk">
+        <figcaption><span class="figure-label">Figure 3 | Technology classes relevant to current and future biological risk.</span> Both nature’s, and our own, ability to manipulate biological systems outpaces our ability to detect biological agents, analyse the resulting data, and respond appropriately. As a result, we are exposed to existing, emerging and engineered biological threats. Foundational technologies that affect the science and engineering of biology (for example, DNA synthesis) must be evaluated in the context of their net contribution to risk exposure and not only risk creation (see the text for a discussion).</figcaption>
+      </figure>
+
+      <p>The development and distribution of foundational technologies that make the engineering of biology easier will have a direct impact on our exposure to natural and engineered biological risks. However, analysing the risk impact of such technologies is not straightforward (Fig. 3). For example, <mark class="hl hl-summary" id="h-l1-073-a" data-back="sum-h-l1-073" data-zh-summary="同一套 DNA 合成技術，既曾被用來『復活』1918 年的流感病毒" data-pids-summary="h-l1-073">DNA synthesis has recently helped to enable the ‘resurrection’ of the 1918 influenza strain</mark><sup><a href="#ref-42">42</a></sup>, and is now widely believed capable of producing the smallpox genome from publicly available sequence information<sup><a href="#ref-43">43</a></sup>; variants of these viruses and other pathogens could be readily constructed. But, when a natural or engineered biological threat next emerges, DNA synthesis would find immediate use in accelerating our analysis of the risk (for example, rapid synthesis of pathogen ORFs codon optimized for recombinant protein expression) and <mark class="hl hl-summary" id="h-l1-074-a" data-back="sum-h-l1-074" data-zh-summary="卻也能在新威脅出現時，反過來被用來快速合成疫苗來反擊" data-pids-summary="h-l1-074">our response to the risk (for example, rapid synthesis of vaccines or vaccine precursors)</mark>. Meanwhile, and most importantly, the most overwhelming and certain use of DNA synthesis will be its direct acceleration of ongoing, constructive experimental research. Today, for example, <mark class="hl hl-m2" id="h-method_m2-026-a" data-back="sum-h-method_m2-003 sum-h-method_m2-004 sum-h-method_m2-025 sum-h-method_m2-026 sum-h-method_m2-033" data-zh-m2="把「取得實驗所需基因材料」 ／ 從佔研究者約一半心力的瓶頸 ／ 取得實驗用的基因材料就從一件苦差事變成上網下單的商品 ／ 現在的實驗生物學家約有一半心力其實都耗在「弄 DNA」以取得材料上 ／ 那個「一半心力耗在弄 DNA」的瓶頸原封不動" data-pids-m2="h-method_m2-003 h-method_m2-004 h-method_m2-025 h-method_m2-026 h-method_m2-033">a practicing experimental biologist or biological engineer can easily spend around 50% of their effort manipulating DNA just to produce the genetic material needed for an experiment</mark>; ‘instant’ <mark class="hl hl-m2" id="h-method_m2-027-a" data-back="sum-h-method_m2-027" data-zh-m2="若 DNA 合成能做到隨叫隨到，整體研究生產力大約可以翻倍" data-pids-m2="h-method_m2-027">DNA synthesis would provide a general twofold increase in research productivity</mark>. Thus, <mark class="hl hl-summary" id="h-l1-075-a" data-back="sum-h-l1-075" data-zh-summary="與其封鎖技術（那只會拖垮研究，卻擋不住有心人）" data-pids-summary="h-l1-075">an attempt to ban or limit access to DNA synthesis technology, and the sequence information that defines what to synthesize, would only be guaranteed to cripple biological engineering research and hinder biomedical research</mark>. In this context, <mark class="hl hl-summary" id="h-l1-076-a" data-back="sum-h-l1-076" data-zh-summary="真正的安全其實來自於快速偵測、理解並回應威脅的能力" data-pids-summary="h-l1-076">our future biological security will depend not on limits to technology and research, but rather on the successful development of general, agile capabilities for detecting, understanding and responding to biological risks</mark>; work that is already needed given existing and emerging infectious diseases. Because technologies for engineering biology will be openly developed and widely distributed, <mark class="hl hl-summary" id="h-l1-077-a" data-back="sum-h-l1-077" data-zh-summary="需要政治領導帶頭，把整個領域導向建設性的方向" data-pids-summary="h-l1-077">political leadership is needed to encourage all members of society to help actively foster a worldwide community that celebrates the science of biology, and lead the overwhelmingly constructive development and application of future biological technologies</mark><sup><a href="#ref-44">44</a></sup>.</p>
+    </article>
+
+    <section class="back-matter" aria-label="References and article information">
+      <ol class="references">
+        <li id="ref-1">Levskaya, A. <em>et al.</em> Bacterial photography: Engineering <em>Escherichia coli</em> to see light. <em>Nature</em> <a href="https://doi.org/10.1038/nature04405">doi:10.1038/nature04405</a> (this issue).</li>
+        <li id="ref-2">Elowitz, M. B. &amp; Leibler, S. A synthetic oscillatory network of transcriptional regulators. <em>Nature</em> <strong>403</strong>, 335–338 (2000).</li>
+        <li id="ref-3">Martin, V. J. <em>et al.</em> Engineering a mevalonate pathway in <em>Escherichia coli</em> for production of terpenoids. <em>Nature Biotechnol.</em> <strong>21</strong>, 796–802 (2003).</li>
+        <li id="ref-4">Sprinzak, D. &amp; Elowitz, M. B. Reconstruction of genetic circuits. <em>Nature</em> <a href="https://doi.org/10.1038/nature04335">doi:10.1038/nature04335</a> (this issue).</li>
+        <li id="ref-5">Szybalski, W. &amp; Skalka, A. Nobel prizes and restriction enzymes. <em>Gene</em> <strong>4</strong>, 181–182 (1978).</li>
+        <li id="ref-6">Goeddel, D. V. <em>et al.</em> Expression in <em>Escherichia coli</em> of chemically synthesized genes for human insulin. <em>Proc. Natl Acad. Sci. USA</em> <strong>76</strong>, 106–110 (1979).</li>
+        <li id="ref-7">Murray, A. W. &amp; Szostak, J. W. Construction of artificial chromosomes in yeast. <em>Nature</em> <strong>305</strong>, 189–193 (1983).</li>
+        <li id="ref-8">Perlak, F. J. <em>et al.</em> Insect resistant cotton plants. <em>Biotechnology</em> <strong>8</strong>, 939–943 (1990).</li>
+        <li id="ref-9">Oltvai, Z. N. &amp; Barabasi, A. L. Systems biology. Life’s complexity pyramid. <em>Science</em> <strong>298</strong>, 763–764 (2002).</li>
+        <li id="ref-10">Csete, M. E. &amp; Doyle, J. C. Reverse engineering of biological complexity. <em>Science</em> <strong>295</strong>, 1664–1669 (2002).</li>
+        <li id="ref-11">Chan, L. Y., Kosuri, S. &amp; Endy, D. <mark class="hl hl-m3" id="h-method_m3-029-a" data-back="sum-h-method_m3-029" data-zh-m3="整段重寫一個天然系統、再建造行為更乾淨的版本（refactoring，作者團隊的 Refactoring bacteriophage T7 即是示範）" data-pids-m3="h-method_m3-029">Refactoring bacteriophage T7</mark>. <em>Mol. Syst. Biol.</em> published online, 13 September 2005 (<a href="https://doi.org/10.1038/msb4100025">doi:10.1038/msb4100025</a>).</li>
+        <li id="ref-12">Weber, M. in <em>The Vocation Lectures</em> (eds Owen, D. &amp; Strong, T. B.; translator Livingstone, R.) 1–31 (Hackett Publishing, Indianapolis, Indiana, 2004).</li>
+        <li id="ref-13">Knight, T. F. Engineering novel life. <em>Mol. Syst. Biol.</em> published online, 13 September 2005 (<a href="https://doi.org/10.1038/msb4100028">doi:10.1038/msb4100028</a>).</li>
+        <li id="ref-14">Whitesides, G. M. The once and future nanomachine. <em>Sci. Am.</em> <strong>285</strong>, 78–83 (2001).</li>
+        <li id="ref-15">Kirschner, M. W. The meaning of systems biology. <em>Cell</em> <strong>20</strong>, 503–504 (2005).</li>
+        <li id="ref-16">Benner, S. A. &amp; Sismour, A. M. Synthetic biology. <em>Nature Rev. Genet.</em> <strong>6</strong>, 533–543 (2005).</li>
+        <li id="ref-17">Surowiecki, J. Turn of the century. <em>WIRED</em> 10.01 &lt;<a href="http://www.wired.com/wired/archive/10.01/standards.html">http://www.wired.com/wired/archive/10.01/standards.html</a>&gt; (2002).</li>
+        <li id="ref-18"><mark class="hl hl-m7" id="h-method_m7-008-b" data-back="sum-h-method_m7-008" data-zh-m7="DNA 序列與遺傳特徵交給「國際核酸序列資料庫聯盟 (INSDC)」" data-pids-m7="h-method_m7-008">International Nucleotide Sequence Database Collaboration</mark>. &lt;<a href="http://insdc.org/">http://insdc.org/</a>&gt; (2005).</li>
+        <li id="ref-19">Brazma, A. <em>et al.</em> <mark class="hl hl-m7" id="h-method_m7-009-a" data-back="sum-h-method_m7-009" data-zh-m7="一次量成千上萬個基因表現量的微陣列資料，用「微陣列實驗最低資訊規範 (MIAME)」規定至少要附哪些背景" data-pids-m7="h-method_m7-009">Minimum information about a microarray experiment (MIAME)—toward standards for microarray data</mark>. <em>Nature Genet.</em> <strong>29</strong>, 365–371 (2001).</li>
+        <li id="ref-20"><mark class="hl hl-m7" id="h-method_m7-010-a" data-back="sum-h-method_m7-010" data-zh-m7="蛋白質立體結構存進「蛋白質結構資料庫 (Protein Data Bank)」" data-pids-m7="h-method_m7-010">Protein Data Bank</mark>. &lt;<a href="http://www.rcsb.org/pdb/index.html">http://www.rcsb.org/pdb/index.html</a>&gt; (2005).</li>
+        <li id="ref-21"><mark class="hl hl-m7" id="h-method_m7-011-a" data-back="sum-h-method_m7-011" data-zh-m7="酵素命名由「國際生化聯盟命名委員會 (NC-IUBMB)」統一" data-pids-m7="h-method_m7-011">Nomenclature Committee of the International Union of Biochemistry and Molecular Biology (NC-IUBMB)</mark>, Enzyme supplement 5. <em>Eur. J. Biochem.</em> <strong>264</strong>, 610–650 (1999).</li>
+        <li id="ref-22">Hucka, M. <em>et al.</em> <mark class="hl hl-m7" id="h-method_m7-012-a" data-back="sum-h-method_m7-012" data-zh-m7="描述整套生化反應網路的數學模型用「系統生物學標記語言 (SBML)」寫" data-pids-m7="h-method_m7-012">The systems biology markup language (SBML): a medium for representation and exchange of biochemical network models</mark>. <em>Bioinformatics</em> <strong>19</strong>, 524–531 (2003).</li>
+        <li id="ref-23">Roberts, R. J., Vincze, T., Posfai, J. &amp; Macelis, D. <mark class="hl hl-m7" id="h-method_m7-013-a" data-back="sum-h-method_m7-013" data-zh-m7="限制酶在哪裡切、活性如何，則查「限制酶資料庫 (REBASE)」" data-pids-m7="h-method_m7-013">REBASE—restriction enzymes and DNA methyltransferases</mark>. <em>Nucleic Acids Res.</em> <strong>1</strong>, D230–D232 (2005).</li>
+        <li id="ref-24">Gardner, T. S., Cantor, C. R. &amp; Collins, J. J. Construction of a genetic toggle switch in <em>Escherichia coli</em>. <em>Nature</em> <strong>403</strong>, 339–342 (2000).</li>
+        <li id="ref-25">Atkinson, M. R., Savageau, M. A., Myers, J. T. &amp; Ninfa, A. J. Development of genetic circuitry exhibiting toggle switch or oscillatory behaviour in <em>Escherichia coli</em>. <em>Cell</em> <strong>113</strong>, 597–607 (2003).</li>
+        <li id="ref-26">Knight, T. F. <em>DARPA BioComp Plasmid Distribution 1.00 of <mark class="hl hl-m1" id="h-method_m1-014-a" data-back="sum-h-method_m1-014" data-zh-m1="這批標準元件最早公開的一套叫 BioBrick" data-pids-m1="h-method_m1-014">Standard Biobrick Components</mark></em> <em>MIT Synthetic Biology Working Group Reports</em> <mark class="hl hl-m1" id="h-method_m1-015-a" data-back="sum-h-method_m1-015" data-zh-m1="由 Knight 在 2002 年的一份 MIT 報告釋出" data-pids-m1="h-method_m1-015">published online 22 May 2002</mark> (<a href="https://doi.org/1721.1/21167">doi:1721.1/21167</a>).</li>
+        <li id="ref-27">Graham-Rowe, D. Britain may force DNA ‘barcodes’ for GM food. <em>New Sci.</em> &lt;<a href="http://www.newscientist.com/article.ns?id=dn3377">http://www.newscientist.com/article.ns?id = dn3377</a>&gt; (2003).</li>
+        <li id="ref-28"><mark class="hl hl-m6" id="h-method_m6-016-a" data-back="sum-h-method_m6-016" data-zh-m6="Mead 與 Conway 的《Introduction to VLSI Systems》(1980)" data-pids-m6="h-method_m6-016">Mead, C. &amp; Conway, L.</mark> <em><mark class="hl hl-m6" id="h-method_m6-016-b" data-back="sum-h-method_m6-016" data-zh-m6="Mead 與 Conway 的《Introduction to VLSI Systems》(1980)" data-pids-m6="h-method_m6-016">Introduction to VLSI Systems</mark></em> <mark class="hl hl-m6" id="h-method_m6-016-c" data-back="sum-h-method_m6-016" data-zh-m6="Mead 與 Conway 的《Introduction to VLSI Systems》(1980)" data-pids-m6="h-method_m6-016">(Addison-Wesley, Reading, Massachusetts, 1980).</mark></li>
+        <li id="ref-29"><mark class="hl hl-m6" id="h-method_m6-032-a" data-back="sum-h-method_m6-032" data-zh-m6="(Canton 2005)" data-pids-m6="h-method_m6-032">Canton, B.</mark> <em>Engineering the Interface Between Cellular Chassis and Integrated Biological Systems</em> <em>MIT Synthetic Biology Working Group Reports</em> <mark class="hl hl-m6" id="h-method_m6-032-b" data-back="sum-h-method_m6-032" data-zh-m6="(Canton 2005)" data-pids-m6="h-method_m6-032">published online 8 August 2005</mark> (<a href="https://doi.org/1721.1/19813">doi:1721.1/19813</a>).</li>
+        <li id="ref-30">Carlson, R. The pace and proliferation of biological technologies. <em>Biosecur. Bioterror.</em> <strong>1</strong>, 203–214 (2003).</li>
+        <li id="ref-31">Stemmer, W. P. <em>et al.</em> <mark class="hl hl-m2" id="h-method_m2-017-a" data-back="sum-h-method_m2-017 sum-h-method_m2-031" data-zh-m2="一步把大量短片段拼成整個基因甚至整個質體 (Stemmer et al. 1995) ／ 拼不出一整個基因或質體" data-pids-m2="h-method_m2-017 h-method_m2-031">Single-step assembly of a gene and entire plasmid from large numbers of oligodeoxyribonucleotides</mark>. <em>Gene</em> <strong>164</strong>, 49–53 (1995).</li>
+        <li id="ref-32">Yount, B., Curtis, K. M. &amp; Baric, R. S. <mark class="hl hl-m2" id="h-method_m2-019-a" data-back="sum-h-method_m2-019" data-zh-m2="把病毒那麼大的基因組有系統地一段段組起來 (Yount et al. 2000，以 TGEV 冠狀病毒為模型)" data-pids-m2="h-method_m2-019">Strategy for systematic assembly of large RNA and DNA genomes: transmissible gastroenteritis virus model</mark>. <em>J. Virol.</em> <strong>74</strong>, 10600–10611 (2000).</li>
+        <li id="ref-33">Tian, J. <em>et al.</em> <mark class="hl hl-m2" id="h-method_m2-018-a" data-back="sum-h-method_m2-018" data-zh-m2="用可程式化的 DNA 微晶片一次精確合成大量片段 (Tian et al. 2004)" data-pids-m2="h-method_m2-018">Accurate multiplex gene synthesis from programmable DNA microchips</mark>. <em>Nature</em> <strong>432</strong>, 1050–1054 (2004).</li>
+        <li id="ref-34">Sharp, P. A. RNA interference—2001. <em>Genes Dev.</em> <strong>15</strong>, 485–490 (2001).</li>
+        <li id="ref-35">Varmus, H. Reverse transcription. <em>Sci. Am.</em> <strong>257</strong>, 56–59 (1987).</li>
+        <li id="ref-36">Katz, L. &amp; Burge, C. B. <mark class="hl hl-m3" id="h-method_m3-021-a" data-back="sum-h-method_m3-021" data-zh-m3="研究發現細菌編碼區普遍帶著對局部 RNA 摺疊的偏好與隱藏訊號 (Katz &amp; Burge 2003)" data-pids-m3="h-method_m3-021">Widespread selection for local RNA secondary structure in coding regions of bacterial genes</mark>. <em>Genome Res.</em> <strong>13</strong>, 2042–2051 (2003).</li>
+        <li id="ref-37">Zarrinpar, A., Park, S. H. &amp; Lim, W. A. <mark class="hl hl-m3" id="h-method_m3-025-b" data-back="sum-h-method_m3-025" data-zh-m3="自然界本來就會主動淘汰那些亂黏、會惹麻煩的分子交互作用 (negative selection, Zarrinpar, Park &amp; Lim 2003)" data-pids-m3="h-method_m3-025">Optimization of specificity in a cellular protein interaction network by negative selection</mark>. <em>Nature</em> <strong>426</strong>, 676–680 (2003).</li>
+        <li id="ref-38"><mark class="hl hl-m8" id="h-method_m8-017-a" data-back="sum-h-method_m8-017" data-zh-m8="作者引了研究佐證（Carroll 2005）" data-pids-m8="h-method_m8-017">Carroll, S. B. Evolution at two levels: on genes and form.</mark> <em>PLoS Biol.</em> <strong>3</strong>, e245 (2005).</li>
+        <li id="ref-39"><mark class="hl hl-m8" id="h-method_m8-018-a" data-back="sum-h-method_m8-018" data-zh-m8="Rutherford 與 Lindquist 發現一種叫 Hsp90 的蛋白質能像「演化電容器」一樣，平時把累積的變異藏住、壓力來時才一次釋放（Nature 1998）" data-pids-m8="h-method_m8-018">Rutherford, S. L. &amp; Lindquist, S. Hsp90 as a capacitor for morphological evolution.</mark> <em>Nature</em> <strong>396</strong>, 336–342 (1998).</li>
+        <li id="ref-40">von Neumann, J. in <em><mark class="hl hl-m8" id="h-method_m8-009-b" data-back="sum-h-method_m8-009" data-zh-m8="「自我複製自動機 (self-replicating automata)」則是數學家 von Neumann 很早就建立的理論（收在他的 Collected Works）" data-pids-m8="h-method_m8-009">Collected Works</mark></em> (ed. Taub, A. H.) Vols 1–6 (Pergamon Press, New York, 1961–1963).</li>
+        <li id="ref-41">Endy, D., Deese, I. &amp; Wadey, C. Adventures in synthetic biology. <em>Nature</em> [online] &lt;<a href="http://www.nature.com/nature/comics/syntheticbiologycomic">http://www.nature.com/nature/comics/syntheticbiologycomic</a>&gt; (2005); also available at &lt;<a href="http://mit.edu/endy/www/comic/">http://mit.edu/endy/www/comic/</a>&gt;.</li>
+        <li id="ref-42">Tumpey, T. <em>et al.</em> Characterization of the reconstructed 1918 Spanish influenza pandemic virus. <em>Science</em> <strong>310</strong>, 77–80 (2005).</li>
+        <li id="ref-43">Venter, J. C. <em>Gene Synthesis Technology: State of the Science</em> National Science Advisory Board on Biosecurity (conference) &lt;<a href="http://www.webconferences.com/nihnsabb/july_1_2005.html">http://www.webconferences.com/nihnsabb/july_1_2005.html</a>&gt; (2005).</li>
+        <li id="ref-44">Dyson, F. The darwinian interlude. <em>Technology Review</em> &lt;<a href="http://www.technologyreview.com/articles/05/03/issue/magaphone.asp">http://www.technologyreview.com/articles/05/03/issue/magaphone.asp</a>&gt; (2005).</li>
+        <li id="ref-45"><mark class="hl hl-m4" id="h-method_m4-025-a" data-back="sum-h-method_m4-016 sum-h-method_m4-023 sum-h-method_m4-025" data-zh-m4="負責讓兩條蛋白像拉鍊一樣扣成一對、成對工作 ／ 後半段的亮胺酸拉鍊讓兩條這樣的蛋白扣成一對 ／ 結構依據見 Wolfe, Grant &amp; Pabo 2003" data-pids-m4="h-method_m4-016 h-method_m4-023 h-method_m4-025">Wolfe, S. A., Grant, R. A. &amp; Pabo, C. O. Structure of a designed dimeric zinc finger protein bound to DNA.</mark> <em>Biochemistry</em> <strong>42</strong>, 13401–13409 (2003).</li>
+      </ol>
+
+      <div class="notes">
+        <p><strong>Acknowledgements</strong> I thank T. Knight, G. Sussman and R. Rettberg for teaching me about the theory and practice of engineering, especially as it relates to biology. I also thank A. Arkin, F. Arnold, R. Baric, F. Blattner, J. Braff, R. Brent, S. Bruck, C. Bustamante, B. Canton, R. Carlson, L. Chan, A. Che, G. Church, J. Collins, C. Conboy, L. Conway, R. Davis, M. Desai, J. Doyle, E. Eisenstadt, M. Elowitz, S. Forrest, T. Gardner, S. Goldstein, J. Gritton, H. Hellinga, G. Homsy, E. Horvitz, J. Jacobson, J. Kelly, T. Kalil, J. Keasling, D. Kirkpatrick, S. Kosuri, P. Lincoln, J. Mulligan, R. Murray, R. Nagpal, R. Newton, C. Pabo, I. Phillips, P. Rabinow, R. Shetty, P. Silver, B. Smith, C. Smolke, S. Sutton, C. Tomlin, J. Way, C. Webb, R. Weiss, S. Wolfe and A. Vesilind for their contributions to the ideas discussed here. Finally, I am grateful to R. Brent and N. Kuldell for comments on an earlier manuscript.</p>
+
+        <p><strong>Author Information</strong> Reprints and permissions information is available at <a href="https://npg.nature.com/reprintsandpermissions">npg.nature.com/reprintsandpermissions</a>. The author declares competing financial interests: details accompany the paper at <a href="https://www.nature.com/nature">www.nature.com/nature</a>. Correspondence should be addressed to D.E. (<a href="mailto:endy@mit.edu">endy@mit.edu</a>).</p>
+      </div>
+    </section>
+
+    <footer>© 2005 Nature Publishing Group</footer>
+  </main>
+</body>
+</html>
