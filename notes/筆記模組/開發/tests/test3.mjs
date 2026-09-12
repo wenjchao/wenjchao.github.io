@@ -56,13 +56,13 @@ let t1 = await fileText();
 assert.equal((t1.match(/\[\[第一小點\|全文\]\]/g) || []).length, 2, '第一張卡片（本來就是全文）不該變');
 assert.ok(t1.includes('提到 [[第一小點]]，'), '句中的晶片不該變');
 assert.equal(await page.$eval('.root > .root-body > .card[data-id="範例/第一小點"][data-key$="#1"]', c => c.dataset.mode), '3', '重畫後狀態要保留');
-// 扁平卡片（清單裡）：全文 → [[第二小點|全文|扁平]]；收合 → [[第二小點|扁平]]
-assert.ok(await page.$('.root-body ol > li > .card.flat[data-id="範例/第二小點"]'), '清單裡的扁平卡片');
+// 膠囊卡片（清單裡）：全文 → [[第二小點|全文|膠囊]]；收合 → [[第二小點|膠囊]]
+assert.ok(await page.$('.root-body ol > li > .card.flat[data-id="範例/第二小點"]'), '清單裡的膠囊卡片');
 await page.click('.root-body ol > li > .card.flat[data-id="範例/第二小點"] .seg button[data-m="3"]');
-await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|全文|扁平]]'), null, { timeout: 5000 });
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|全文|膠囊]]'), null, { timeout: 5000 });
 await page.click('.root-body ol > li > .card.flat[data-id="範例/第二小點"] .tri');
-await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|扁平]]'), null, { timeout: 5000 });
-// R27：外觀切換鈕也寫檔：扁平 → 卡片 → 扁平
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|膠囊]]'), null, { timeout: 5000 });
+// R27：外觀切換鈕也寫檔：膠囊 → 卡片 → 膠囊
 await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="card"]');
 await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點]]\n'), null, { timeout: 5000 });
 assert.equal(await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => c.dataset.style), 'card');
@@ -70,8 +70,28 @@ await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .sty
 await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|群組縮排]]'), null, { timeout: 5000 });
 assert.equal(await page.$eval('.root-body ol > li > .card[data-id="範例/第二小點"]', c => c.dataset.style), 'group');
 await page.click('.root-body ol > li > .card[data-id="範例/第二小點"] .style-seg button[data-st="flat"]');
-await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|扁平]]'), null, { timeout: 5000 });
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('2. [[第二小點|膠囊]]'), null, { timeout: 5000 });
 assert.equal(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem(Persist.key('cards')) || '{}')).length), 0, '可寫入時不該用瀏覽器記憶');
+// R87：晶片循環寫回 摘要→全文→收合；每次寫回重畫後，展開狀態由檔案自動還原
+await page.click('.root-body .chip[data-id="範例/第一小點"] .chip-x');
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('提到 [[第一小點|摘要]]，'), null, { timeout: 5000 });
+await page.waitForFunction(() => document.querySelector('.root-body .chip[data-id="範例/第一小點"]')?.dataset.init === '2', null, { timeout: 5000 });
+assert.ok(await page.$('.card.inline-expand[data-id="範例/第一小點"][data-mode="2"]'), 'R87：重畫後由檔案自動展開');
+await page.click('.root-body .chip[data-id="範例/第一小點"] .chip-x');
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('提到 [[第一小點|全文]]，'), null, { timeout: 5000 });
+await page.waitForFunction(() => document.querySelector('.root-body .chip[data-id="範例/第一小點"]')?.dataset.init === '3', null, { timeout: 5000 });
+await page.click('.root-body .chip[data-id="範例/第一小點"] .chip-x');
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('提到 [[第一小點]]，'), null, { timeout: 5000 });
+await page.waitForFunction(() => document.querySelector('.root-body .chip[data-id="範例/第一小點"]')?.dataset.init === '1', null, { timeout: 5000 });
+assert.equal(await page.$('.card.inline-expand'), null, 'R87：收合寫回後不再展開');
+// R88：段控直接指定並寫回（收合直接跳全文、再直接收合）
+await page.hover('.root-body .chip[data-id="範例/第一小點"]');
+await page.click('.root-body .chip[data-id="範例/第一小點"] .chip-seg button[data-m="3"]');
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('提到 [[第一小點|全文]]，'), null, { timeout: 5000 });
+await page.waitForFunction(() => document.querySelector('.root-body .chip[data-id="範例/第一小點"]')?.dataset.init === '3', null, { timeout: 5000 });
+await page.hover('.root-body .chip[data-id="範例/第一小點"]');
+await page.click('.root-body .chip[data-id="範例/第一小點"] .chip-seg button[data-m="1"]');
+await page.waitForFunction(() => window.__get('範例/筆記一.md').text.includes('提到 [[第一小點]]，'), null, { timeout: 5000 });
 // 全部展開不寫檔
 const before = await fileText();
 await page.click('.toolbar >> text=全部展開'); await page.waitForTimeout(900);

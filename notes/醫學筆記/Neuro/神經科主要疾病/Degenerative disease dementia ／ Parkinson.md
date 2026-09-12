@@ -3,8 +3,8 @@
 ## 內文
 - 注意：輕度認知障礙 (mild cognitive impairment) vs 失智症 (dementia)：MCI 不會影響日常生活功能
 
-- [[Degenerative disease dementia ／ Parkinson/Spectrum 很大，overlap 很多|扁平]]
-- [[Degenerative disease dementia ／ Parkinson/Alzheimer disease 大腦萎縮，記憶力最先變差，藥物|扁平]]
+- [[Degenerative disease dementia ／ Parkinson/Spectrum 很大，overlap 很多|膠囊]]
+- [[Degenerative disease dementia ／ Parkinson/Alzheimer disease 大腦萎縮，記憶力最先變差，藥物|膠囊]]
 - Vascular dementia: 一直 stroke 一直階梯式變爛
 - Frontotemporal dementia (Pick disease): frontotemporal atrophy
 - Lewy Body dementia: <u>dementia & motor symptom 一起來</u> (< 1 year 內)

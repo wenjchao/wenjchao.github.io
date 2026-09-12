@@ -16,5 +16,5 @@ SAAG (Serum ascites albumin gradient) = serum alb - ascities alb，代表 Portal
 2. SAAG < 1.1 ⇒ non-portal hypertension
    1. peritonitis, peritoneal seeding, pancreatitis
    2. nephrotic syndrome
-3. [[Ascites analysis SAAG 1.1 ⇒ portal hypertension/Algorithm|扁平]]
-4. [[Ascites analysis SAAG 1.1 ⇒ portal hypertension/同場加映：Peritoneal fluid analysis|扁平]]
+3. [[Ascites analysis SAAG 1.1 ⇒ portal hypertension/Algorithm|膠囊]]
+4. [[Ascites analysis SAAG 1.1 ⇒ portal hypertension/同場加映：Peritoneal fluid analysis|膠囊]]

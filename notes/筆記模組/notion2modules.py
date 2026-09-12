@@ -121,7 +121,7 @@ class Converter:
         if isinstance(node, NavigableString):
             if node.parent and node.parent.name in ('pre', 'code'):
                 return str(node)
-            return re.sub(r'[ \t\r\n]+', ' ', str(node)).replace('*', '\\*')
+            return re.sub(r'[ \t\r\n]+', ' ', str(node)).replace('*', '\\*').replace('[', '\\[')   # [ 不跳脫的話，行首的 [x]: y 會變成連結參考定義、整行被吃掉（R79）
         if not isinstance(node, Tag):
             return ''
         name = node.name
@@ -516,7 +516,7 @@ class Converter:
         self.modules[f'{sub_folder}.md'] = self.module_text(title, summary, body_lines)
         # 連結相對於「目前模組所在的資料夾」：總覽在 <頁名>/ 外面 → 頁名/子題；<頁名>/A.md → A/子題；<頁名>/A/B.md → B/子題
         link = f'{pathlib.Path(folder).name}/{fname}'
-        return [indent + (f'[[{link}|扁平]]' if flat else f'[[{link}|摘要]]')]   # 扁平：和清單項目平行、預設收合（像 Notion toggle）
+        return [indent + (f'[[{link}|膠囊]]' if flat else f'[[{link}|摘要]]')]   # 膠囊（舊名扁平）：和清單項目平行、預設收合（像 Notion toggle）
 
     def module_text(self, title, summary, body_lines):
         body = '\n'.join(body_lines).strip('\n')

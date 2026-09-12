@@ -8,7 +8,7 @@
 1. <mark>Amnesia (記憶喪失)？</mark>
 2. <mark>頭痛 頭暈 噁心 嘔吐？</mark>
 3. <mark>Trauma？</mark>
-4. [[Neurologic Exam/GCS 無法溝通 ⇒ to pain|扁平]]
+4. [[Neurologic Exam/GCS 無法溝通 ⇒ to pain|膠囊]]
 
 - 注意：Conscious 差還是可以做 NE
   ex: 可以對病人 to pain ，病人揮手想 withdraw 的時候看 muscle power

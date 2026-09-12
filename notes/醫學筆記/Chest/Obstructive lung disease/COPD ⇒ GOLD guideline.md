@@ -1,7 +1,7 @@
 # COPD ⇒ GOLD guideline
 
 ## 內文
-1. [[COPD ⇒ GOLD guideline/GOLD guideline|扁平]]
+1. [[COPD ⇒ GOLD guideline/GOLD guideline|膠囊]]
 2. Diagnostic criteria: FEV1/FVC < 0.7
 3. etiology & pathophysiology: chronic bronchitis(airway) and/or emphysema(alveoli)
 3. COPD acute exacerbation: 14天內急性症狀加重（dyspnea / sputum / cough）

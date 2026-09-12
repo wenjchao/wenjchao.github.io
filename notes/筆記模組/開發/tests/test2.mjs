@@ -111,6 +111,18 @@ try {
   assert.ok(nestedSrc.includes('測A/圖.png'), '巢狀卡片的圖片路徑應是 測A/圖.png，實得：' + nestedSrc);
   await page.waitForFunction(() => { const i = document.querySelector('.card .card-body img'); return i && i.naturalWidth > 0; }, null, { timeout: 5000 });
 
+  // R92：嚴格跟隨——目前頁（測A/主）的路徑展開，其他資料夾收合
+  assert.ok(await page.$('#list .item[data-id="測A/主"]'), 'R92：目前頁的路徑要展開');
+  assert.equal(await page.$('#list .item[data-id="範例/第一小點"]'), null, 'R92：其他資料夾要收合');
+  // R93：樹頂三顆鈕
+  await page.click('#list .tree-tools >> text=全部展開');
+  assert.ok(await page.$('#list .item[data-id="範例/第一小點"]'), 'R93：全部展開');
+  await page.click('#list .tree-tools >> text=全部收合');
+  assert.equal(await page.$('#list .item[data-id="測A/主"]'), null, 'R93：全部收合（目前頁也收、不被彈回）');
+  await page.click('#list .tree-tools >> text=只留這頁');
+  assert.ok(await page.$('#list .item[data-id="測A/主"]'), 'R93：只留這頁');
+  assert.equal(await page.$('#list .item[data-id="範例/第一小點"]'), null, 'R93：只留這頁＝其他仍收合');
+
   // R67：連結的顯示文字可用粗體、刪除線、底線（1.3.17）
   await page.goto('http://localhost:8799/#/' + encodeURIComponent('樣式標題'));
   await page.waitForSelector('.root-body .card .card-title strong');

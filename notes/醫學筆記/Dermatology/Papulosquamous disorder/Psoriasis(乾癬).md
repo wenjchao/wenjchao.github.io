@@ -15,4 +15,4 @@ Score：PASI score
 
 特殊治療：可以照光治療(narrow-band UVB，三到五次/每星期)，或是anti-Interleukin 17/23
 
-[[Psoriasis(乾癬)/Psoriatic arthritis|摘要]]
+[[Spondyloarthritis (oligoarthritis)|摘要]]

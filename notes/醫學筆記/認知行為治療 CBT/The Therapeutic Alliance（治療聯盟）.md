@@ -28,4 +28,4 @@
    2. no overlapping relationships：不要身兼當事人的朋友 / 家人 / 同事 …
    3. aware of romantic attraction
 10. Client’s expectations：當事人要相信治療會有用
-11. [[The Therapeutic Alliance（治療聯盟）/Ethical codes of Counsellors and therapists 治療師守則|扁平]]
+11. [[The Therapeutic Alliance（治療聯盟）/Ethical codes of Counsellors and therapists 治療師守則|膠囊]]

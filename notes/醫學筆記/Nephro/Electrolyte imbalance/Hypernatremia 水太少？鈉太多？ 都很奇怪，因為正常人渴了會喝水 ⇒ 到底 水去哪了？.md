@@ -8,7 +8,7 @@
    2. **尿液濃 & 少 ⇒ Dehydration** (GI loss / previous diuretics)
    3. 尿液濃 & UNa 高 (少見) ⇒ Na overload
 
-   [[Hypernatremia 水太少？鈉太多？ 都很奇怪，因為正常人渴了會喝水 ⇒ 到底 水去哪了？/圖|摘要]]
+   [[高血鈉的尿液判讀與鑑別流程圖|摘要]]
 
 - 最常見原因：1. furosemide 2. post ATN diuresis
 - Correction: Free water（口服優先，慢慢給）、急洗腎（多洗幾次，慢慢降）

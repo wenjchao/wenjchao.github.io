@@ -1,7 +1,7 @@
 # UTI ⇒ PEcK，院內 ⇒ + PsA + Enterococcus, 有 Foley ⇒ + PsA + Yeast + S.aureus (常是MDR)
 
 ## 內文
-- [[UTI ⇒ PEcK，院內 ⇒ + PsA + Enterococcus, 有 Foley ⇒ + PsA + Yeast + S.aureus (常是MDR)/下泌尿道症狀(LUTS, Lower urinary tract symptoms): FUN & WISE|扁平]]
+- [[UTI ⇒ PEcK，院內 ⇒ + PsA + Enterococcus, 有 Foley ⇒ + PsA + Yeast + S.aureus (常是MDR)/下泌尿道症狀(LUTS, Lower urinary tract symptoms): FUN & WISE|膠囊]]
 - Lab: WBC + WBC esterase + nitrite + bacteria 有 2~3 個就高度懷疑
   - 注意：會驗 WBC esterase 是因為 WBC 可能破掉了看不到
   1. Bacteriuria but not pyuria: 即 asymptomatic bacteriuria

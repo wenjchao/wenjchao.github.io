@@ -4,7 +4,7 @@
 
 ### 單次：post-infection reation
 
-- [[Demyelination GBS, MS, CMT/Guillain-Barré syndrome (GBS)：peripheral|扁平]]
+- [[Demyelination GBS, MS, CMT/Guillain-Barré syndrome (GBS)：peripheral|膠囊]]
 - <u>Acute disseminated encephalomyelitis (ADEM)</u>: post infection multifocal CNS inflammation & demyelination ⇒ <u>**可以 steroid**</u> + IVIG + plasmapheresis
 - Progressive multifocal leukoencephalopathy: <u>JC virus</u> + immunocompromise
 - monoclonal gammopathy: peripheral
@@ -12,7 +12,7 @@
 ### 多次：autoimmune disorder
 
 - <u>Chronic inflammatory demyelinating polyneuropathy</u>：GBS 治好後復發，預後差
-- [[Demyelination GBS, MS, CMT/Multiple sclerosis (MS)：多次 + 多處 CNS demyelination|扁平]]
+- [[Demyelination GBS, MS, CMT/Multiple sclerosis (MS)：多次 + 多處 CNS demyelination|膠囊]]
 - Neuromyelitis optica (NMO)：似 MS，預後差，anti-AQP4 antibody，脊椎侵犯>3節
 
 ### Others

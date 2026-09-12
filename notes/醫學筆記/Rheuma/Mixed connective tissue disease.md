@@ -1,10 +1,8 @@
 # Mixed connective tissue disease
 
 ## 內文
-介於前面幾個 connective tissue disease 之間的神秘疾病，可能之後會轉變成某種特定的 CTD
+介於各 CTD 之間，之後可能轉變成某一特定 CTD。
 
-重點：**anti-U1 RNP (+)**
-
-Symptoms: Raynaud phenomenon(90%), arthritis, myositis, GERD
-
-最常死於肺高壓
+1. 抗體：anti-U1 RNP (+)
+2. 表現：Raynaud phenomenon（90%，[[Raynaud phenomenon]]）、arthritis、myositis、GERD
+3. 最常死於 pulmonary hypertension

@@ -1,60 +1,75 @@
 # Rheuma
 
-## 摘要
-
-Prevelance: OA > RA > SS > AS > SLE > PsA > SSc > Myositis
-
-男 > 女：AS, PSC, UC, Gout
-
-Rheuma 一定要檢查眼睛：
-
-1. 眼窩痛 / 紅眼 / 畏光 / 視力模糊 ⇒ anterior uveitis: iritis
-2. 有黑影 ⇒ posterior uveitis: vitritis, choroiditis, retinitis
-3. 紅眼 / 眼睛癢想揉 / 分泌物 ⇒ conjunctivitis
-4. SLE 偏 posterior uveitis, arthritis 偏 anterior uveitis
-
-
 ## 內文
-### 總論
+### 症狀判讀與跨疾病比較
 
-[[Rheuma/免疫抑制劑]]
+[[多系統疾病的器官病變比較]]
 
-[[Infectious Disease/Granuloma (innate immunity)]]
+[[關節炎判讀]]
 
-### 結締組織病
+[[近端無力的鑑別]]
 
-[[Rheuma/SLE|摘要]]
+[[Raynaud phenomenon]]
 
-[[Rheuma/Rheumatoid arthritis|摘要]]
+[[眼部侵犯：uveitis 與 conjunctivitis]]
 
-[[Rheuma/Sjogren's syndrome|摘要]]
+[[口乾與眼乾的判讀]]
 
-[[Rheuma/Systemic sclerosis (scleroderma, SSc)|摘要]]
+[[自體抗體速查]]
 
-[[Rheuma/Myositis (Idiopathic inflammatory myopathies)|摘要]]
+[[HLA-MHC]]
 
-[[Rheuma/Mixed connective tissue disease|摘要]]
+### 疾病各論
 
-### 關節炎
+[[Crystal arthritis (monoarthritis)]]
 
-[[Rheuma/Arthritis]]
+[[Septic arthritis (monoarthritis)]]
 
-### 血管炎
+[[Osteoarthritis (monoarthritis)]]
 
-[[Rheuma/Vasculitis|摘要]]
+[[Spondyloarthritis (oligoarthritis)]]
 
-### 過敏
+[[Rheumatoid arthritis (polyarthritis)]]
 
-[[基礎醫學/免疫學/Hypersensitivity 四型|摘要]]
+[[SLE (polyarthritis)]]
 
-### 零星補充
+[[Sjogren's syndrome (polyarthritis)]]
 
+[[Systemic sclerosis]]
 
-GAS (Acute pharyngotonsillitis, ASLO+) ⇒ Acute rheumatic fever（Type2 免疫反應） ⇒ Rheumatic heart disease (MR 居多)
+[[Myositis]]
 
-GAS (Skin infection, ASLO-) ⇒ Post-streptococcus GN (Type3 免疫蛋白沈積，給Anti 沒用)
+[[Mixed connective tissue disease]]
 
-JIA (Juvenile idiopathic arthritis) 分兩種：
+[[Vasculitis]]
 
-1. Oligoarthritis: ANA+, Uveitis
-2. Polyarthritis: RF+
+[[Antiphospholipid syndrome]]
+
+### 治療
+
+[[免疫抑制劑]]
+
+### 急症
+
+[[Scleroderma renal crisis]]
+
+[[Septic arthritis (monoarthritis)]]
+
+GCA 眼部侵犯的處置見 [[Vasculitis|血管炎]]。
+
+### 免疫機制
+
+- 自體免疫：攻擊自身組織；GAS 後的 ARF、PSGN 見 [[Post-streptococcal：ARF 與 PSGN]]。
+- Hypersensitivity：Type II → ARF、Goodpasture；Type III → SLE、RA、PAN、PSGN。
+- 肉芽腫相關：GCA、GPA／EGPA、sarcoidosis。
+
+[[Hypersensitivity 四型]]
+
+[[Granuloma (innate immunity)]]
+
+[[醫學筆記/Infectious Disease/Immunocompromised]]
+
+### 流病補充
+
+- 盛行率：OA > RA > SS > AS > SLE > PsA > SSc > Myositis。
+- 男 > 女：AS、PSC、UC、gout。

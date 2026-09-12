@@ -24,4 +24,4 @@
 
 1. 若無治療 6~13 months 會改善（沒自殺的話）
 2. 出院後25% 6m 內復發，50% 2y，75% 5y 復發
-3. [[Time course & Pathophysiology/是 life long、recurrent 的疾病，越來越嚴重，藥物效果越來越差、時間越來越久|扁平]]
+3. [[Time course & Pathophysiology/是 life long、recurrent 的疾病，越來越嚴重，藥物效果越來越差、時間越來越久|膠囊]]

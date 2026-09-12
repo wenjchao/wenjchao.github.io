@@ -1,8 +1,5 @@
 # Infective endocarditis
 
-## 摘要
-Modified Duke criteria（bacteria proof ＋ structural change）
-
 ## 內文
 ![](圖片/CV-old/Untitled.png)
 

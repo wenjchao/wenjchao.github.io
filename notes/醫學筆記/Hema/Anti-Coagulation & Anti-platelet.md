@@ -8,7 +8,7 @@
    2. 壞處：HIT(Heparin induced thrombocytopenia)、需IV、要Monitor、肝代謝
 2. LMWH
    1. 好處：速效、不需Monitor、懷孕可用
-   2. 壞處：需IM、無reversal、腎代謝
+   2. 壞處：需 SC、無reversal、腎代謝
 3. warfarin
    1. 好處：口服、老藥、腎功能差可用
    2. 壞處：一堆交互作用、要Monitor、懷孕不可用
@@ -22,8 +22,6 @@
 2. Clopidogrel、Prasugrel、Ticagrelor、Ticlopidine：壞處 慢
 3. Abciximab、eptifibatide、tirofiban：壞處 貴
 
-tissue factor ⇒ 7 extrinsic
+凝血瀑布與 PT／aPTT 的判讀：
 
-12 ⇒ 11 ⇒ 9 ⇒ 8 intrinsic
-
-10 ⇒ 5 ⇒ 2 ⇒ 1 common
+[[凝血因子異常]]

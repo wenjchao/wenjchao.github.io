@@ -1,36 +1,43 @@
 # Hema
 
 ## 內文
-### 血球 / 貧血
+[[血球疾病總表]]
 
-[[Hema/Neutropenia & Thrombocytopenia]]
+### 一、血球變少
 
-[[Hema/Anemia|摘要]]
+[[Anemia]]
 
-[[Hema/MAHA (Microangiopathic hemolytic anemia) ⇒|摘要]]
+[[Neutropenia]]
 
-### 出血 / 凝血 / 輸血
+[[Thrombocytopenia]]
 
-[[Hema/值班出血]]
+### 二、血液疾病機轉
 
-[[Hema/Transfusion reaction ⇒ 立即暫停]]
+[[Hema/血球製造問題/製造不出血球]]
 
-[[Hema/Anti-Coagulation & Anti-platelet]]
+[[Hema/血球製造問題/製造出瑕疵血球]]
 
-### 腫瘤治療 / 免疫低下
+[[Hema/血球被破壞]]
 
-[[CAR-T|標題]]
+[[Hema/血球周邊問題/血球流掉]]
 
-[[Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌|摘要]]
+[[Hema/血球周邊問題/血球被藏起來]]
 
-### 零星補充
+[[凝血因子異常]]
 
-Methemoglobinemia 用 methylene blue 治療：contraindication 為 G6PD dificiency（關鍵氧化酵素沒了）
+[[血液腫瘤]]
 
-Hemophilia & Vitamin K deficiency: bleeding time 不變, PT/aPTT 上升 (Hemophilia 只有 PT)
 
-**von Willebrand disease & DIC: mixed platelet & coagulation**
+### 三、臨床處置與治療
 
-**von Willebrand disease:** Symptoms worsen with acetylsalicylic acid (ASA) use ⇒ Desmopressin
+[[Anti-Coagulation & Anti-platelet]]
 
-multiple myeloma: CRAB
+[[值班出血]]
+
+[[Transfusion]]
+
+[[Transfusion reaction ⇒ 立即暫停]]
+
+[[Neutropenic fever]]
+
+[[CAR-T]]

@@ -1,7 +1,5 @@
 # CV
 
-## 摘要
-
 ## 內文
 [[CV/Heart Echo]]
 
@@ -23,7 +21,7 @@
 
 [[Pediatric/Infective myocarditis]]
 
-[[CV/Congenital Heart disease|全文]]
+[[CV/Congenital Heart disease]]
 
 [[CV/Syncope]]
 

@@ -8,10 +8,10 @@
   影響 ANS：DM、GBS、MS、**ALS**、**Lambert-Eaton**、CHF、CLF、alcohol、Parkinson、MSA
   除了 <mark>Lambert-Eaton</mark> 大家都會呼吸肌無力
   越動越有力：Lambert-Eaton、myositis
-- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Myasthenia gravis|扁平]]
-- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Lambert-Eaton myasthenic syndrome Paraneoplastic|扁平]]
-- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Duchenne muscular dystrophy (DMD) X-link, 嚴重|扁平]]
-- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Becker muscular dystrophy (BMD) X-link, 不嚴重|扁平]]
+- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Myasthenia gravis|膠囊]]
+- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Lambert-Eaton myasthenic syndrome Paraneoplastic|膠囊]]
+- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Duchenne muscular dystrophy (DMD) X-link, 嚴重|膠囊]]
+- [[Neuromuscular & muscular MG, Lambert-Eaton, BMD/Becker muscular dystrophy (BMD) X-link, 不嚴重|膠囊]]
 - **Myotonic dystrophy:** Autosomal dominant, **CTG** trinucleotide repeat
 - Periodic paralysis: 甲狀腺素 ⇒ 低血鉀 ⇒ 無力，早上無力下午變好 (K+ shift 出來) ⇒ **<u>acetazolamide</u>**
   - 高鉀 Periodic paralysis 也有但是少見

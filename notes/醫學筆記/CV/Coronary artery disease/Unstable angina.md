@@ -10,4 +10,4 @@
 > 3. Recent **<u>destabilization</u>** of previously stable angina(Class III)
 >    (crescendo/unstable angina).
 > 4. **<u>Post-acute myocardial infarction</u>** angina
-> 5. [[Canadian Cardiovascular Society classification|扁平]]
+> 5. [[Canadian Cardiovascular Society classification|膠囊]]

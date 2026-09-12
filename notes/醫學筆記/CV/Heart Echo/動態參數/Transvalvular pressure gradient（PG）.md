@@ -1,8 +1,5 @@
 # Transvalvular pressure gradient（PG）
 
-## 摘要
-Transvalvular pressure gradient（PG） = 4\*V²，一樣分 Peak PG & Mean PG
-
 ## 內文
 1. Peak PG = 4\*V2 max²
 2. **<u>Mean PG</u>** (Mean aortic valve gradient) 把 PG 積分起來以後取平均

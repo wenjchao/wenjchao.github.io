@@ -14,6 +14,6 @@
       - 包括 Bartter’s syndrome (似 furosemide, 尿鈣高) & Gitelman’s syndrome (似thiazide, 血鈣高)
    3. Type 1 & 2 RTA 是 **acidosis** (酸排不出，鉀換不回來)
    4. DKA 很神奇，可能鉀多（insulin 少）、可能鉀少（水排光光）
-5. [[Hypokalemia：水流失 or aldo 太多 就會低鉀/Algorithm|扁平]]
+5. [[Hypokalemia：水流失 or aldo 太多 就會低鉀/Algorithm|膠囊]]
 
 - TTKG & Urine K/Cr：低代表腎臟留鉀能力好（不是腎臟在搞，可能GI loss），但前提是腎臟要好不能爛，一旦爛就不準

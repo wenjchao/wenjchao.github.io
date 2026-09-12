@@ -11,4 +11,4 @@
 4. GnRH agonist / antagonist：抑制 FSH, LH 分泌，形成假性停經
 5. **Danazol**：partial 雄性素，<u>抑制 GnRH 分泌</u> & <u>抑制 雄性素 ⇒ 雌激素 的製造</u>
 6. Aromatase inhibitor
-7. [[Endometriosis 嚴重經痛 ／ 骨盆腔痛 ／ 性交疼痛 ／ 不孕：Adenomyosis/藥物：降低 estrogen、增加 progesterone|扁平]]
+7. [[Endometriosis 嚴重經痛 ／ 骨盆腔痛 ／ 性交疼痛 ／ 不孕：Adenomyosis/藥物：降低 estrogen、增加 progesterone|膠囊]]

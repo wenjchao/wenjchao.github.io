@@ -1,12 +1,10 @@
 # GDMT dosing
 
-## 摘要
+## 內文
 
 1. ACEi / ARB 只要到 50% Max dose 就能有很好的 Benefit → 50% 就快加下一個
 2. Beta-blocker 一直到 100% Max dose 才會有最好的 Benefits → 能承受藥物副作用就要繼續加
 3. MRA 一直到 100% Max dose 才會有最好的 Benefits，但要達到 50% Max dose 才開始有 Benefits
-
-## 內文
 
 |  | **Starting dose** | **Target dose** |
 |---|---|---|

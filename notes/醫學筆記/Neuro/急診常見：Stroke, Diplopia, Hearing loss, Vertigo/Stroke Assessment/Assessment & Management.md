@@ -3,7 +3,7 @@
 ## 內文
 1. Check Airway、Breath、Circulation、O2、IV、Sugar monitor, Stablize Vital Sign
 2. Last normal time：不是什麼時候開始無力
-3. [[Assessment & Management/NIHSS 評分|扁平]]
+3. [[Assessment & Management/NIHSS 評分|膠囊]]
 5. 照會Neuro Stroke team
 6. Immediate laboratory studies：不要影響到TPA, Thrombectomy
    1. Noncontrast Brain CT(確定沒懷孕) / MRI ⇒ intervention

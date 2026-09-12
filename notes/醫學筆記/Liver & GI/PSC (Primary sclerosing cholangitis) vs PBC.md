@@ -21,4 +21,4 @@
 
 - IgG4-related sclerosing cholangitis: features similar to PSC, accompanied by IgG4-related autoimmune pancreatitis
 - Autoimmune hepatitis: <u>**ASMA(+) / Anti-LKM1(+)**</u>
-- [[PSC (Primary sclerosing cholangitis) vs PBC/整理圖|扁平]]
+- [[PSC、PBC 與自體免疫肝炎比較圖|膠囊]]

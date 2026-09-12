@@ -14,4 +14,4 @@
 
 [[Metabolic acidosis：AG？ Δ／Δ？/Normal anion gap|全文|群組縮排]]
 
-- [[Metabolic acidosis：AG？ Δ／Δ？/三種 RTA 詳細情形|扁平]]
+- [[Metabolic acidosis：AG？ Δ／Δ？/三種 RTA 詳細情形|膠囊]]

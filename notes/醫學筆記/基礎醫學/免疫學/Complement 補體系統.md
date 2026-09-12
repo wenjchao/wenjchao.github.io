@@ -1,8 +1,5 @@
 # Complement 補體系統
 
-## 摘要
-（待補 by claude）
-
 ## 內文
 ### 三條活化路徑（classical／lectin／alternative）
 （待補 by claude）

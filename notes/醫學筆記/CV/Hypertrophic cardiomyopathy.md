@@ -1,10 +1,7 @@
 # Hypertrophic cardiomyopathy
 
-## 摘要
-病生理（thick／thin filament 突變）、好發年齡、症狀與徵象（ECG、echo、收縮期雜音）、併發症（猝死、HF、心律不整、中風）、猝死預防、治療原則。
-
 ## 內文
-[[Hypertrophic cardiomyopathy/圖示]]
+[[肥厚型心肌病的流出道阻塞與二尖瓣逆流圖]]
 
 ### Pathophysiology
 
@@ -26,7 +23,7 @@ infancy, childhood, **adolescent(most common)**, Late age(lower risk for HCM-rel
 ### Signs
 
 1. Abnormal ECG (left axis deviation, high R voltage in aVL, aVF, V4 - V6, septal Q waves in aVL, I, II)
-2. [[Heart Echo|摘要]]：
+2. [[Heart Echo]]：
    1. High intra-LV pressure gradient
    2. Diastolic dysfunction
 3. Murmurs：**Systolic**
@@ -40,5 +37,5 @@ infancy, childhood, **adolescent(most common)**, Late age(lower risk for HCM-rel
 2. Heart failure
 3. Arrythmias, both ventricular and atrial (especially important due to LV filling impairment)
 4. Stroke, in older age and larger left atrial size (even without identified atrial fibrillation)
-5. [[Hypertrophic cardiomyopathy/Prevention of sudden death|扁平]]
-6. [[Hypertrophic cardiomyopathy/Treatment for hypertrophic cardiomyopathy|扁平]]
+5. [[Hypertrophic cardiomyopathy/Prevention of sudden death|膠囊]]
+6. [[Hypertrophic cardiomyopathy/Treatment for hypertrophic cardiomyopathy|膠囊]]

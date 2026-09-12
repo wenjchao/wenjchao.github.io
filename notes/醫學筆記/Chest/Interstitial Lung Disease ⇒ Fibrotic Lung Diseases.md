@@ -3,11 +3,11 @@
 ## 內文
 If 年輕人 ⇒ 考慮換肺
 
-1. [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Pathophysiology tissue injury in lung parechyma ⇒|扁平]]
+1. [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Pathophysiology tissue injury in lung parechyma ⇒|膠囊]]
 3. Etiology
    1. Autoimmune-related interstitial lung disease
 
-      [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Connective tissue disease related (CTD-ILD) RA|摘要]]
+      [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Connective tissue disease related (CTD-ILD)]] : RA, SLE, SSc (systemic sclerosis), polymyositis / dermatomysitis, mixed connective tissue disease
       - Others: pulmonary langerhans cell histiocytosis, lymphangioleiomyomatosis(LAM), amyloidosis, eosinophilic pneumonia, Goodpasture syndrome (anti-GBM)
    2. Granuloma-related interstitial lung disease：見 「感染科 ⇒ Innate immunity (granuloma related)」
       1. Sarcoidosis
@@ -25,10 +25,10 @@ If 年輕人 ⇒ 考慮換肺
       - 注意：Pneumoconiosis + Rheumatoid arthritis ⇒ Caplan syndrome
    4. Idiopathic interstitial lung disease / Idiopathic pulmonary fibrosis
 
-   [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Etiology 互相交織、互相影響|摘要]]
+   [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/Etiology 互相交織、互相影響]]
 4. Classification: AIP, COP, NSIP, DIP, RB-ILD, LIP, UIP
 
-   [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/主要是看 HRCT(high-resolution CT)、病理切片、進程速度|摘要]]
+   [[Interstitial Lung Disease ⇒ Fibrotic Lung Diseases/主要是看 HRCT(high-resolution CT)、病理切片、進程速度]]
 
 [Spectrum of Fibrotic Lung Diseases | NEJM](https://www.nejm.org/doi/10.1056/NEJMra2005230)
 

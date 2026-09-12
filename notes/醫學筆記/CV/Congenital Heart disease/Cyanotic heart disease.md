@@ -1,19 +1,11 @@
 # Cyanotic heart disease
 
-## 摘要
-Truncus(1)、TGA(2)、Tricuspid atresia(3)、TOF(4，blue spells 與蹲姿)、TAPVR(5) 、Ebstein
-
-依賴 PDA／ASD／VSD 存活（TAPVR 例外）
-
-單心室只能做 Fontan，三階段手術。
-
-
 ## 內文
 [[Cyanotic heart disease/六張先天性心臟病示意圖（含 Ebstein）]]
 1. Truncus arteriosus
 2. Transposition of the great arteries
 3. Tricuspid atresia
-4. [[Cyanotic heart disease/Tetralogy of Fallot|扁平]]
+4. [[Cyanotic heart disease/Tetralogy of Fallot|膠囊]]
 5. Total anomalous pulmonary venous return: PV 不接 LA 反而去 RA
 6. Ebstein anomaly：瘋狂 TR ⇒ Right-to-Left through ASD, **<u>Split S1</u>**
 

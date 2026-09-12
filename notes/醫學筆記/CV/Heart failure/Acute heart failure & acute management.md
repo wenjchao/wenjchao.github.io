@@ -6,4 +6,4 @@
 
 [[Acute heart failure & acute management/Following evaluation and assessment|全文|群組縮排]]
 
-- [[Usage of Swan-Ganz|摘要|扁平]]
+- [[Usage of Swan-Ganz|摘要|膠囊]]

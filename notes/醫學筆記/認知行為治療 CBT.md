@@ -1,7 +1,5 @@
 # 認知行為治療 CBT
 
-## 摘要
-
 ## 內文
 [[認知行為治療 CBT/The Therapeutic Alliance（治療聯盟）|摘要]]
 

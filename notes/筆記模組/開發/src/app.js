@@ -17,8 +17,8 @@ const CONFIG = {
   modeAliases: { '1': 1, '標題': 1, 'title': 1, 't': 1,
                  '2': 2, '摘要': 2, 'summary': 2, 's': 2,
                  '3': 3, '全文': 3, '內文': 3, 'full': 3, 'body': 3, 'f': 3, 'all': 3 },
-  // [[模組|扁平]] 的外觀別名：card 卡片（預設，有框）、flat 扁平（和清單項目平行）、group 群組縮排（無框，內容縮排在標題底下）
-  styleAliases: { '卡片': 'card', 'card': 'card', '扁平': 'flat', 'flat': 'flat', '平': 'flat', '群組縮排': 'group', '群組': 'group', '縮排': 'group', 'group': 'group' },
+  // [[模組|膠囊]] 的外觀別名：card 卡片（預設，有框）、flat 膠囊（R91 定名；舊名扁平永久相容）、group 群組縮排（無框，內容縮排在標題底下）
+  styleAliases: { '卡片': 'card', 'card': 'card', '膠囊': 'flat', '扁平': 'flat', 'flat': 'flat', '平': 'flat', '群組縮排': 'group', '群組': 'group', '縮排': 'group', 'group': 'group' },
   defaultMode: 1,          // [[模組]] 沒寫模式時
   inlineExpandMode: 2,     // 段落中的晶片按 ▾ 展開時至少顯示到
   maxDepth: 10,            // 巢狀深度上限（防止無限展開）
@@ -105,9 +105,10 @@ function h(tag, attrs = {}, ...children) {
 
 const ICON = {
   chev: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>',
-  down: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+  chev2: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg>',   // R84：全文＝兩個箭頭（隨 CSS 轉 90° 變成雙下）
   pen: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
-  triBold: '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5 19 12 7 20.5z" fill="currentColor"/></svg>',   // 扁平外觀用的實心粗箭頭
+  triBold: '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5 19 12 7 20.5z" fill="currentColor"/></svg>',   // 群組縮排用的實心粗箭頭
+  tri2: '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5 12.5 12 4 19z" fill="currentColor"/><path d="M12 5 20.5 12 12 19z" fill="currentColor"/></svg>',   // R84：群組縮排的全文＝兩個實心三角
   merge: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 14-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v5"/></svg>',   // 併回（R47）
 };
 
@@ -209,28 +210,31 @@ const Refs = {
     }
     return { target, anchor, mode: mode ?? CONFIG.defaultMode, style: style || 'card', label, opts };
   },
-  /* 把解析結果寫回 [[…]]（改寫模式用，D26）：模式 1 不寫字；外觀只在扁平時寫 */
+  /* 把解析結果寫回 [[…]]（改寫模式用，D26）：模式 1 不寫字；外觀非卡片才寫（寫回一律用新字「膠囊」，R91） */
   build(ref) {
     const parts = [ref.target + (ref.anchor ? '#' + ref.anchor : '')];
     if (ref.mode === 2) parts.push('摘要'); else if (ref.mode === 3) parts.push('全文');
-    if (ref.style === 'flat') parts.push('扁平');
+    if (ref.style === 'flat') parts.push('膠囊');
     else if (ref.style === 'group') parts.push('群組縮排');
     if (ref.label) parts.push(ref.label);
     for (const o of ref.opts || []) parts.push(o);
     return '[[' + parts.join('|') + ']]';
   },
+  /* 寫回原文用：連結若在表格格子裡，| 要寫成 \|，否則會被當成格子分隔（R77） */
+  escape(raw, ref) { return ref && ref.inTable ? raw.replace(/\|/g, '\\|') : raw; },
   /* 從全文抽出所有連結（反向連結、壞連結用）。用 marked 本身的 lexer 走訪 token，
      所以和畫面上的解析結果一致：程式碼、數學式裡的 [[…]] 自然不算。 */
   extract(text) {
     const out = [];
-    const walk = toks => {   // 文件順序（和畫面上卡片／晶片的順序一致；表格先表頭再列）
+    const walk = (toks, inTable) => {   // 文件順序（和畫面上卡片／晶片的順序一致；表格先表頭再列）
       for (const t of toks || []) {
-        if (t.type === 'modBlock' || t.type === 'modInline') out.push({ ...t.ref, raw: (t.src || t.raw || '').trim() });
-        else if (t.type === 'link' && /\.md$/i.test(t.href || '')) { let h = t.href; try { h = decodeURIComponent(h); } catch {} out.push({ target: h.replace(/\.md$/i, ''), mode: 1, style: 'card', label: null, opts: [], mdlink: true, raw: t.raw }); }
-        if (t.tokens) walk(t.tokens);
-        if (t.items) walk(t.items);
-        if (t.header) for (const cell of t.header) walk(cell.tokens);
-        if (t.rows) for (const row of t.rows) for (const cell of row) walk(cell.tokens);
+        // inTable：在表格格子裡。marked 切格子時已把 \| 還原成 |，所以這裡的 raw 沒有反斜線；寫回原文時要重新跳脫（R77）
+        if (t.type === 'modBlock' || t.type === 'modInline') out.push({ ...t.ref, raw: (t.src || t.raw || '').trim(), inTable: !!inTable });
+        else if (t.type === 'link' && /\.md$/i.test(t.href || '')) { let h = t.href; try { h = decodeURIComponent(h); } catch {} out.push({ target: h.replace(/\.md$/i, ''), mode: 1, style: 'card', label: null, opts: [], mdlink: true, raw: t.raw, inTable: !!inTable }); }
+        if (t.tokens) walk(t.tokens, inTable);
+        if (t.items) walk(t.items, inTable);
+        if (t.header) for (const cell of t.header) walk(cell.tokens, true);
+        if (t.rows) for (const row of t.rows) for (const cell of row) walk(cell.tokens, true);
       }
     };
     try { walk(marked.lexer(String(text || ''))); } catch (e) { console.warn('連結解析失敗', e); }
@@ -376,13 +380,13 @@ const Cards = {
     const el = h('section', { class: 'card' + (extraClass ? ' ' + extraClass : '') + (ref.style === 'flat' ? ' flat' : ref.style === 'group' ? ' group' : ''), dataset: { id: mod.id, key, depth: String(ctx.depth), rail: String(((ctx.depth - 1) % 4) + 1), style: ref.style || 'card' } });
     el._ref = ref; el._parent = ctx.ancestors[ctx.ancestors.length - 1];   // 改寫連結模式時要知道連結寫在哪個模組裡
     if (ref.index != null) el.dataset.link = String(ref.index);
-    const tri = h('button', { class: 'tri icon-btn', type: 'button', title: '展開／收合', html: (ref.style === 'flat' || ref.style === 'group') ? ICON.triBold : ICON.chev });
+    const tri = h('button', { class: 'tri icon-btn', type: 'button', title: '切換顯示範圍：標題→摘要→全文', html: ICON.chev });
     const title = h('a', { class: 'card-title', href: Util.hashFor(mod.id), title: mod.path, html: Util.titleHtml(ref.label || mod.title) });
     const segBtns = [1, 2, 3].map(m => h('button', { type: 'button', dataset: { m: String(m) } }, ['標題', '摘要', '全文'][m - 1]));
     if (!hasSummary) { segBtns[1].disabled = true; segBtns[1].title = '這個模組沒有摘要'; }
     if (capped) { segBtns[2].disabled = true; segBtns[2].title = cyclic ? '循環引用：這個模組已在上層展開' : '已達巢狀深度上限'; }
     // 外觀用和「標題／摘要／全文」一樣的段控鈕：兩個選項都看得到，目前的反白（R27）
-    const styleBtns = [['card', '卡片', '卡片外觀：有框、標題粗體'], ['flat', '扁平', '扁平外觀：像清單項目，和其他項目平行'], ['group', '群組縮排', '群組縮排：無框，標題粗體，內容縮排在標題底下']].map(([st, label, title]) => h('button', { type: 'button', dataset: { st }, title }, label));
+    const styleBtns = [['card', '卡片', '卡片外觀：有框、標題粗體'], ['flat', '膠囊', '膠囊外觀：和句中的膠囊同款，像清單項目一樣平行'], ['group', '群組縮排', '群組縮排：無框，標題粗體，內容縮排在標題底下']].map(([st, label, title]) => h('button', { type: 'button', dataset: { st }, title }, label));
     const tools = h('div', { class: 'card-tools' }, h('div', { class: 'seg', role: 'group', 'aria-label': '顯示範圍' }, segBtns), h('div', { class: 'seg style-seg', role: 'group', 'aria-label': '外觀' }, styleBtns));
     if (App.canEdit()) tools.append(h('button', { class: 'icon-btn edit', type: 'button', title: '編輯這個模組', html: ICON.pen, onclick: () => App.edit(mod.id) }));
     if (App.canEdit() && typeof App.source.remove === 'function') tools.append(h('button', { class: 'icon-btn merge', type: 'button', title: '併回：把這個模組的內容搬回這裡、刪除模組檔（R47）', html: ICON.merge, onclick: () => App.inlineCard(el, mod, ref) }));
@@ -392,18 +396,19 @@ const Cards = {
       tools));
 
     el.dataset.initStyle = ref.style || 'card';
+    // R84、D48：箭頭＝顯示範圍——▸ 標題、▾ 摘要（CSS 轉 90°）、雙箭頭 全文；群組縮排用實心三角，卡片與膠囊用細箭頭
+    const setTri = () => { const m = +el.dataset.mode || 1, solid = el.dataset.style === 'group'; tri.innerHTML = m >= 3 ? (solid ? ICON.tri2 : ICON.chev2) : (solid ? ICON.triBold : ICON.chev); };
     // 外觀：卡片 ↔ 扁平（R27）。改了會和模式一樣寫回檔案（或唯讀時記在瀏覽器）
     const setStyle = (st, initial) => {
       st = (st === 'flat' || st === 'group') ? st : 'card';
       el.classList.toggle('flat', st === 'flat'); el.classList.toggle('group', st === 'group'); el.dataset.style = st; ref.style = st;
-      tri.innerHTML = st !== 'card' ? ICON.triBold : ICON.chev;
+      setTri();
       styleBtns.forEach(b => b.classList.toggle('on', b.dataset.st === st));
       if (!initial) App.onCardStyle(el);
     };
     el._setStyle = setStyle; styleBtns.forEach(b => b.addEventListener('click', () => { if (b.dataset.st !== el.dataset.style) setStyle(b.dataset.st); }));
     const childCtx = { ancestors: [...ctx.ancestors, mod.id], key, depth: ctx.depth + 1, basePath: Util.dirname(mod.path) };
     let summaryEl = null, bodyEl = null, mode = 0;
-    let expanded = ref.mode > 1 ? ref.mode : 3;
     // 沒有摘要的模組：一開始若要求「摘要」就只顯示標題；之後手動展開則直接到全文
     const clamp = (m, initial) => { if (capped) m = Math.min(m, 2); if (m === 2 && !hasSummary) m = (initial || capped) ? 1 : 3; return m; };
     const ensure = m => {
@@ -414,14 +419,13 @@ const Cards = {
       }
     };
     const setMode = (m, initial) => {
-      m = clamp(m, initial); ensure(m); mode = m; el.dataset.mode = String(m);
+      m = clamp(m, initial); ensure(m); mode = m; el.dataset.mode = String(m); setTri();
       segBtns.forEach(b => b.classList.toggle('on', +b.dataset.m === m));
       tri.setAttribute('aria-expanded', String(m > 1));
-      if (m > 1) expanded = m;
       if (!initial) App.onCardMode(el);   // 使用者改了 → 寫進檔案或記住（還原中會被 App._restoring 擋掉）
     };
     el._setMode = setMode; el._getMode = () => mode;
-    tri.addEventListener('click', () => setMode(mode > 1 ? 1 : expanded));
+    tri.addEventListener('click', () => setMode(mode >= 3 || (capped && mode >= 2) ? 1 : mode + 1));   // R84：循環 標題→摘要→全文→標題（無摘要時 clamp 直接跳全文）
     segBtns.forEach(b => b.addEventListener('click', () => { if (!b.disabled) setMode(+b.dataset.m); }));
     el.dataset.init = String(clamp(ref.mode || 1, true));   // 連結要求的預設模式；記憶只記和它不同的（D24）
     setStyle(ref.style, true);
@@ -431,21 +435,46 @@ const Cards = {
 
   chip(ref, mod, ctx, occ) {
     const key = `${ctx.key}>${mod.id}#i${occ}`;
-    const chip = h('span', { class: 'chip' + (ref.style === 'flat' ? ' flat' : ''), dataset: { id: mod.id, key } });
+    const chip = h('span', { class: 'chip', dataset: { id: mod.id, key, init: String(ref.mode || 1) } });   // R85（1.3.37）：晶片不再分扁平樣，一律同一款膠囊
+    chip._ref = ref; chip._parent = ctx.ancestors[ctx.ancestors.length - 1];   // R87：寫回時要知道連結寫在哪個模組裡
+    if (ref.index != null) chip.dataset.link = String(ref.index);
     const go = h('a', { class: 'chip-go', href: Util.hashFor(mod.id), title: mod.path, html: Util.titleHtml(ref.label || mod.title) });
-    const x = h('button', { class: 'chip-x', type: 'button', title: '在這裡展開', html: ICON.down });
+    const x = h('button', { class: 'chip-x', type: 'button', title: '在這裡展開（循環：摘要→全文→收合）', html: ICON.chev });
     chip.append(go, x);
     chip._card = null;
-    chip._expand = (m) => {
-      if (chip._card) { chip._card.remove(); chip._card = null; chip.classList.remove('open'); return; }
-      const want = Math.max(ref.mode || 1, m || CONFIG.inlineExpandMode);
-      const card = Cards.card(mod, { ...ref, mode: want }, ctx, 'i' + occ, 'inline-expand');
-      card.dataset.inline = '1';
-      const host = chip.closest('li, td, th, p, h1, h2, h3, h4, h5, h6, blockquote, dd') || chip.parentElement;
-      if (/^(P|H[1-6]|BLOCKQUOTE)$/.test(host.tagName)) host.after(card); else host.append(card);
-      chip._card = card; chip.classList.add('open');
+    const sync = () => {   // R86：箭頭＝目前範圍（▸ 收合、▾ 摘要、雙 ▾ 全文；旋轉由 .chip.open 的 CSS 做）
+      const m = chip._card ? +chip._card.dataset.mode : 1;
+      x.innerHTML = m >= 3 ? ICON.chev2 : ICON.chev;
+      chip.classList.toggle('open', m > 1);
+      x.setAttribute('aria-expanded', String(m > 1));
+      if (chip._syncSeg) chip._syncSeg();
     };
-    x.addEventListener('click', () => { chip._expand(); App.remember(); });
+    chip._sync = sync;
+    // R88：標題／摘要／全文 段控——滑過／聚焦浮出在晶片下方，點了直接指定並寫回（受限目標按全文由 clamp 停在摘要）
+    const segBtns = [1, 2, 3].map(mm => h('button', { type: 'button', dataset: { m: String(mm) } }, ['標題', '摘要', '全文'][mm - 1]));
+    if (!mod.summary) { segBtns[1].disabled = true; segBtns[1].title = '這個模組沒有摘要'; }
+    chip.append(h('span', { class: 'chip-seg' }, h('span', { class: 'seg', role: 'group', 'aria-label': '顯示範圍' }, segBtns)));
+    chip._syncSeg = () => { const m = chip._card ? +chip._card.dataset.mode : 1; segBtns.forEach(b => b.classList.toggle('on', +b.dataset.m === m)); };
+    segBtns.forEach(b => b.addEventListener('click', () => { if (b.disabled) return; const mm = +b.dataset.m, cur = chip._card ? +chip._card.dataset.mode : 1; if (mm !== cur) { chip._expand(mm); App.onChipMode(chip); } }));
+    chip._syncSeg();
+    // R86：循環 收合→摘要→全文→收合（同 R84；無摘要跳過摘要、受限卡片到摘要就回收合）。m＝還原記憶時直接指定層級。
+    chip._expand = (m) => {
+      const cur = chip._card ? +chip._card.dataset.mode : 1;
+      const want = m || (cur >= 3 ? 1 : cur + 1);
+      if (want > 1 && !chip._card) {
+        const card = Cards.card(mod, { ...ref, mode: 1, style: 'flat' }, ctx, 'i' + occ, 'inline-expand');   // R85：一律扁平無框；R86：卡頭隱藏（CSS），膠囊自己是卡頭
+        card.dataset.inline = '1';
+        const host = chip.closest('li, td, th, p, h1, h2, h3, h4, h5, h6, blockquote, dd') || chip.parentElement;
+        if (/^(P|H[1-6]|BLOCKQUOTE)$/.test(host.tagName)) host.after(card); else host.append(card);
+        chip._card = card;
+      }
+      if (chip._card && want > 1) chip._card._setMode(want, !!m);   // 還原走 initial（不觸發記憶重存）；循環走一般路（clamp 會跳過沒有的摘要）
+      const now = chip._card ? +chip._card.dataset.mode : 1;
+      if (want === 1 || now <= 1 || (now === cur && !m)) { if (chip._card) { chip._card.remove(); chip._card = null; } }   // 收合／被上限擋住沒動＝繞回收合
+      sync();
+      if (!m) App.onChipMode(chip);   // R87：使用者循環才寫回；還原、載入自動展開、全部收合走 m 路徑，不寫
+    };
+    x.addEventListener('click', () => chip._expand());   // 寫回／唯讀記憶都在 onChipMode 裡
     return chip;
   },
 
@@ -469,6 +498,44 @@ const Cards = {
      卡片項（自畫）配原生項（瀏覽器畫）在 Safari 永遠對不齊。所以閱讀畫面的清單記號**全部**自己畫：
      編號算好放 data-n（純文字項放在 li、卡片項放在卡片頭），圓點項標 data-b 由 CSS 依層級畫；
      核取方塊項目不標。編輯器裡沒有這些標記，維持原生記號。 */
+  /* 表格合併（R80）：格子只寫 ^^＝併入上面那格、只寫 << ＝併入左邊那格；要照字面顯示寫成行內程式碼 `^^`。
+     thead／tbody 各自處理（rowspan 不能跨區）；佔位網格對齊欄位，跨欄的上格也接得住 ^^ */
+  mergeTables(container) {
+    const mark = td => td.childElementCount === 0 ? td.textContent.trim() : '';
+    for (const table of container.querySelectorAll('table')) {
+      if (table.dataset.merged) continue;
+      table.dataset.merged = '1';
+      const nowrap = new Set();   // R82：表頭格開頭 ==＝該欄不換行
+      [...table.children].forEach((sec, si) => {
+        const trs = [...(sec.rows || [])];
+        if (!trs.length) return;
+        for (const tr of trs) for (const td of [...tr.children]) {
+          if (mark(td) === '<<' && td.previousElementSibling) {
+            td.previousElementSibling.colSpan += td.colSpan || 1; td.remove();
+          }
+        }
+        const grid = [];
+        trs.forEach((tr, r) => {
+          grid[r] = grid[r] || [];
+          for (const td of [...tr.children]) {
+            let c = 0; while (grid[r][c] !== undefined) c++;
+            if (si === 0 && r === 0) {
+              const tn = td.firstChild;
+              if (tn && tn.nodeType === 3 && tn.nodeValue.startsWith('==')) { tn.nodeValue = tn.nodeValue.slice(2); nowrap.add(c); }
+            }
+            if (nowrap.has(c)) td.classList.add('td-nw');
+            if (mark(td) === '^^' && r > 0 && grid[r - 1][c]) {
+              const up = grid[r - 1][c];
+              up.rowSpan += 1;
+              for (let j = 0; j < (up.colSpan || 1); j++) grid[r][c + j] = up;
+              td.remove(); continue;
+            }
+            for (let i = 0; i < (td.rowSpan || 1); i++) for (let j = 0; j < (td.colSpan || 1); j++) (grid[r + i] = grid[r + i] || [])[c + j] = td;
+          }
+        });
+      });
+    }
+  },
   numberListCards(container) {
     const alpha = n => { let s = ''; while (n > 0) { n--; s = String.fromCharCode(97 + (n % 26)) + s; n = Math.floor(n / 26); } return s; };
     const roman = n => { const T = [[1000, 'm'], [900, 'cm'], [500, 'd'], [400, 'cd'], [100, 'c'], [90, 'xc'], [50, 'l'], [40, 'xl'], [10, 'x'], [9, 'ix'], [5, 'v'], [4, 'iv'], [1, 'i']]; let s = ''; for (const [v, r] of T) while (n >= v) { s += r; n -= v; } return s; };
@@ -509,8 +576,9 @@ const Cards = {
       const block = ph.classList.contains('mod-ph');
       const mod = Store.resolve(ref.target, ctx.basePath);
       if (block) ph.replaceWith(mod ? this.card(mod, ref, ctx, next(mod.id)) : this.missing(ref, ctx, true));
-      else ph.replaceWith(mod ? this.chip(ref, mod, ctx, next('i:' + mod.id)) : this.missing(ref, ctx, false));
+      else { const el2 = mod ? this.chip(ref, mod, ctx, next('i:' + mod.id)) : this.missing(ref, ctx, false); ph.replaceWith(el2); if (mod && (ref.mode || 1) > 1) el2._expand(ref.mode); }   // R87：句中模式字＝目前展開層級，載入即自動展開（程式路徑，不寫回）
     }
+    this.mergeTables(container);
     this.numberListCards(container);
     TaskWriter.enable(container, owner, part);   // 核取方塊直接點、寫回檔案（R38）
     // 注意：巢狀卡片的摘要／內文在上面 replaceWith 時已用「它自己的資料夾」解析過相對路徑，
@@ -647,7 +715,7 @@ const LinkWriter = {
         if (line[j] === '`') { const m = /^`+/.exec(line.slice(j)); const close = line.indexOf(m[0], j + m[0].length); if (close >= 0) { j = close + m[0].length; continue; } j += m[0].length; continue; }
         if (line[j] === '[' && line[j + 1] === '[') {
           const end = line.indexOf(']]', j + 2);
-          if (end >= 0 && !/[\[\]`]/.test(line.slice(j + 2, end))) { const bang = j > 0 && line[j - 1] === '!'; const s = bang ? j - 1 : j; out.push({ start: offset + s, end: offset + end + 2, raw: line.slice(s, end + 2) }); j = end + 2; continue; }
+          if (end >= 0 && !/[\[\]`]/.test(line.slice(j + 2, end))) { const bang = j > 0 && line[j - 1] === '!'; const s = bang ? j - 1 : j; const raw = line.slice(s, end + 2); out.push({ start: offset + s, end: offset + end + 2, raw, norm: raw.replace(/\\\|/g, '|') }); j = end + 2; continue; }
         }
         j++;
       }
@@ -658,13 +726,13 @@ const LinkWriter = {
   rewrite(text, changes) {
     const links = Refs.cards(text), cands = this.candidates(text);
     const pos = []; let c = 0;
-    for (const l of links) { while (c < cands.length && cands[c].raw !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
+    for (const l of links) { while (c < cands.length && cands[c].norm !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
     const edits = [...changes.entries()].map(([j, ch]) => ({ j, ...ch })).sort((a, b) => b.j - a.j);
     let out = text;
     for (const e of edits) {
       const link = links[e.j], p = pos[e.j];
       if (!link || !p || link.raw !== e.raw) throw new Error('檔案內容已經改變，這個連結對不上');
-      const nr = Refs.build({ ...link, ...(e.mode != null ? { mode: e.mode } : {}), ...(e.style ? { style: e.style } : {}) });
+      const nr = Refs.escape(Refs.build({ ...link, ...(e.mode != null ? { mode: e.mode } : {}), ...(e.style ? { style: e.style } : {}) }), link);
       out = out.slice(0, p.start) + nr + out.slice(p.end);
     }
     const after = Refs.cards(out);
@@ -681,7 +749,7 @@ const LinkWriter = {
   replaceWith(text, j, raw, replacement) {
     const links = Refs.cards(text), cands = this.candidates(text);
     const pos = []; let c = 0;
-    for (const l of links) { while (c < cands.length && cands[c].raw !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
+    for (const l of links) { while (c < cands.length && cands[c].norm !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
     const link = links[j], p = pos[j];
     if (!link || !p || link.raw !== raw) throw new Error('檔案內容已經改變，這個連結對不上');
     const lineStart = text.lastIndexOf('\n', p.start - 1) + 1;
@@ -777,11 +845,11 @@ const Refactor = {
     if (!links.some(l => Store.resolve(l.target, dir) === oldMod)) return null;
     const wiki = links.filter(l => !l.mdlink), cands = LinkWriter.candidates(raw);
     const pos = []; let c = 0;
-    for (const l of wiki) { while (c < cands.length && cands[c].raw !== l.raw) c++; if (c >= cands.length) throw new Error(`${m.path}：在原文裡找不到連結的位置`); pos.push(cands[c++]); }
+    for (const l of wiki) { while (c < cands.length && cands[c].norm !== l.raw) c++; if (c >= cands.length) throw new Error(`${m.path}：在原文裡找不到連結的位置`); pos.push(cands[c++]); }
     let out = raw;
     for (let i = wiki.length - 1; i >= 0; i--) {
       const l = wiki[i]; if (Store.resolve(l.target, dir) !== oldMod) continue;
-      const nr = Refs.build({ ...l, target: Store.linkTarget(newId, dir) });
+      const nr = Refs.escape(Refs.build({ ...l, target: Store.linkTarget(newId, dir) }), l);
       out = out.slice(0, pos[i].start) + nr + out.slice(pos[i].end);
     }
     for (const l of links.filter(l => l.mdlink)) {   // 一般 Markdown 連結 [文字](x.md)：照原本相對與否改寫
@@ -799,13 +867,13 @@ const Refactor = {
   relocate(text, oldDir, newDir) {
     const links = Refs.extract(text), wiki = links.filter(l => !l.mdlink), cands = LinkWriter.candidates(text);
     const pos = []; let c = 0;
-    for (const l of wiki) { while (c < cands.length && cands[c].raw !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
+    for (const l of wiki) { while (c < cands.length && cands[c].norm !== l.raw) c++; if (c >= cands.length) throw new Error('在原文裡找不到連結的位置'); pos.push(cands[c++]); }
     let out = text;
     for (let i = wiki.length - 1; i >= 0; i--) {
       const l = wiki[i], target = Store.resolve(l.target, oldDir);
       if (!target || Store.modules.has(Util.pathToId(l.target))) continue;   // 寫完整路徑的不用動
       if (Store.resolveStrict(l.target, newDir) === target) continue;       // 搬過去之後（不靠檔名寬鬆比對）還是找得到
-      out = out.slice(0, pos[i].start) + Refs.build({ ...l, target: Store.linkTarget(target.id, newDir) }) + out.slice(pos[i].end);
+      out = out.slice(0, pos[i].start) + Refs.escape(Refs.build({ ...l, target: Store.linkTarget(target.id, newDir) }), l) + out.slice(pos[i].end);
     }
     // 圖片與 .md 連結的相對路徑（逐行、跳過圍欄程式碼）
     const lines = out.split('\n'); let fence = null;
@@ -1310,6 +1378,7 @@ const Wysi = {
     }
     for (const cb of root.querySelectorAll('input[type="checkbox"]')) { cb.disabled = false; cb.contentEditable = 'false'; }
     for (const a of root.querySelectorAll('a[href]')) a.title = a.getAttribute('href');
+    Cards.mergeTables(root);   // 直觀編輯也要看到合併格，序列化才寫得回 ^^／<<（R80）
     this.tidy(root);
   },
   /* 區塊原子前後要有可以放游標的段落，否則游標進不去；序列化時空段落會被丟掉 */
@@ -1330,7 +1399,7 @@ const Wysi = {
     const modeName = ['', '標題', '摘要', '全文'][ref.mode] || '標題';
     const el = h(block ? 'div' : 'span', { class: 'wy-atom ' + (block ? 'wy-card' : 'wy-chip') + (mod ? '' : ' missing'), contenteditable: 'false', dataset: { md: raw.trim() }, title: '模組連結：點一下修改' });
     el.append(h('span', { class: 'wy-atom-icon', html: ICON.chev }), h('span', { class: 'wy-atom-name', html: Util.titleHtml(name) }));
-    if (block) el.append(h('span', { class: 'wy-atom-mode' }, modeName + (ref.style === 'flat' ? ' · 扁平' : ref.style === 'group' ? ' · 群組縮排' : '')));
+    if (block) el.append(h('span', { class: 'wy-atom-mode' }, modeName + (ref.style === 'flat' ? ' · 膠囊' : ref.style === 'group' ? ' · 群組縮排' : '')));
     else if (ref.style === 'flat') el.classList.add('flat');
     return el;
   },
@@ -1416,11 +1485,27 @@ const Wysi = {
   isListMd: s => /^\s*(?:[-*+] |\d+\. )/.test(s),
   isAtomMd: s => /^!?\[\[/.test(s) || /^\$\$/.test(s),
   table(el) {
-    const rows = [...el.querySelectorAll('tr')].map(tr => [...tr.children].map(td => this.inline(td).replace(/\s*\n\s*/g, '<br>').replace(/\|/g, '\\|').trim()));
-    if (!rows.length) return null;
-    const w = Math.max(...rows.map(r => r.length));
-    const norm = r => { while (r.length < w) r.push(''); return '| ' + r.join(' | ') + ' |'; };
-    return [norm(rows[0]), '|' + '---|'.repeat(w), ...rows.slice(1).map(norm)].join('\n');
+    const trs = [...el.querySelectorAll('tr')];
+    if (!trs.length) return null;
+    const cellMd = td => this.inline(td).replace(/\s*\n\s*/g, '<br>').replace(/\|/g, '\\|').trim();
+    const grid = [];   // 合併格（R80）：被上格蓋住的位置寫回 ^^、被左格蓋住的寫回 <<
+    trs.forEach((tr, r) => {
+      grid[r] = grid[r] || [];
+      let c = 0;
+      for (const td of tr.children) {
+        while (grid[r][c] !== undefined) c++;
+        grid[r][c] = (r === 0 && td.classList.contains('td-nw') ? '==' : '') + cellMd(td);
+        const cs = td.colSpan || 1, rs = td.rowSpan || 1;
+        for (let i = 0; i < rs; i++) for (let j = 0; j < cs; j++) {
+          if (i === 0 && j === 0) continue;
+          (grid[r + i] = grid[r + i] || [])[c + j] = i > 0 ? '^^' : '<<';
+        }
+        c += cs;
+      }
+    });
+    const w = Math.max(...grid.map(r => r.length));
+    const norm = r => { const o = []; for (let c = 0; c < w; c++) o.push(r[c] === undefined ? '' : r[c]); return '| ' + o.join(' | ') + ' |'; };
+    return [norm(grid[0]), '|' + '---|'.repeat(w), ...grid.slice(1).map(norm)].join('\n');
   },
   /* 行內：走訪子節點 */
   inlineRun(nodes) { const tmp = h('span'); for (const n of nodes) tmp.append(n.cloneNode(true)); return this.inline(tmp); },
@@ -1809,6 +1894,7 @@ const App = {
     this.show(id);
   },
   trail: [], _navFrom: null,   // 麵包屑（R36）：從哪些模組一路點進來的
+  _treeOpen: null,   // R92：側欄展開集合——暫時狀態，換頁時重設為目前頁的祖先路徑；「標籤」節點另記在 Memory
   show(id, force) {
     if (id && id.startsWith('__')) { this.renderSpecial(id); return; }
     if (!id) { this.renderNoModules(); return; }
@@ -1826,13 +1912,19 @@ const App = {
       this.main.scrollTop = 0;
     }
     document.title = `${mod.title} · ${CONFIG.appName}`;
-    this.markSidebar(); document.body.classList.remove('rail-open');
+    this._treeOpen = this._treeFollowSet(); this.renderSidebar(); document.body.classList.remove('rail-open');   // R92：嚴格跟隨——只開目前頁的路徑
   },
   /* ---------- 展開狀態：可寫入時寫進檔案（D26），否則記在瀏覽器（D24） ---------- */
   _restoring: false,
   canWriteLinks() { return this.canEdit() && typeof this.source.save === 'function' && this.source.writeThrough !== false; },   // GitHub 直接編輯：翻卡片不 commit（D39），記在瀏覽器
   onCardMode(el) { this.onCardChange(el, { mode: +el.dataset.mode }); },
   onCardStyle(el) { this.onCardChange(el, { style: el.dataset.style }); },
+  onChipMode(chip) {   // R87：晶片循環寫回句中連結的模式字（收合＝拿掉模式字；規則、驗證同卡片 D26）
+    if (this._restoring || Editor.open) return;
+    if (chip.dataset.link == null || !chip._parent) { if (!this.canWriteLinks()) this.remember(); return; }
+    if (this.canWriteLinks()) LinkWriter.queue(chip._parent, +chip.dataset.link, chip._ref.raw, { mode: chip._card ? +chip._card.dataset.mode : 1 });
+    else this.remember();
+  },
   onCardChange(el, patch) {
     if (this._restoring || Editor.open) return;
     if (el.dataset.inline || el.dataset.link == null || !el._parent) { if (!this.canWriteLinks()) this.remember(); return; }   // 晶片就地展開的卡片：檔案沒有對應寫法
@@ -1850,7 +1942,7 @@ const App = {
     const a = App; if (!CONFIG.rememberCards || a._restoring || !a.currentId || Editor.open) return;
     const s = { modes: {}, chips: {}, styles: {} };
     a.page.querySelectorAll('.card[data-key]:not([data-inline])').forEach(c => { if (c.dataset.mode !== c.dataset.init) s.modes[c.dataset.key] = +c.dataset.mode; if (c.dataset.style !== c.dataset.initStyle) s.styles[c.dataset.key] = c.dataset.style; });
-    a.page.querySelectorAll('.chip.open[data-key]').forEach(c => { s.chips[c.dataset.key] = c._card ? +c._card.dataset.mode : CONFIG.inlineExpandMode; });
+    a.page.querySelectorAll('.chip[data-key]').forEach(c => { const m = c._card ? +c._card.dataset.mode : 1; if (m !== +(c.dataset.init || 1)) s.chips[c.dataset.key] = m; });   // R87：記與檔案預設的差異（含預設展開下的手動收合＝記 1）
     Memory.setCards(a.currentId, s);
     const b = a.page.querySelector('.toolbar .reset-btn'); if (b) b.hidden = !Memory.cards(a.currentId);
   },
@@ -1865,7 +1957,7 @@ const App = {
   captureState() {
     const s = { modes: {}, chips: {}, styles: {}, scroll: this.main.scrollTop };
     this.page.querySelectorAll('.card[data-key]:not([data-inline])').forEach(c => { s.modes[c.dataset.key] = +c.dataset.mode; s.styles[c.dataset.key] = c.dataset.style; });
-    this.page.querySelectorAll('.chip.open[data-key]').forEach(c => { s.chips[c.dataset.key] = c._card ? +c._card.dataset.mode : CONFIG.inlineExpandMode; });
+    this.page.querySelectorAll('.chip[data-key]').forEach(c => { const m = c._card ? +c._card.dataset.mode : 1; if (m !== +(c.dataset.init || 1)) s.chips[c.dataset.key] = m; });   // R87：同上
     this.page.querySelectorAll('.card[data-inline][data-key]').forEach(c => { s.modes[c.dataset.key] = +c.dataset.mode; });
     return s;
   },
@@ -1874,7 +1966,7 @@ const App = {
     let guard = 0, progressed = true;
     while (progressed && guard++ < 60) {
       progressed = false;
-      for (const ch of this.page.querySelectorAll('.chip[data-key]:not([data-restored])')) { ch.dataset.restored = '1'; const m = s.chips[ch.dataset.key]; if (m != null && !ch._card) ch._expand(m); progressed = true; }
+      for (const ch of this.page.querySelectorAll('.chip[data-key]:not([data-restored])')) { ch.dataset.restored = '1'; const m = s.chips[ch.dataset.key]; if (m != null) ch._expand(m); progressed = true; }   // R87：m 可為 1（收合檔案預設展開的晶片）；_expand(m) 冪等
       for (const c of this.page.querySelectorAll('.card[data-key]:not([data-restored])')) { c.dataset.restored = '1'; const st = s.styles && s.styles[c.dataset.key]; if (st && st !== c.dataset.style) c._setStyle(st); const m = s.modes[c.dataset.key]; if (m != null && m !== +c.dataset.mode) c._setMode(m); progressed = true; }
     }
     this._restoring = was;
@@ -1890,8 +1982,9 @@ const App = {
         const before = c.dataset.mode; c._setMode(mode);
         if (c.dataset.mode !== before) progressed = true;
       }
-      if (mode === 1) for (const ch of this.page.querySelectorAll('.chip.open')) { ch._expand(); progressed = true; }
+      if (mode === 1) for (const ch of this.page.querySelectorAll('.chip.open')) { ch._expand(1); progressed = true; }   // R86：循環語意下要明確收合
     }
+    for (const ch of this.page.querySelectorAll('.chip[data-key]')) ch._sync?.();   // R86：全部展開後晶片箭頭跟上插入卡的層級
     this._restoring = false;
   },
 
@@ -1940,24 +2033,19 @@ const App = {
     if (mod.body) { const b = h('div', { class: 'root-body md', html: MD.render(mod.body) }); Cards.hydrate(b, ctx, mod, 'body'); root.append(b); }
     if (!mod.summary && !mod.body) root.append(h('p', { class: 'note' }, '（這個模組還沒有內容）'));
     out.push(root);
-    if (!preview) {
-      const bl = Store.backlinks(mod.id);
-      if (bl.length) out.push(h('footer', { class: 'backlinks' }, h('span', { class: 'lbl' }, '被引用於'),
-        bl.map(b => h('span', { class: 'chip' }, h('a', { class: 'chip-go', href: Util.hashFor(b.id), title: b.path }, b.title)))));
-    }
     return out;
   },
-  /* 麵包屑（R36）：一路點進來的軌跡（可一鍵跳回），軌跡以外「誰把我裝進去」列為上層 */
+  /* 麵包屑（R36）：一路點進來的軌跡（可一鍵跳回）＋完整的「被引用於」（R76：1.3.28 起從頁底移上來、不再依軌跡過濾） */
   buildCrumbs(mod) {
     const trail = this.trail.slice(0, -1).filter(t => Store.modules.has(t));
-    const parents = Store.backlinks(mod.id).filter(b => !trail.includes(b.id));
+    const parents = Store.backlinks(mod.id);
     if (!trail.length && !parents.length) return null;
     const nav = h('nav', { class: 'crumbs', 'aria-label': '位置' });
     if (trail.length) {
       for (const t of trail) { const m = Store.modules.get(t); nav.append(h('a', { class: 'crumb', href: Util.hashFor(t), title: m.path, html: Util.titleHtml(m.title) }), h('span', { class: 'crumb-sep' }, '›')); }
       nav.append(h('span', { class: 'crumb cur', html: Util.titleHtml(mod.title) }));
     }
-    if (parents.length) nav.append(h('span', { class: 'parents' }, h('span', { class: 'lbl' }, trail.length ? '也在' : '上層'), parents.slice(0, 8).map(p => h('a', { class: 'crumb', href: Util.hashFor(p.id), title: p.path, html: Util.titleHtml(p.title) })), parents.length > 8 ? h('span', { class: 'lbl' }, `…共 ${parents.length} 個`) : null));
+    if (parents.length) nav.append(h('span', { class: 'parents' }, h('span', { class: 'lbl' }, '被引用於'), parents.slice(0, 8).map(p => h('a', { class: 'crumb', href: Util.hashFor(p.id), title: p.path, html: Util.titleHtml(p.title) })), parents.length > 8 ? h('span', { class: 'lbl' }, `…共 ${parents.length} 個`) : null));
     return nav;
   },
   /* 標籤（R37）：點標題旁或側欄的標籤 → 側欄改列有這個標籤的模組 */
@@ -2293,6 +2381,12 @@ const App = {
       f.addEventListener('blur', () => setTimeout(() => { if (!f.contains(document.activeElement)) Autocomplete.close(); }, 120));
       f.addEventListener('keydown', e => {
         if (Autocomplete.key(e)) return;
+        if (e.key === 'Enter' && !e.shiftKey) {   // 表格格子裡按 Enter＝<br> 換行（R83：Markdown 表格一列一行，真換行會變成新的一列）
+          const sel = window.getSelection();
+          const n = sel && sel.anchorNode;
+          const cell = n && (n.nodeType === 1 ? n : n.parentElement) && (n.nodeType === 1 ? n : n.parentElement).closest('td, th');
+          if (cell && f.contains(cell)) { e.preventDefault(); document.execCommand('insertLineBreak'); dirty(); }
+        }
         if (e.key === 'Tab') { e.preventDefault(); if (Wysi.inList(f)) Wysi.exec(e.shiftKey ? 'outdent' : 'indent'); dirty(); }
       });
       f.addEventListener('paste', e => {
@@ -2389,7 +2483,7 @@ const App = {
     const list = h('div', { class: 'wy-results' });
     const modeSel = h('select', { class: 'sel' }, h('option', { value: '1' }, '只顯示標題'), h('option', { value: '2' }, '標題＋摘要'), h('option', { value: '3' }, '標題＋摘要＋內文')); modeSel.value = String(ref.mode || 1);
     const formSel = h('select', { class: 'sel' }, h('option', { value: 'card' }, '卡片（獨立一行）'), h('option', { value: 'chip' }, '晶片（句子中間）')); formSel.value = block ? 'card' : 'chip';
-    const styleSel = h('select', { class: 'sel', title: '外觀' }, h('option', { value: 'card' }, '外觀：卡片'), h('option', { value: 'flat' }, '外觀：扁平（和清單項目平行）'), h('option', { value: 'group' }, '外觀：群組縮排（無框、內容縮排）')); styleSel.value = (ref.style === 'flat' || ref.style === 'group') ? ref.style : 'card';
+    const styleSel = h('select', { class: 'sel', title: '外觀' }, h('option', { value: 'card' }, '外觀：卡片'), h('option', { value: 'flat' }, '外觀：膠囊（和清單項目平行）'), h('option', { value: 'group' }, '外觀：群組縮排（無框、內容縮排）')); styleSel.value = (ref.style === 'flat' || ref.style === 'group') ? ref.style : 'card';
     const label = h('input', { class: 'wy-q', type: 'text', placeholder: '顯示文字（留白＝模組標題）' }); label.value = ref.label || '';
     let picked = ref.target;
     const renderList = () => {
@@ -2406,7 +2500,7 @@ const App = {
       // 連到同資料夾或子資料夾的模組時，寫成相對於目前模組資料夾的路徑，搬家也不會壞
       let t = target; if (basePath && target.startsWith(basePath + '/')) t = target.slice(basePath.length + 1);
       const mode = ['', '標題', '摘要', '全文'][+modeSel.value] || '標題';
-      const parts = [t]; if (mode !== '標題') parts.push(mode); if (styleSel.value === 'flat') parts.push('扁平'); else if (styleSel.value === 'group') parts.push('群組縮排'); if (label.value.trim()) parts.push(label.value.trim());
+      const parts = [t]; if (mode !== '標題') parts.push(mode); if (styleSel.value === 'flat') parts.push('膠囊'); else if (styleSel.value === 'group') parts.push('群組縮排'); if (label.value.trim()) parts.push(label.value.trim());
       return `[[${parts.join('|')}]]`;
     };
     this.showPanel(atom ? '修改模組連結' : '插入模組', [q, list, h('div', { class: 'wy-row' }, modeSel, formSel, styleSel), label], [
@@ -2483,6 +2577,10 @@ const App = {
         list.append(g);
       }
     } else {
+      list.append(h('div', { class: 'tree-tools' },   // R93：樹的三顆鈕
+        h('button', { class: 'tt', type: 'button', title: '展開所有資料夾', onclick: () => this.treeAll(true) }, '全部展開'),
+        h('button', { class: 'tt', type: 'button', title: '收合所有資料夾', onclick: () => this.treeAll(false) }, '全部收合'),
+        h('button', { class: 'tt', type: 'button', title: '收合其他，只展開目前頁面的路徑', onclick: () => this.treeFollow() }, '只留這頁')));
       this.renderTree(this.buildTree(mods), 0, list, home);
       this.renderTagSection(list);
     }
@@ -2523,7 +2621,7 @@ const App = {
   renderTree(node, depth, container, home) {
     const entries = [...node.children.values()].sort((a, b) => (b.mod?.id === home) - (a.mod?.id === home) || Util.collator.compare(a.mod ? a.mod.title : a.name, b.mod ? b.mod.title : b.name));
     for (const n of entries) {
-      const hasKids = n.children.size > 0, open = hasKids && Memory.treeOpen(n.path);
+      const hasKids = n.children.size > 0, open = hasKids && !!this._treeOpen?.has(n.path);
       container.append(this.treeRow(n, depth, hasKids, open));
       if (open) { const kids = h('div', { class: 'kids', dataset: { node: n.path } }); this.renderTree(n, depth + 1, kids, home); container.append(kids); }
     }
@@ -2537,21 +2635,27 @@ const App = {
     if (!n.mod) row.addEventListener('click', () => this.toggleNode(n.path));
     return row;
   },
-  toggleNode(path) { Memory.setTreeOpen(path, !Memory.treeOpen(path)); this.renderSidebar(); },
+  toggleNode(path) {   // R92：資料夾開合是暫時狀態（換頁重設）；「標籤」節點照舊記在 Memory
+    if (path === '__tags') Memory.setTreeOpen('__tags', !Memory.treeOpen('__tags'));
+    else { if (!this._treeOpen) this._treeOpen = new Set(); this._treeOpen.has(path) ? this._treeOpen.delete(path) : this._treeOpen.add(path); }
+    this.renderSidebar();
+  },
+  _treeFollowSet() { const id = this.currentId; return new Set(id ? id.split('/').slice(0, -1).map((s, i, a) => a.slice(0, i + 1).join('/')) : []); },
+  treeAll(open) {   // R93：全部展開／全部收合
+    if (!open) this._treeOpen = new Set();
+    else { const s = new Set(); for (const m of Store.modules.values()) { const segs = m.id.split('/'); for (let i = 1; i < segs.length; i++) s.add(segs.slice(0, i).join('/')); } this._treeOpen = s; }
+    this.renderSidebar();
+  },
+  treeFollow() { this._treeOpen = this._treeFollowSet(); this.renderSidebar(); },   // R93：只留這頁
   markSidebar() {
     const list = this.$('list'), id = this.currentId;
-    // 目前模組被收在某個節點裡 → 先展開它的祖先（只在樹狀模式下）
-    if (id && !(this.$('search').value || '').trim() && !list.querySelector(`.item[data-id="${CSS.escape(id)}"]`)) {
-      const segs = id.split('/'); let changed = false;
-      for (let i = 1; i < segs.length; i++) { const p = segs.slice(0, i).join('/'); if (!Memory.treeOpen(p)) { Memory.setTreeOpen(p, true); changed = true; } }
-      if (changed) { this.renderSidebar(); return; }
-    }
+    // R92：祖先展開改由 render() 的嚴格跟隨負責；這裡不再強制展開（否則「全部收合」會被彈回）
     list.querySelectorAll('.item').forEach(a => { const on = !!id && a.dataset.id === id; a.classList.toggle('on', on); if (on && typeof a.scrollIntoView === 'function') { const r = a.getBoundingClientRect(), l = list.getBoundingClientRect(); if (r.top < l.top || r.bottom > l.bottom) a.scrollIntoView({ block: 'nearest' }); } });
   },
 
   /* ---------- 歡迎畫面 ---------- */
   renderWelcome() {
-    this.currentId = null; this.page.innerHTML = '';
+    this.currentId = null; this._treeOpen = new Set(); this.page.innerHTML = '';
     const fsa = FolderSource.supported(), ios = Util.isIOS();
     const way = (title, desc, ...btns) => h('div', { class: 'way' }, h('h3', {}, title), h('p', {}, desc), btns.length ? h('div', { style: 'display:flex;gap:6px;flex-wrap:wrap' }, btns) : null);
     const btn = (label, cls, fn) => h('button', { class: 'btn ' + cls, type: 'button', onclick: fn }, label);

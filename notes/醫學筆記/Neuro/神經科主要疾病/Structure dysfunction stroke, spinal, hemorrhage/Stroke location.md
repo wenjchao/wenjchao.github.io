@@ -33,7 +33,7 @@ Sympathetic 永遠同側 (Horner syndrome)
    3. <u>thalamus</u>: pure sensory, thalamic pain syndrome
    4. <u>pons</u>: ataxic hemiparesis
 
-   [[Stroke location/圖|摘要]]
+   [[腔隙性中風的深部血管分布圖|摘要]]
 7. PICA / vertebral: lateral 為主
    1. Lateral medulla (**Wallenberg syndrome**):
       1. <u>Spinothalamic tract</u>: Loss of pain and temperature sensation on **contralateral** body
@@ -46,7 +46,7 @@ Sympathetic 永遠同側 (Horner syndrome)
       2. <u>medial leminscus</u>: **Contralateral** sensory loss **(本體、輕觸、震動)**
       3. <u>medullary pyramid</u>: **Contralateral** body weakness
 
-   [[Stroke location/圖 2|摘要]]
+   [[延髓外側 Wallenberg 症候群定位圖|摘要]]
 8. Carotid artery dissection
    1. Sudden headache, neck pain
    2. Horner syndrome: ptosis (眼睛小), miosis (瞳孔小), 但是有汗

@@ -1,8 +1,5 @@
 # Syncope
 
-## 摘要
-Cardiac vs Noncardiac vs Vertigo
-
 ## 內文
 1. **Cardiac**
    1. **Arrhythmia:** History of CAD, MI, cardiomyopathy? Torsades de pointes?

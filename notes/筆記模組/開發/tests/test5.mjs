@@ -18,6 +18,13 @@ fs.writeFileSync(path.join(DIR, '表格測試.md'), `# 表格測試
 |---|---|
 | \`[[第一小點\\|摘要]]\` | 程式碼 |
 | [[第一小點\\|摘要]] | 晶片 |
+
+| ==大類 | 子分類 | 內容 |
+|---|---|---|
+| 周邊 | 破壞 | AIHA |
+| ^^ | 流掉 | 出血 |
+| ^^ | \`^^\` | 字面 |
+| 甲 | << | 乙 |
 `);
 const srv = spawn('python3', [path.join(DIR, 'serve.py'), '--port', '8798', '--no-open'], { stdio: ['ignore', 'pipe', 'pipe'] });
 await new Promise(r => setTimeout(r, 800));
@@ -32,19 +39,43 @@ try {
   assert.equal(await page.$$eval('.root-body td .chip', cs => cs.length), 1);
   assert.ok((await page.$eval('.root-body td code', c => c.textContent)).includes('[[第一小點|摘要]]'));
 
-  // --- 壞連結報告 ---
+  // R80：表格合併——^^ 併上（跨三列）、<< 併左、行內程式碼跳脫照字面
+  const mg = await page.$eval('.root-body table:nth-of-type(2)', tb => ({
+    rs: tb.querySelector('td[rowspan]')?.rowSpan, rsTxt: tb.querySelector('td[rowspan]')?.textContent.trim(),
+    cs: tb.querySelector('td[colspan]')?.colSpan, csTxt: tb.querySelector('td[colspan]')?.textContent.trim(),
+    lit: [...tb.querySelectorAll('td code')].map(c => c.textContent).join(','),
+  }));
+  assert.deepEqual(mg, { rs: 3, rsTxt: '周邊', cs: 2, csTxt: '甲', lit: '^^' }, 'R80 合併格：' + JSON.stringify(mg));
+  // R82：表頭 == 欄——記號不顯示、整欄（含 rowspan 錯位列）不換行
+  const nw = await page.$eval('.root-body table:nth-of-type(2)', tb => ({
+    th: tb.querySelector('th').textContent.trim(),
+    thNw: getComputedStyle(tb.querySelector('th')).whiteSpace,
+    tdNw: getComputedStyle(tb.querySelector('td[rowspan]')).whiteSpace,
+  }));
+  assert.deepEqual(nw, { th: '大類', thNw: 'nowrap', tdNw: 'nowrap' }, 'R82 欄不換行：' + JSON.stringify(nw));
+
+  // R87：儲存格裡句中帶模式字 → 載入即自動展開；R86：不重複卡頭（膠囊就是卡頭）
+  await page.waitForSelector('.root-body td .card[data-mode="2"]');
+  assert.equal(await page.$eval('.root-body td .card > .card-head', h => getComputedStyle(h).display), 'none', 'R86 就地展開不帶卡頭');
+  assert.ok(await page.$('.root-body td .card > .card-summary'), 'R86 內容出現在格子裡');
+  assert.ok(await page.$eval('.root-body td .chip', c => c.classList.contains('open')), 'R87 晶片狀態同步為展開');
+
+  // --- 壞連結報告 ---（數量用相對斷言：筆記模組的說明可連到庫裡其他資料夾的檔，單獨拷出來測時基準數會浮動）
   const lb = page.locator('#linksBtn');
-  assert.equal(await lb.textContent(), '1 個壞連結');
+  assert.match(await lb.textContent(), /\d+ 個壞連結/);
+  const lbCount = "n => { const el = document.querySelector('#linksBtn'); return (!el || el.hidden) ? 0 : +((el.textContent.match(/\\d+/) || [0])[0]); }";
+  const n0 = await page.evaluate(`(${lbCount})()`);
+  assert.ok(n0 >= 1, '至少有測試種的那個壞連結');
   await lb.click();
   await page.waitForSelector('.report');
   assert.ok((await page.textContent('.report')).includes('[[還沒寫的模組]]'));
-  assert.ok((await page.textContent('.report .from')).includes('補充說明'));
+  assert.ok((await page.textContent('.report')).includes('補充說明'));
   await page.click('.report >> text=建立 還沒寫的模組.md');
   await page.waitForSelector('.editor');
   await page.click('.toolbar >> text=取消');
-  await page.waitForFunction(() => document.querySelector('#linksBtn')?.hidden === true);
+  await page.waitForFunction(`(${lbCount})() === ${n0 - 1}`, null, { timeout: 8000 });   // 建立後：壞連結少一個
   fs.rmSync(path.join(DIR, '還沒寫的模組.md'));
-  await page.waitForFunction(() => document.querySelector('#linksBtn')?.hidden === false, null, { timeout: 8000 });
+  await page.waitForFunction(`(${lbCount})() === ${n0}`, null, { timeout: 8000 });   // 刪掉後：回到基準
 
   // --- 圖片貼上 ---
   await page.goto('http://localhost:8798/#/' + encodeURIComponent('範例/第一小點'));

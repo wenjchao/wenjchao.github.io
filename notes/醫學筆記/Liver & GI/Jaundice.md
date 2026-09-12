@@ -1,7 +1,7 @@
 # Jaundice
 
 ## 內文
-1. [[Jaundice/總表|扁平]]
+1. [[Jaundice/總表|膠囊]]
 2. Direct / Total Bilirubin：<u>< 15 % 稱為</u> <u>**unconjugated hyperbilirubinemia**</u>
    1. < 15 % ⇒ <u>**Hemolysis**</u>, <u>**Defective conjugation**</u>
    2. 35~45% ⇒ <u>**Viral**</u> hepatitis, Alcoholic & Nonalcoholic <u>**steatohepatitis**</u>
@@ -18,5 +18,5 @@
    3. Dubin-Johnson（黑肝）：送不進 canaliculi ，<u>**direct**</u> bilirubin 微升、肝臟色素沈積
    4. Rotor：**<u>direct</u>** bilirubin 微升
 
-   [[Jaundice/機制圖|摘要]]
-4. [[Jaundice/Urobilinogen|扁平]]
+   [[膽紅素轉運與遺傳性高膽紅素血症圖|摘要]]
+4. [[Jaundice/Urobilinogen|膠囊]]

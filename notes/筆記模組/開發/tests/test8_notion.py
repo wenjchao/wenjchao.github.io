@@ -43,6 +43,7 @@ def p(text):
 HTML = f'''<html><body><article id="x" class="page sans"><header><h1 class="page-title">測試頁</h1></header>
 <div class="page-body">
 {p('頁面開頭的散落段落。')}
+{p('[A / B]: 這行不能變成連結定義')}
 {CALLOUT}
 {img('%E6%B8%AC%E8%A9%A6%E9%A0%81/Untitled.png')}
 {toggle('主題一：重點一', p('主題一的內文。') + img('%E6%B8%AC%E8%A9%A6%E9%A0%81/a%20b.png')
@@ -95,6 +96,7 @@ def main():
         assert '[[測試頁/主題一：重點一|摘要]]' in read(out0, '測試頁.md')
         assert read(out0, '測試頁/主題一：重點一/子題/孫題目：重點三.md').startswith('# 孫題目：重點三\n\n## 內文\n')
         assert read(out0, '測試頁/備註.md').startswith('# 備註\n\n## 內文\n'), '尾端冒號仍然不進檔名與標題'
+        assert '\\[A / B]: 這行不能變成連結定義' in read(out0, '測試頁.md'), '文字節點的 [ 要跳脫（R79）'
         assert '沒有摘要的模組' in r.stdout
 
         # callout 裡的行內數學式與粗體（R71）：聚成同一段、式子從 annotation 來、<style> 不得洩入
@@ -123,8 +125,8 @@ def main():
         assert '![](圖片/a-b.png)' in m1, m1                                       # 第 1 層：圖片/
         assert '[[主題一/子題|摘要]]' in m1, m1
         assert re.search(r'1\. 第一項\n\n   \[\[主題一/清單裡的\|摘要\]\]', m1), m1   # 清單項目裡：空行＋縮排的卡片
-        assert '- 甲\n- [[主題一/清單中的|扁平]]\n- 乙\n' in m1, m1                    # 和清單項目相鄰的 toggle → 同一個清單裡的扁平項目（D27）
-        assert '1. [[主題一/編號前的|扁平]]\n2. 編號一\n3. 編號二' in m1, m1             # 排在編號清單前：從 1 起算，後面的號碼往後挪
+        assert '- 甲\n- [[主題一/清單中的|膠囊]]\n- 乙\n' in m1, m1                    # 和清單項目相鄰的 toggle → 同一個清單裡的扁平項目（D27）
+        assert '1. [[主題一/編號前的|膠囊]]\n2. 編號一\n3. 編號二' in m1, m1             # 排在編號清單前：從 1 起算，後面的號碼往後挪
         assert re.search(r'### 小節標題\n\n\[\[主題一/引言裡的\|摘要\]\]', m1), m1   # 粗體開頭的引言 → 小節，裡面的 toggle 成卡片
         assert '\n### 單行標題引言\n' in m1, m1                                   # 單行引言 → 小節標題（R72）
         assert '[[主題一/推導|全文]]' in m1, m1                                    # 多行引言 → 子模組、原位全文嵌入（R72）

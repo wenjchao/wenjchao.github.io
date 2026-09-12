@@ -10,4 +10,4 @@
 3. 因為 $S_{total} = S_A + S_B$，
    ⇒ $\frac{\partial S_A}{\partial U_A} = \frac{\partial S_B}{\partial U_B}$ 且 $\frac{\partial S_A}{\partial V_A} = \frac{\partial S_B}{\partial V_B}$
    可以看出兩系統溫度平衡 （$\frac{1}{T} = \frac{\partial S}{\partial U}$）且 壓力平衡（$P = T\frac{\partial S}{\partial V}$）
-4. [[壓力平衡 ⇒ 兩系統壓力 P = Tfracpartial Spartial V 相等/圖示：現在 Stotal 變成找二維平面上的最高點了|扁平]]
+4. [[壓力平衡 ⇒ 兩系統壓力 P = Tfracpartial Spartial V 相等/圖示：現在 Stotal 變成找二維平面上的最高點了|膠囊]]

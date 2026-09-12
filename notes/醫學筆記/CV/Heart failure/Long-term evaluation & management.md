@@ -7,7 +7,7 @@
    1. **Troponin, NT-proBNP**（不同年齡有差）
    2. Hb, HCT, PT, aPTT, Electrolyte, Thyroid / Renal / Liver function
 
-3. [[醫學筆記/CV/Heart Echo|摘要]] for systolic & diastolic dysfunction
+3. [[醫學筆記/CV/Heart Echo]] for systolic & diastolic dysfunction
 
 4. **Staging**
 
@@ -21,6 +21,6 @@
 
    [[GDMT dosing|摘要]]
 
-   [[Devices for additional GDMT|全文]]
+   [[Devices for additional GDMT]]
 
    [[Mechanical circulatory support device|摘要]]

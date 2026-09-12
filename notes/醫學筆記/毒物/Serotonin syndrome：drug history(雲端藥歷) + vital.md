@@ -9,6 +9,6 @@
   5. Opioids
   6. Antimigraine
   7. Drug-drug interaction
-- [[Serotonin syndrome：drug history(雲端藥歷) + vital/D／D with neuroleptic malignant syndrome|扁平]]
-- [[Serotonin syndrome：drug history(雲端藥歷) + vital/症狀|扁平]]
-- [[Serotonin syndrome：drug history(雲端藥歷) + vital/Algorithm|扁平]]
+- [[Serotonin syndrome：drug history(雲端藥歷) + vital/D／D with neuroleptic malignant syndrome|膠囊]]
+- [[Serotonin syndrome：drug history(雲端藥歷) + vital/症狀|膠囊]]
+- [[Serotonin syndrome：drug history(雲端藥歷) + vital/Algorithm|膠囊]]

@@ -1,7 +1,7 @@
 # 全微分展開 - fundamental equation & Maxwell relation
 
 ## 內文
-[[全微分展開 - fundamental equation & Maxwell relation/熵 S 的展開|摘要]]
+[[全微分展開 - fundamental equation & Maxwell relation/熵 S 的展開]]
 
 [[全微分展開 - fundamental equation & Maxwell relation/內能 U 的展開|摘要]]
 

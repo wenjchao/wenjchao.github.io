@@ -7,7 +7,7 @@ Candida 有百百種，對各 Azole 類或 Ampho B 效果彼此差異很大，�
 
 **Echinocandin** 無法過腎臟、BBB ⇒ UTI, CNS, **<u>eye</u>** involve 則改用 azole。
 
-- [[Candida/Candida risk: Candida Score|扁平]]
+- [[Candida/Candida risk: Candida Score|膠囊]]
 - Fluconazole 劑量 for candida
   1. Non-invasive: Oral candidiasis 跟 UTI 用低劑量
   2. Invasive: candidemia & CNS & eye 用高劑量

@@ -6,7 +6,7 @@
   2. 無法用先前的經驗解釋
   3. 情緒與理智分離，使評價系統失效
   4. ⇒ 干擾身體正常運作
-- [[Major depressive disorder/Diagnosis： 2 weeks, 1+ in 1&2, 5+ in 19 +|扁平]]
-- [[Major depressive disorder/Time course & Pathophysiology|扁平]]
-- [[Major depressive disorder/Treatment|扁平]]
-- [[Major depressive disorder/Differential Diagnosis|扁平]]
+- [[Major depressive disorder/Diagnosis： 2 weeks, 1+ in 1&2, 5+ in 19 +|膠囊]]
+- [[Major depressive disorder/Time course & Pathophysiology|膠囊]]
+- [[Major depressive disorder/Treatment|膠囊]]
+- [[Major depressive disorder/Differential Diagnosis|膠囊]]

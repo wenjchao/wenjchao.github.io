@@ -14,5 +14,5 @@
    在 penumbra 中，CBF↓；在 core 中，CBF↓ & CBV↓
    因此可以藉由 CBF 圖與 CBV 圖中的差別來鑑定 penumbra（還有救的地方）（也可以加看MTT）
 
-   [[Perfusion CT/圖示|摘要]]
-4. [[Perfusion CT/Reference|扁平]]
+   [[腦缺血的灌流變化與影像對照圖|摘要]]
+4. [[Perfusion CT/Reference|膠囊]]

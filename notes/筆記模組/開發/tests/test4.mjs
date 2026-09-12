@@ -28,7 +28,7 @@ const jia = '.root-body > .card[data-id="甲"]';
 assert.equal(await page.$eval(jia, c => c.dataset.mode), '1');
 assert.equal(await page.$eval(jia + ' .seg button[data-m="3"]', b => b.disabled), true);
 // 全部展開 必須在短時間內結束
-const t0 = Date.now(); await page.click('text=全部展開'); assert.ok(Date.now() - t0 < 3000);
+const t0 = Date.now(); await page.click('.toolbar >> text=全部展開'); assert.ok(Date.now() - t0 < 3000);   // R93 起側欄也有同名鈕
 assert.equal(await page.$eval(yi, c => c.dataset.mode), '3');
 console.log('errs', errs); assert.equal(errs.length, 0);
 console.log('TEST4 OK'); await browser.close();

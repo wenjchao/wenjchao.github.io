@@ -1,7 +1,7 @@
 # Spinal lesion
 
 ## 內文
-1. [[Spinal lesion/圖|扁平]]
+1. [[脊髓與馬尾病灶的定位及表現圖表|膠囊]]
 2. Poliomyelitis (不對稱) & <mark>SMA (對稱)</mark> ：**<u>lower motor neuron</u>** (anterior horns)
 3. ALS (Amyotrophic lateral sclerosis): <u>l</u>**<u>ower + upper motor neuron</u>** <mark>(eye & sphincter sparing)</mark>⇒ treatment: Riluzole
 4. Brown-Séquard hemisection: 一節 spinal cord 半邊壞掉

@@ -38,7 +38,7 @@
   [[Acute & Chronic Liver disease/Hemochromatosis 血鐵上升 ⇒ 鐵儲備 (ferritin) 變多|摘要]]
   - glycogen storage disease: **<u>autosomal recessive</u>**, 分 11 型 ⇒ <u>低血糖</u>、腦病變、無力
 
-    [[Acute & Chronic Liver disease/總圖示|摘要]]
+    [[肝醣代謝與儲積症圖（肝病筆記）|摘要]]
     1. von Gierke’s disease: Glucose 無法變成 G6P (就是不能用) ⇒ **<u>lactic acidosis</u>**, 高尿酸
     2. Pompe disease: 無法分解 glycogen ⇒ 堆積在心臟、肝臟、肌肉
   - Alpha-1 antitrypsin deficiency: antitrypsin 保護 elastin 不被 neutrophil elastase 分解

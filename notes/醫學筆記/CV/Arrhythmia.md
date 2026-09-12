@@ -2,7 +2,7 @@
 
 
 ## 內文
-1. [[Arrhythmia/Atrial fibrillation|全文|扁平]]
+1. [[Arrhythmia/Atrial fibrillation|膠囊]]
 2. Bradycardia（SSS、AV block）：**<u>Pacemaker</u>**
 3. Atrial Tachy、AVNRT、AVRT、A-Flutter：**<u>RCFA</u>**（用心導管燒掉） > Anti-arrhythmics
 4. VT：**<u>ICD</u>** > RFCA、Anti-arrhythmics
@@ -12,4 +12,4 @@
    3. Class 3: K: amiodarone (混class 1234)
    4. Class 4: Ca: 即 CCB ⇒ Dilitazem, Verapamil
 
-[[Arrhythmia/圖解]]
+[[心律不整藥物的機轉、用途與副作用圖表]]

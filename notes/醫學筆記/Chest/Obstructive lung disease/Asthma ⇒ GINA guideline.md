@@ -3,7 +3,7 @@
 ## 內文
 1. 分成很多phenotype ex:
 
-   [[Asthma ⇒ GINA guideline/eosinophilic asthma vs allergic asthma|摘要]]
+   [[Asthma ⇒ GINA guideline/eosinophilic asthma vs allergic asthma]]
 
    [[Asthma ⇒ GINA guideline/T2 asthma vs non-T2 asthma|摘要]]
 2. 目前 guideline：ICS + LABA 最重要

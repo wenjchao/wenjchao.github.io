@@ -100,14 +100,14 @@ await page.click('#brand'); await title('首頁');
 assert.equal(await page.$('.crumbs'), null, '首頁沒有上層也沒有軌跡');
 await page.click('.root-body .card[data-id="範例/筆記一"] .card-title'); await title('筆記一');
 await page.click('.root > .root-body > .card[data-id="範例/第一小點"] .card-title'); await title('第一小點');
-assert.deepEqual(await page.$$eval('.crumbs a.crumb', as => as.map(a => a.textContent)), ['首頁', '筆記一'], '軌跡');
+assert.deepEqual(await page.$$eval('.crumbs > a.crumb', as => as.map(a => a.textContent)), ['首頁', '筆記一'], '軌跡');   // 只取軌跡（被引用於 的連結在 .parents 裡）
 assert.equal(await page.textContent('.crumbs .crumb.cur'), '第一小點');
 await page.click('.crumbs a.crumb:has-text("首頁")'); await title('首頁');
 assert.equal(await page.$('.crumbs'), null);
-// 從側欄直接進（沒有軌跡）→ 顯示「上層」＝誰把我裝進去
+// 從側欄直接進（沒有軌跡）→ 顯示完整「被引用於」＝誰把我裝進去（R76）
 if (await page.$('#list .item.folder[data-node="範例"]:not(.open)')) await page.click('#list .item.folder[data-node="範例"] .chev');
 await page.click('#list .item[data-id="範例/補充說明"]'); await title('補充說明');
-assert.ok((await page.textContent('.crumbs .parents')).includes('上層') && (await page.textContent('.crumbs .parents')).includes('第一小點'));
+assert.ok((await page.textContent('.crumbs .parents')).includes('被引用於') && (await page.textContent('.crumbs .parents')).includes('第一小點'));
 
 /* ---------- 連結自動完成（R35） ---------- */
 await go('專案/計畫'); await title('計畫');

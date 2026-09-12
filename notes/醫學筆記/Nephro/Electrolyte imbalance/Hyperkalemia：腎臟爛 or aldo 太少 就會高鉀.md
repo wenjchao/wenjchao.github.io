@@ -5,7 +5,7 @@
 2. **攝取太多**：吃太多？藥物含鉀？輸很多血？
 3. **排出太少**：腎臟爛（AKI / CKD）？aldosterone / glucocorticoid 少？藥物？
 4. **Transcellular shift**：acidosis？Tumor lysis？rabdomylysis？
-5. [[Hyperkalemia：腎臟爛 or aldo 太少 就會高鉀/Algorithm|扁平]]
+5. [[Hyperkalemia：腎臟爛 or aldo 太少 就會高鉀/Algorithm|膠囊]]
 
 ### Treatment
 

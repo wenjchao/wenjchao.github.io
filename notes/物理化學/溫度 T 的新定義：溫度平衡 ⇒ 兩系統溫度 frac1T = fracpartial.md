@@ -11,4 +11,4 @@
    ⇒ $\frac{\partial S_{total}}{\partial U_A} = \frac{\partial S_A}{\partial U_A} +\frac{\partial S_B}{\partial U_A} = \frac{\partial S_A}{\partial U_A} - \frac{\partial S_B}{\partial U_B} = 0$
    ⇒ $\frac{\partial S_A}{\partial U_A} = \frac{\partial S_B}{\partial U_B}$
    此時**<u>定義溫度的倒數</u>** $\frac{1}{T} = \frac{\partial S}{\partial U}$，則可以看出兩系統 $\frac{1}{T_A} = \frac{1}{T_B}$，即溫度平衡
-4. [[溫度 T 的新定義：溫度平衡 ⇒ 兩系統溫度 frac1T = fracpartial/圖示：可以看出當兩系統 frac1T = fracpartial Spartial U 相等時|扁平]]
+4. [[溫度 T 的新定義：溫度平衡 ⇒ 兩系統溫度 frac1T = fracpartial/圖示：可以看出當兩系統 frac1T = fracpartial Spartial U 相等時|膠囊]]

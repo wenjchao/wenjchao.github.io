@@ -1,9 +1,9 @@
 # AVA (Aortic valve area)
 
-## 摘要
+## 內文
+
 用流量不變定理計算
 
-## 內文
 CSA of LVOT = $π*r^2$
 
 VTI: velocity time integral 積分以後取平均

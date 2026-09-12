@@ -5,4 +5,4 @@
 2. **6 months** & <u>**more**</u> days with 3 symptoms <u>**than not**</u>
 3. **<u>Function loss</u>**
 4. NOT Panic disorder, specific phobia, PTSD, OCD, social anxiety disorder, anorexia nervosa, body dysmorphic disorder, anxiety about delusional beliefs
-5. [[Generalized Anxiety Disorder unreasonable/DSM-5 for Generalized Anxiety Disorder|扁平]]
+5. [[Generalized Anxiety Disorder unreasonable/DSM-5 for Generalized Anxiety Disorder|膠囊]]

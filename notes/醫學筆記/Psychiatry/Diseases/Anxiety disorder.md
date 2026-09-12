@@ -21,13 +21,13 @@
 
 - 注意：先排除 Substance/Medication/Physical-Induced Anxiety Disorder ex: thyroiditis
 
-- [[Anxiety disorder/Panic Attack Specifier (4+)：abrupt(in minutes)|扁平]]
-- [[Anxiety disorder/Panic Disorder attack + 擔心 new attack for 1 month|扁平]]
-- [[Anxiety disorder/Generalized Anxiety Disorder unreasonable|扁平]]
-- [[Anxiety disorder/Other Anxiety disorder Separation Anxiety|扁平]]
-- [[Anxiety disorder/PTSD (Posttraumatic stress disorder) for|扁平]]
-- [[Anxiety disorder/Other Trauma- and stressor-related disorders|扁平]]
-- [[Anxiety disorder/OCD 強迫症 病識感好；與強迫型人格無關|扁平]]
+- [[Anxiety disorder/Panic Attack Specifier (4+)：abrupt(in minutes)|膠囊]]
+- [[Anxiety disorder/Panic Disorder attack + 擔心 new attack for 1 month|膠囊]]
+- [[Anxiety disorder/Generalized Anxiety Disorder unreasonable|膠囊]]
+- [[Anxiety disorder/Other Anxiety disorder Separation Anxiety|膠囊]]
+- [[Anxiety disorder/PTSD (Posttraumatic stress disorder) for|膠囊]]
+- [[Anxiety disorder/Other Trauma- and stressor-related disorders|膠囊]]
+- [[Anxiety disorder/OCD 強迫症 病識感好；與強迫型人格無關|膠囊]]
 - Somatic Symptom and Related Disorders:
   1. **Somatic Symptom Disorder**: somatic symptoms ⇒ <u>distressing</u> OR <u>significant disruption of daily life</u> 身體的症狀造成令人不成比例的焦慮困擾
   2. **Illness Anxiety Disorder**: no somatic symptoms 沒症狀但擔心自己生病，超級焦慮困擾

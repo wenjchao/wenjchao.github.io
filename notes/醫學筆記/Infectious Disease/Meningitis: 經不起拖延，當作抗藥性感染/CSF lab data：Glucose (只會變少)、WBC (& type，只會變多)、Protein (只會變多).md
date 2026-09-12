@@ -8,4 +8,4 @@
 3. <u>Viral</u> & <u>Fungal</u> meningitis：**<u>Glucose 正常</u>**、<u>lymphocyte 高</u>、<u>protein 正常 / 微高</u>
 4. Guillain-Barré syndrome (GBS)：**Protein 超高**
 5. Multiple sclerosis (MS)：**IgG 超高但總 protein 還好**
-6. [[CSF lab data：Glucose (只會變少)、WBC (& type，只會變多)、Protein (只會變多)/圖表|扁平]]
+6. [[腦脊髓液 CSF 的疾病比較表|膠囊]]

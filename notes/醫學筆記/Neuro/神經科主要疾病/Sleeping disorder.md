@@ -3,7 +3,7 @@
 ## 內文
 - 注意：REM 時才會做夢
 
-1. [[Sleeping disorder/Sleep cycle 圖|扁平]]
+1. [[Sleeping disorder/Sleep cycle 圖|膠囊]]
 2. REM behavior disorder (RBD)：即 sleep terror，<u>**in REM**</u>，**做夢時**身體手腳跟著夢境動
    1. 發生於前半夜
    2. 常合併 Parkinsons

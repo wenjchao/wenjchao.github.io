@@ -6,7 +6,7 @@ AMPLE：**Allergy**, **Medication**(抗凝血？五年內打過破傷風？), **
 History Taking：
 
 1. Head Trauma：amnesia? nausea & vomiting? dizziness? headache? drowsy? confusion? ⇒ NE, GCS
-2. [[Secondary survey vital sign 穩定後/Bone fracture 大出血量|扁平]]
+2. [[Secondary survey vital sign 穩定後/Bone fracture 大出血量|膠囊]]
 
 完整PE：HEENT, Neck, Chest, Abdomen, Extremities
 

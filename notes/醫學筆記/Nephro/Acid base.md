@@ -3,7 +3,7 @@
 ## 內文
 重要觀念：水是酸的（因為 aldosterone 會留鈉排鉀排酸）
 
-[[Acid base/大圖|摘要]]
+[[酸鹼異常的 pH、HCO3 與 PaCO2 判讀圖|摘要]]
 
 [[Acid base/Metabolic acidosis：AG？ Δ／Δ？|摘要]]
 

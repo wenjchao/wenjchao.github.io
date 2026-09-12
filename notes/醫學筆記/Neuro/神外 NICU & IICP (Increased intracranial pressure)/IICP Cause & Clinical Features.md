@@ -27,6 +27,6 @@
 3. **Cushing Triad**: **PR↓、RR↓、systolic BP↑**
    猜測是因為brainstem compression，結論是跟shock剛好相反
 4. Others: periorbital bruising, herniation syndromes, other local NE findings
-5. [[IICP Cause & Clinical Features/腦壓高在CT上的finding：腫（體積變大） vs 擠（空間變小）|扁平]]
-6. [[IICP Cause & Clinical Features/Herniation syndromes|扁平]]
-7. [[IICP Cause & Clinical Features/IIH (Idiopathic intracranial hypertension)|扁平]]
+5. [[IICP Cause & Clinical Features/腦壓高在CT上的finding：腫（體積變大） vs 擠（空間變小）|膠囊]]
+6. [[IICP Cause & Clinical Features/Herniation syndromes|膠囊]]
+7. [[IICP Cause & Clinical Features/IIH (Idiopathic intracranial hypertension)|膠囊]]

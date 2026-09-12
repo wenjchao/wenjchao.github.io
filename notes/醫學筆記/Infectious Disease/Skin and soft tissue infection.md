@@ -1,8 +1,8 @@
 # Skin and soft tissue infection
 
 ## 內文
-1. [[Skin and soft tissue infection/皮膚各層與感染的圖|扁平]]
-2. [[Skin and soft tissue infection/Purulent ⇒ I&D + C&S, Nonpurulent ⇒ antibiotic|扁平]]
+1. [[Skin and soft tissue infection/皮膚各層與感染的圖|膠囊]]
+2. [[Skin and soft tissue infection/Purulent ⇒ I&D + C&S, Nonpurulent ⇒ antibiotic|膠囊]]
 3. Cellulitis
    1. **需考慮 MRSA 時：**
       1. 常打針 (ex: 毒品使用者)

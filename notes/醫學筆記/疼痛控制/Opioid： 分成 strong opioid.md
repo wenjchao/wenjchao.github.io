@@ -1,9 +1,9 @@
 # Opioid
 
-## 摘要
+## 內文
+
 分成 strong opioid（無天花板效應，只有initial dose無maximal dose） & weak opioid（有天花板效應，超過maximal dose效果也不會更好）
 
-## 內文
 1. Opioid不要混用：強弱一起用時弱會partial agonist讓強變爛而且會有withdrawal symptom，兩強一起用沒必要
 2. Weak opioid：Tramadol、Bain、codeine（可以止咳、止瀉但不要用在止痛，效果很不穩定）、Ultracet(混NSAID)，用在非癌痛 visceral pain
    - 注意：Tramadol 搭配 SSNI MAOI TCA 會出現 seretonin syndrome
@@ -17,4 +17,4 @@
    - 注意：Morphine 類的藥物，除了效果會有 tolerance，副作用(呼吸抑制、噁心想吐等等)也都會有 tolerance (習慣了就不會抑制了)，只有便秘的效果沒有tolerance（會一直便秘）
    
    - 注意：Morphine 口服 60 mg / day 以上才建議用長效 opioid
-4. [[Opioid： 分成 strong opioid/Opioid 劑量轉換圖表|扁平]]
+4. [[Opioid： 分成 strong opioid/Opioid 劑量轉換圖表|膠囊]]

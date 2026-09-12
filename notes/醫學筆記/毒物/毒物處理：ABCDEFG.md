@@ -14,5 +14,5 @@
    - 注意：對特定藥物來說，酸化或是鹼化尿液可以讓藥物更容易從尿排出
 4. **F**ocus：Antidote
 5. **G**et_toxic_help
-6. [[毒物處理：ABCDEFG/Toxidrome 毒物造成的身體變化|扁平]]
-7. [[毒物處理：ABCDEFG/Antidote|扁平]]
+6. [[毒物處理：ABCDEFG/Toxidrome 毒物造成的身體變化|膠囊]]
+7. [[毒物處理：ABCDEFG/Antidote|膠囊]]

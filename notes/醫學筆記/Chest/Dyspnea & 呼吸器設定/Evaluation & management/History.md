@@ -17,4 +17,4 @@
    4. fever?
    5. Raynaud phenomenon(blue finger)? ⇒ rheumatic diseases that are associated with interstitial lung disease or pulmonary hypertension
 4. **Occupational** history
-5. [[History/Other Descriptions 主觀描述，看看就好|扁平]]
+5. [[History/Other Descriptions 主觀描述，看看就好|膠囊]]

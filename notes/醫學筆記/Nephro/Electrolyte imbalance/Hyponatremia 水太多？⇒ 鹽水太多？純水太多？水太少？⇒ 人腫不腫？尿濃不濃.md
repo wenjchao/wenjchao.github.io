@@ -12,7 +12,7 @@
 4. **<u>水很少很乾 (hypovolemic)：鈉消失了，去哪了？</u>**
    1. **尿很濃 ⇒ 鈉都尿出去了**：Renal loss (thiazides, salt-wasting nephropathy, mineralocorticoid deficiency)
    2. **尿不濃 ⇒ 鹽水從其他地方消失了**：hemorrhage, GI loss (diarrhea or vomiting), third-spacing (pancreatitis)
-5. [[Hyponatremia 水太多？⇒ 鹽水太多？純水太多？水太少？⇒ 人腫不腫？尿濃不濃/Algorithm|扁平]]
+5. [[Hyponatremia 水太多？⇒ 鹽水太多？純水太多？水太少？⇒ 人腫不腫？尿濃不濃/Algorithm|膠囊]]
 
 - 水多不多？⇒ 看 JVP, skin turgor, dry axilla, mucous membranes, edema, ascites, effusions, vital signs, orthostatics, BUN/Cr, FEUricAcid
 - 矯正：ECF 少才要給水，慢慢給，給太快會 Central pontine myelinosis

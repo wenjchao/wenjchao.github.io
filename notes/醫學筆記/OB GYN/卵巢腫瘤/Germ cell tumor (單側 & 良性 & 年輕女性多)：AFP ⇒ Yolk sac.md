@@ -1,7 +1,7 @@
 # Germ cell tumor (單側 & 良性 & 年輕女性多)：AFP ⇒ Yolk sac、β-hCG ⇒ choriocarcinoma、LDH ⇒ Dysgeminoma
 
 ## 內文
-1. [[Germ cell tumor (單側 & 良性 & 年輕女性多)：AFP ⇒ Yolk sac/分化樹|扁平]]
+1. [[Germ cell tumor (單側 & 良性 & 年輕女性多)：AFP ⇒ Yolk sac/分化樹|膠囊]]
 2. **Dysgeminoma**：Germ cell 完全未分化 ⇒ **最常見的惡性，<u>LDH ↑</u>**，**<u>radiosensitive</u>**
    - Dysgeminoma & teratoma **<u>有可能雙側</u>**
 3. **Embryonal carcinoma**：Germ cell 開始分化

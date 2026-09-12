@@ -1,7 +1,7 @@
 # Seizure: synapse-dependent, 快
 
 ## 內文
-1. [[Seizure synapse-dependent, 快/Pharmacologic treatment for seizure|扁平]]
+1. [[Seizure synapse-dependent, 快/Pharmacologic treatment for seizure|膠囊]]
 2. 常見原因：**<u>alcohol</u>** withdrawal ⇒ thiamine, <u>drug</u> intoxication, <u>electrolyte</u> disturbances, trauma, infection
    medial temporal lobe 因為靠近 hippocampus，如果出血或腫瘤容易seizure
 3. Partial seizure (focal): <u>complex partial 也會意識改變</u> ⇒ <u>**carbamazepine**</u>

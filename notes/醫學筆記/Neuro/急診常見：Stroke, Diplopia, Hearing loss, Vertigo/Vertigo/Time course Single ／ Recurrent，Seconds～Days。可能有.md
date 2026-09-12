@@ -1,10 +1,8 @@
 # Time course : Single / Recurrent，Seconds～Days。
 
-## 摘要
+## 內文
 
 可能有 Constant imbalance 但不可能有 Constant vertigo lasting month (人腦會習慣)，須考慮其他 D/D（注意病人說的一直暈可能是很多次暈）。下面這些只是參考，不一定準。
-
-## 內文
 
 1. Recurrent vertigo lasting under one minute ⇒ BPPV
 2. Recurrent episodes last hours, seldom bilateral ⇒ Meniere disease / Vestibular migraine

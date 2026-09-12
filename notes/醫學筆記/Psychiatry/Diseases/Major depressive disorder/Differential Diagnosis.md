@@ -8,5 +8,5 @@
 5. schizoaffective / schizophrenia: bipolar OR depression 只有mania或depression時才有psychotic feature；schizoaffective則需要2 weeks有psychotic feature時無mania或depression
 6. MDD with anxious distress 容易偽裝成 anxiety disorder
 7. MDD 的無力容易偽裝成 insomnia 導致的無力
-8. [[Differential Diagnosis/D／D Bipolar vs Unipolar Depression 以下情形 favor|扁平]]
-9. [[Differential Diagnosis/D／D Depressive disorder vs Anxiety disorder|扁平]]
+8. [[Differential Diagnosis/D／D Bipolar vs Unipolar Depression 以下情形 favor|膠囊]]
+9. [[Differential Diagnosis/D／D Depressive disorder vs Anxiety disorder|膠囊]]

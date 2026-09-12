@@ -19,6 +19,8 @@
 
 [[Infectious Disease/Leptospirosis]]
 
+[[Infectious Disease/Post-streptococcal：ARF 與 PSGN]]
+
 ### 藥物相關
 
 [[Infectious Disease/藥物整理]]
@@ -29,7 +31,7 @@
 
 [[Infectious Disease/Granuloma (innate immunity)]]
 
-[[Infectious Disease/Infection in immunocompromised：缺哪段免疫，就來哪類菌]]
+[[Infectious Disease/Immunocompromised]]
 
 [[Infectious Disease/CRBSI]]
 
