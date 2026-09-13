@@ -14,7 +14,7 @@
 
 一句話記：**T cell 好，打病毒就不會差；neutrophil 好，皮膚腸道菌進不來；抗體好，莢膜菌不會反覆。**
 
-### 先天免疫缺損
+### 先天性免疫缺陷與免疫失調
 
 [[Immunocompromised/Congenital Immunodeficiency]]
 
@@ -22,9 +22,10 @@
 
 [[Immunocompromised/AIDS 伺機性感染：看 CD4]]
 
-### 情境二 化療 neutropenia：只有 neutrophil 掉
+### 情境二 化療：neutropenia
 
-病原就是總表第一列——皮膚、黏膜、腸道菌因為屏障差闖進來。發燒是急症：
+化療 → neutropenia：易感染皮膚、腸道菌（Staph、Strep、腸道 G(–) 桿菌）及 Candida、Aspergillus。
+發燒是急症：
 
 [[Neutropenia]]
 
