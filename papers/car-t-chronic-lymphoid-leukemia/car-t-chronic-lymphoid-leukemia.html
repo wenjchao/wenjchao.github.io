@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chimeric Antigen Receptor–Modified T Cells in Chronic Lymphoid Leukemia</title>
+<style>
+* { box-sizing: border-box; }
+html { background: #f4f3f0; color: #202024; }
+body { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 18px; line-height: 1.65; }
+main { max-width: 960px; margin: 40px auto; padding: 54px 64px; background: #fff; border: 1px solid #ddd; }
+article { min-width: 0; }
+header { padding-bottom: 12px; }
+.publication { font-size: 14px; line-height: 1.5; margin-bottom: 30px; }
+.publication p { margin: 0 0 10px; }
+h1, h2, h3, .authors, .affiliation { font-family: Arial, Helvetica, sans-serif; }
+h1 { font-size: 32px; line-height: 1.22; margin: 24px 0; }
+h2 { font-size: 23px; line-height: 1.25; margin: 36px 0 16px; }
+h3 { font-size: 18px; line-height: 1.35; margin: 28px 0 14px; }
+p { margin: 0 0 20px; overflow-wrap: anywhere; }
+.authors { font-weight: bold; font-size: 18px; line-height: 1.5; margin-bottom: 12px; }
+.affiliation { font-size: 15px; line-height: 1.5; }
+.correspondence, .copyright { font-size: 13px; line-height: 1.5; margin-bottom: 12px; }
+.abstract { font-size: 18px; padding-bottom: 24px; border-bottom: 1px solid #aaa; margin-bottom: 30px; }
+sup.citation { font-size: 0.72em; line-height: 0; }
+figure { margin: 28px 0 30px; padding: 0; }
+figure img { display: block; width: auto; max-width: 100%; height: auto; margin: 0 auto 20px; border: 1px solid #9a9a9a; }
+figure#Figure_1 img { width: 640px; }
+figure#Figure_2 img, figure#Figure_3 img { width: 700px; }
+figcaption { font-size: 15px; line-height: 1.55; }
+figcaption .caption-title { font-weight: bold; display: block; margin-bottom: 6px; }
+figcaption p { margin: 0; }
+.reference { font-size: 15px; line-height: 1.55; padding-left: 2em; text-indent: -2em; margin-bottom: 12px; }
+a { color: #154e79; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { padding: 7px; border-bottom: 1px solid #ccc; text-align: left; }
+@media (max-width: 700px) { body { font-size: 17px; } main { margin: 0; padding: 28px 22px; border: 0; } h1 { font-size: 27px; } h2 { font-size: 22px; } .abstract { font-size: 17px; } }
+@media print { html { background: #fff; } main { margin: 0; padding: 0; max-width: none; border: 0; } h1, h2, h3 { break-after: avoid; } figure img { break-inside: avoid; } }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body><main>
+<style id="reader-panel-style">
+
+/* Layout override */
+/* Some source papers set `main { width: min(1120px, …) }` (a fixed width, not max-width).
+   Plain `max-width` doesn't override that — we'd end up with a 1120px main minus 340px
+   rail padding = narrow content. Set both width and max-width to win in either case. */
+main { width: min(1320px, calc(100vw - 40px)) !important; max-width: 1320px !important; padding-right: 340px !important; position: relative !important; box-sizing: border-box !important; margin: 0 auto !important; }
+@media (max-width: 1100px) {
+  main { padding-right: 28px !important; }
+  .margin-rail { position: absolute !important; left:0; top:0; width:100%; height:0; overflow:visible; background:transparent; border:0; box-shadow:none; }
+}
+
+/* Reader panel */
+.reader-panel { background: rgba(255,255,255,0.85); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 14px 16px; margin: 0 0 24px; font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; line-height: 1.7; }
+.reader-panel .layer-title { font-size: 1.5em; font-weight: 700; margin: 0.7em 0 0.4em; color: #1f2428; }
+.reader-panel .layer-title:first-child { margin-top: 0; }
+.reader-panel .module-block { padding: 10px 12px; border-radius: 8px; margin: 0 0 12px; border: 1px solid rgba(0,0,0,0.06); }
+.reader-panel .module-thesis { margin: 0 0 8px; font-size: 0.98em; color: #1f2428; line-height: 1.75; }
+.reader-panel details.version { margin: 6px 0; border-radius: 6px; padding: 2px 0; border: 1px solid rgba(0,0,0,0.05); }
+.reader-panel details.version > summary { cursor: pointer; list-style: none; font-weight: 500; padding: 6px 8px; border-radius: 6px; }
+.reader-panel details.version > summary::-webkit-details-marker { display: none; }
+.reader-panel details.version > summary::before { content: "▸"; display: inline-block; margin-right: 6px; transition: transform 0.2s; }
+.reader-panel details.version[open] > summary::before { transform: rotate(90deg); }
+.reader-panel .hdr { display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.reader-panel .rank-badge { font-size: 12px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,0.08); }
+.reader-panel .vote { font-size: 12px; color: #555; }
+.reader-panel .panel-body { padding: 8px 12px 10px; font-size: 0.95em; }
+.reader-panel .panel-body p { margin: 6px 0; line-height: 1.85; }
+.reader-panel .main-line-inline { font-weight: 600; margin-left: 4px; }
+.reader-panel .main-line { margin: 6px 0; line-height: 1.7; padding: 0 12px; }
+.reader-panel .terms-list { padding-left: 1.2em; margin: 0; }
+.reader-panel .terms-list li { margin: 4px 0; line-height: 1.6; }
+.reader-panel a.hl { padding: 0 1px; border-radius: 3px; cursor: pointer; text-decoration: none; }
+
+/* Margin rail / notes */
+.margin-rail { position: absolute; top: 0; right: 16px; width: 308px; pointer-events: none; }
+body.notes-closed .margin-note { display:none !important; }
+.margin-note { display:block; position: absolute; right: 0; width: 296px; box-sizing: border-box; pointer-events: auto; cursor: pointer; padding: 8px 10px; border-radius: 6px; font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-size: 13px; line-height: 1.55; transition: top 0.2s ease; background: #fff; border: 1px solid rgba(0,0,0,0.08); }
+.margin-note.is-active { box-shadow: 0 0 0 1px rgba(0,0,0,0.15); }
+.margin-note.is-selected { box-shadow: 0 6px 18px rgba(0,0,0,0.2); z-index: 5; }
+.mobile-note-slot { display:none; }
+@media (max-width: 1100px) {
+  .mobile-note-slot { display:block; clear:both; }
+  body.notes-closed .mobile-note-slot { display:none !important; }
+  .margin-note { position: static !important; right:auto; width:min(300px, calc(100vw - 28px)); max-width:calc(100vw - 28px); margin:5px 0 9px; font-size:12.5px; box-shadow:0 6px 20px rgba(0,0,0,0.18); }
+}
+.note-next { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(0,0,0,0.06); font-size: 11.5px; color: #444; cursor: pointer; }
+.note-next:hover { background: rgba(0,0,0,0.12); }
+
+/* Generic selected outline */
+mark.hl.is-selected { outline: 2.5px solid var(--sel-color, #444); outline-offset: 1px; border-radius: 2px; }
+a.hl.is-selected { box-shadow: 0 0 0 2.5px var(--sel-color, #444), 0 4px 12px rgba(0,0,0,0.18); border-radius: 3px; position: relative; z-index: 2; }
+mark.hl.hl-none { background: transparent !important; box-shadow: none !important; outline: none !important; cursor: text !important; padding: 0 !important; }
+
+/* Floating toggle */
+.color-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; background: #fff; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.15); padding: 8px 10px; font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-size: 12px; max-height: 80vh; overflow-y: auto; }
+.color-toggle .ct-title { cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; user-select: none; font-weight: 700; margin-bottom: 6px; }
+.color-toggle .ct-caret { transition: transform 0.15s ease; font-size: 11px; color: #666; }
+.color-toggle.is-collapsed .ct-items { display: none; }
+.color-toggle.is-collapsed .ct-caret { transform: rotate(-90deg); }
+.color-toggle .ct-items { display: flex; flex-direction: column; gap: 4px; }
+.color-toggle .ct-item { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+.color-toggle .ct-item:hover { background: rgba(0,0,0,0.04); }
+.color-toggle .ct-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.15); }
+.color-toggle .ct-swatch-notes { background: #30363d; border-color: #1a1d22; }
+.color-toggle .ct-item.is-off { color: #888; }
+.color-toggle .ct-item.is-off .ct-swatch { background: transparent !important; border-style: dashed !important; }
+
+/* Synthesis module-block */
+.module-block.c-synth { background: #f5f5f560; border-left: 4px solid #909090; }
+.synth-body h4 { font-size: 0.95em; margin: 14px 0 6px; color: #303030; }
+.synth-body h4:first-child { margin-top: 4px; }
+.synth-body p { margin: 6px 0; }
+.synth-body ul { padding-left: 1.4em; margin: 4px 0; }
+.synth-body li { margin: 4px 0; line-height: 1.65; }
+
+
+.reader-panel details.version.c-summary > summary { background: #FFF3B033; border-left: 3px solid #E8C75A; }
+.reader-panel details.version.c-summary[open] > summary { background: #FFF3B055; }
+.reader-panel .module-block.c-summary { background: #FFF3B026; border-left: 4px solid #E8C75A; }
+.hl-summary { background: #FFF3B0; box-shadow: inset 0 -2px 0 0 #E8C75A; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-summary { color: #7a5a00; text-decoration: none; }
+mark.hl.is-selected.sel-summary { --sel-color: #7a5a00; }
+a.hl.is-selected.sel-summary { --sel-color: #7a5a00; }
+.margin-note.n-summary { background: #FFF3B040; border-left: 3px solid #E8C75A; color: #7a5a00; }
+.margin-note.n-summary.is-selected { background: #FFF3B080; outline: 2.5px solid #7a5a00; outline-offset: 1px; }
+.color-toggle .ct-swatch-summary { background: #FFF3B0; border-color: #E8C75A; }
+body.off-summary .margin-note.n-summary { display: none; }
+
+
+.reader-panel details.version.c-m1 > summary { background: #FFB3BA33; border-left: 3px solid #E08594; }
+.reader-panel details.version.c-m1[open] > summary { background: #FFB3BA55; }
+.reader-panel .module-block.c-m1 { background: #FFB3BA26; border-left: 4px solid #E08594; }
+.hl-m1 { background: #FFB3BA; box-shadow: inset 0 -2px 0 0 #E08594; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m1 { color: #8a2330; text-decoration: none; }
+mark.hl.is-selected.sel-m1 { --sel-color: #8a2330; }
+a.hl.is-selected.sel-m1 { --sel-color: #8a2330; }
+.margin-note.n-m1 { background: #FFB3BA40; border-left: 3px solid #E08594; color: #8a2330; }
+.margin-note.n-m1.is-selected { background: #FFB3BA80; outline: 2.5px solid #8a2330; outline-offset: 1px; }
+.color-toggle .ct-swatch-m1 { background: #FFB3BA; border-color: #E08594; }
+body.off-m1 .margin-note.n-m1 { display: none; }
+
+
+.reader-panel details.version.c-m2 > summary { background: #C8E6C933; border-left: 3px solid #88BF8B; }
+.reader-panel details.version.c-m2[open] > summary { background: #C8E6C955; }
+.reader-panel .module-block.c-m2 { background: #C8E6C926; border-left: 4px solid #88BF8B; }
+.hl-m2 { background: #C8E6C9; box-shadow: inset 0 -2px 0 0 #88BF8B; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m2 { color: #1f5c2e; text-decoration: none; }
+mark.hl.is-selected.sel-m2 { --sel-color: #1f5c2e; }
+a.hl.is-selected.sel-m2 { --sel-color: #1f5c2e; }
+.margin-note.n-m2 { background: #C8E6C940; border-left: 3px solid #88BF8B; color: #1f5c2e; }
+.margin-note.n-m2.is-selected { background: #C8E6C980; outline: 2.5px solid #1f5c2e; outline-offset: 1px; }
+.color-toggle .ct-swatch-m2 { background: #C8E6C9; border-color: #88BF8B; }
+body.off-m2 .margin-note.n-m2 { display: none; }
+
+
+.reader-panel details.version.c-m3 > summary { background: #B3D9FF33; border-left: 3px solid #7AB2E0; }
+.reader-panel details.version.c-m3[open] > summary { background: #B3D9FF55; }
+.reader-panel .module-block.c-m3 { background: #B3D9FF26; border-left: 4px solid #7AB2E0; }
+.hl-m3 { background: #B3D9FF; box-shadow: inset 0 -2px 0 0 #7AB2E0; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m3 { color: #1b4d80; text-decoration: none; }
+mark.hl.is-selected.sel-m3 { --sel-color: #1b4d80; }
+a.hl.is-selected.sel-m3 { --sel-color: #1b4d80; }
+.margin-note.n-m3 { background: #B3D9FF40; border-left: 3px solid #7AB2E0; color: #1b4d80; }
+.margin-note.n-m3.is-selected { background: #B3D9FF80; outline: 2.5px solid #1b4d80; outline-offset: 1px; }
+.color-toggle .ct-swatch-m3 { background: #B3D9FF; border-color: #7AB2E0; }
+body.off-m3 .margin-note.n-m3 { display: none; }
+
+
+.reader-panel details.version.c-m4 > summary { background: #FFD9B333; border-left: 3px solid #E0A66E; }
+.reader-panel details.version.c-m4[open] > summary { background: #FFD9B355; }
+.reader-panel .module-block.c-m4 { background: #FFD9B326; border-left: 4px solid #E0A66E; }
+.hl-m4 { background: #FFD9B3; box-shadow: inset 0 -2px 0 0 #E0A66E; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m4 { color: #7a3d00; text-decoration: none; }
+mark.hl.is-selected.sel-m4 { --sel-color: #7a3d00; }
+a.hl.is-selected.sel-m4 { --sel-color: #7a3d00; }
+.margin-note.n-m4 { background: #FFD9B340; border-left: 3px solid #E0A66E; color: #7a3d00; }
+.margin-note.n-m4.is-selected { background: #FFD9B380; outline: 2.5px solid #7a3d00; outline-offset: 1px; }
+.color-toggle .ct-swatch-m4 { background: #FFD9B3; border-color: #E0A66E; }
+body.off-m4 .margin-note.n-m4 { display: none; }
+
+
+.reader-panel details.version.c-m5 > summary { background: #E1BEE733; border-left: 3px solid #B287B9; }
+.reader-panel details.version.c-m5[open] > summary { background: #E1BEE755; }
+.reader-panel .module-block.c-m5 { background: #E1BEE726; border-left: 4px solid #B287B9; }
+.hl-m5 { background: #E1BEE7; box-shadow: inset 0 -2px 0 0 #B287B9; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m5 { color: #5a2a6e; text-decoration: none; }
+mark.hl.is-selected.sel-m5 { --sel-color: #5a2a6e; }
+a.hl.is-selected.sel-m5 { --sel-color: #5a2a6e; }
+.margin-note.n-m5 { background: #E1BEE740; border-left: 3px solid #B287B9; color: #5a2a6e; }
+.margin-note.n-m5.is-selected { background: #E1BEE780; outline: 2.5px solid #5a2a6e; outline-offset: 1px; }
+.color-toggle .ct-swatch-m5 { background: #E1BEE7; border-color: #B287B9; }
+body.off-m5 .margin-note.n-m5 { display: none; }
+
+
+.reader-panel details.version.c-m6 > summary { background: #B2EBF233; border-left: 3px solid #7DC6CF; }
+.reader-panel details.version.c-m6[open] > summary { background: #B2EBF255; }
+.reader-panel .module-block.c-m6 { background: #B2EBF226; border-left: 4px solid #7DC6CF; }
+.hl-m6 { background: #B2EBF2; box-shadow: inset 0 -2px 0 0 #7DC6CF; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m6 { color: #1d5d68; text-decoration: none; }
+mark.hl.is-selected.sel-m6 { --sel-color: #1d5d68; }
+a.hl.is-selected.sel-m6 { --sel-color: #1d5d68; }
+.margin-note.n-m6 { background: #B2EBF240; border-left: 3px solid #7DC6CF; color: #1d5d68; }
+.margin-note.n-m6.is-selected { background: #B2EBF280; outline: 2.5px solid #1d5d68; outline-offset: 1px; }
+.color-toggle .ct-swatch-m6 { background: #B2EBF2; border-color: #7DC6CF; }
+body.off-m6 .margin-note.n-m6 { display: none; }
+
+
+.reader-panel details.version.c-m7 > summary { background: #EFC1CD33; border-left: 3px solid #D2798F; }
+.reader-panel details.version.c-m7[open] > summary { background: #EFC1CD55; }
+.reader-panel .module-block.c-m7 { background: #EFC1CD26; border-left: 4px solid #D2798F; }
+.hl-m7 { background: #EFC1CD; box-shadow: inset 0 -2px 0 0 #D2798F; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m7 { color: #6C1329; text-decoration: none; }
+mark.hl.is-selected.sel-m7 { --sel-color: #6C1329; }
+a.hl.is-selected.sel-m7 { --sel-color: #6C1329; }
+.margin-note.n-m7 { background: #EFC1CD40; border-left: 3px solid #D2798F; color: #6C1329; }
+.margin-note.n-m7.is-selected { background: #EFC1CD80; outline: 2.5px solid #6C1329; outline-offset: 1px; }
+.color-toggle .ct-swatch-m7 { background: #EFC1CD; border-color: #D2798F; }
+body.off-m7 .margin-note.n-m7 { display: none; }
+
+
+.reader-panel details.version.c-m8 > summary { background: #EFDCC133; border-left: 3px solid #D2AC79; }
+.reader-panel details.version.c-m8[open] > summary { background: #EFDCC155; }
+.reader-panel .module-block.c-m8 { background: #EFDCC126; border-left: 4px solid #D2AC79; }
+.hl-m8 { background: #EFDCC1; box-shadow: inset 0 -2px 0 0 #D2AC79; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m8 { color: #6C4613; text-decoration: none; }
+mark.hl.is-selected.sel-m8 { --sel-color: #6C4613; }
+a.hl.is-selected.sel-m8 { --sel-color: #6C4613; }
+.margin-note.n-m8 { background: #EFDCC140; border-left: 3px solid #D2AC79; color: #6C4613; }
+.margin-note.n-m8.is-selected { background: #EFDCC180; outline: 2.5px solid #6C4613; outline-offset: 1px; }
+.color-toggle .ct-swatch-m8 { background: #EFDCC1; border-color: #D2AC79; }
+body.off-m8 .margin-note.n-m8 { display: none; }
+
+
+.reader-panel details.version.c-m9 > summary { background: #DDEFC133; border-left: 3px solid #AED279; }
+.reader-panel details.version.c-m9[open] > summary { background: #DDEFC155; }
+.reader-panel .module-block.c-m9 { background: #DDEFC126; border-left: 4px solid #AED279; }
+.hl-m9 { background: #DDEFC1; box-shadow: inset 0 -2px 0 0 #AED279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m9 { color: #486C13; text-decoration: none; }
+mark.hl.is-selected.sel-m9 { --sel-color: #486C13; }
+a.hl.is-selected.sel-m9 { --sel-color: #486C13; }
+.margin-note.n-m9 { background: #DDEFC140; border-left: 3px solid #AED279; color: #486C13; }
+.margin-note.n-m9.is-selected { background: #DDEFC180; outline: 2.5px solid #486C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m9 { background: #DDEFC1; border-color: #AED279; }
+body.off-m9 .margin-note.n-m9 { display: none; }
+
+
+.reader-panel details.version.c-m10 > summary { background: #C1EFCB33; border-left: 3px solid #79D28C; }
+.reader-panel details.version.c-m10[open] > summary { background: #C1EFCB55; }
+.reader-panel .module-block.c-m10 { background: #C1EFCB26; border-left: 4px solid #79D28C; }
+.hl-m10 { background: #C1EFCB; box-shadow: inset 0 -2px 0 0 #79D28C; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m10 { color: #136C26; text-decoration: none; }
+mark.hl.is-selected.sel-m10 { --sel-color: #136C26; }
+a.hl.is-selected.sel-m10 { --sel-color: #136C26; }
+.margin-note.n-m10 { background: #C1EFCB40; border-left: 3px solid #79D28C; color: #136C26; }
+.margin-note.n-m10.is-selected { background: #C1EFCB80; outline: 2.5px solid #136C26; outline-offset: 1px; }
+.color-toggle .ct-swatch-m10 { background: #C1EFCB; border-color: #79D28C; }
+body.off-m10 .margin-note.n-m10 { display: none; }
+
+
+.reader-panel details.version.c-m11 > summary { background: #C1EDEF33; border-left: 3px solid #79CED2; }
+.reader-panel details.version.c-m11[open] > summary { background: #C1EDEF55; }
+.reader-panel .module-block.c-m11 { background: #C1EDEF26; border-left: 4px solid #79CED2; }
+.hl-m11 { background: #C1EDEF; box-shadow: inset 0 -2px 0 0 #79CED2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m11 { color: #13686C; text-decoration: none; }
+mark.hl.is-selected.sel-m11 { --sel-color: #13686C; }
+a.hl.is-selected.sel-m11 { --sel-color: #13686C; }
+.margin-note.n-m11 { background: #C1EDEF40; border-left: 3px solid #79CED2; color: #13686C; }
+.margin-note.n-m11.is-selected { background: #C1EDEF80; outline: 2.5px solid #13686C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m11 { background: #C1EDEF; border-color: #79CED2; }
+body.off-m11 .margin-note.n-m11 { display: none; }
+
+
+.reader-panel details.version.c-m12 > summary { background: #C1C8EF33; border-left: 3px solid #7985D2; }
+.reader-panel details.version.c-m12[open] > summary { background: #C1C8EF55; }
+.reader-panel .module-block.c-m12 { background: #C1C8EF26; border-left: 4px solid #7985D2; }
+.hl-m12 { background: #C1C8EF; box-shadow: inset 0 -2px 0 0 #7985D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m12 { color: #131F6C; text-decoration: none; }
+mark.hl.is-selected.sel-m12 { --sel-color: #131F6C; }
+a.hl.is-selected.sel-m12 { --sel-color: #131F6C; }
+.margin-note.n-m12 { background: #C1C8EF40; border-left: 3px solid #7985D2; color: #131F6C; }
+.margin-note.n-m12.is-selected { background: #C1C8EF80; outline: 2.5px solid #131F6C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m12 { background: #C1C8EF; border-color: #7985D2; }
+body.off-m12 .margin-note.n-m12 { display: none; }
+
+
+.reader-panel details.version.c-m13 > summary { background: #E1C1EF33; border-left: 3px solid #B679D2; }
+.reader-panel details.version.c-m13[open] > summary { background: #E1C1EF55; }
+.reader-panel .module-block.c-m13 { background: #E1C1EF26; border-left: 4px solid #B679D2; }
+.hl-m13 { background: #E1C1EF; box-shadow: inset 0 -2px 0 0 #B679D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m13 { color: #50136C; text-decoration: none; }
+mark.hl.is-selected.sel-m13 { --sel-color: #50136C; }
+a.hl.is-selected.sel-m13 { --sel-color: #50136C; }
+.margin-note.n-m13 { background: #E1C1EF40; border-left: 3px solid #B679D2; color: #50136C; }
+.margin-note.n-m13.is-selected { background: #E1C1EF80; outline: 2.5px solid #50136C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m13 { background: #E1C1EF; border-color: #B679D2; }
+body.off-m13 .margin-note.n-m13 { display: none; }
+
+
+.reader-panel details.version.c-m14 > summary { background: #EFC1D833; border-left: 3px solid #D279A5; }
+.reader-panel details.version.c-m14[open] > summary { background: #EFC1D855; }
+.reader-panel .module-block.c-m14 { background: #EFC1D826; border-left: 4px solid #D279A5; }
+.hl-m14 { background: #EFC1D8; box-shadow: inset 0 -2px 0 0 #D279A5; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m14 { color: #6C133F; text-decoration: none; }
+mark.hl.is-selected.sel-m14 { --sel-color: #6C133F; }
+a.hl.is-selected.sel-m14 { --sel-color: #6C133F; }
+.margin-note.n-m14 { background: #EFC1D840; border-left: 3px solid #D279A5; color: #6C133F; }
+.margin-note.n-m14.is-selected { background: #EFC1D880; outline: 2.5px solid #6C133F; outline-offset: 1px; }
+.color-toggle .ct-swatch-m14 { background: #EFC1D8; border-color: #D279A5; }
+body.off-m14 .margin-note.n-m14 { display: none; }
+
+
+.reader-panel details.version.c-m15 > summary { background: #EFD0C133; border-left: 3px solid #D29679; }
+.reader-panel details.version.c-m15[open] > summary { background: #EFD0C155; }
+.reader-panel .module-block.c-m15 { background: #EFD0C126; border-left: 4px solid #D29679; }
+.hl-m15 { background: #EFD0C1; box-shadow: inset 0 -2px 0 0 #D29679; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m15 { color: #6C3013; text-decoration: none; }
+mark.hl.is-selected.sel-m15 { --sel-color: #6C3013; }
+a.hl.is-selected.sel-m15 { --sel-color: #6C3013; }
+.margin-note.n-m15 { background: #EFD0C140; border-left: 3px solid #D29679; color: #6C3013; }
+.margin-note.n-m15.is-selected { background: #EFD0C180; outline: 2.5px solid #6C3013; outline-offset: 1px; }
+.color-toggle .ct-swatch-m15 { background: #EFD0C1; border-color: #D29679; }
+body.off-m15 .margin-note.n-m15 { display: none; }
+
+
+.reader-panel details.version.c-m16 > summary { background: #E8EFC133; border-left: 3px solid #C4D279; }
+.reader-panel details.version.c-m16[open] > summary { background: #E8EFC155; }
+.reader-panel .module-block.c-m16 { background: #E8EFC126; border-left: 4px solid #C4D279; }
+.hl-m16 { background: #E8EFC1; box-shadow: inset 0 -2px 0 0 #C4D279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m16 { color: #5E6C13; text-decoration: none; }
+mark.hl.is-selected.sel-m16 { --sel-color: #5E6C13; }
+a.hl.is-selected.sel-m16 { --sel-color: #5E6C13; }
+.margin-note.n-m16 { background: #E8EFC140; border-left: 3px solid #C4D279; color: #5E6C13; }
+.margin-note.n-m16.is-selected { background: #E8EFC180; outline: 2.5px solid #5E6C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m16 { background: #E8EFC1; border-color: #C4D279; }
+body.off-m16 .margin-note.n-m16 { display: none; }
+
+
+.reader-panel details.version.c-m17 > summary { background: #C2EFC133; border-left: 3px solid #7BD279; }
+.reader-panel details.version.c-m17[open] > summary { background: #C2EFC155; }
+.reader-panel .module-block.c-m17 { background: #C2EFC126; border-left: 4px solid #7BD279; }
+.hl-m17 { background: #C2EFC1; box-shadow: inset 0 -2px 0 0 #7BD279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m17 { color: #156C13; text-decoration: none; }
+mark.hl.is-selected.sel-m17 { --sel-color: #156C13; }
+a.hl.is-selected.sel-m17 { --sel-color: #156C13; }
+.margin-note.n-m17 { background: #C2EFC140; border-left: 3px solid #7BD279; color: #156C13; }
+.margin-note.n-m17.is-selected { background: #C2EFC180; outline: 2.5px solid #156C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m17 { background: #C2EFC1; border-color: #7BD279; }
+body.off-m17 .margin-note.n-m17 { display: none; }
+
+
+.reader-panel details.version.c-m18 > summary { background: #C1EFE633; border-left: 3px solid #79D2C0; }
+.reader-panel details.version.c-m18[open] > summary { background: #C1EFE655; }
+.reader-panel .module-block.c-m18 { background: #C1EFE626; border-left: 4px solid #79D2C0; }
+.hl-m18 { background: #C1EFE6; box-shadow: inset 0 -2px 0 0 #79D2C0; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m18 { color: #136C5A; text-decoration: none; }
+mark.hl.is-selected.sel-m18 { --sel-color: #136C5A; }
+a.hl.is-selected.sel-m18 { --sel-color: #136C5A; }
+.margin-note.n-m18 { background: #C1EFE640; border-left: 3px solid #79D2C0; color: #136C5A; }
+.margin-note.n-m18.is-selected { background: #C1EFE680; outline: 2.5px solid #136C5A; outline-offset: 1px; }
+.color-toggle .ct-swatch-m18 { background: #C1EFE6; border-color: #79D2C0; }
+body.off-m18 .margin-note.n-m18 { display: none; }
+
+
+.reader-panel details.version.c-m19 > summary { background: #C1D3EF33; border-left: 3px solid #799BD2; }
+.reader-panel details.version.c-m19[open] > summary { background: #C1D3EF55; }
+.reader-panel .module-block.c-m19 { background: #C1D3EF26; border-left: 4px solid #799BD2; }
+.hl-m19 { background: #C1D3EF; box-shadow: inset 0 -2px 0 0 #799BD2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m19 { color: #13356C; text-decoration: none; }
+mark.hl.is-selected.sel-m19 { --sel-color: #13356C; }
+a.hl.is-selected.sel-m19 { --sel-color: #13356C; }
+.margin-note.n-m19 { background: #C1D3EF40; border-left: 3px solid #799BD2; color: #13356C; }
+.margin-note.n-m19.is-selected { background: #C1D3EF80; outline: 2.5px solid #13356C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m19 { background: #C1D3EF; border-color: #799BD2; }
+body.off-m19 .margin-note.n-m19 { display: none; }
+
+
+.reader-panel details.version.c-m20 > summary { background: #D5C1EF33; border-left: 3px solid #A079D2; }
+.reader-panel details.version.c-m20[open] > summary { background: #D5C1EF55; }
+.reader-panel .module-block.c-m20 { background: #D5C1EF26; border-left: 4px solid #A079D2; }
+.hl-m20 { background: #D5C1EF; box-shadow: inset 0 -2px 0 0 #A079D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m20 { color: #3A136C; text-decoration: none; }
+mark.hl.is-selected.sel-m20 { --sel-color: #3A136C; }
+a.hl.is-selected.sel-m20 { --sel-color: #3A136C; }
+.margin-note.n-m20 { background: #D5C1EF40; border-left: 3px solid #A079D2; color: #3A136C; }
+.margin-note.n-m20.is-selected { background: #D5C1EF80; outline: 2.5px solid #3A136C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m20 { background: #D5C1EF; border-color: #A079D2; }
+body.off-m20 .margin-note.n-m20 { display: none; }
+
+
+.reader-panel details.version.c-m21 > summary { background: #EFC1E333; border-left: 3px solid #D279BA; }
+.reader-panel details.version.c-m21[open] > summary { background: #EFC1E355; }
+.reader-panel .module-block.c-m21 { background: #EFC1E326; border-left: 4px solid #D279BA; }
+.hl-m21 { background: #EFC1E3; box-shadow: inset 0 -2px 0 0 #D279BA; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m21 { color: #6C1354; text-decoration: none; }
+mark.hl.is-selected.sel-m21 { --sel-color: #6C1354; }
+a.hl.is-selected.sel-m21 { --sel-color: #6C1354; }
+.margin-note.n-m21 { background: #EFC1E340; border-left: 3px solid #D279BA; color: #6C1354; }
+.margin-note.n-m21.is-selected { background: #EFC1E380; outline: 2.5px solid #6C1354; outline-offset: 1px; }
+.color-toggle .ct-swatch-m21 { background: #EFC1E3; border-color: #D279BA; }
+body.off-m21 .margin-note.n-m21 { display: none; }
+
+
+.reader-panel details.version.c-m22 > summary { background: #EFC5C133; border-left: 3px solid #D28079; }
+.reader-panel details.version.c-m22[open] > summary { background: #EFC5C155; }
+.reader-panel .module-block.c-m22 { background: #EFC5C126; border-left: 4px solid #D28079; }
+.hl-m22 { background: #EFC5C1; box-shadow: inset 0 -2px 0 0 #D28079; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m22 { color: #6C1A13; text-decoration: none; }
+mark.hl.is-selected.sel-m22 { --sel-color: #6C1A13; }
+a.hl.is-selected.sel-m22 { --sel-color: #6C1A13; }
+.margin-note.n-m22 { background: #EFC5C140; border-left: 3px solid #D28079; color: #6C1A13; }
+.margin-note.n-m22.is-selected { background: #EFC5C180; outline: 2.5px solid #6C1A13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m22 { background: #EFC5C1; border-color: #D28079; }
+body.off-m22 .margin-note.n-m22 { display: none; }
+
+
+.reader-panel details.version.c-m23 > summary { background: #EFEBC133; border-left: 3px solid #D2C979; }
+.reader-panel details.version.c-m23[open] > summary { background: #EFEBC155; }
+.reader-panel .module-block.c-m23 { background: #EFEBC126; border-left: 4px solid #D2C979; }
+.hl-m23 { background: #EFEBC1; box-shadow: inset 0 -2px 0 0 #D2C979; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m23 { color: #6C6313; text-decoration: none; }
+mark.hl.is-selected.sel-m23 { --sel-color: #6C6313; }
+a.hl.is-selected.sel-m23 { --sel-color: #6C6313; }
+.margin-note.n-m23 { background: #EFEBC140; border-left: 3px solid #D2C979; color: #6C6313; }
+.margin-note.n-m23.is-selected { background: #EFEBC180; outline: 2.5px solid #6C6313; outline-offset: 1px; }
+.color-toggle .ct-swatch-m23 { background: #EFEBC1; border-color: #D2C979; }
+body.off-m23 .margin-note.n-m23 { display: none; }
+
+
+.reader-panel details.version.c-m24 > summary { background: #CEEFC133; border-left: 3px solid #91D279; }
+.reader-panel details.version.c-m24[open] > summary { background: #CEEFC155; }
+.reader-panel .module-block.c-m24 { background: #CEEFC126; border-left: 4px solid #91D279; }
+.hl-m24 { background: #CEEFC1; box-shadow: inset 0 -2px 0 0 #91D279; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m24 { color: #2B6C13; text-decoration: none; }
+mark.hl.is-selected.sel-m24 { --sel-color: #2B6C13; }
+a.hl.is-selected.sel-m24 { --sel-color: #2B6C13; }
+.margin-note.n-m24 { background: #CEEFC140; border-left: 3px solid #91D279; color: #2B6C13; }
+.margin-note.n-m24.is-selected { background: #CEEFC180; outline: 2.5px solid #2B6C13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m24 { background: #CEEFC1; border-color: #91D279; }
+body.off-m24 .margin-note.n-m24 { display: none; }
+
+
+.reader-panel details.version.c-m25 > summary { background: #C1EFDB33; border-left: 3px solid #79D2AA; }
+.reader-panel details.version.c-m25[open] > summary { background: #C1EFDB55; }
+.reader-panel .module-block.c-m25 { background: #C1EFDB26; border-left: 4px solid #79D2AA; }
+.hl-m25 { background: #C1EFDB; box-shadow: inset 0 -2px 0 0 #79D2AA; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m25 { color: #136C44; text-decoration: none; }
+mark.hl.is-selected.sel-m25 { --sel-color: #136C44; }
+a.hl.is-selected.sel-m25 { --sel-color: #136C44; }
+.margin-note.n-m25 { background: #C1EFDB40; border-left: 3px solid #79D2AA; color: #136C44; }
+.margin-note.n-m25.is-selected { background: #C1EFDB80; outline: 2.5px solid #136C44; outline-offset: 1px; }
+.color-toggle .ct-swatch-m25 { background: #C1EFDB; border-color: #79D2AA; }
+body.off-m25 .margin-note.n-m25 { display: none; }
+
+
+.reader-panel details.version.c-m26 > summary { background: #C1DEEF33; border-left: 3px solid #79B1D2; }
+.reader-panel details.version.c-m26[open] > summary { background: #C1DEEF55; }
+.reader-panel .module-block.c-m26 { background: #C1DEEF26; border-left: 4px solid #79B1D2; }
+.hl-m26 { background: #C1DEEF; box-shadow: inset 0 -2px 0 0 #79B1D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m26 { color: #134B6C; text-decoration: none; }
+mark.hl.is-selected.sel-m26 { --sel-color: #134B6C; }
+a.hl.is-selected.sel-m26 { --sel-color: #134B6C; }
+.margin-note.n-m26 { background: #C1DEEF40; border-left: 3px solid #79B1D2; color: #134B6C; }
+.margin-note.n-m26.is-selected { background: #C1DEEF80; outline: 2.5px solid #134B6C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m26 { background: #C1DEEF; border-color: #79B1D2; }
+body.off-m26 .margin-note.n-m26 { display: none; }
+
+
+.reader-panel details.version.c-m27 > summary { background: #CAC1EF33; border-left: 3px solid #8A79D2; }
+.reader-panel details.version.c-m27[open] > summary { background: #CAC1EF55; }
+.reader-panel .module-block.c-m27 { background: #CAC1EF26; border-left: 4px solid #8A79D2; }
+.hl-m27 { background: #CAC1EF; box-shadow: inset 0 -2px 0 0 #8A79D2; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m27 { color: #24136C; text-decoration: none; }
+mark.hl.is-selected.sel-m27 { --sel-color: #24136C; }
+a.hl.is-selected.sel-m27 { --sel-color: #24136C; }
+.margin-note.n-m27 { background: #CAC1EF40; border-left: 3px solid #8A79D2; color: #24136C; }
+.margin-note.n-m27.is-selected { background: #CAC1EF80; outline: 2.5px solid #24136C; outline-offset: 1px; }
+.color-toggle .ct-swatch-m27 { background: #CAC1EF; border-color: #8A79D2; }
+body.off-m27 .margin-note.n-m27 { display: none; }
+
+
+.reader-panel details.version.c-m28 > summary { background: #EFC1EE33; border-left: 3px solid #D279D0; }
+.reader-panel details.version.c-m28[open] > summary { background: #EFC1EE55; }
+.reader-panel .module-block.c-m28 { background: #EFC1EE26; border-left: 4px solid #D279D0; }
+.hl-m28 { background: #EFC1EE; box-shadow: inset 0 -2px 0 0 #D279D0; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m28 { color: #6C136A; text-decoration: none; }
+mark.hl.is-selected.sel-m28 { --sel-color: #6C136A; }
+a.hl.is-selected.sel-m28 { --sel-color: #6C136A; }
+.margin-note.n-m28 { background: #EFC1EE40; border-left: 3px solid #D279D0; color: #6C136A; }
+.margin-note.n-m28.is-selected { background: #EFC1EE80; outline: 2.5px solid #6C136A; outline-offset: 1px; }
+.color-toggle .ct-swatch-m28 { background: #EFC1EE; border-color: #D279D0; }
+body.off-m28 .margin-note.n-m28 { display: none; }
+
+
+.reader-panel details.version.c-m29 > summary { background: #EFC1C933; border-left: 3px solid #D27987; }
+.reader-panel details.version.c-m29[open] > summary { background: #EFC1C955; }
+.reader-panel .module-block.c-m29 { background: #EFC1C926; border-left: 4px solid #D27987; }
+.hl-m29 { background: #EFC1C9; box-shadow: inset 0 -2px 0 0 #D27987; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m29 { color: #6C1321; text-decoration: none; }
+mark.hl.is-selected.sel-m29 { --sel-color: #6C1321; }
+a.hl.is-selected.sel-m29 { --sel-color: #6C1321; }
+.margin-note.n-m29 { background: #EFC1C940; border-left: 3px solid #D27987; color: #6C1321; }
+.margin-note.n-m29.is-selected { background: #EFC1C980; outline: 2.5px solid #6C1321; outline-offset: 1px; }
+.color-toggle .ct-swatch-m29 { background: #EFC1C9; border-color: #D27987; }
+body.off-m29 .margin-note.n-m29 { display: none; }
+
+
+.reader-panel details.version.c-m30 > summary { background: #EFE0C133; border-left: 3px solid #D2B479; }
+.reader-panel details.version.c-m30[open] > summary { background: #EFE0C155; }
+.reader-panel .module-block.c-m30 { background: #EFE0C126; border-left: 4px solid #D2B479; }
+.hl-m30 { background: #EFE0C1; box-shadow: inset 0 -2px 0 0 #D2B479; border-radius: 2px; padding: 0 2px; cursor: pointer; }
+a.hl.hl-m30 { color: #6C4E13; text-decoration: none; }
+mark.hl.is-selected.sel-m30 { --sel-color: #6C4E13; }
+a.hl.is-selected.sel-m30 { --sel-color: #6C4E13; }
+.margin-note.n-m30 { background: #EFE0C140; border-left: 3px solid #D2B479; color: #6C4E13; }
+.margin-note.n-m30.is-selected { background: #EFE0C180; outline: 2.5px solid #6C4E13; outline-offset: 1px; }
+.color-toggle .ct-swatch-m30 { background: #EFE0C1; border-color: #D2B479; }
+body.off-m30 .margin-note.n-m30 { display: none; }
+
+</style>
+<aside class="reader-panel">
+<div class="layer-title">全文摘要</div><details class="version c-summary" open><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 8</span></span><span class="main-line-inline"><a class="hl hl-summary" id="sum-h-l1-001" data-id="h-l1-001" data-targets="h-l1-001-a h-l1-021-a">作者把病人自己的免疫殺手細胞 (T 細胞) 拉出體外</a>，<a class="hl hl-summary" id="sum-h-l1-002" data-id="h-l1-002" data-targets="h-l1-002-a h-method_m1-002-a">裝上一支能辨認 B 細胞身分標籤 (CD19) 的人工天線</a>，<a class="hl hl-summary" id="sum-h-l1-003" data-id="h-l1-003" data-targets="h-l1-003-a h-method_m1-002-a h-l1-003-c">並額外加上一個讓 T 細胞開火後不會很快熄火的助燃訊號 (4-1BB)</a>；<a class="hl hl-summary" id="sum-h-l1-004" data-id="h-l1-004" data-targets="h-l1-004-a h-l1-038-a">只回輸極低劑量的改造細胞</a>，就<a class="hl hl-summary" id="sum-h-l1-005" data-id="h-l1-005" data-targets="h-l1-068-a h-l1-005-b h-l1-005-c">在一位傳統療法失敗、帶有 TP53 缺失的慢性淋巴球白血病病人體內</a><a class="hl hl-summary" id="sum-h-l1-006" data-id="h-l1-006" data-targets="h-l1-006-a h-l1-006-b">爆量增殖上千倍</a>，<a class="hl hl-summary" id="sum-h-l1-007" data-id="h-l1-007" data-targets="h-method_m5-013-a h-l1-007-b">把癌細胞全部清光</a>，<a class="hl hl-summary" id="sum-h-l1-008" data-id="h-l1-008" data-targets="h-l1-008-a">緩解持續 10 個月</a>。</span></summary><div class="panel-body"><p><a class="hl hl-summary" id="sum-h-l1-009" data-id="h-l1-009" data-targets="h-l1-009-a h-l1-068-a">這位病人罹患慢性淋巴球白血病（chronic lymphocytic leukemia, CLL）</a>，一種 B 細胞（免疫系統中負責製造抗體的白血球）失控增殖的血液癌症。<a class="hl hl-summary" id="sum-h-l1-011" data-id="h-l1-011" data-targets="h-l1-011-a h-l1-011-b h-l1-011-c">他多年來接受過多輪化療與抗體治療</a>，<a class="hl hl-summary" id="sum-h-l1-012" data-id="h-l1-012" data-targets="h-l1-012-a h-l1-012-b">每次只換來短暫改善就又復發</a>。到最後，<a class="hl hl-summary" id="sum-h-l1-013" data-id="h-l1-013" data-targets="h-l1-013-a h-l1-005-b">癌細胞還帶了一個特別棘手的基因缺陷——抑癌基因 TP53 被刪除</a>。TP53 是細胞的自我毀滅煞車：DNA 一受損，這個開關就會下令細胞自殺，避免變壞。<a class="hl hl-summary" id="sum-h-l1-016" data-id="h-l1-016" data-targets="h-l1-005-c">這位病人的癌細胞把煞車丟了，因此化療打不死它們</a>。走完傳統療程後，<a class="hl hl-summary" id="sum-h-l1-017" data-id="h-l1-017" data-targets="h-l1-017-a">長期選項只剩下配對捐贈者的骨髓移植</a>，可是<a class="hl hl-summary" id="sum-h-l1-018" data-id="h-l1-018" data-targets="h-method_m3-025-a">這種移植對年長患者風險太高</a>，等於把病人逼到牆角。</p><p>作者的策略，是<a class="hl hl-summary" id="sum-h-l1-019" data-id="h-l1-019" data-targets="h-l1-001-a">把病人自己的免疫殺手細胞</a>（T 細胞，一種會識別並殺死異常細胞的免疫兵）<a class="hl hl-summary" id="sum-h-l1-021" data-id="h-l1-021" data-targets="h-l1-021-a">從血液中撈出來、在體外改造，再回輸給病人</a>。改造的關鍵，是<a class="hl hl-summary" id="sum-h-l1-022" data-id="h-l1-022" data-targets="h-l1-022-a">替 T 細胞裝上一支人工設計的辨識天線，也就是嵌合抗原受體（chimeric antigen receptor, CAR）</a>。這支天線的外側，<a class="hl hl-summary" id="sum-h-l1-023" data-id="h-l1-023" data-targets="h-method_m1-002-a">是從一種抗體剪下來、能死死抓住 CD19 的辨識夾子</a>——<a class="hl hl-summary" id="sum-h-l1-024" data-id="h-l1-024" data-targets="h-l1-002-a h-l1-024-b">CD19 是一張只掛在 B 細胞身上的專屬身分標籤，其他重要器官都沒有</a>。天線的內側則接了兩個訊號零件：<a class="hl hl-summary" id="sum-h-l1-025" data-id="h-l1-025" data-targets="h-method_m1-002-a h-l1-022-a">一個是讓 T 細胞開火的核心開關 \((CD3\zeta)\)</a>；另一個是這篇論文相對過去嘗試的核心創新——<a class="hl hl-summary" id="sum-h-l1-026" data-id="h-l1-026" data-targets="h-l1-003-a">讓 T 細胞開火之後不會很快熄火的助燃訊號 (4-1BB, CD137)</a>。<a class="hl hl-summary" id="sum-h-l1-027" data-id="h-l1-027" data-targets="h-l1-027-a h-l1-027-b">先前世代的 CAR 只按下開火開關，結果 T 細胞一開火就迅速耗盡、從血液中消失</a>、<a class="hl hl-summary" id="sum-h-l1-028" data-id="h-l1-028" data-targets="h-l1-028-a">殺不了多少癌細胞</a>；<a class="hl hl-summary" id="sum-h-l1-029" data-id="h-l1-029" data-targets="h-l1-003-c h-l1-029-b">加上 4-1BB 之後，T 細胞就像被裝了長效電池，開火之後仍能長期繁殖與存活</a>。為了讓這支天線變成 T 細胞的長期配備，<a class="hl hl-summary" id="sum-h-l1-030" data-id="h-l1-030" data-targets="h-l1-030-a h-l1-030-b">作者需要一輛擅長把貨物永久嵌進染色體、且已被閹割到既不會複製也不會致病的病毒工程車 (lentivirus，源自 HIV 家族但已無感染力)</a>，<a class="hl hl-summary" id="sum-h-l1-031" data-id="h-l1-031" data-targets="h-l1-021-a">用它把 CAR 天線的圖紙塞進病人的 T 細胞</a>，<a class="hl hl-summary" id="sum-h-l1-032" data-id="h-l1-032" data-targets="h-l1-032-a">讓 T 細胞與它未來的後代都會披著這支天線</a>。<a class="hl hl-summary" id="sum-h-l1-033" data-id="h-l1-033" data-targets="h-l1-033-a">這樣的 T 細胞遇到任何帶 CD19 的細胞就會啟動攻擊</a>；<a class="hl hl-summary" id="sum-h-l1-034" data-id="h-l1-034" data-targets="h-l1-034-a">成功的定義是：改造細胞回輸後既能在體內大量繁殖，又能徹底清光所有 B 細胞（包含癌變與正常）</a>。</p><p><a class="hl hl-summary" id="sum-h-l1-035" data-id="h-l1-035" data-targets="h-l1-035-a">病人先接受一輪較弱的化療，幫免疫系統清出位置</a>，接著<a class="hl hl-summary" id="sum-h-l1-036" data-id="h-l1-036" data-targets="h-l1-036-a">只回輸每公斤 \(1.5\times10^{5}\) 顆改造細胞，分三天輸完</a>。<a class="hl hl-summary" id="sum-h-l1-037" data-id="h-l1-037" data-targets="h-l1-037-a">這個劑量比過去多數 CAR 臨床試驗低了幾個數量級</a>——<a class="hl hl-summary" id="sum-h-l1-038" data-id="h-l1-038" data-targets="h-l1-038-a">過去大家都以為要塞進大量細胞才可能有效，這篇論文示範了只要細胞能自我擴增，少量就綽綽有餘</a>。<a class="hl hl-summary" id="sum-h-l1-039" data-id="h-l1-039" data-targets="h-method_m4-002-a">最初兩週病人幾乎沒什麼感覺</a>，彷彿治療沒有發生；<a class="hl hl-summary" id="sum-h-l1-040" data-id="h-l1-040" data-targets="h-l1-040-a">直到第 14 天他才開始發燒、寒顫、疲倦</a>，<a class="hl hl-summary" id="sum-h-l1-041" data-id="h-l1-041" data-targets="h-l1-041-a">第 22 天發展成腫瘤崩解症候群</a>，<a class="hl hl-summary" id="sum-h-l1-042" data-id="h-l1-042" data-targets="h-l1-042-a">需要住院處理</a>。所謂腫瘤崩解症候群，是<a class="hl hl-summary" id="sum-h-l1-043" data-id="h-l1-043" data-targets="h-l1-043-a h-l1-043-b">當非常多癌細胞在幾天內同時被殺死、它們裡面的化學物質（例如尿酸、鉀、磷）一起湧進血液所引發的急症</a>，<a class="hl hl-summary" id="sum-h-l1-044" data-id="h-l1-044" data-targets="h-l1-044-a">會把腎臟等器官短暫淹壞</a>。這其實是治療太有效的副作用——<a class="hl hl-summary" id="sum-h-l1-045" data-id="h-l1-045" data-targets="h-l1-042-a">用醫院常備的補液與尿酸清除藥物 (rasburicase) 就能壓下去</a>，<a class="hl hl-summary" id="sum-h-l1-046" data-id="h-l1-046" data-targets="h-l1-046-a">病人的腎功能在幾天內就恢復</a>。<a class="hl hl-summary" id="sum-h-l1-047" data-id="h-l1-047" data-targets="h-l1-047-a">而這個延遲爆發本身也是最強的療效證據，證明改造細胞花了兩週在體內完成一次大規模殺敵</a>。</p><p>為了看清這場殺敵到底怎麼發生，作者從兩個角度同時量測。一方面，<a class="hl hl-summary" id="sum-h-l1-048" data-id="h-l1-048" data-targets="h-l1-048-a h-l1-048-b">他們用 PCR（一種能專門放大某段 DNA 序列的偵測法）追蹤帶有天線基因的細胞</a>，發現<a class="hl hl-summary" id="sum-h-l1-049" data-id="h-l1-049" data-targets="h-l1-049-a h-l1-006-a">這些改造細胞在血液與骨髓中短短三週內就增加了超過一千倍</a>，<a class="hl hl-summary" id="sum-h-l1-050" data-id="h-l1-050" data-targets="h-l1-050-a">最高峰時每五顆循環淋巴球就有一顆是它</a>，<a class="hl hl-summary" id="sum-h-l1-051" data-id="h-l1-051" data-targets="h-l1-051-a">血液中大約每 1.2 天就翻倍</a>。另一方面，<a class="hl hl-summary" id="sum-h-l1-052" data-id="h-l1-052" data-targets="h-method_m5-002-b">T 細胞開火時會分泌一群名為細胞因子的免疫警報素 (cytokine)</a>。<a class="hl hl-summary" id="sum-h-l1-053" data-id="h-l1-053" data-targets="h-l1-053-a">作者測量了干擾素 \(\gamma\)、白血球介素 6，以及召喚更多免疫細胞的訊號分子 CXCL9 與 CXCL10</a>，<a class="hl hl-summary" id="sum-h-l1-054" data-id="h-l1-054" data-targets="h-l1-054-a">發現這些警報素在第 17 到 23 天集體飆升到基線的一百多倍</a>，<a class="hl hl-summary" id="sum-h-l1-055" data-id="h-l1-055" data-targets="h-l1-055-a h-l1-055-b">時間點剛好與腫瘤崩解症候群、骨髓中癌細胞的消失重疊</a>。<a class="hl hl-summary" id="sum-h-l1-056" data-id="h-l1-056" data-targets="h-l1-007-b h-method_m5-013-a">到第 23 天，骨髓活檢已測不到白血病細胞</a>；<a class="hl hl-summary" id="sum-h-l1-057" data-id="h-l1-057" data-targets="h-l1-005-b h-method_m6-006-b">原本 200 個細胞裡有 170 個帶 TP53 缺失，如今降到只剩 2 個</a>（正常人也會有的背景值），<a class="hl hl-summary" id="sum-h-l1-058" data-id="h-l1-058" data-targets="h-l1-058-a h-method_m6-019-b">腫脹的淋巴結也在一個月內消退</a>。<a class="hl hl-summary" id="sum-h-l1-059" data-id="h-l1-059" data-targets="h-l1-008-a">撰稿當時，病人已維持完全緩解 10 個月</a>；<a class="hl hl-summary" id="sum-h-l1-060" data-id="h-l1-060" data-targets="h-l1-060-a">六個月後，這些改造細胞仍以高峰的十分之一水準留守體內</a>，<a class="hl hl-summary" id="sum-h-l1-061" data-id="h-l1-061" data-targets="h-l1-061-a">暗示它們具備長期看守的潛力</a>。</p><p>副作用方面，<a class="hl hl-summary" id="sum-h-l1-062" data-id="h-l1-062" data-targets="h-l1-002-a">因為 CD19 也長在正常 B 細胞上</a>，<a class="hl hl-summary" id="sum-h-l1-063" data-id="h-l1-063" data-targets="h-l1-034-a">改造細胞在殺光癌細胞的同時，也把病人所有的 B 細胞（抗體工廠）一併清空了</a>。<a class="hl hl-summary" id="sum-h-l1-064" data-id="h-l1-064" data-targets="h-l1-064-a">血液與骨髓在六個月以上都測不到 B 細胞</a>，<a class="hl hl-summary" id="sum-h-l1-065" data-id="h-l1-065" data-targets="h-l1-065-a h-l1-065-b">結果病人陷入抗體不足，需要每月靜脈補充免疫球蛋白</a>；<a class="hl hl-summary" id="sum-h-l1-066" data-id="h-l1-066" data-targets="h-l1-066-a">所幸他並沒有因此頻繁感染</a>。<a class="hl hl-summary" id="sum-h-l1-067" data-id="h-l1-067" data-targets="h-l1-067-a h-l1-067-b">除此之外只有短暫的血球下降與輕微流感樣症狀，都不算嚴重</a>。<a class="hl hl-summary" id="sum-h-l1-068" data-id="h-l1-068" data-targets="h-l1-068-a">這篇研究嚴格說只是一位病人的個案報告</a>（<a class="hl hl-summary" id="sum-h-l1-069" data-id="h-l1-069" data-targets="h-l1-069-a">同一試驗另有兩名 CLL 病人也有反應，但作者交代細節要看後續文獻</a>，仍屬初步證據），<a class="hl hl-summary" id="sum-h-l1-070" data-id="h-l1-070" data-targets="h-l1-008-a">追蹤時間也只有大約一年</a>。因此<a class="hl hl-summary" id="sum-h-l1-071" data-id="h-l1-071" data-targets="h-l1-071-a">緩解能否撐更久、B 細胞會不會慢慢長回來、抗體不足是否會演變成嚴重感染</a>，這篇論文都回答不了；<a class="hl hl-summary" id="sum-h-l1-072" data-id="h-l1-072" data-targets="h-l1-002-a">針對其他找不到像 CD19 這麼乾淨的身分標籤的癌症是否適用，也是未解的問題</a>。</p></div></details><details class="version c-summary"><summary><span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">vote 7</span></span></summary><div class="panel-body"><div class="main-line">一位罹患難治型 B 細胞癌 (慢性淋巴性白血病, CLL) 的病人，體內的癌細胞已失去 TP53 這道自毀開關，對標準化療反應極差。作者把病人自己的 T 細胞取出，用病毒送入一份人工設計的基因，讓 T 細胞表面長出能認出 B 細胞表面標記 CD19 的辨識天線 (chimeric antigen receptor, CAR)，並在天線內側加上名為 4-1BB (CD137) 的持續激勵訊號零件，克服前人版本 T 細胞很快消失的缺點。極低劑量注入後，改造 T 細胞在體內擴增超過一千倍，先引發癌細胞大量崩解的急症，再讓癌細胞徹底清空，緩解維持至少十個月。</div><p>這位病人罹患一種讓 B 細胞失控增生的癌症「慢性淋巴性白血病」(chronic lymphocytic leukemia, CLL)，本文即是針對他的個案報告。癌細胞已丟掉一段名叫 TP53 的自毀基因——這道自毀開關原本會逼 DNA 損傷嚴重的細胞死掉，一旦弄丟，化療打壞癌細胞的 DNA 也逼不死它們，病情因此頑強。過去對這類病人唯一能長期壓下癌症的辦法，是接受別人捐贈的骨髓，但外來免疫細胞常反過來誤傷病人自身器官，尤其對年長患者風險極高。作者想找一條可以只用病人自己細胞、卻同樣有效的替代路線。</p><p>他們的做法是把病人自己的 T 細胞取出——T 細胞是免疫系統中負責主動搜捕異常細胞的殺手細胞，只是本來認不得癌細胞。作者用一種被閹掉繁殖能力、只當基因搬運工具的病毒 (lentivirus)，把一份人工設計的基因永久黏進 T 細胞的染色體，讓 T 細胞表面長出一支能認出敵人的合成天線 (chimeric antigen receptor, CAR，下面稱「合成天線」)。這支合成天線瞄準的目標叫 CD19，它幾乎只長在 B 細胞表面。合成天線一碰到 CD19，就會扣動 T 細胞的開火開關，把那顆細胞殺掉。而 CLL 的癌細胞本身就是變壞的 B 細胞，同樣帶著 CD19，於是也會被一併清掉。</p><p>類似的合成天線先前已有人試過，但改造 T 細胞打進病人體內後總是很快消失，癌細胞來不及被清光就又長回來。作者判斷關鍵在天線內側的訊號零件不夠：原本只裝了一段負責「扣動開火」的觸發訊號 \((CD3\zeta)\)，殺完幾波敵人 T 細胞就疲乏了。因此他們在天線裡再多裝一段名為 4-1BB (CD137) 的持續激勵訊號零件，作用像是不停對 T 細胞喊「你做得對、不要停」，讓它一邊殺敵一邊繼續複製自己，不會提早陣亡。</p><p>執行方式也刻意保守。回輸這批改造 T 細胞的四天前，作者先給病人一輪輕度化學治療，把原本佔位的淋巴細胞壓下去，好把「舞台」空出來讓改造 T 細胞繁殖。然後只注入極低劑量——每公斤體重約十五萬個——是先前類似臨床試驗的百分之一甚至千分之一，並分三天緩慢輸入。作者刻意壓低劑量的用意是：這是第一次把加了 4-1BB 的增強版合成天線放進真人身上，得先確認它們不會在體內失控。</p><p>注入約兩週後，病人開始高燒、發冷、噁心，腎功能也受到影響，這其實是好消息。這叫做腫瘤溶解症候群 (tumor lysis syndrome)——當癌細胞在短時間內被大量殺死，細胞內的核酸與礦物質一起倒進血液，讓身體來不及代謝造成的急症。它本身危險，卻也是 T 細胞在大規模殺癌的證據 (病人在補液與降尿酸藥後迅速穩定)。同一時間，血液與骨髓內的發炎訊號分子 (例如干擾素 \(interferon-\gamma\) 與白介素 6) 飆到基準值的一百六十倍以上，證明免疫戰場正在全面開打。用 PCR (一種數 DNA 分子數量的技術) 測量改造 T 細胞的實際數量，可看到它們在血中擴增超過一千倍，尖峰時佔了病人所有血中淋巴細胞的兩成以上，之後六個月內仍偵測得到——每複製一份自己約需一天多，消退一半約需一個月。到第 23 天，骨髓中的癌細胞已無法檢出，連原本帶有 TP53 缺失的癌細胞蹤跡都消失；第 28 天全身腫大的淋巴結也摸不到，癌症的完全緩解在寫論文時已維持至少十個月。</p><p>代價是這場攻擊沒辦法區分敵我。因為 CD19 也長在正常的 B 細胞上，正常 B 細胞就一起被清光。B 細胞平時的主要任務是製造抗體，因此病人隨之出現抗體不足 (hypogammaglobulinemia)，需要定期補打免疫球蛋白，但觀察期內沒有出現嚴重感染。此外，這篇論文只追蹤了一名病人、十個月，對其他 B 細胞癌病人是否同樣有效、緩解能撐多久、正常 B 細胞會不會回來，這些問題還要靠後續更多病人的資料才能回答。</p></div></details><details class="version c-summary"><summary><span class="hdr"><span class="rank-badge">次佳版本</span><span class="vote">vote 4</span></span></summary><div class="panel-body"><div class="main-line">一位罹患慢性淋巴性白血病、且因為 p53 缺失讓標準化療全失效的病人，接受了自己體內經基因改造、能專門辨識 B 細胞表面 CD19 的 T 細胞回輸。這批改造 T 細胞在體內爆量增生超過一千倍，把癌細胞掃光，並持續存在超過六個月，達成完全緩解。</div><p>一位罹患慢性淋巴性白血病（一種血液癌，CLL）的病人已經走投無路。他的癌細胞少了 p53 這個負責在 DNA 受損時下令自殺的守門基因，一般化療都因此打不動，反覆治療只是把病情壓幾個月又復發。唯一被證實能長期緩解的方法是把別人的免疫系統整套換進來（異體骨髓移植），但外來免疫系統會反過來攻擊病人正常器官，對他這個年紀太危險。作者因此改換策略：不用藥物殺癌，而是重新武裝病人自己的免疫殺手 (T 細胞)，讓它們親手把癌細胞抓出來殺掉。</p><p>問題是 T 細胞本來不會攻擊 B 細胞，必須先幫它裝上一根新的辨識天線（嵌合抗原受體， chimeric antigen receptor， CAR）。這根天線的外側是一支能認出 B 細胞表面通用標籤 (CD19) 的抓手，內側則接上兩顆訊號零件：一顆負責在抓到目標時下達開火命令 (CD3-zeta)，另一顆負責替細胞打氣、讓它殺完不會馬上疲乏 (4-1BB， 也叫 CD137)。作者用一台改造過、拆掉致病零件、只留下把基因塞進宿主 DNA 專長的病毒運貨車（慢病毒載體， lentiviral vector），把這根天線的基因塞進病人自己的 T 細胞裡。挑 CD19 當目標的好處是它幾乎只長在 B 細胞（正常的、癌變的、發育中的）表面，其他器官不表現，因此攻擊 CD19 等於精準攻擊 B 細胞這個族群，順便包住 CLL 的癌細胞。</p><p>過去別的團隊也試過類似策略，但改造後的 T 細胞進到病人體內幾乎不增生就消失，抗癌效果差強人意。作者根據自己的動物實驗判斷，關鍵是欠一顆能讓 T 細胞持續作戰的訊號零件，因此特別把 4-1BB 串進受體。此外，他們在回輸細胞前先讓病人接受一輪把原本淋巴球壓下去的化療，目的是把舞台清空，讓改造 T 細胞進來後有生長空間、也更容易接觸到癌細胞。這兩步讓他們敢用比過去同類臨床試驗少好幾個位數的低劑量——每公斤體重只約十五萬顆改造 T 細胞。</p><p>作者把這批改造 T 細胞分三天低劑量輸回病人身上。前十幾天病人沒什麼感覺，直到第 14 天才開始發燒發冷，第 22 天正式爆發腫瘤溶解症候群——大量癌細胞同時炸開時，細胞內的廢物（核酸、鉀、磷）湧進血液、被代謝成大量尿酸堵住腎臟過濾管路。反映這場代謝風暴的血液數字（尿酸偏高、代表細胞被大量殺死的乳酸脫氫酶、代表腎功能受損的肌酸酐）同步飆高，經住院打點滴才穩住。之後檢查發現癌細胞從骨髓完全消失，腫大的淋巴結萎縮，連原本的染色體異常也回到正常。</p><p>量化結果證實這場暴風雨真的是改造 T 細胞造成的。作者用能直接數出改造 T 細胞 DNA 分子數量的檢測法（即時定量 PCR）連續抽樣。先看數量：峰值時它們在血液裡比剛回輸時多了超過一千倍，倍增時間約 1.2 天，一度佔血中所有淋巴球的兩成以上，骨髓裡也大量堆積。再看火力：同一時間血液與骨髓中代表免疫細胞正在開火的訊號物質（細胞激素，也就是 cytokine，包含干擾素\(-\gamma\)、白介素-6 等）飆到平時的 160 倍。這說明改造 T 細胞不是靜靜坐在血裡，而是真的抵達骨髓、辨認到 CD19、發動了完整的免疫反應。峰值過後細胞數量緩慢下降（血中半衰期約 31 天），六個月後在血液與骨髓仍能持續偵測到，10 個月觀察期結束時病人仍在完全緩解中。</p><p>這套療法必然的代價，是連正常的 B 細胞也一起被清光——CD19 出現在所有 B 細胞上，改造 T 細胞不會分辨敵我。因此病人在治療後六個月內幾乎測不到 B 細胞，血中抗體濃度偏低（低丙種球蛋白血症），必須靠靜脈注射免疫球蛋白補回來；還好觀察期內沒有因此發生嚴重感染，抽血追蹤還看到短暫的血小板下降（暫時影響凝血）與肝酵素輕微上升（肝細胞受累的訊號），都很快恢復。研究本身的限制也很清楚：這篇只寫了一位病人，另外兩位參加同一臨床試驗的病人結果放在另一篇文章，因此還不能回答這種方法在多少病人身上會有效、能持續多久，或是換到別種 B 細胞癌症時是否一樣安全。</p></div></details><div class="layer-title">技術及材料</div><div class="module-block c-m1"><p class="module-thesis"><strong>主題一：第二代 anti-CD19 CAR 慢病毒載體 (pELPs 19-BB-z) 建構</strong><br><a class="hl hl-m1" id="sum-h-method_m1-001" data-id="h-method_m1-001" data-targets="h-l1-030-a">設計一支自失活型慢病毒載體</a>，<a class="hl hl-m1" id="sum-h-method_m1-002" data-id="h-method_m1-002" data-targets="h-method_m1-002-a">將 anti-CD19 scFv 與 4-1BB (CD137) 共刺激域及 \(CD3\zeta\) 訊號域串接為單一嵌合受體</a>，<a class="hl hl-m1" id="sum-h-method_m1-003" data-id="h-method_m1-003" data-targets="h-l1-028-a">克服第一代 CAR 缺陷</a>。</p><details class="version c-m1"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>作者要設計一支能給人用的「複合式對講機」——<a class="hl hl-m1" id="sum-h-method_m1-005" data-id="h-method_m1-005" data-targets="h-method_m1-002-a">把辨識 CD19 的抗體、開火按鈕、持續作戰按鈕全部裝在 T 細胞的膜外與膜內</a>。<a class="hl hl-m1" id="sum-h-method_m1-006" data-id="h-method_m1-006" data-targets="h-l1-021-a">運送這台對講機圖紙的是慢病毒</a> (lentivirus)，只是它兩端原本的長重複片段 (LTR) 自帶啟動子會亂吵醒附近基因，作者把 3' LTR 的啟動子區整段拆掉，讓病毒「送貨完就自己關機」，<a class="hl hl-m1" id="sum-h-method_m1-009" data-id="h-method_m1-009" data-targets="h-l1-030-a">即自失活載體 (self-inactivating, SIN)</a>；<a class="hl hl-m1" id="sum-h-method_m1-010" data-id="h-method_m1-010" data-targets="h-l1-030-a">正式編號為 GeMCRIS 0607-793</a>。病毒外套也不用原本 HIV 的殼，而是<a class="hl hl-m1" id="sum-h-method_m1-011" data-id="h-method_m1-011" data-targets="h-method_m1-011-a">換成水泡口炎病毒外套 (VSV-G) 把它包起來 (pseudotyped)</a>——VSV-G 認的是幾乎所有細胞都有的受體，能感染 T 細胞範圍廣、離心也不會碎，<a class="hl hl-m1" id="sum-h-method_m1-012" data-id="h-method_m1-012" data-targets="h-method_m1-012-a">方便臨床規模生產</a>。載體要表達的 <a class="hl hl-m1" id="sum-h-method_m1-013" data-id="h-method_m1-013" data-targets="h-method_m1-013-a">CAR19 本身是一條由四段功能組成的融合蛋白</a>：<a class="hl hl-m1" id="sum-h-method_m1-014" data-id="h-method_m1-014" data-targets="h-method_m1-002-a">最外側是從小鼠 FMC63 抗體剪下來的單鏈變異片段</a> (single-chain variable fragment, scFv)——一個能像原抗體一樣抓住 CD19 的辨識夾；<a class="hl hl-m1" id="sum-h-method_m1-015" data-id="h-method_m1-015" data-targets="h-method_m1-002-a">中間接上 T 細胞常用的 \(CD8\alpha\) hinge 與跨膜段</a> (transmembrane)，讓 scFv 像天線一樣立在膜外、有彈性搆到抗原，同時把整條 CAR 錨在膜上；<a class="hl hl-m1" id="sum-h-method_m1-016" data-id="h-method_m1-016" data-targets="h-method_m1-002-a">胞內側則把 4-1BB (CD137) 的訊號域串在 \(CD3\zeta\) 前面</a>，讓一顆 CAR 同時內建開火扳機 \((CD3\zeta)\) 與「不要停」按鈕 (4-1BB)——\(CD3\zeta\) 提供訊號一，4-1BB 透過 TRAF 打開 \(NF-\kappa B\) 與抗凋亡路徑補上訊號二。這四段全寫在同一條連續讀框 (open reading frame, ORF) 裡，翻譯出來就是一條完整融合蛋白，一路折疊送上膜；<a class="hl hl-m1" id="sum-h-method_m1-021" data-id="h-method_m1-021" data-targets="h-method_m1-021-a">啟動子挑 \(EF-1\alpha\) 而不是 CMV</a>，因為活化中的人類 T 細胞會把 CMV 關掉 (silencing)，\(EF-1\alpha\) 屬於管家基因啟動子，能持續表達。</p><p><a class="hl hl-m1" id="sum-h-method_m1-023" data-id="h-method_m1-023" data-targets="h-l1-003-a">為什麼挑 4-1BB 而不是同期被試過的 CD28</a>？兩者都能提供訊號二，但驅動的 T 細胞後果差很多：CD28 傾向把 T 細胞推成短命執行者，一波殺敵後就耗盡；4-1BB 則透過 \(NF-\kappa B\) 與抗凋亡路徑讓細胞轉往記憶型，殺敵後仍能長期存留。<a class="hl hl-m1" id="sum-h-method_m1-027" data-id="h-method_m1-027" data-targets="h-method_m1-027-a h-method_m1-027-b">作者自己的動物實驗 (Milone 2009 Mol Ther；Carpenito 2009 PNAS)</a> 就是拿兩者對比、<a class="hl hl-m1" id="sum-h-method_m1-028" data-id="h-method_m1-028" data-targets="h-l1-003-a">看到 4-1BB CAR 持續期顯著較長</a>；同時期 <a class="hl hl-m1" id="sum-h-method_m1-029" data-id="h-method_m1-029" data-targets="h-method_m1-029-a">Brentjens 團隊用 CD28-CAR 治 CLL</a>，<a class="hl hl-m1" id="sum-h-method_m1-030" data-id="h-method_m1-030" data-targets="h-l1-027-b">改造 T 細胞很快就從循環中消失</a>，正好成為本篇的反例。這支載體因為要進病人身上，還必須<a class="hl hl-m1" id="sum-h-method_m1-031" data-id="h-method_m1-031" data-targets="h-l1-030-a">登錄美國 NIH 的人體基因治療監管識別碼 (GeMCRIS 0607-793)</a>、<a class="hl hl-m1" id="sum-h-method_m1-032" data-id="h-method_m1-032" data-targets="h-l1-030-a">通過 preclinical safety testing</a> (包括驗證不會拼回可複製病毒、不偏好插進致癌基因等)，<a class="hl hl-m1" id="sum-h-method_m1-034" data-id="h-method_m1-034" data-targets="h-method_m1-012-a">並委由 Lentigen 公司做臨床級生產</a>。若跳過 SIN 或跳過 4-1BB 各自會壞掉什麼？沒有 SIN，LTR 啟動子會亂吵醒插入位置附近的基因——過去 \(X-SCID \gamma-retrovirus\) 試驗就因為載體剛好插進 LMO2 致癌基因旁邊，讓病人得到 T 細胞白血病；<a class="hl hl-m1" id="sum-h-method_m1-037" data-id="h-method_m1-037" data-targets="h-l1-003-a">沒有 4-1BB、回到只剩 \(CD3\zeta\) 的第一代 CAR</a>，T 細胞只被扣訊號一、沒有訊號二支撐，很快進入耗竭或自殺，<a class="hl hl-m1" id="sum-h-method_m1-039" data-id="h-method_m1-039" data-targets="h-l1-028-a">輸進病人幾天內就從血液中消失、幾乎不擴增</a>。</p></div></details><details class="version c-m1"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>self-inactivating (SIN) lentiviral vector</strong>：拆掉 3' LTR 啟動子區的慢病毒載體，整合後兩端 LTR 都變啞巴，避免亂吵醒鄰近基因。</li><li><strong>VSV-G pseudotype</strong>：以水泡口炎病毒 G 外套取代原 HIV envelope，能感染的細胞範圍變廣，且離心耐操便於量產。</li><li><strong>FMC63 scFv</strong>：從小鼠單株抗體 FMC63 剪出 VH+VL 用 linker 串成的單鏈變異片段，能像原抗體一樣抓住 CD19。</li><li><strong>\(CD8\alpha hinge /\) transmembrane</strong>：T 細胞 \(CD8\alpha\) 蛋白的兩段結構，hinge 提供彈性讓 scFv 立在膜外、TM 把 CAR 錨在膜上並輔助二聚化。</li><li><strong>\(CD3\zeta\) 訊號域</strong>：CAR 的『訊號一』開火扳機；帶 ITAM 序列，被磷酸化後啟動下游 T 細胞活化訊號。</li><li><strong>4-1BB (CD137) 共刺激域</strong>：CAR 的『訊號二』持續作戰按鈕；透過 TRAF 招募 \(NF-\kappa B\) 與抗凋亡路徑，讓 T 細胞轉往記憶型並長期存留。</li><li><strong>\(EF-1\alpha\) promoter</strong>：管家基因啟動子，取代易被 T 細胞 silencing 的 CMV，讓 CAR 表現量在活化狀態下仍穩定。</li><li><strong>GeMCRIS 0607-793</strong>：美國 NIH 對人體基因治療載體的監管識別碼，此載體已完成 preclinical safety testing。</li></ul></div></details></div><div class="module-block c-m2"><p class="module-thesis"><strong>主題二：自體 T 細胞收集、離體活化與慢病毒轉導</strong><br><a class="hl hl-m2" id="sum-h-method_m2-001" data-id="h-method_m2-001" data-targets="h-l1-001-a">以 leukapheresis 取得病人自體 T 細胞</a>，<a class="hl hl-m2" id="sum-h-method_m2-002" data-id="h-method_m2-002" data-targets="h-method_m2-002-a h-method_m2-010-b h-method_m2-016-b">於 GMP 條件下用 CD3/CD28 珠子活化擴增後</a>，<a class="hl hl-m2" id="sum-h-method_m2-003" data-id="h-method_m2-003" data-targets="h-method_m1-011-a h-l1-021-a">以 pELPs 19-BB-z 慢病毒轉導</a><a class="hl hl-m2" id="sum-h-method_m2-004" data-id="h-method_m2-004" data-targets="h-method_m2-004-a h-method_m3-028-a">產生臨床用 CART19</a>。</p><details class="version c-m2"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>整條產線的起點，是 <a class="hl hl-m2" id="sum-h-method_m2-005" data-id="h-method_m2-005" data-targets="h-l1-001-a">2009 年 12 月做的一次白血球分離術 (leukapheresis)</a>：病人靜脈接上離心分離機，血液邊抽邊分層，機器只留下白血球那一層、紅血球與血漿即時回輸；一次就可以拿到幾十億顆自體淋巴球，<a class="hl hl-m2" id="sum-h-method_m2-009" data-id="h-method_m2-009" data-targets="h-l1-001-a">全部冷凍保存等待用</a>。臨床方案啟動時，<a class="hl hl-m2" id="sum-h-method_m2-010" data-id="h-method_m2-010" data-targets="h-l1-021-a h-method_m2-010-b">Clinical Cell and Vaccine Production Facility (CVPF) 在 GMP 條件下把細胞解凍</a>，<a class="hl hl-m2" id="sum-h-method_m2-011" data-id="h-method_m2-011" data-targets="h-method_m2-002-a h-method_m2-016-b">接著用 CD3/CD28 共刺激珠子活化擴增</a>——兩種抗體 anti-CD3 與 anti-CD28 綁在同一顆磁珠上，一顆珠子等於一台可攜式抗原呈現細胞 (APC)，同時對 T 細胞按下扳機 (訊號 1) 與加油門 (訊號 2)。這兩顆按鈕必須一起按：T 細胞若只收到 CD3 訊號、沒有 CD28 共刺激，會進入「無反應化」(anergy)、不再增殖 (<a class="hl hl-m2" id="sum-h-method_m2-016" data-id="h-method_m2-016" data-targets="h-method_m2-002-a h-method_m2-016-b">protocol 沿用 Porter et al. 2006 Blood</a>)。<a class="hl hl-m2" id="sum-h-method_m2-017" data-id="h-method_m2-017" data-targets="h-l1-021-a h-method_m1-011-a">T 細胞進入分裂期後，才加入 pELPs 19-BB-z 慢病毒液共培養</a>——順序倒過來就白搭，因為靜止期 T 細胞對慢病毒感染效率極差，非得進入分裂期病毒才能有效把 CAR 基因整合進染色體。</p><p><a class="hl hl-m2" id="sum-h-method_m2-020" data-id="h-method_m2-020" data-targets="h-l1-036-a">最終產品裡約 5% 的 T 細胞掛上 CAR</a>，<a class="hl hl-m2" id="sum-h-method_m2-021" data-id="h-method_m2-021" data-targets="h-l1-036-a">總共 3×10⁸ 顆 T 細胞中有 1.42×10⁷ 顆是 CART19</a>。轉導率停在 5% 而不強行拉高，是刻意的權衡：慢病毒每顆整合份數由「病毒對細胞比例」(MOI) 決定，MOI 拉高會讓一顆 T 細胞染色體帶好幾份 CAR，插入性致癌風險升高、體內動力學也難以預測。5% 已足夠讓回輸的 CART19 在體內找到 CD19 並啟動擴增，除非壓到 &lt;1% 才會出現細胞數量不足的疑慮。</p></div></details><details class="version c-m2"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>leukapheresis</strong>：白血球分離術，用離心分離機從病人血液中專取白血球那一層、其餘即時回輸。</li><li><strong>cryopreservation</strong>：液氮冷凍保存細胞，等待臨床方案啟動時再解凍。</li><li><strong>GMP / CVPF</strong>：臨床級細胞生產規範與大學設施 (Clinical Cell and Vaccine Production Facility)，負責 ex vivo 慢病毒轉導。</li><li><strong>CD3/CD28 共刺激珠子</strong>：anti-CD3 與 anti-CD28 抗體綁同一顆磁珠，等於可攜式 APC 同時給訊號 1+2 讓 T 細胞增殖。</li><li><strong>ex vivo activation</strong>：把 T 細胞從休眠狀態衝進分裂期，才能被慢病毒有效整合。</li><li><strong>lentiviral transduction</strong>：慢病毒把 CAR 設計圖永久釘進 T 細胞染色體的過程。</li><li><strong>transduction efficiency (~5%)</strong>：本次臨床產品中約 5% 的 T 細胞成功表達 CAR，是安全與擴增能力的權衡。</li></ul></div></details></div><div class="module-block c-m3"><p class="module-thesis"><strong>主題三：淋巴球耗竭化療</strong><br><a class="hl hl-m3" id="sum-h-method_m3-001" data-id="h-method_m3-001" data-targets="h-l1-035-a">於 CART19 回輸前 4 天</a><a class="hl hl-m3" id="sum-h-method_m3-002" data-id="h-method_m3-002" data-targets="h-l1-035-a">施用不含 rituximab 的 pentostatin + cyclophosphamide 化療</a>，<a class="hl hl-m3" id="sum-h-method_m3-003" data-id="h-method_m3-003" data-targets="h-l1-035-a">透過清空 host 淋巴球創造 CART19 擴增空間</a>。</p><details class="version c-m3"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>作者用的<a class="hl hl-m3" id="sum-h-method_m3-004" data-id="h-method_m3-004" data-targets="h-l1-035-a">這輪化療目的不是殺癌</a>，而是<a class="hl hl-m3" id="sum-h-method_m3-005" data-id="h-method_m3-005" data-targets="h-l1-035-a">先把病人自己的淋巴球數量壓下去</a>、把免疫系統的舞台空出來，<a class="hl hl-m3" id="sum-h-method_m3-006" data-id="h-method_m3-006" data-targets="h-method_m3-006-a">讓等下要回輸的 CART19 有空位擴增</a>。<a class="hl hl-m3" id="sum-h-method_m3-007" data-id="h-method_m3-007" data-targets="h-method_m3-007-a">配方沿用 Lamanna 2006 J Clin Oncol 的 PCR (pentostatin/cyclophosphamide/rituximab) regimen</a>，但<a class="hl hl-m3" id="sum-h-method_m3-008" data-id="h-method_m3-008" data-targets="h-l1-011-c">因為病人先前對 rituximab 有嚴重過敏</a>，<a class="hl hl-m3" id="sum-h-method_m3-009" data-id="h-method_m3-009" data-targets="h-l1-035-a">作者直接拿掉 rituximab 只留下前兩味藥</a>——反正 <a class="hl hl-m3" id="sum-h-method_m3-010" data-id="h-method_m3-010" data-targets="h-method_m6-026-a h-method_m6-027-c">CART19 本身就會清掉 B 細胞</a>，並不會失手。<a class="hl hl-m3" id="sum-h-method_m3-011" data-id="h-method_m3-011" data-targets="h-l1-035-a">劑量是 pentostatin 4 mg/m² 體表面積一劑加 cyclophosphamide 600 mg/m² 一劑</a>，<a class="hl hl-m3" id="sum-h-method_m3-012" data-id="h-method_m3-012" data-targets="h-l1-035-a">於回輸前 4 天給藥</a>。時序上 4 天剛好能等淋巴球被壓到最低、化療藥物本身的細胞毒性峰值也退掉，避免順便毒到剛打進去的 CART19；<a class="hl hl-m3" id="sum-h-method_m3-013" data-id="h-method_m3-013" data-targets="h-method_m3-013-a">中間第 3 天還做了一次骨髓 biopsy</a>，把 <a class="hl hl-m3" id="sum-h-method_m3-014" data-id="h-method_m3-014" data-targets="h-method_m3-013-a h-method_m5-012-a">CLL 佔骨髓約 40%</a>、TP53 缺失比例等基線量到。pentostatin 是一種嘌呤類似物，會卡住淋巴球內一個叫 adenosine deaminase (ADA) 的酵素——ADA 失效後 dATP 在細胞裡累積過量把淋巴球毒死，其他細胞影響小得多，等於「選擇性毒殺淋巴球」。cyclophosphamide 則是一種烷化劑，會在 DNA 兩股間拉出強力交叉鏈結，對正在增殖的淋巴球特別致命。分子層面上，體內原本的 T、B 細胞平時每天都在吃 IL-7、IL-15 這兩支支持性細胞因子，把它們維持在低濃度；<a class="hl hl-m3" id="sum-h-method_m3-021" data-id="h-method_m3-021" data-targets="h-l1-035-a">化療把大部分淋巴球清掉後</a>，這兩支 cytokine 沒人搶、血中濃度飆升，<a class="hl hl-m3" id="sum-h-method_m3-022" data-id="h-method_m3-022" data-targets="h-method_m3-006-a">剛回輸進去的 CART19 一進來就吃到滿滿的支持訊號</a>，擴增速度大幅加快，同時 Treg 被壓、APC 上的共刺激分子上升，都對新進 T 細胞有利。</p><p>為什麼挑這種溫和化療、而不是清髓化療加異體骨髓移植？<a class="hl hl-m3" id="sum-h-method_m3-024" data-id="h-method_m3-024" data-targets="h-l1-017-a">帶 TP53 缺失的 CLL 過去唯一能長期壓下癌症的辦法是把別人的骨髓整組換進來</a>，但<a class="hl hl-m3" id="sum-h-method_m3-025" data-id="h-method_m3-025" data-targets="h-method_m3-025-a">別人的免疫系統會反過來攻擊病人 (GvHD)</a>，<a class="hl hl-m3" id="sum-h-method_m3-026" data-id="h-method_m3-026" data-targets="h-method_m3-025-a">對年長 CLL 病人風險過高</a>。<a class="hl hl-m3" id="sum-h-method_m3-027" data-id="h-method_m3-027" data-targets="h-l1-035-a">作者的替代路線是只用溫和淋巴球耗竭清出空間</a>、<a class="hl hl-m3" id="sum-h-method_m3-028" data-id="h-method_m3-028" data-targets="h-method_m3-028-a">把殺癌工作交給病人自己 T 細胞改造的 CART19</a>——<a class="hl hl-m3" id="sum-h-method_m3-029" data-id="h-method_m3-029" data-targets="h-method_m3-029-a">既避開 GvHD、又保留骨髓不動</a>。若走另外兩端各自會壞：跳過整輪淋巴球耗竭直接回輸 CART19，病人自己的淋巴球會繼續把 IL-7/IL-15 吃光、Treg 繼續壓 T 細胞、<a class="hl hl-m3" id="sum-h-method_m3-031" data-id="h-method_m3-031" data-targets="h-method_m3-031-a">免疫系統還可能認出 murine scFv 把 CART19 清掉</a>，<a class="hl hl-m3" id="sum-h-method_m3-032" data-id="h-method_m3-032" data-targets="h-l1-036-a h-l1-037-a">1.46×10⁵ / kg 這種低劑量幾乎必然消失無蹤</a>；反過來走清髓化療，等於把 APC 與骨髓間質細胞也一起殺掉，把 CART19 擴增賴以維生的支持環境也拆掉，同時老年病人治療相關死亡率飆升。溫和的 PCR-minus-R 是這條光譜上的甜蜜點。</p></div></details><details class="version c-m3"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>Pentostatin</strong>：嘌呤類似物、選擇性 adenosine deaminase (ADA) 抑制劑；造成淋巴球內 dATP 累積致死，本案用 4 mg/m² 一劑。</li><li><strong>Cyclophosphamide</strong>：烷化劑；DNA 交叉鏈結對增殖中淋巴球特別致命，本案用 600 mg/m² 一劑。</li><li><strong>PCR-minus-R regimen</strong>：Lamanna 2006 J Clin Oncol PCR (pentostatin/cyclophosphamide/rituximab) 三合一化療拿掉 rituximab 的版本，因病人 rituximab 過敏而略去。</li><li><strong>Lymphodepletion</strong>：把宿主淋巴球數量壓下去為 CART19 騰出 niche，並讓血中 IL-7、IL-15 濃度飆升以支持擴增。</li><li><strong>Homeostatic cytokines (IL-7, IL-15)</strong>：平時被大量 T 細胞消耗、維持 T 細胞低度存活與分裂的支持因子；淋巴球被清空後濃度飆升，成為 CART19 的擴增燃料。</li></ul></div></details></div><div class="module-block c-m4"><p class="module-thesis"><strong>主題四：CART19 三日分次靜脈回輸方案</strong><br><a class="hl hl-m4" id="sum-h-method_m4-001" data-id="h-method_m4-001" data-targets="h-l1-036-a">以「10% / 30% / 60%」漸增式分三日靜脈輸注 CART19</a>，<a class="hl hl-m4" id="sum-h-method_m4-002" data-id="h-method_m4-002" data-targets="h-method_m4-002-a h-method_m4-002-b">觀察即時輸注毒性</a>，並避免一次性大量注入引發急性 cytokine 風暴。</p><details class="version c-m4"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>作者把<a class="hl hl-m4" id="sum-h-method_m4-004" data-id="h-method_m4-004" data-targets="h-l1-036-a">全部要回輸的 CART19 細胞 (1.42×10⁷ 顆轉導細胞、相當於 1.46×10⁵ 顆/kg 體重)</a> <a class="hl hl-m4" id="sum-h-method_m4-005" data-id="h-method_m4-005" data-targets="h-l1-036-a">拆成連續三天的三次靜脈輸注</a>：<a class="hl hl-m4" id="sum-h-method_m4-006" data-id="h-method_m4-006" data-targets="h-l1-036-a">第 1 天先給 10%、第 2 天給 30%、第 3 天給 60%</a>，<a class="hl hl-m4" id="sum-h-method_m4-007" data-id="h-method_m4-007" data-targets="h-l1-036-a">首次給藥時機是化療後第 4 天</a>。每次輸注過程中醫護全程監測血壓、心跳、體溫，<a class="hl hl-m4" id="sum-h-method_m4-009" data-id="h-method_m4-009" data-targets="h-method_m4-002-a h-method_m4-002-b">觀察病人有沒有立即輸注反應</a>；<a class="hl hl-m4" id="sum-h-method_m4-010" data-id="h-method_m4-010" data-targets="h-method_m4-002-a h-method_m4-002-b">三次過程都沒立即毒性</a>。這樣分次的用意是「風險先偵測、劑量再放大」：如果一次把 1.42×10⁷ 顆全打進去，這批細胞會幾乎同時碰到大量 CD19+ 的 B/CLL 細胞、同時開火、同時釋放 \(IFN-\gamma\)、IL-6、\(TNF-\alpha\)，可能在數小時內衝出急性細胞激素釋放症候群 (cytokine release syndrome, CRS)，嚴重時低血壓、缺氧甚至休克，發生太快幾乎沒有介入窗口。改成 10/30/60% 遞增後，第 1 天的少量細胞先「試水溫」，真出事還能停下來；第 2、3 天再逐步加碼，讓抗原接觸與細胞激素釋放沿著 72 小時徐徐鋪開。事實上<a class="hl hl-m4" id="sum-h-method_m4-014" data-id="h-method_m4-014" data-targets="h-l1-041-a h-method_m4-014-b">本病人後來的 tumor lysis syndrome (Day 22) 是延遲反應</a>，與 CRS 一次爆發不同。除此之外，作者在實驗設計層次還做了一件事——<a class="hl hl-m4" id="sum-h-method_m4-015" data-id="h-method_m4-015" data-targets="h-method_m4-015-a">刻意不追加外源性 IL-2</a>：IL-2 會強力推動任何 T 細胞增殖，如果補了 IL-2 又看到 CART19 擴增千倍，就無法分辨這是「4-1BB 訊號域自帶的續戰能力」還是「外面補的 IL-2 幫忙拉起來的」。既然這篇的主要主張就是 <a class="hl hl-m4" id="sum-h-method_m4-016" data-id="h-method_m4-016" data-targets="h-l1-003-a h-l1-006-a">4-1BB 版 CAR-T 能自體擴增</a>，就必須把 IL-2 這個混淆變數拿掉，讓體內擴增數字乾淨地歸於 CAR-T 本身。</p></div></details><details class="version c-m4"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>split-dose infusion (10/30/60%)</strong>：把總劑量分三天以遞增比例輸注，先試水溫再加碼。</li><li><strong>total transduced dose</strong>：本次總量 1.42×10⁷ 轉導細胞，相當於 1.46×10⁵/kg，遠低於過去 CAR-T 試驗。</li><li><strong>infusion-related reaction monitoring</strong>：每次輸注全程監測血壓、心跳、體溫，捕捉立即毒性。</li><li><strong>cytokine release syndrome (CRS)</strong>：大量 T 細胞同時開火所致的急性細胞激素風暴，分次是為了避開一次爆發。</li><li><strong>no exogenous IL-2</strong>：刻意不追加 IL-2，以確保觀察到的擴增歸於 CAR-T 自身的 4-1BB 訊號。</li></ul></div></details></div><div class="module-block c-m5"><p class="module-thesis"><strong>主題五：骨髓與血液取樣、Q-PCR/Luminex/Flow 樣本前處理</strong><br><a class="hl hl-m5" id="sum-h-method_m5-001" data-id="h-method_m5-001" data-targets="h-l1-048-b h-method_m5-001-b">建立可縱向追蹤 CART19 動態、宿主 cytokine 反應與腫瘤負荷的血液與骨髓取樣管線</a>，<a class="hl hl-m5" id="sum-h-method_m5-002" data-id="h-method_m5-002" data-targets="h-l1-048-a h-method_m5-002-b h-method_m9-001-a">供下游 qPCR、Luminex 與流式使用</a>。</p><details class="version c-m5"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p>作者的取樣時間軸釘在幾個關鍵事件上：<a class="hl hl-m5" id="sum-h-method_m5-003" data-id="h-method_m5-003" data-targets="h-method_m5-011-a">化療前、化療後 Day −1 (回輸前一天)</a>、<a class="hl hl-m5" id="sum-h-method_m5-004" data-id="h-method_m5-004" data-targets="h-method_m5-011-a h-method_m5-004-b">Day 23 (急性反應期)</a>、<a class="hl hl-m5" id="sum-h-method_m5-005" data-id="h-method_m5-005" data-targets="h-method_m6-040-a h-method_m6-027-b">Day 31 (完全緩解評估點)</a>、<a class="hl hl-m5" id="sum-h-method_m5-006" data-id="h-method_m5-006" data-targets="h-method_m5-006-a h-l1-060-a">Day 90 (3 個月) 與 Day 180 (6 個月)</a>。<a class="hl hl-m5" id="sum-h-method_m5-007" data-id="h-method_m5-007" data-targets="h-l1-048-b h-method_m5-011-a">每個時間點都同時抽 whole blood 與做一次骨髓穿刺 (aspirate) 加切片 (biopsy)</a>。骨髓要兩種一起做，是因為兩者互補：穿刺抽出液態骨髓細胞懸浮液，<a class="hl hl-m5" id="sum-h-method_m5-008" data-id="h-method_m5-008" data-targets="h-method_m5-008-a">可直接跑 flow cytometry (量 CD5/CD19/κ/λ)</a>、<a class="hl hl-m5" id="sum-h-method_m5-009" data-id="h-method_m5-009" data-targets="h-l1-048-b">抽 genomic DNA 做 qPCR</a>、<a class="hl hl-m5" id="sum-h-method_m5-010" data-id="h-method_m5-010" data-targets="h-method_m5-010-a h-method_m5-010-b">離心取上清液做 Luminex 測骨髓 cytokine</a>；<a class="hl hl-m5" id="sum-h-method_m5-011" data-id="h-method_m5-011" data-targets="h-method_m5-011-a">切片則取一小塊完整組織做 H&amp;E 染色</a>，看細胞在骨髓結構裡的空間分佈 (<a class="hl hl-m5" id="sum-h-method_m5-012" data-id="h-method_m5-012" data-targets="h-method_m5-012-a">baseline 60% cellularity、CLL 佔 40%</a>；<a class="hl hl-m5" id="sum-h-method_m5-013" data-id="h-method_m5-013" data-targets="h-method_m5-013-a">Day 23 剩 10% CD5-negative 淋巴 aggregates</a>；<a class="hl hl-m5" id="sum-h-method_m5-014" data-id="h-method_m5-014" data-targets="h-method_m5-014-a">6 個月完全空掉</a>)。</p><p>血液這邊，<a class="hl hl-m5" id="sum-h-method_m5-015" data-id="h-method_m5-015" data-targets="h-method_m5-001-b">作者分離出血清後把每份切成「一次用完的小管」(single-use aliquot)</a>、<a class="hl hl-m5" id="sum-h-method_m5-016" data-id="h-method_m5-016" data-targets="h-method_m5-001-b">−80°C 冷凍保存</a>——血清裡的細胞激素每經一次凍融就會失活一部分，這樣跨批次跑 Luminex 時讀值才有橫向可比性。取樣時間點的選擇同樣不是隨機：<a class="hl hl-m5" id="sum-h-method_m5-019" data-id="h-method_m5-019" data-targets="h-l1-054-a h-l1-049-a h-method_m5-004-b">Day 23 剛好落在 CART19 峰值期與 cytokine 峰 (Day 17-23)</a>，若漏抽這一天，就無法把「CAR-T 峰值」與「TLS + cytokine + 骨髓清空」在時間軸上綁在一起、臨床反應也就無法歸因給 CART19；<a class="hl hl-m5" id="sum-h-method_m5-021" data-id="h-method_m5-021" data-targets="h-l1-060-a h-method_m10-001-b">Day 90 與 Day 180 則負責證明 4-1BB 版 CAR-T 不會像 CD28 版那樣早早消失</a>。取樣管線的紀律，決定了下游 qPCR/Luminex/Flow 的整套解讀能不能站得住。</p></div></details><details class="version c-m5"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>whole blood 取樣</strong>：每個時間點抽全血分離血清與 gDNA，供 qPCR、Luminex、flow。</li><li><strong>bone marrow aspirate</strong>：液態骨髓細胞懸浮液，用於 flow、qPCR、Luminex cytokine 測定。</li><li><strong>bone marrow biopsy + H&amp;E</strong>：取一小塊完整骨髓組織做染色，看細胞在骨髓結構的空間分佈。</li><li><strong>single-use aliquot</strong>：每份血清分裝到一次用完的小管，避免反覆凍融失活。</li><li><strong>−80°C 冷凍保存</strong>：血清標準保存溫度，維持 cytokine 蛋白活性以便跨批次可比。</li><li><strong>取樣節點 (Day −1/23/31/90/180)</strong>：分別對應 baseline、峰值/TLS、完全緩解、長期存活等關鍵臨床/科學問題。</li></ul></div></details></div><div class="module-block c-m6"><p class="module-thesis"><strong>主題六：腫瘤負荷與細胞遺傳學評估</strong><br>使用多種正交診斷工具<a class="hl hl-m6" id="sum-h-method_m6-002" data-id="h-method_m6-002" data-targets="h-method_m3-013-a h-method_m6-002-b">在治療前後量化 CLL 負擔與 TP53 缺失比例</a>，<a class="hl hl-m6" id="sum-h-method_m6-003" data-id="h-method_m6-003" data-targets="h-l1-007-b">以客觀證明完全緩解</a>。</p><details class="version c-m6"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m6" id="sum-h-method_m6-004" data-id="h-method_m6-004" data-targets="h-l1-007-b h-method_m5-014-a">作者要證明病人達到完全緩解</a>，一種工具做不到——他從四個不同尺度同時拍同一個腫瘤：<a class="hl hl-m6" id="sum-h-method_m6-006" data-id="h-method_m6-006" data-targets="h-method_m6-006-a h-method_m6-006-b">染色體核型分析 (karyotype) 把分裂中期的染色體一條條染色看形狀</a>，能看到大段異常，例如 <a class="hl hl-m6" id="sum-h-method_m6-007" data-id="h-method_m6-007" data-targets="h-method_m6-006-a">baseline 20 個細胞裡有 10 個帶 17p 相關異常</a> <a class="hl hl-m6" id="sum-h-method_m6-008" data-id="h-method_m6-008" data-targets="h-method_m6-008-a">(46,XY,del(17)(p12)[5]/46,XY,der(17)t(17;21)(q10;q10)[5]/46,XY[14])</a>，<a class="hl hl-m6" id="sum-h-method_m6-009" data-id="h-method_m6-009" data-targets="h-method_m6-006-b">治療後 15/15 顆全部回復正常</a>。<a class="hl hl-m6" id="sum-h-method_m6-010" data-id="h-method_m6-010" data-targets="h-l1-005-b">螢光原位雜交 (fluorescence in situ hybridization, FISH) 用一支專門黏到 TP53 基因的螢光探針</a>，<a class="hl hl-m6" id="sum-h-method_m6-011" data-id="h-method_m6-011" data-targets="h-l1-005-b h-method_m6-002-b">在 200 顆細胞裡直接數幾顆有兩份訊號、幾顆缺失</a>——<a class="hl hl-m6" id="sum-h-method_m6-012" data-id="h-method_m6-012" data-targets="h-l1-005-b">baseline 170/200 顆陽性</a>、<a class="hl hl-m6" id="sum-h-method_m6-013" data-id="h-method_m6-013" data-targets="h-method_m6-002-b">治療後只剩 2/200</a> (<a class="hl hl-m6" id="sum-h-method_m6-014" data-id="h-method_m6-014" data-targets="h-method_m6-002-b">落在陰性對照的背景範圍</a>)。<a class="hl hl-m6" id="sum-h-method_m6-015" data-id="h-method_m6-015" data-targets="h-method_m9-001-a h-method_m9-031-a">多參數流式細胞儀 (multi-parameter flow cytometry) 從細胞層次量 CD19⁺CD5⁺ 亞群</a>、<a class="hl hl-m6" id="sum-h-method_m6-016" data-id="h-method_m6-016" data-targets="h-method_m5-008-a">以及這群細胞的 \(\kappa/\lambda\) 免疫球蛋白光鏈分布</a>。<a class="hl hl-m6" id="sum-h-method_m6-017" data-id="h-method_m6-017" data-targets="h-method_m6-017-a h-method_m6-019-b">對比增強電腦斷層 (contrast-enhanced CT) 則從解剖層次量 axillary 等淋巴結體積</a>——<a class="hl hl-m6" id="sum-h-method_m6-018" data-id="h-method_m6-018" data-targets="h-method_m6-017-a">在入組前、Day 31、Day 104 各拍一次</a>，<a class="hl hl-m6" id="sum-h-method_m6-019" data-id="h-method_m6-019" data-targets="h-method_m6-019-a h-method_m6-019-b h-method_m6-040-a">看到原本 1–3 cm 的淋巴結在一個月內完全退散</a>。</p><p>flow 判 clonality 的邏輯建立在 B 細胞成熟時的「等位排除 (allelic exclusion)」上——每顆 B 細胞隨機挑 \(\kappa\) 或 \(\lambda\) 其中一種輕鏈用，正常 B 細胞群體 \(\kappa:\lambda\) 大約 2:1。癌細胞是從同一顆祖細胞複製出來的億萬個複本，全都繼承同一種光鏈；因此<a class="hl hl-m6" id="sum-h-method_m6-023" data-id="h-method_m6-023" data-targets="h-method_m9-001-a">看到 CD19⁺CD5⁺ 亞群裡 \(\kappa\) 佔壓倒性</a> (例如 &gt;95%) <a class="hl hl-m6" id="sum-h-method_m6-024" data-id="h-method_m6-024" data-targets="h-method_m9-031-a">就代表單株增殖 (clonal expansion)</a>。<a class="hl hl-m6" id="sum-h-method_m6-025" data-id="h-method_m6-025" data-targets="h-method_m6-025-a h-method_m9-001-a">本案 baseline 骨髓 CD19⁺CD5⁺ 幾乎全表達 \(\kappa\)</a>，<a class="hl hl-m6" id="sum-h-method_m6-026" data-id="h-method_m6-026" data-targets="h-method_m6-026-a">Day 31 flow 顯示 CD5⁺CD10⁻CD19⁺CD23⁺ 淋巴球 gate 已 &lt;1%</a>，<a class="hl hl-m6" id="sum-h-method_m6-027" data-id="h-method_m6-027" data-targets="h-method_m6-026-a h-method_m6-027-b h-method_m6-027-c">連正常 B 細胞都測不到</a>。<a class="hl hl-m6" id="sum-h-method_m6-028" data-id="h-method_m6-028" data-targets="h-method_m6-028-a">dot-plot x/y 兩軸都用 log₁₀ scale</a> 是因為細胞表面 marker 螢光橫跨好幾個數量級，用線性尺度會讓弱陽性擠在原點、強陽性拉到圖外；log 尺度讓 dim 與 bright 都能同時看到，方便 gating。</p><p>為什麼一定要四種都做、只做一種不行？每個工具各自有盲點：karyotype 只看 15–20 顆分裂中期細胞、殘餘 clone 若低於 5% 會直接漏掉；FISH 靈敏但只點單一位點；flow 有細胞層次卻看不到染色體；CT 只看解剖不看細胞。作者要下「完全緩解」的診斷，就必須讓四個工具彼此對得上：<a class="hl hl-m6" id="sum-h-method_m6-037" data-id="h-method_m6-037" data-targets="h-method_m6-006-b">karyotype 15/15 顆回復正常</a>、<a class="hl hl-m6" id="sum-h-method_m6-038" data-id="h-method_m6-038" data-targets="h-method_m6-002-b">FISH 只剩 2/200 落回背景</a>、<a class="hl hl-m6" id="sum-h-method_m6-039" data-id="h-method_m6-039" data-targets="h-method_m6-026-a">flow CD5⁺CD10⁻CD19⁺CD23⁺ &lt;1%</a>、<a class="hl hl-m6" id="sum-h-method_m6-040" data-id="h-method_m6-040" data-targets="h-method_m6-040-a h-method_m6-019-b">CT 淋巴結完全退散</a>——四張獨立證據互相 cross-check，才能排除單一模態誤判。若只做 karyotype，殘餘低比例 CLL 可能被誤為 CR；若只看 flow 的 CD19⁺CD5⁺ 比例、不看 \(\kappa/\lambda\) 光鏈，反應性 B 細胞浸潤與真正單株 CLL 難以區分。這種多正交結構是本篇說服 FDA 與 review board 「n=1 case 真的達到 CR」的關鍵。</p></div></details><details class="version c-m6"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>Karyotype</strong>：分裂中期染色體 G-band 染色觀察，能看到大段結構異常，例如 baseline del(17p) 的兩支 clone。</li><li><strong>FISH</strong>：用序列特異螢光探針對 200 顆 interphase 細胞的 TP53 位點雜交，直接數陽性百分比 (baseline 170/200 → 治療後 2/200)。</li><li><strong>Multi-parameter flow cytometry</strong>：用多支螢光抗體 (CD19、CD5、CD10、CD23、\(\kappa\)、λ) 同時掃每顆細胞，先 gate CD19⁺CD5⁺ 再看 \(\kappa/\lambda\) 分布。</li><li><strong>\(\kappa / \lambda\) light chain clonality</strong>：基於 B 細胞 allelic exclusion 的判讀邏輯——單一光鏈壓倒性表達代表單株增殖。</li><li><strong>Log₁₀ dot-plot</strong>：flow dot-plot 兩軸用 log₁₀ 尺度，讓 dim 與 bright positive 都能同時呈現。</li><li><strong>Contrast-enhanced CT</strong>：從解剖層次量 axillary 等淋巴結體積變化；入組前、Day 31、Day 104 各拍一次。</li></ul></div></details></div><div class="module-block c-m7"><p class="module-thesis"><strong>主題七：定量即時 PCR (qPCR) 偵測 CAR19 轉基因動力學</strong><br><a class="hl hl-m7" id="sum-h-method_m7-001" data-id="h-method_m7-001" data-targets="h-l1-048-a h-l1-048-b">以絕對定量的即時 PCR</a> <a class="hl hl-m7" id="sum-h-method_m7-002" data-id="h-method_m7-002" data-targets="h-l1-048-a h-l1-050-a h-method_m7-002-c">追蹤循環血液與骨髓中 CART19 細胞</a>的<a class="hl hl-m7" id="sum-h-method_m7-003" data-id="h-method_m7-003" data-targets="h-l1-006-a h-l1-049-a h-l1-051-a h-method_m10-001-b">擴增倍數、峰值時間及衰減曲線</a>，<a class="hl hl-m7" id="sum-h-method_m7-004" data-id="h-method_m7-004" data-targets="h-method_m7-004-a h-method_m7-004-b">將「臨床療效」與「活體 CAR-T 動力學」量化耦合</a>。</p><details class="version c-m7"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m7" id="sum-h-method_m7-005" data-id="h-method_m7-005" data-targets="h-l1-048-b h-l1-048-a">作者每次抽病人的血或骨髓</a>，先把裡面所有細胞打破、<a class="hl hl-m7" id="sum-h-method_m7-006" data-id="h-method_m7-006" data-targets="h-l1-048-b">把染色體 DNA (genomic DNA, gDNA) 抓出來</a>；再用一台<a class="hl hl-m7" id="sum-h-method_m7-007" data-id="h-method_m7-007" data-targets="h-l1-048-a h-l1-048-b">反覆翻倍的 DNA 放大反應 (即時定量 PCR, qPCR)</a> <a class="hl hl-m7" id="sum-h-method_m7-008" data-id="h-method_m7-008" data-targets="h-method_m7-008-a h-method_m7-013-b">專找 CAR19 這段人工轉基因的序列</a>。PCR 每個 cycle 讓目標 DNA 翻倍，qPCR 額外貼上會亮燈的螢光探針，機器記錄「亮度爬到某個門檻總共花了幾個 cycle」——起始分子越多、爬到門檻越快，<a class="hl hl-m7" id="sum-h-method_m7-011" data-id="h-method_m7-011" data-targets="h-method_m7-011-a">搭配已知濃度換算的對照線 (standard curve)</a> 就能把 cycle 數反推成起始分子數。<a class="hl hl-m7" id="sum-h-method_m7-012" data-id="h-method_m7-012" data-targets="h-method_m7-008-a">整組 primers 與 probe 只認 CAR19 這段獨特序列</a>，病人其他細胞的 DNA 完全不會被抓到，訊號背景幾近為零。<a class="hl hl-m7" id="sum-h-method_m7-013" data-id="h-method_m7-013" data-targets="h-method_m10-003-b h-method_m7-013-b">輸出指標是「每微克 gDNA 中的 CAR19 拷貝數 \((transgene copies per \mu g gDNA)\)」</a>——這個歸一化把不同樣本抽到的細胞總數差異拉平，也讓「<a class="hl hl-m7" id="sum-h-method_m7-014" data-id="h-method_m7-014" data-targets="h-method_m7-013-b h-l1-050-a">拷貝數 → 佔循環淋巴球百分比</a>」變成單純算術（人一顆細胞約 6.6 pg gDNA）。</p><p>這條對照線並非每個濃度都同樣可靠。線的高濃度端很整齊，但稀釋到極低時，本來 20 顆分子的樣本抽個小體積出來可能剛好裝到 5 顆或 40 顆——這種抽樣抖動 (Poisson noise) 讓每次重跑得到很不一樣的答案。作者把「訊號還能穩定重現」的最低濃度定為訊號可信的最低分子數 (<a class="hl hl-m7" id="sum-h-method_m7-018" data-id="h-method_m7-018" data-targets="h-method_m10-003-b">定量下限, LLOQ \(= 25 copies / \mu g\) gDNA</a>)；<a class="hl hl-m7" id="sum-h-method_m7-019" data-id="h-method_m7-019" data-targets="h-method_m7-019-a">低於這條線的樣本雖然還看得到燈亮，但只當「大概有一點」</a>，<a class="hl hl-m7" id="sum-h-method_m7-020" data-id="h-method_m7-020" data-targets="h-method_m7-019-a">不能拿數字去做斜率擬合</a>。</p><p>為什麼堅持用 gDNA 而不用 mRNA 為模板？mRNA 是「這顆細胞現在有沒有在生產 CAR 蛋白」的即時快照，會隨 T 細胞活化狀態拉高或掉下來；gDNA 則是插在染色體上的 CAR19，一顆細胞永遠一份、不會隨狀態變。<a class="hl hl-m7" id="sum-h-method_m7-024" data-id="h-method_m7-024" data-targets="h-l1-048-a">作者要問的是「這時體內有幾顆 CART19」</a>，<a class="hl hl-m7" id="sum-h-method_m7-025" data-id="h-method_m7-025" data-targets="h-l1-048-b">因此改用 gDNA 為模板，直接把訊號等同細胞數</a>。<a class="hl hl-m7" id="sum-h-method_m7-026" data-id="h-method_m7-026" data-targets="h-l1-048-b h-l1-048-a">取樣也刻意涵蓋兩個部位（血液與骨髓）</a>：血液反映「藥物在全身流通量」，骨髓 aspirate 反映「藥物有沒有實際抵達 CLL 大本營」；只看血無法確認 CART19 走進骨髓，只看骨髓則不能每天抓 kinetics，兩者互補才畫得出完整路徑。</p><p>兩個經典失敗模式劃出這套設計的護欄。若把 LLOQ 以下的訊號也拿去擬合，極低濃度區的抖動會把早期擴增斜率拉平、晚期衰減斜率拉歪，所以<a class="hl hl-m7" id="sum-h-method_m7-029" data-id="h-method_m7-029" data-targets="h-method_m7-019-a">作者明白註明「低於 LLOQ 只當近似值」</a>，動力學擬合只用 LLOQ 以上的點。若誤用 mRNA 為模板，TLS 那幾天 mRNA 暴衝會讓細胞數被誇大，穩定期 mRNA 掉下來又會讓細胞看似消失得比實際更快，<a class="hl hl-m7" id="sum-h-method_m7-031" data-id="h-method_m7-031" data-targets="h-l1-051-a">1.2 天倍增與 31 天半衰期這些關鍵數字</a>全部失真、PK 化論述整個報廢。</p></div></details><details class="version c-m7"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>即時定量 PCR (qPCR)</strong>：反覆翻倍的 DNA 放大反應，每輪貼上會亮燈的螢光探針；亮度爬到門檻的 cycle 數配合對照線可反推起始 DNA 分子數。</li><li><strong>genomic DNA (gDNA)</strong>：從細胞裡抽出的染色體 DNA；每顆細胞永遠一份，不隨活化狀態變化。</li><li><strong>primers/probe</strong>：為 CAR19 轉基因序列量身訂做的辨識短鏈，讓機器只認並複製這段獨特 DNA。</li><li><strong>standard curve</strong>：把已知拷貝數的 DNA 由高到低稀釋跑 qPCR 建立的對照線，用來把訊號換算回分子數。</li><li><strong>LLOQ \((25 copies / \mu g gDNA)\)</strong>：訊號可信的最低分子數；低於此值受 Poisson 抽樣抖動主導，只能當近似值。</li><li><strong>transgene copies per \(\mu g\) gDNA</strong>：作者採用的絕對定量輸出指標；把不同樣本細胞總數差異歸一化，並可換算為佔循環淋巴球百分比。</li></ul></div></details></div><div class="module-block c-m8"><p class="module-thesis"><strong>主題八：Luminex 多重血清與骨髓細胞激素定量</strong><br><a class="hl hl-m8" id="sum-h-method_m8-001" data-id="h-method_m8-001" data-targets="h-method_m5-002-b">使用 multiplex bead-array 在同一份小量檢體中同時定量多種細胞激素與趨化激素</a>，<a class="hl hl-m8" id="sum-h-method_m8-002" data-id="h-method_m8-002" data-targets="h-l1-055-a h-method_m8-002-b">把 tumor lysis syndrome 的臨床時序與免疫活化證據耦合起來</a>。</p><details class="version c-m8"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m8" id="sum-h-method_m8-003" data-id="h-method_m8-003" data-targets="h-method_m5-001-b h-method_m5-010-b">作者把病人的血清或骨髓抽取液上清 (bone marrow aspirate supernatant) 倒進一個小孔</a>，孔裡有一鍋帶顏色條碼的塑膠珠 (color-coded microspheres)。每種顏色的珠子在製造時就摻入不同比例的兩種染料，發出的光譜是獨一無二的組合，等於一組出廠條碼——把幾十種顏色的珠子混在同一鍋也不會混淆。每種顏色的珠子表面又預先掛好一種抓分析物的第一支抗體 (capture antibody)，例如綠色珠專抓 \(IFN-\gamma\)、藍色珠專抓 IL-6，<a class="hl hl-m8" id="sum-h-method_m8-009" data-id="h-method_m8-009" data-targets="h-method_m8-009-a">六種顏色對應六種細胞激素</a>。血清中的細胞激素被對應顏色的珠子釣起來後，再加一批帶螢光的第二支抗體 (reporter antibody)，形成「珠子—細胞激素—螢光抗體」三明治。要求兩支從不同角度辨識的抗體同時咬住目標蛋白才會發訊號——雙重把關讓假陽性大幅下降。</p><p>整鍋珠子最後被逐顆推過兩束雷射：紅色雷射打進珠子本體、激發內部顏色條碼，告訴機器「這顆是哪一號珠」；綠色雷射打三明治頂端的螢光，告訴機器「這顆珠上釣到多少細胞激素」。兩個訊號用不同顏色的光才不會互相干擾。單束雷射只能量一件事，兩束同時打才能一顆一顆同時回答「我是誰、我釣到多少」——這就是<a class="hl hl-m8" id="sum-h-method_m8-017" data-id="h-method_m8-017" data-targets="h-method_m5-002-b">多重珠陣列 (multiplex bead-array) 定量的核心</a>。<a class="hl hl-m8" id="sum-h-method_m8-018" data-id="h-method_m8-018" data-targets="h-method_m8-018-a">搭配已知濃度換算的對照線就能把螢光讀值換成 pg/mL</a>。</p><p>為什麼作者不用比較便宜的 ELISA 一次測一種，而挑 Luminex？骨髓抽取液每次能拿到的體積本來就很少，若一種細胞激素跑一份，抽個兩三下就沒得測了。<a class="hl hl-m8" id="sum-h-method_m8-021" data-id="h-method_m8-021" data-targets="h-method_m5-002-b">multiplex 讓 6 種以上的細胞激素在同一份小於 \(50 \mu L\) 檢體中平行定量</a>，同時省檢體、又確保「6 個讀值都來自完全同一個時間點、同一份細胞外液」——才能把 <a class="hl hl-m8" id="sum-h-method_m8-022" data-id="h-method_m8-022" data-targets="h-method_m8-009-a h-l1-054-a">\(IFN-\gamma\)、IL-6、CXCL9、CXCL10、sIL-2R、\(TNF-\alpha\)</a> 精準對到同一天的臨床事件。挑這 6 種分析物也非隨機，它們排成「因果鏈條 + 對照」\(：IFN-\gamma\) 是 T 細胞開火後最強的效應器；<a class="hl hl-m8" id="sum-h-method_m8-024" data-id="h-method_m8-024" data-targets="h-l1-053-a h-l1-054-a">CXCL9 與 CXCL10 是被 \(IFN-\gamma\) 直接觸發</a>、負責把更多免疫細胞往戰場拉的訊號；IL-6 是系統性發炎主軸；sIL-2R 是 T 細胞活化時脫落的表面受體、反映 T 細胞集體被喚醒的量；<a class="hl hl-m8" id="sum-h-method_m8-027" data-id="h-method_m8-027" data-targets="h-method_m8-027-a">\(TNF-\alpha\) 則作為對照——它幾乎不動</a>就代表這場反應不是廣泛細胞毒性風暴、而是特定路徑被啟動。</p><p>六種珠子混在同一鍋，最大風險是某一支抗體不小心黏上錯的細胞激素，導致訊號串線 (cross-reactivity)。廠商上市前必須對每組珠子做「只放單一分析物」的加樣測試才能出貨；<a class="hl hl-m8" id="sum-h-method_m8-030" data-id="h-method_m8-030" data-targets="h-method_m5-002-b">作者選用 Life Technologies 的商業試劑組</a>，等於借用廠商已預驗證的專一性。第二個陷阱在樣本保存：細胞激素是脆弱的蛋白，反覆凍融會有一部分蛋白摺疊被破壞、被 capture antibody 認不出來，讀值就會偏低。<a class="hl hl-m8" id="sum-h-method_m8-032" data-id="h-method_m8-032" data-targets="h-method_m5-001-b">作者把血清一次分裝成小分裝 (single-use aliquots) 存 −80°C</a>，每次解凍一支只用一次，避免假下降訊號污染時間序列。</p></div></details><details class="version c-m8"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>Luminex multiplex bead-array</strong>：把不同顏色的抗體珠混在同一鍋、逐顆過雙雷射，同一份小量檢體可平行定量多種細胞激素。</li><li><strong>color-coded microspheres</strong>：帶顏色條碼的塑膠珠；製造時摻入不同比例染料，發射光譜是獨一無二組合，區辨珠子身分。</li><li><strong>capture antibody / reporter antibody</strong>：珠子表面掛的第一支抗體負責抓分析物；後續加入的螢光第二支抗體形成三明治結構，讓假陽性大幅下降。</li><li><strong>dual-laser flow (雙雷射)</strong>：紅色雷射讀珠子顏色 = 身分；綠色雷射讀 reporter 螢光 = 分析物濃度；兩束不同顏色不互相干擾。</li><li><strong>分析物 panel \((IFN-\gamma, CXCL9, CXCL10, IL-6, sIL-2R, TNF-\alpha)\)</strong>：作者挑的 6 種細胞激素排成「因果鏈條 + 對照」，把 T 細胞活化 → 招援軍 → 系統發炎 → 反面對照整條路徑串起來。</li><li><strong>single-use aliquot / −80°C 保存</strong>：血清分裝一次一支，避免反覆凍融破壞蛋白摺疊、造成假下降訊號。</li><li><strong>standard curve</strong>：已知濃度換算的對照線，把螢光讀值換算成 pg/mL。</li></ul></div></details></div><div class="module-block c-m9"><p class="module-thesis"><strong>主題九：Flow-cytometric 定量分析與 log 尺度腫瘤 clonality 判讀</strong><br><a class="hl hl-m9" id="sum-h-method_m9-001" data-id="h-method_m9-001" data-targets="h-method_m9-001-a h-method_m6-026-a">以多參數流式細胞儀量化 CD19⁺/CD5⁺\(/\kappa/\lambda\) subset</a>，並<a class="hl hl-m9" id="sum-h-method_m9-002" data-id="h-method_m9-002" data-targets="h-method_m6-028-a h-method_m9-031-a">以 log₁₀ 雙軸 dot-plot 判定 clonality 消長</a>。</p><details class="version c-m9"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m9" id="sum-h-method_m9-003" data-id="h-method_m9-003" data-targets="h-method_m5-010-b h-method_m9-001-a">作者從骨髓吸取物做出單細胞懸液</a>，<a class="hl hl-m9" id="sum-h-method_m9-004" data-id="h-method_m9-004" data-targets="h-method_m6-025-a h-method_m6-026-a h-method_m5-008-a">加入一組各帶不同螢光顏色的抗體 (anti-CD19、anti-CD5、anti-CD10、anti-CD23、\(anti-\kappa\)、anti-λ)</a>，每支只認一種表面蛋白，像貼色卡一樣掛到細胞表面。多餘抗體洗掉之後，<a class="hl hl-m9" id="sum-h-method_m9-007" data-id="h-method_m9-007" data-targets="h-method_m9-001-a">細胞被送進多參數流式細胞儀 (multi-parameter flow cytometry)</a>。儀器用一種叫流體聚焦 (hydrodynamic focusing) 的技術把細胞懸液擠成極細的一條線通過雷射點——就像把一鍋湯灌進吸管，細胞被迫排單縱隊、一顆一顆穿過光束。每顆細胞經過時同時做兩件事：散射光被前後兩支偵測器讀走 (前散射 → 細胞大小；側散射 → 內部顆粒度)；掛在表面的螢光抗體被雷射激發，各自的螢光被幾支光電倍增管 (photomultiplier tubes, PMT) 分色接收。因為每種螢光染料的激發峰與發射峰彼此錯開，多顏色在同一顆細胞上互不打架——<a class="hl hl-m9" id="sum-h-method_m9-015" data-id="h-method_m9-015" data-targets="h-method_m5-008-a">最後每顆細胞都拿到「它是 CD19⁺ 嗎？CD5⁺ 嗎？\(\kappa\) 或 \(\lambda\)？」的完整多維座標</a>。</p><p>分層 gating 的作用是把訊噪比從「幾千比一」拉到「幾比一」。骨髓混著 T 細胞、B 細胞、漿細胞、B 前驅細胞、紅血球前身，直接把整鍋細胞的 \(\kappa/\lambda\) 分佈畫出來訊號會被非 B 細胞背景稀釋。<a class="hl hl-m9" id="sum-h-method_m9-019" data-id="h-method_m9-019" data-targets="h-method_m5-008-a">作者先在第一張 dot-plot 上框出「同時 CD19⁺ 又 CD5⁺」的象限</a>——這個組合是 CLL 幾乎專屬的表現型 (正常成熟 B 細胞的 CD5 通常是負的)——<a class="hl hl-m9" id="sum-h-method_m9-021" data-id="h-method_m9-021" data-targets="h-method_m5-008-a">只把落在這個框內的細胞往下傳</a>。<a class="hl hl-m9" id="sum-h-method_m9-022" data-id="h-method_m9-022" data-targets="h-method_m5-008-a">第二張 dot-plot 只畫這批細胞的 \(\kappa\) 對 \(\lambda\)</a>；為什麼看 \(\kappa/\lambda\) 就能判 clonality？因為 B 細胞在發育時隨機挑一條免疫球蛋白輕鏈基因當抗體零件——不是 \(\kappa\) 就是 \(\lambda\)——這個選擇一旦拍板，該細胞及其所有後代終身用同一種。正常人骨髓 B 細胞是幾千個獨立 clone 的混合，\(\kappa:\lambda\) 約 2:1；<a class="hl hl-m9" id="sum-h-method_m9-028" data-id="h-method_m9-028" data-targets="h-method_m9-001-a">癌細胞若全部只帶 \(\kappa\) 或全部只帶 \(\lambda\)，就是「同一祖先繼承同一選擇」的分子指紋 (clonal restriction)</a>。<a class="hl hl-m9" id="sum-h-method_m9-029" data-id="h-method_m9-029" data-targets="h-method_m6-025-a h-method_m9-001-a">本研究病人 baseline 呈現 clonal \(\kappa\) 表現</a>，<a class="hl hl-m9" id="sum-h-method_m9-030" data-id="h-method_m9-030" data-targets="h-method_m6-027-b h-method_m9-031-a">Day 31 這一 clone 消失</a>，<a class="hl hl-m9" id="sum-h-method_m9-031" data-id="h-method_m9-031" data-targets="h-method_m9-031-a">就是「腫瘤 clone 被清除」的直接證據</a>。</p><p><a class="hl hl-m9" id="sum-h-method_m9-032" data-id="h-method_m9-032" data-targets="h-method_m6-028-a">作者為什麼把 dot-plot 的 x/y 軸都設成 log₁₀ 尺度</a>？因為免疫染色訊號的動態範圍通常橫跨 3–4 個數量級——同一顆細胞可能綁 100 支抗體 (中度陽性)、也可能綁 10000 支 (強陽性)，兩者相差 100 倍。如果用線性刻度，10000 那顆被拉到最右上、其他細胞全擠成左下角一團黑點，dim 陽性與真正陰性根本分不開。<a class="hl hl-m9" id="sum-h-method_m9-037" data-id="h-method_m9-037" data-targets="h-method_m6-028-a">改成 log 尺度後，每個「decade (十倍)」佔一格視覺空間</a>，陰性、弱陽性、中度、強陽性都能清楚分開。這對本研究更關鍵：<a class="hl hl-m9" id="sum-h-method_m9-039" data-id="h-method_m9-039" data-targets="h-method_m3-013-a h-method_m5-012-a">baseline 骨髓 40% 是 CLL clone</a>，<a class="hl hl-m9" id="sum-h-method_m9-040" data-id="h-method_m9-040" data-targets="h-method_m6-026-a">Day 31 已降到 &lt;1%</a>，<a class="hl hl-m9" id="sum-h-method_m9-041" data-id="h-method_m9-041" data-targets="h-method_m6-028-a">log 軸才容納得下「一個 clone 從 40% 掉到 0.01%」這種跨四個量級的殞落</a>。</p><p>流式判讀有兩個常被漏掉的失敗模式。第一是 gating 邊界畫錯——太寬會把非 CLL 的 T 細胞或漿細胞納入 CD5⁺CD19⁺ 象限、稀釋掉真正 clone 的 \(\kappa\) 偏好；太窄則直接把弱陽性 CLL 排除、把 clone 消失量高估。第二是「螢光光譜補償 (spectral compensation) 沒做好」——每種螢光染料的發射光譜有 tail 會漏進鄰近偵測通道 (例如 FITC 訊號會在 PE 通道多讀出一點)，若沒把這部分數學扣掉，CD19 強陽性的細胞會被誤讀成 \(\kappa\) 弱陽性，clone 分佈整個歪掉；標準做法是先用單染樣本算出 spillover 矩陣、再自動扣除。<a class="hl hl-m9" id="sum-h-method_m9-050" data-id="h-method_m9-050" data-targets="h-method_m6-026-a">而作者用 &lt;1% 當「undetectable」的門檻</a>，也和這些雜訊直接相關——流式即使沒有目標細胞仍會因背景螢光、細胞碎片、rare event 誤判讀出 0.1–0.5% 的假陽性，血液學界一律用 &lt;1% 當「臨床上偵測不到」的閾值。<a class="hl hl-m9" id="sum-h-method_m9-053" data-id="h-method_m9-053" data-targets="h-method_m6-026-a">Day 31 讀到 &lt;1% 因此可宣稱為 CLL 已無殘留</a>，但意義是「若還有也已低到儀器分辨力之下」，不是絕對零。</p></div></details><details class="version c-m9"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>多參數流式細胞儀 (multi-parameter flow cytometry)</strong>：讓細胞單縱隊通過雷射、同時讀多個螢光通道的儀器，每顆細胞可以同時得到多個表面標記的定量結果。</li><li><strong>流體聚焦 (hydrodynamic focusing)</strong>：用外層 sheath fluid 把細胞懸液擠成極細單縱隊的流體技術，讓細胞一顆一顆通過雷射點。</li><li><strong>螢光標記抗體 panel</strong>：anti-CD19、anti-CD5、anti-CD10、anti-CD23、\(anti-\kappa\)、\(anti-\lambda\) 各帶不同螢光染料的抗體組合。</li><li><strong>分層 gating</strong>：先在第一張 dot-plot 框出 CD19⁺CD5⁺ (CLL 表現型)，再在第二張 dot-plot 只看這批細胞的 \(\kappa/\lambda\) 分佈，以拉開訊噪比。</li><li><strong>immunoglobulin \(\kappa / \lambda\) light chain</strong>：B 細胞在發育時隨機二擇一的輕鏈基因；一群細胞是否全用同一種，是判定是否來自單一 clone 的分子指紋。</li><li><strong>log₁₀ 雙軸 dot-plot</strong>：把 x/y 軸都設為 log₁₀ 尺度，讓橫跨 3–4 個 decade 的螢光訊號在視覺上分得開。</li><li><strong>螢光光譜補償 (spectral compensation)</strong>：先用單染樣本算出各螢光染料漏進鄰近通道的 spillover，再從樣本讀值中數學扣除，避免顏色互相干擾。</li><li><strong>&lt;1% undetectable 門檻</strong>：血液學流式界的傳統閾值——低於 1% 視為儀器分辨力之下，臨床上判為 undetectable 而非絕對零。</li></ul></div></details></div><div class="module-block c-m10"><p class="module-thesis"><strong>主題十：藥物動力學曲線擬合</strong><br><a class="hl hl-m10" id="sum-h-method_m10-001" data-id="h-method_m10-001" data-targets="h-l1-051-a h-method_m10-001-b">以指數擴增 + 一階衰減模型擬合 qPCR 時間序列</a>，<a class="hl hl-m10" id="sum-h-method_m10-002" data-id="h-method_m10-002" data-targets="h-l1-051-a h-method_m10-001-b">取得 CART19 在血液與骨髓中的擴增速率與清除速率</a>。</p><details class="version c-m10"><summary><span class="hdr"><span class="rank-badge">最佳版本</span><span class="vote">vote 1</span></span></summary><div class="panel-body"><p><a class="hl hl-m10" id="sum-h-method_m10-003" data-id="h-method_m10-003" data-targets="h-l1-048-b h-method_m10-003-b">作者拿到 qPCR 每個時間點的「每 \(\mu g\) gDNA 幾個 CAR19 拷貝」</a>後，把數字取對數（\(\log_{10}\)）畫在時間軸上。<a class="hl hl-m10" id="sum-h-method_m10-005" data-id="h-method_m10-005" data-targets="h-l1-049-a">前 21 天 CART19 一路暴衝</a>，取完 log 後這段點排成一條斜向上的直線——這是指數擴增模型 \((N(t) = N_0 \cdot 2^{t/T_d})\) 的預測結果：對指數兩邊取 log 後 \(\log N = \log N_0 + (\log 2 / T_d) \cdot t\) 變成標準直線，<a class="hl hl-m10" id="sum-h-method_m10-009" data-id="h-method_m10-009" data-targets="h-l1-051-a">斜率等於 \(\log 2 / T_d\)，反推倍增時間 \((doubling time, T_d)\)</a>。<a class="hl hl-m10" id="sum-h-method_m10-010" data-id="h-method_m10-010" data-targets="h-l1-060-a">第 21 天達到峰值後數字慢慢往下掉</a>，取完 log 後排成一條斜向下的直線——這是一階衰減模型 \((N(t) = N_{\mathrm{peak}} \cdot 0.5^{t/T_{1/2}})\) 的預測，<a class="hl hl-m10" id="sum-h-method_m10-013" data-id="h-method_m10-013" data-targets="h-l1-051-a">斜率反推清除半衰期 \((elimination half-life, T_{1/2})\)</a>。用兩條對數軸下的直線擬合 (log-linear fit) 各處理一段就是這個方法的骨架。<a class="hl hl-m10" id="sum-h-method_m10-015" data-id="h-method_m10-015" data-targets="h-l1-049-a h-method_m10-015-b">分界靠 qPCR 訊號峰值定：血液 Day 21、骨髓 Day 23</a>，之前歸擴增期、之後歸衰減期。</p><p>一階衰減背後的假設是「每顆細胞在單位時間內被移除的機率是常數」——不論群體大或小、殺得多快，個體的死亡率不變。這個假設在 CART19 進入衰減期時剛好近似成立：抗原被殺光後，細胞不再被強烈刺激，主要以自然凋亡 (apoptosis) 或平緩循環消耗為主，個體命運彼此獨立。若還在殺敵高峰或還有大量抗原，細胞會被額外的抗原刺激或活化誘導死亡拉快消耗，那時「一階」的簡化就會失真。所以這個模型和「峰值後才擬合」的策略是配套的。</p><p>為什麼要特意把 CART19 用倍增時間與清除半衰期描述？傳統小分子與抗體藥物的臨床學語言早已用「多快代謝掉一半」及相關 PK 參數描述動態；細胞治療若還停在「植入率」「存留率」這種定性詞，難跟現有藥物直接比較。<a class="hl hl-m10" id="sum-h-method_m10-027" data-id="h-method_m10-027" data-targets="h-l1-051-a">作者把 CART19 嵌進 PK 語言 (pharmacokinetic framework)</a>，一眼看得出「這是能自我複製的活體藥物」，讓後續 dose-finding 有量化依據——<a class="hl hl-m10" id="sum-h-method_m10-028" data-id="h-method_m10-028" data-targets="h-l1-006-a">in vivo expansion 倍數變成主要有效性代理指標</a>。<a class="hl hl-m10" id="sum-h-method_m10-029" data-id="h-method_m10-029" data-targets="h-l1-036-a">這正是 1.5×10⁵/kg 這種極低劑量還能被說服有效的關鍵論述</a>。分血液與骨髓兩段擬合也是刻意設計：<a class="hl hl-m10" id="sum-h-method_m10-031" data-id="h-method_m10-031" data-targets="h-l1-051-a">血液 half-life ≈ 31 天</a>、<a class="hl hl-m10" id="sum-h-method_m10-032" data-id="h-method_m10-032" data-targets="h-method_m10-001-b">骨髓 ≈ 34 天</a>，兩者差 3 天，就是「兩個 compartment 清除機制類似」的直接證據——沒有這個對照就沒法推論。</p><p>兩個常見錯法可以佐證上面設計。若不分擴增期與衰減期、強行用單一函數擬合，模型會在中間把向上與向下的斜率平均掉，得到一條「大概持平」的線——doubling time 被拉長、half-life 被縮短，兩個參數都失真。若不取 log 直接在線性座標擬合，末尾峰值那幾個點動輒 \(10^4\)、\(10^5\)，會把中段與早段的資訊完全壓下去，線性回歸的斜率會被最後幾個高點主導，完全反映不出「多快翻倍」；理由是線性回歸假設誤差沿 y 軸為常數，而指數資料的誤差沿 log 尺才是常數。改用 log 座標 + 分段擬合，才能得到有物理意義的 \(T_d\) 與 \(T_{1/2}\)。</p></div></details><details class="version c-m10"><summary><span class="hdr"><span class="rank-badge">工具與材料</span></span></summary><div class="panel-body"><ul class="terms-list"><li><strong>指數擴增模型 \(N(t) = N_0 \cdot 2^{t/T_d}\)</strong>：描述 CART19 抓到抗原後大量增殖的階段；log 化後變直線，斜率反推倍增時間 \(T_d\)。</li><li><strong>一階衰減模型 \(N(t) = N_{\mathrm{peak}} \cdot 0.5^{t/T_{1/2}}\)</strong>：描述抗原被殺光後細胞群平緩沉降；假設每顆細胞單位時間被移除的機率為常數。</li><li><strong>倍增時間 \((doubling time, T_d)\)</strong>：細胞群數量翻倍所需的時間；本研究血液 \(T_d \approx 1.2\) 天。</li><li><strong>清除半衰期 \((elimination half-life, T_{1/2})\)</strong>：細胞群數量減半所需的時間；本研究血液 \(T_{1/2} \approx 31\) 天、骨髓 \(\approx 34\) 天。</li><li><strong>log-linear fit</strong>：把 y 軸取對數後做線性回歸，讓指數變化變成直線，斜率的統計意義才正確。</li><li><strong>PK 語言 (pharmacokinetic framework)</strong>：傳統藥物用 half-life 等參數描述體內動態；把 CART19 嵌進此框架後可與小分子/抗體藥物直接比較，並支持低劑量有效的論述。</li></ul></div></details></div><div class="module-block c-synth"><p class="module-thesis"><strong>方法組合策略 &amp; 借鑑價值</strong></p><details class="version c-synth"><summary><span class="hdr"><span class="rank-badge">展開</span></span></summary><div class="panel-body synth-body"><h4>方法組合策略</h4>
+<p>(Synergy &amp; Pipeline) 這篇研究的強大之處在於巧妙組合了以下步驟 (Pipeline)：</p>
+<p>1.  <strong>「共刺激域升級 + 淋巴球耗竭 + 低劑量分次回輸」三合一策略：</strong> 用最小劑量的第二代 CAR-T 換到最大的活體內擴增與最長的持續期。</p>
+<ul>
+<li><strong>Step 1（載體端）：</strong> 用 pELPs 19-BB-z SIN lentivirus 把 anti-CD19 scFv-CD8α-4-1BB-CD3ζ 一次搞定，取代第一代只有 CD3ζ 的 CAR，讓 CAR-T 具備自體共刺激能力，不必依賴宿主 APC。</li>
+<li><strong>Step 2（宿主端）：</strong> 以 pentostatin + cyclophosphamide（沿用 Lamanna 2006 的 PCR regimen 但拿掉 rituximab）先清空病人的淋巴球區室，替 CAR-T 騰出 homeostatic niche 與 cytokine sink，讓後續極低劑量 CAR-T 也能植入。</li>
+<li><strong>Step 3（產品端）：</strong> 只回輸 1.46×10⁵ 轉導細胞 / kg，並以 10/30/60% 三日遞增給藥，避免瞬間 cytokine burst 又同時讓 CAR-T 在體內慢慢碰上抗原，累積擴增訊號。</li>
+<li><strong>效果：</strong> 解決了第一代 CAR-T「回輸量再大也擴增不起來」以及第二代 CD28-based CAR-T「進去很快就消失」的兩難：4-1BB 訊號域驅動了 memory-like 表型，淋巴球耗竭提供空間，低劑量分次讓 cytokine release 延後、可控，最終在 Day 21 達成 &gt;1000 倍活體內擴增與完全緩解。</li>
+</ul>
+<p>2.  <strong>「qPCR + Luminex + Flow + Cytogenetics/FISH + CT」多模態時間序列耦合：</strong> 把「藥物在哪裡」「免疫反應多強」「腫瘤剩多少」三件事在同一時間軸上疊圖。</p>
+<ul>
+<li><strong>Step 1：</strong> qPCR 精準量化 CAR19 transgene copies 動力學（doubling 1.2 d、half-life 31 d）。</li>
+<li><strong>Step 2：</strong> Luminex 平行量測 IFN-γ / CXCL9 / CXCL10 / IL-6 / sIL-2R / TNF-α，捕捉延遲 17–23 天的 cytokine surge。</li>
+<li><strong>Step 3：</strong> Flow 與 karyotype / FISH 從細胞層次證明 CD19⁺CD5⁺ clone 與 17p 缺失細胞被清除；CT 從解剖層次證明 adenopathy 消退。</li>
+<li><strong>效果：</strong> 因為 tumor lysis syndrome 是延遲性（Day 22 才發），單靠臨床觀察無法歸因；三種正交量測在同一時間點交會，才能把「TLS + 高熱 + LDH 飆升」直接歸因於 CART19 的 in vivo expansion 與 antigen-specific killing，這是說服 FDA 與 review board 的關鍵證據結構。</li>
+</ul>
+<p>3.  <strong>「Q-PCR 動力學建模 → PK 語言重新框架 CAR-T」：</strong> 傳統細胞治療用「植入率」「持續率」等定性描述，本研究把 CAR-T 硬套進 doubling-time / half-life 的 PK 框架，把它當作能自我複製的活體藥物看待。這讓「1.5×10⁵ /kg 也夠用」有量化證據，也為後續 dose-finding 研究鋪路。</p>
+<p>---</p>
+<h4>借鑑價值</h4>
+<p>(Takeaways for your research) 如果你未來的研究遇到以下狀況，可以借鑑這篇論文的方法：</p>
+<ul>
+<li><strong>[細胞治療活體內擴增不足]：</strong> 如果你的過繼細胞療法 (adoptive cell therapy) 在動物模型或早期臨床看到「輸進去但立刻消失」，可以借鑑本文「共刺激域升級 (4-1BB) + 宿主淋巴球耗竭 + 分次低劑量」三軸同時調整的策略，而非只在細胞劑量或製造流程上加碼。</li>
+<li><strong>[延遲性毒性難以歸因]：</strong> 如果你的介入 (免疫治療、基因治療、疫苗) 產生的毒性訊號 (發燒、LDH、cytokine) 出現在給藥後數週而非數小時，傳統 Grade 分類與時間序列分析很難建立因果關係。可借鑑本研究以 qPCR (定量藥物在體內分佈) + Luminex (多重細胞激素) + Flow (target cell 消長) 三個正交軸在同一時間軸疊圖的作法，讓延遲毒性直接對位到活體內活性峰值。</li>
+<li><strong>[極低劑量下的療效證明]：</strong> 如果你的療法在動物模型顯示極低劑量就有效，但常規臨床劑量遞增設計會遮蓋此訊號，可以借鑑本文以 qPCR-based doubling time / half-life 把細胞產品「PK 化」的做法：用 in vivo expansion 倍數而非 infused dose 當作有效性代理指標，即能替 low-starting-dose 找到量化基礎。</li>
+<li><strong>[小分子/化療與細胞療法的協同]：</strong> 如果你正在設計 combination therapy，思考「化療是否只用來殺腫瘤」是不足的。本文示範了 pentostatin + cyclophosphamide 的第二個角色——製造 lymphopenic niche 供 CAR-T 擴增（引用 Klebanoff 2005, ref 19；Zitvogel 2008, ref 20；Ramakrishnan 2010, ref 21）；未來可將宿主 conditioning 視為 combination 中的獨立變量並單獨最佳化。</li>
+<li><strong>[基於 scFv 的嵌合分子被免疫排斥]：</strong> 如果你要在人體長期表達含小鼠序列的嵌合蛋白（scFv、CAR、bispecifics），可借鑑本研究的觀察：CART19 清除正常 B 細胞後，反而使宿主對 murine scFv 產生 immunologic tolerance，讓 CAR-T 不被清除。這提示：<strong>同時消除 B 細胞的免疫療法可以順帶壓抑抗藥抗體 (ADA) 產生</strong>，是設計長效治療的一個可利用副作用。</li>
+<li><strong>[小樣本 (n=1) case report 如何具說服力]：</strong> 如果你只有單一或少數病人資料，可借鑑本文「多正交模態量測 + 時間軸對位 + PK 化建模」的方式，把 n=1 case 從 anecdote 升級為 mechanistic proof-of-concept，這在罕見病、first-in-human、compassionate use 場景特別有價值。</li>
+</ul></div></details></div>
+</aside>
+<script id="reader-panel-js">
+
+(function() {
+  function init() {
+    var COLOR_KEYS = ["summary", "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18", "m19", "m20", "m21", "m22", "m23", "m24", "m25", "m26", "m27", "m28", "m29", "m30"];
+    var COLOR_LABELS = {"summary": "全文摘要", "m1": "1-CAR 載體", "m2": "2-T 細胞製備", "m3": "3-淋巴耗竭", "m4": "4-分次回輸", "m5": "5-檢體取樣", "m6": "6-腫瘤評估", "m7": "7-qPCR 動力", "m8": "8-Luminex", "m9": "9-流式判讀", "m10": "10-PK 擬合"};
+    var enabled = new Set(['summary']);
+    var notesByMark = new Map();
+    var phraseTargets = new Map();
+    var mobileSlotByMark = new Map();
+    var mainEl = document.querySelector('main');
+    if (!mainEl) return;
+
+    function isNarrowViewport() { return window.innerWidth <= 1100; }
+    function colorIsOn(ck) { return enabled.has(ck) && !document.body.classList.contains('off-' + ck); }
+
+    function clearSelection() {
+      document.querySelectorAll('.margin-note.is-selected').forEach(function(n){
+        n.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ n.classList.remove('sel-' + k); });
+      });
+      document.querySelectorAll('mark.hl.is-selected').forEach(function(m){
+        m.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ m.classList.remove('sel-' + k); });
+      });
+      document.querySelectorAll('a.hl.is-selected').forEach(function(a){
+        a.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ a.classList.remove('sel-' + k); });
+      });
+    }
+
+    function selectPair(mark, note) {
+      clearSelection();
+      var colorKey = null;
+      if (note) {
+        note.classList.forEach(function(c){
+          var m = c.match(/^n-([a-z0-9]+)$/);
+          if (m) colorKey = m[1];
+        });
+        note.classList.add('is-selected');
+      }
+      if (mark) {
+        mark.classList.add('is-selected');
+        if (colorKey) mark.classList.add('sel-' + colorKey);
+        if (colorKey) {
+          var pids = (mark.getAttribute('data-pids-' + colorKey) || '').split(/\s+/).filter(Boolean);
+          pids.forEach(function(pid){
+            var a = document.getElementById('sum-' + pid);
+            if (a) {
+              a.classList.add('is-selected');
+              a.classList.add('sel-' + colorKey);
+            }
+          });
+        }
+      }
+    }
+
+    function noteForMarkColor(mark, ck) {
+      var entry = notesByMark.get(mark);
+      if (!entry) return null;
+      return entry[ck] || null;
+    }
+
+    // Anchor click
+    var anchorCycle = new Map();
+    document.querySelectorAll('.reader-panel a.hl[data-targets]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var targets = (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean);
+        if (!targets.length) return;
+        var aid = a.getAttribute('data-id');
+        var idx = anchorCycle.get(aid) || 0;
+        var tid = targets[idx % targets.length];
+        anchorCycle.set(aid, (idx + 1) % targets.length);
+        var mark = document.getElementById(tid);
+        if (!mark) return;
+        mark.scrollIntoView({behavior:'smooth', block:'center'});
+        // anchorColor from class
+        var anchorColor = null;
+        a.classList.forEach(function(c){
+          var m = c.match(/^hl-([a-z0-9]+)$/);
+          if (m) anchorColor = m[1];
+        });
+        if (anchorColor && !colorIsOn(anchorColor)) {
+          clearSelection();
+          return;
+        }
+        var note = noteForMarkColor(mark, anchorColor);
+        selectPair(mark, note);
+      });
+    });
+
+    // Build margin rail
+    var rail = document.createElement('div');
+    rail.className = 'margin-rail';
+    mainEl.appendChild(rail);
+
+    // Build phraseTargets
+    document.querySelectorAll('.reader-panel a.hl[data-targets][data-id]').forEach(function(a){
+      var pid = a.getAttribute('data-id');
+      var targets = (a.getAttribute('data-targets') || '').split(/\s+/).filter(Boolean);
+      if (!phraseTargets.has(pid)) phraseTargets.set(pid, []);
+      var arr = phraseTargets.get(pid);
+      targets.forEach(function(t){ if (arr.indexOf(t) === -1) arr.push(t); });
+    });
+
+    function slotForMark(mark) {
+      var existing = mobileSlotByMark.get(mark);
+      if (existing) return existing;
+      var slot = document.createElement('span');
+      slot.className = 'mobile-note-slot';
+      // find punctuation after mark
+      var anchor = mark;
+      var next = mark.nextSibling;
+      if (next && next.nodeType === Node.TEXT_NODE) {
+        var t = next.textContent;
+        var m = t.match(/^([，。！？；：、,.!?;:)\]）？」』》]+)/);
+        if (m) {
+          var puncLen = m[1].length;
+          var before = t.slice(0, puncLen);
+          var rest = t.slice(puncLen);
+          var puncNode = document.createTextNode(before);
+          next.textContent = rest;
+          mark.parentNode.insertBefore(puncNode, next);
+          anchor = puncNode;
+        }
+      }
+      if (anchor.nextSibling) {
+        anchor.parentNode.insertBefore(slot, anchor.nextSibling);
+      } else {
+        anchor.parentNode.appendChild(slot);
+      }
+      mobileSlotByMark.set(mark, slot);
+      return slot;
+    }
+
+    // Helper to wrap bare math tokens in note text using greedy strategy
+    // Mirror Python wrapper using simple regex (only converts $...$ to \(...\))
+    function noteContentFromAttr(t) {
+      // HTML escape
+      var s = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      // Convert $...$ to \(...\)
+      s = s.replace(/(?<!\\)\$([^$\n]+?)(?<!\\)\$/g, '\\($1\\)');
+      return s;
+    }
+
+    // For each mark, build notes
+    document.querySelectorAll('mark.hl').forEach(function(mark){
+      var attrs = Array.from(mark.attributes);
+      var colorNotes = {};
+      attrs.forEach(function(at){
+        var m = at.name.match(/^data-zh-([a-z0-9]+)$/);
+        if (!m) return;
+        var ck = m[1];
+        var note = document.createElement('span');
+        note.className = 'margin-note n-' + ck;
+        note.innerHTML = noteContentFromAttr(at.value);
+        // Next button
+        var pidsAttr = mark.getAttribute('data-pids-' + ck) || '';
+        var pids = pidsAttr.split(/\s+/).filter(Boolean);
+        var union = [];
+        pids.forEach(function(pid){
+          var arr = phraseTargets.get(pid) || [];
+          arr.forEach(function(t){ if (union.indexOf(t) === -1) union.push(t); });
+        });
+        if (union.length > 1) {
+          var nextBtn = document.createElement('span');
+          nextBtn.className = 'note-next';
+          var n = union.length - 1;
+          nextBtn.textContent = '→ 其他 ' + n + ' 處';
+          nextBtn.title = '跳到下一處（共 ' + union.length + ' 處）';
+          nextBtn.addEventListener('click', function(ev){
+            ev.stopPropagation();
+            var idx = union.indexOf(mark.id);
+            if (idx < 0) idx = 0;
+            var nextId = union[(idx + 1) % union.length];
+            var nextMark = document.getElementById(nextId);
+            if (!nextMark) return;
+            var entry = notesByMark.get(nextMark);
+            var nextNote = entry ? (entry[ck] || null) : null;
+            selectPair(nextMark, nextNote);
+            nextMark.scrollIntoView({behavior:'smooth', block:'center'});
+          });
+          note.appendChild(nextBtn);
+        }
+        note.addEventListener('click', function(){
+          selectPair(mark, note);
+          mark.scrollIntoView({behavior:'smooth', block:'center'});
+        });
+        rail.appendChild(note);
+        colorNotes[ck] = note;
+      });
+      if (Object.keys(colorNotes).length) {
+        notesByMark.set(mark, colorNotes);
+      }
+    });
+
+    // Typeset MathJax then reposition
+    function doTypeset() {
+      if (window.MathJax) {
+        var ready = (MathJax.startup && MathJax.startup.promise) || Promise.resolve();
+        ready.then(function(){
+          if (MathJax.typesetPromise) {
+            return MathJax.typesetPromise([mainEl]).then(function(){ reposition(); });
+          }
+        });
+      }
+    }
+
+    function moveNotesToFlow() {
+      notesByMark.forEach(function(entry, mark){
+        var slot = slotForMark(mark);
+        var keys = Object.keys(entry).sort(function(a,b){
+          if (a === 'summary') return -1;
+          if (b === 'summary') return 1;
+          var ai = parseInt(a.replace('m',''),10);
+          var bi = parseInt(b.replace('m',''),10);
+          return ai - bi;
+        });
+        keys.forEach(function(k){
+          var n = entry[k];
+          n.style.top = '';
+          n.style.left = '';
+          n.style.right = '';
+          slot.appendChild(n);
+        });
+      });
+    }
+
+    function moveNotesToRail() {
+      notesByMark.forEach(function(entry){
+        Object.keys(entry).forEach(function(k){
+          var n = entry[k];
+          if (n.parentNode !== rail) rail.appendChild(n);
+        });
+      });
+    }
+
+    var inLayout = false;
+    function reposition() {
+      if (inLayout) return;
+      inLayout = true;
+      requestAnimationFrame(function(){
+        try {
+          // reset rail-pad
+          document.querySelectorAll('[data-rail-pad]').forEach(function(el){
+            el.style.marginBottom = '';
+            el.removeAttribute('data-rail-pad');
+          });
+          if (isNarrowViewport()) {
+            moveNotesToFlow();
+            return;
+          }
+          moveNotesToRail();
+
+          var mainRect = mainEl.getBoundingClientRect();
+          // Group notes by block
+          var blockEntries = new Map();
+          notesByMark.forEach(function(entry, mark){
+            var block = mark.closest('.table-block, .table-wrap');
+            if (!block) {
+              block = mark.closest('p, figcaption, .caption, .table-title, .table-caption, li, h2, h3, .equation');
+            }
+            if (!block) return;
+            if (mark.closest('.reader-panel')) return;
+            if (!blockEntries.has(block)) blockEntries.set(block, []);
+            var arr = blockEntries.get(block);
+            var keys = Object.keys(entry).sort(function(a,b){
+              if (a === 'summary') return -1;
+              if (b === 'summary') return 1;
+              var ai = parseInt(a.replace('m',''),10);
+              var bi = parseInt(b.replace('m',''),10);
+              return ai - bi;
+            });
+            keys.forEach(function(k){
+              arr.push({ mark: mark, note: entry[k], color: k });
+            });
+          });
+
+          // process in document order
+          var blocks = Array.from(blockEntries.keys());
+          blocks.sort(function(a,b){
+            var p = a.compareDocumentPosition(b);
+            if (p & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+            if (p & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+            return 0;
+          });
+          var gap = 8;
+          blocks.forEach(function(block){
+            var arr = blockEntries.get(block);
+            arr.forEach(function(it){
+              var mr = it.mark.getBoundingClientRect();
+              it.desired = mr.top - mainRect.top;
+            });
+            arr.sort(function(a,b){ return a.desired - b.desired; });
+            var prevBottom = -Infinity;
+            arr.forEach(function(it){
+              var top = Math.max(it.desired, prevBottom + gap);
+              it.note.style.top = top + 'px';
+              prevBottom = top + it.note.offsetHeight;
+            });
+            // check overflow
+            var br = block.getBoundingClientRect();
+            var blockBottom = br.bottom - mainRect.top;
+            if (prevBottom > blockBottom + 4) {
+              var extra = prevBottom - blockBottom + 16;
+              block.style.marginBottom = extra + 'px';
+              block.setAttribute('data-rail-pad', '1');
+            }
+          });
+        } finally {
+          inLayout = false;
+        }
+      });
+    }
+
+    // Mark click
+    var markCycle = new Map();
+    document.querySelectorAll('mark.hl').forEach(function(mark){
+      mark.addEventListener('click', function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        var ids = (mark.getAttribute('data-back') || '').split(/\s+/).filter(Boolean);
+        var pool = ids.filter(function(sid){
+          var anchor = document.getElementById(sid);
+          if (!anchor) return false;
+          var ck = null;
+          anchor.classList.forEach(function(c){
+            var m = c.match(/^hl-([a-z0-9]+)$/);
+            if (m) ck = m[1];
+          });
+          return ck && colorIsOn(ck);
+        });
+        if (!pool.length) { clearSelection(); return; }
+        var idx = markCycle.get(mark.id) || 0;
+        var sid = pool[idx % pool.length];
+        markCycle.set(mark.id, (idx + 1) % pool.length);
+        var anchor = document.getElementById(sid);
+        if (!anchor) return;
+        var p = anchor.parentElement;
+        while (p) {
+          if (p.tagName === 'DETAILS') p.open = true;
+          p = p.parentElement;
+        }
+        anchor.scrollIntoView({behavior:'smooth', block:'center'});
+        var ck = null;
+        anchor.classList.forEach(function(c){
+          var m = c.match(/^hl-([a-z0-9]+)$/);
+          if (m) ck = m[1];
+        });
+        var note = noteForMarkColor(mark, ck);
+        selectPair(mark, note);
+      });
+    });
+
+    // is-active observer
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(ent){
+        var mark = ent.target;
+        var entry = notesByMark.get(mark);
+        if (!entry) return;
+        if (ent.isIntersecting) {
+          Object.values(entry).forEach(function(n){ n.classList.add('is-active'); });
+        } else {
+          Object.values(entry).forEach(function(n){ n.classList.remove('is-active'); });
+        }
+      });
+    }, { rootMargin: '-30% 0px -50% 0px' });
+    document.querySelectorAll('mark.hl').forEach(function(m){ io.observe(m); });
+
+    // Color toggle floating panel
+    var toggle = document.createElement('div');
+    toggle.className = 'color-toggle';
+    var titleEl = document.createElement('div');
+    titleEl.className = 'ct-title';
+    titleEl.innerHTML = '<span class="ct-label">顯示</span><span class="ct-caret">▾</span>';
+    titleEl.addEventListener('click', function(){
+      toggle.classList.toggle('is-collapsed');
+    });
+    toggle.appendChild(titleEl);
+    var itemsBox = document.createElement('div');
+    itemsBox.className = 'ct-items';
+    toggle.appendChild(itemsBox);
+
+    // notes toggle
+    var notesItem = document.createElement('div');
+    notesItem.className = 'ct-item';
+    notesItem.setAttribute('data-action', 'notes');
+    notesItem.innerHTML = '<span class="ct-swatch ct-swatch-notes"></span><span>開啟卡片</span>';
+    notesItem.addEventListener('click', function(){
+      var off = document.body.classList.toggle('notes-closed');
+      notesItem.classList.toggle('is-off', off);
+      reposition();
+    });
+    itemsBox.appendChild(notesItem);
+
+    function chooseBase(mark) {
+      if (enabled.has('summary')) {
+        var v = (mark.getAttribute('data-pids-summary') || '').trim();
+        if (v) return 'summary';
+      }
+      var best = null;
+      var bestCount = -1;
+      for (var i = 0; i < COLOR_KEYS.length; i++) {
+        var k = COLOR_KEYS[i];
+        if (k === 'summary') continue;
+        if (!enabled.has(k)) continue;
+        var av = (mark.getAttribute('data-pids-' + k) || '').trim();
+        if (!av) continue;
+        var cnt = av.split(/\s+/).length;
+        if (cnt > bestCount) {
+          bestCount = cnt;
+          best = k;
+        }
+      }
+      return best;
+    }
+
+    function rebaseMarks() {
+      document.querySelectorAll('mark.hl').forEach(function(mark){
+        var classes = mark.className.split(/\s+/);
+        var keep = classes.filter(function(c){
+          return !(c.indexOf('hl-') === 0 || c.indexOf('sel-') === 0 || c === 'is-selected');
+        });
+        var base = chooseBase(mark);
+        if (base) keep.push('hl-' + base); else keep.push('hl-none');
+        mark.className = keep.join(' ');
+      });
+      document.querySelectorAll('.margin-note.is-selected').forEach(function(n){
+        n.classList.remove('is-selected');
+      });
+      document.querySelectorAll('a.hl.is-selected').forEach(function(a){
+        a.classList.remove('is-selected');
+        COLOR_KEYS.forEach(function(k){ a.classList.remove('sel-' + k); });
+      });
+    }
+
+    COLOR_KEYS.forEach(function(k){
+      // Only emit toggle items for color keys this paper actually uses.
+      // `summary` is always present; method colors only when COLOR_LABELS has them.
+      if (k !== 'summary' && !(COLOR_LABELS && COLOR_LABELS[k])) return;
+      var item = document.createElement('div');
+      item.className = 'ct-item';
+      item.setAttribute('data-color', k);
+      var label = (COLOR_LABELS && COLOR_LABELS[k]) ? COLOR_LABELS[k] : k;
+      item.innerHTML = '<span class="ct-swatch ct-swatch-' + k + '"></span><span>' + label + '</span>';
+      if (k !== 'summary') {
+        document.body.classList.add('off-' + k);
+        item.classList.add('is-off');
+      }
+      item.addEventListener('click', function(){
+        if (enabled.has(k)) {
+          enabled.delete(k);
+          document.body.classList.add('off-' + k);
+          item.classList.add('is-off');
+        } else {
+          enabled.add(k);
+          document.body.classList.remove('off-' + k);
+          item.classList.remove('is-off');
+        }
+        rebaseMarks();
+        reposition();
+      });
+      itemsBox.appendChild(item);
+    });
+
+    document.body.appendChild(toggle);
+
+    // initial reposition + typeset
+    rebaseMarks();
+    reposition();
+    doTypeset();
+
+    window.addEventListener('resize', reposition);
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(reposition);
+      ro.observe(mainEl);
+    } else {
+      document.addEventListener('toggle', reposition, true);
+    }
+    document.querySelectorAll('main img').forEach(function(img){
+      if (!img.complete) img.addEventListener('load', reposition);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+<article>
+<header>
+
+<div class="publication" data-source-pages="1">
+<p>NIH Public Access<br>Author Manuscript</p>
+<p><em>N Engl J Med.</em> Author manuscript; available in PMC 2012 June 29.</p>
+<p>Published in final edited form as:<br><em>N Engl J Med.</em> 2011 August 25; 365(8): 725–733. doi:<a href="https://doi.org/10.1056/NEJMoa1103849">10.1056/NEJMoa1103849</a>.</p>
+</div>
+<h1 id="p1" data-paragraph="1" data-source-pages="1">Chimeric Antigen Receptor–Modified T Cells in Chronic Lymphoid Leukemia</h1>
+<p id="p2" data-paragraph="2" data-source-pages="1" class="authors">David L. Porter, M.D., Bruce L. Levine, Ph.D., Michael Kalos, Ph.D., Adam Bagg, M.D., and Carl H. June, M.D.</p>
+<p id="p3" data-paragraph="3" data-source-pages="1" class="affiliation">Abramson Cancer Center (D.L.P., B.L.L., M.K., A.B., C.H.J.), the Department of Medicine (D.L.P.), the Department of Pathology and Laboratory Medicine (B.L.L., M.K., A.B., C.H.J.), and the Abramson Family Cancer Research Institute (B.L.L., M.K., C.H.J.), Perelman School of Medicine, University of Pennsylvania, Philadelphia.</p>
+<p id="p4" data-paragraph="4" data-source-pages="1" class="correspondence">Address reprint requests to Dr. Porter at the Division of Hematology and Oncology, University of Pennsylvania Medical Center, 3400 Civic Center Blvd., PCAM 2 West Pavilion, Philadelphia, PA 19104, or at david.porter@uphs.upenn.edu..</p>
+<p class="copyright" data-source-pages="1">Copyright © 2011 Massachusetts Medical Society.</p>
+</header>
+<h2 id="p5" data-paragraph="5" data-source-pages="1">SUMMARY</h2>
+<p id="p6" data-paragraph="6" data-source-pages="1" class="abstract">We designed a lentiviral vector expressing a chimeric antigen receptor with specificity for the B-cell antigen CD19, coupled with CD137 (a costimulatory receptor in T cells [4-1BB]) and CD3-zeta (a signal-transduction component of the T-cell antigen receptor) signaling domains. <mark class="hl hl-summary" id="h-l1-004-a" data-back="sum-h-l1-004" data-zh-summary="只回輸極低劑量的改造細胞" data-pids-summary="h-l1-004">A low dose (approximately 1.5×10⁵ cells per kilogram of body weight) of autologous chimeric antigen receptor–modified T cells reinfused into a patient</mark> with refractory chronic lymphocytic leukemia (CLL) <mark class="hl hl-summary" id="h-l1-006-b" data-back="sum-h-l1-006" data-zh-summary="爆量增殖上千倍" data-pids-summary="h-l1-006">expanded to a level that was more than 1000 times as high as the initial engraftment level in vivo</mark>, with delayed development of the tumor lysis syndrome and with complete remission. Apart from the tumor lysis syndrome, the only other grade 3/4 toxic effect related to chimeric antigen receptor T cells was lymphopenia. <mark class="hl hl-summary" id="h-l1-032-a" data-back="sum-h-l1-032" data-zh-summary="讓 T 細胞與它未來的後代都會披著這支天線" data-pids-summary="h-l1-032">Engineered cells persisted at high levels for 6 months in the blood and bone marrow and continued to express the chimeric antigen receptor</mark>. <mark class="hl hl-summary" id="h-l1-034-a" data-back="sum-h-l1-034 sum-h-l1-063" data-zh-summary="成功的定義是：改造細胞回輸後既能在體內大量繁殖，又能徹底清光所有 B 細胞（包含癌變與正常） ／ 改造細胞在殺光癌細胞的同時，也把病人所有的 B 細胞（抗體工廠）一併清空了" data-pids-summary="h-l1-034 h-l1-063">A specific immune response was detected in the bone marrow, accompanied by loss of normal B cells and leukemia cells that express CD19</mark>. Remission was ongoing 10 months after treatment. <mark class="hl hl-summary" id="h-l1-065-b" data-back="sum-h-l1-065" data-zh-summary="結果病人陷入抗體不足，需要每月靜脈補充免疫球蛋白" data-pids-summary="h-l1-065">Hypogammaglobulinemia was an expected chronic toxic effect</mark>.</p>
+<p id="p7" data-paragraph="7" data-source-pages="1">With the use of gene-transfer techniques, <mark class="hl hl-summary" id="h-l1-022-a" data-back="sum-h-l1-022 sum-h-l1-025" data-zh-summary="替 T 細胞裝上一支人工設計的辨識天線，也就是嵌合抗原受體（chimeric antigen receptor, CAR） ／ 一個是讓 T 細胞開火的核心開關 $(CD3\zeta)$" data-pids-summary="h-l1-022 h-l1-025">T cells can be genetically modified to stably express antibodies on their surface, conferring new antigen specificity. Chimeric antigen receptors combine an antigen-recognition domain of a specific antibody with an intracellular domain of the CD3-zeta chain</mark> or FcγRI protein into a single chimeric protein.<sup class="citation">1,2</sup> Although <mark class="hl hl-summary" id="h-l1-033-a" data-back="sum-h-l1-033" data-zh-summary="這樣的 T 細胞遇到任何帶 CD19 的細胞就會啟動攻擊" data-pids-summary="h-l1-033">chimeric antigen receptors can trigger T-cell activation in a manner similar to that of endogenous T-cell receptors</mark>, <mark class="hl hl-summary" id="h-l1-028-a" data-back="sum-h-l1-028 sum-h-method_m1-003 sum-h-method_m1-039" data-zh-summary="殺不了多少癌細胞" data-pids-summary="h-l1-028" data-zh-m1="克服第一代 CAR 缺陷 ／ 輸進病人幾天內就從血液中消失、幾乎不擴增" data-pids-m1="h-method_m1-003 h-method_m1-039">a major impediment to the clinical application of this technique to date has been limited in vivo expansion of chimeric antigen receptor T cells and disappointing clinical activity</mark>.<sup class="citation">3,4</sup> Chimeric antigen receptor–mediated T-cell responses can be further enhanced with the addition of a costimulatory domain. In preclinical models, we found that <mark class="hl hl-summary" id="h-l1-003-a" data-back="sum-h-l1-003 sum-h-l1-026 sum-h-method_m1-028 sum-h-method_m1-037 sum-h-method_m4-016 sum-h-method_m1-023" data-zh-summary="並額外加上一個讓 T 細胞開火後不會很快熄火的助燃訊號 (4-1BB) ／ 讓 T 細胞開火之後不會很快熄火的助燃訊號 (4-1BB, CD137)" data-pids-summary="h-l1-003 h-l1-026" data-zh-m1="看到 4-1BB CAR 持續期顯著較長 ／ 沒有 4-1BB、回到只剩 $CD3\zeta$ 的第一代 CAR ／ 為什麼挑 4-1BB 而不是同期被試過的 CD28" data-pids-m1="h-method_m1-028 h-method_m1-037 h-method_m1-023" data-zh-m4="4-1BB 版 CAR-T 能自體擴增" data-pids-m4="h-method_m4-016">inclusion of the CD137 (4-1BB) signaling domain significantly increases antitumor activity and in vivo persistence of chimeric antigen receptors as compared with inclusion of the CD3-zeta chain alone</mark>.<sup class="citation">5,6</sup></p>
+<p id="p8" data-paragraph="8" data-source-pages="1,2">In most cancers, tumor-specific antigens for targeting are not well defined, but <mark class="hl hl-summary" id="h-l1-002-a" data-back="sum-h-l1-002 sum-h-l1-024 sum-h-l1-062 sum-h-l1-072" data-zh-summary="裝上一支能辨認 B 細胞身分標籤 (CD19) 的人工天線 ／ CD19 是一張只掛在 B 細胞身上的專屬身分標籤，其他重要器官都沒有 ／ 因為 CD19 也長在正常 B 細胞上 ／ 針對其他找不到像 CD19 這麼乾淨的身分標籤的癌症是否適用，也是未解的問題" data-pids-summary="h-l1-002 h-l1-024 h-l1-062 h-l1-072">in B-cell neoplasms, CD19 is an attractive target. Expression of CD19 is restricted to normal and malignant B cells and B-cell precursors</mark>.<sup class="citation">7</sup> We have initiated a pilot clinical trial of treatment with <mark class="hl hl-m2" id="h-method_m2-004-a" data-back="sum-h-method_m2-004" data-zh-m2="產生臨床用 CART19" data-pids-m2="h-method_m2-004">autologous T cells expressing an anti-CD19 chimeric antigen receptor (CART19)</mark>; three patients have been treated. <mark class="hl hl-summary" id="h-l1-068-a" data-back="sum-h-l1-068 sum-h-l1-005 sum-h-l1-009" data-zh-summary="這篇研究嚴格說只是一位病人的個案報告 ／ 在一位傳統療法失敗、帶有 TP53 缺失的慢性淋巴球白血病病人體內 ／ 這位病人罹患慢性淋巴球白血病（chronic lymphocytic leukemia, CLL）" data-pids-summary="h-l1-068 h-l1-005 h-l1-009">Here we report on the immunologic and clinical effects of in vivo T-cell treatment with chimeric antigen receptors in one of the patients</mark>, who had advanced, p53-deficient CLL.</p>
+<h2 id="p9" data-paragraph="9" data-source-pages="2">CASE REPORT</h2>
+<p id="p10" data-paragraph="10" data-source-pages="2"><mark class="hl hl-summary" id="h-l1-009-a" data-back="sum-h-l1-009" data-zh-summary="這位病人罹患慢性淋巴球白血病（chronic lymphocytic leukemia, CLL）" data-pids-summary="h-l1-009">The patient received a diagnosis of stage I CLL in 1996</mark>. He first required treatment after 6 years of observation for progressive leukocytosis and adenopathy. <mark class="hl hl-summary" id="h-l1-011-a" data-back="sum-h-l1-011" data-zh-summary="他多年來接受過多輪化療與抗體治療" data-pids-summary="h-l1-011">In 2002, he was treated with two cycles of rituximab plus fludarabine</mark>; this treatment resulted in normalization of blood counts and partial resolution of adenopathy. <mark class="hl hl-summary" id="h-l1-011-b" data-back="sum-h-l1-011" data-zh-summary="他多年來接受過多輪化療與抗體治療" data-pids-summary="h-l1-011">In 2006, he received four cycles of rituximab and fludarabine for disease progression</mark>, again with normalization of blood counts and partial regression of adenopathy. This response was followed by a 20-month progression-free interval and a 2-year treatment-free interval. <mark class="hl hl-summary" id="h-l1-012-b" data-back="sum-h-l1-012" data-zh-summary="每次只換來短暫改善就又復發" data-pids-summary="h-l1-012">In February 2009, he had rapidly progressive leukocytosis and recurrent adenopathy</mark>. His bone marrow was extensively infiltrated with CLL. Cytogenetic analysis showed that <mark class="hl hl-summary" id="h-l1-013-a" data-back="sum-h-l1-013" data-zh-summary="癌細胞還帶了一個特別棘手的基因缺陷——抑癌基因 TP53 被刪除" data-pids-summary="h-l1-013">3 of 15 cells contained a deletion of chromosome 17p</mark>, and <mark class="hl hl-summary" id="h-l1-005-b" data-back="sum-h-l1-005 sum-h-l1-013 sum-h-l1-057 sum-h-method_m6-010 sum-h-method_m6-011 sum-h-method_m6-012" data-zh-summary="在一位傳統療法失敗、帶有 TP53 缺失的慢性淋巴球白血病病人體內 ／ 癌細胞還帶了一個特別棘手的基因缺陷——抑癌基因 TP53 被刪除 ／ 原本 200 個細胞裡有 170 個帶 TP53 缺失，如今降到只剩 2 個" data-pids-summary="h-l1-005 h-l1-013 h-l1-057" data-zh-m6="螢光原位雜交 (fluorescence in situ hybridization, FISH) 用一支專門黏到 TP53 基因的螢光探針 ／ 在 200 顆細胞裡直接數幾顆有兩份訊號、幾顆缺失 ／ baseline 170/200 顆陽性" data-pids-m6="h-method_m6-010 h-method_m6-011 h-method_m6-012">fluorescence in situ hybridization (FISH) testing showed that 170 of 200 cells had a deletion involving</mark> <em>TP53</em> on chromosome 17p. <mark class="hl hl-summary" id="h-l1-011-c" data-back="sum-h-l1-011 sum-h-method_m3-008" data-zh-summary="他多年來接受過多輪化療與抗體治療" data-pids-summary="h-l1-011" data-zh-m3="因為病人先前對 rituximab 有嚴重過敏" data-pids-m3="h-method_m3-008">He received rituximab with bendamustine for one cycle and three additional cycles of bendamustine without rituximab</mark> (because of a severe allergic reaction). <mark class="hl hl-summary" id="h-l1-012-a" data-back="sum-h-l1-012" data-zh-summary="每次只換來短暫改善就又復發" data-pids-summary="h-l1-012">This treatment resulted in only transient improvement in lymphocytosis</mark>. Progressive adenopathy was documented by means of computed tomography (CT) after therapy.</p>
+<p id="p11" data-paragraph="11" data-source-pages="2">In December 2009, <mark class="hl hl-summary" id="h-l1-001-a" data-back="sum-h-l1-001 sum-h-l1-019 sum-h-method_m2-001 sum-h-method_m2-009 sum-h-method_m2-005" data-zh-summary="作者把病人自己的免疫殺手細胞 (T 細胞) 拉出體外 ／ 把病人自己的免疫殺手細胞" data-pids-summary="h-l1-001 h-l1-019" data-zh-m2="以 leukapheresis 取得病人自體 T 細胞 ／ 全部冷凍保存等待用 ／ 2009 年 12 月做的一次白血球分離術 (leukapheresis)" data-pids-m2="h-method_m2-001 h-method_m2-009 h-method_m2-005">autologous T cells were collected by means of leukapheresis and cryopreserved</mark>. The patient then received alemtuzumab (an anti-CD52, mature-lymphocyte, cell-surface antigen) for 11 weeks, with improved hematopoiesis and a partial resolution of adenopathy. Over the next 6 months, he had stable disease with persistent, extensive marrow involvement and <mark class="hl hl-m6" id="h-method_m6-019-a" data-back="sum-h-method_m6-019" data-zh-m6="看到原本 1–3 cm 的淋巴結在一個月內完全退散" data-pids-m6="h-method_m6-019">diffuse adenopathy with multiple 1- to 3-cm lymph nodes</mark>. In July 2010, the patient was enrolled in a phase 1 clinical trial of chimeric antigen receptor–modified T cells.</p>
+<h2 id="p12" data-paragraph="12" data-source-pages="2">METHODS</h2>
+<h3 id="p13" data-paragraph="13" data-source-pages="2">STUDY DESIGN</h3>
+<p id="p14" data-paragraph="14" data-source-pages="2">The trial (ClinicalTrials.gov number, NCT01029366) was <mark class="hl hl-m2" id="h-method_m3-028-a" data-back="sum-h-method_m2-004 sum-h-method_m3-028" data-zh-m2="產生臨床用 CART19" data-pids-m2="h-method_m2-004" data-zh-m3="把殺癌工作交給病人自己 T 細胞改造的 CART19" data-pids-m3="h-method_m3-028">designed to assess the safety and feasibility of infusing autologous CART19 T cells</mark> in patients with relapsed or refractory B-cell neoplasms. The trial was approved by the institutional review board at the University of Pennsylvania. The study was conducted in accordance with the protocol (available with the full text of this article at NEJM.org). No commercial sponsor was involved in the study.</p>
+<h3 id="p15" data-paragraph="15" data-source-pages="2">STUDY PROCEDURES</h3>
+<p id="p16" data-paragraph="16" data-source-pages="2">We designed a <mark class="hl hl-summary" id="h-l1-030-a" data-back="sum-h-l1-030 sum-h-method_m1-009 sum-h-method_m1-010 sum-h-method_m1-031 sum-h-method_m1-032 sum-h-method_m1-001" data-zh-summary="作者需要一輛擅長把貨物永久嵌進染色體、且已被閹割到既不會複製也不會致病的病毒工程車 (lentivirus，源自 HIV 家族但已無感染力)" data-pids-summary="h-l1-030" data-zh-m1="即自失活載體 (self-inactivating, SIN) ／ 正式編號為 GeMCRIS 0607-793 ／ 登錄美國 NIH 的人體基因治療監管識別碼 (GeMCRIS 0607-793) ／ 通過 preclinical safety testing ／ 設計一支自失活型慢病毒載體" data-pids-m1="h-method_m1-009 h-method_m1-010 h-method_m1-031 h-method_m1-032 h-method_m1-001">self-inactivating lentiviral vector (GeMCRIS 0607-793), which was subjected to preclinical safety testing</mark>, as reported previously.<sup class="citation">5</sup> <mark class="hl hl-m2" id="h-method_m2-002-a" data-back="sum-h-method_m2-002 sum-h-method_m2-011 sum-h-method_m2-016" data-zh-m2="於 GMP 條件下用 CD3/CD28 珠子活化擴增後 ／ 接著用 CD3/CD28 共刺激珠子活化擴增 ／ protocol 沿用 Porter et al. 2006 Blood" data-pids-m2="h-method_m2-002 h-method_m2-011 h-method_m2-016">Methods of T-cell preparation have also been described previously.</mark><sup class="citation">8</sup> <mark class="hl hl-summary" id="h-l1-048-a" data-back="sum-h-l1-048 sum-h-method_m5-002 sum-h-method_m7-001 sum-h-method_m7-002 sum-h-method_m7-005 sum-h-method_m7-007 sum-h-method_m7-024 sum-h-method_m7-026" data-zh-summary="他們用 PCR（一種能專門放大某段 DNA 序列的偵測法）追蹤帶有天線基因的細胞" data-pids-summary="h-l1-048" data-zh-m5="供下游 qPCR、Luminex 與流式使用" data-pids-m5="h-method_m5-002" data-zh-m7="以絕對定量的即時 PCR ／ 追蹤循環血液與骨髓中 CART19 細胞 ／ 作者每次抽病人的血或骨髓 ／ 反覆翻倍的 DNA 放大反應 (即時定量 PCR, qPCR) ／ 作者要問的是「這時體內有幾顆 CART19」 ／ 取樣也刻意涵蓋兩個部位（血液與骨髓）" data-pids-m7="h-method_m7-001 h-method_m7-002 h-method_m7-005 h-method_m7-007 h-method_m7-024 h-method_m7-026">Quantitative polymerase-chain-reaction (PCR) analysis was performed to detect chimeric antigen receptor T cells in blood and bone marrow</mark>. <mark class="hl hl-m7" id="h-method_m7-011-a" data-back="sum-h-method_m7-011" data-zh-m7="搭配已知濃度換算的對照線 (standard curve)" data-pids-m7="h-method_m7-011">The lower limit of quantification was determined from the standard curve</mark>; <mark class="hl hl-m7" id="h-method_m7-019-a" data-back="sum-h-method_m7-019 sum-h-method_m7-020 sum-h-method_m7-029" data-zh-m7="低於這條線的樣本雖然還看得到燈亮，但只當「大概有一點」 ／ 不能拿數字去做斜率擬合 ／ 作者明白註明「低於 LLOQ 只當近似值」" data-pids-m7="h-method_m7-019 h-method_m7-020 h-method_m7-029">average values below the lower limit of quantification (i.e., reportable but not quantifiable) are considered approximate</mark>. <mark class="hl hl-m7" id="h-method_m10-003-b" data-back="sum-h-method_m10-003 sum-h-method_m7-013 sum-h-method_m7-018" data-zh-m7="輸出指標是「每微克 gDNA 中的 CAR19 拷貝數 $(transgene copies per \mu g gDNA)$」 ／ 定量下限, LLOQ $= 25 copies / \mu g$ gDNA" data-pids-m7="h-method_m7-013 h-method_m7-018" data-zh-m10="作者拿到 qPCR 每個時間點的「每 $\mu g$ gDNA 幾個 CAR19 拷貝」" data-pids-m10="h-method_m10-003">The lower limit of quantification of the assay was 25 copies per microgram of genomic DNA</mark>.</p>
+<p id="p17" data-paragraph="17" data-source-pages="2"><mark class="hl hl-m5" id="h-method_m5-001-b" data-back="sum-h-method_m5-001 sum-h-method_m5-015 sum-h-method_m5-016 sum-h-method_m8-003 sum-h-method_m8-032" data-zh-m5="建立可縱向追蹤 CART19 動態、宿主 cytokine 反應與腫瘤負荷的血液與骨髓取樣管線 ／ 作者分離出血清後把每份切成「一次用完的小管」(single-use aliquot) ／ −80°C 冷凍保存" data-pids-m5="h-method_m5-001 h-method_m5-015 h-method_m5-016" data-zh-m8="作者把病人的血清或骨髓抽取液上清 (bone marrow aspirate supernatant) 倒進一個小孔 ／ 作者把血清一次分裝成小分裝 (single-use aliquots) 存 −80°C" data-pids-m8="h-method_m8-003 h-method_m8-032">Soluble-factor analysis was performed with the use of serum from whole blood and bone marrow that was separated into aliquots for single use and stored at −80°C</mark>. <mark class="hl hl-summary" id="h-method_m5-002-b" data-back="sum-h-l1-052 sum-h-method_m5-002 sum-h-method_m8-001 sum-h-method_m8-017 sum-h-method_m8-021 sum-h-method_m8-030" data-zh-summary="T 細胞開火時會分泌一群名為細胞因子的免疫警報素 (cytokine)" data-pids-summary="h-l1-052" data-zh-m5="供下游 qPCR、Luminex 與流式使用" data-pids-m5="h-method_m5-002" data-zh-m8="使用 multiplex bead-array 在同一份小量檢體中同時定量多種細胞激素與趨化激素 ／ 多重珠陣列 (multiplex bead-array) 定量的核心 ／ multiplex 讓 6 種以上的細胞激素在同一份小於 $50 \mu L$ 檢體中平行定量 ／ 作者選用 Life Technologies 的商業試劑組" data-pids-m8="h-method_m8-001 h-method_m8-017 h-method_m8-021 h-method_m8-030">Quantification of soluble cytokine factors was performed with the use of Luminex bead-array technology and reagents from Life Technologies</mark>.</p>
+<h2 id="p18" data-paragraph="18" data-source-pages="3">RESULTS</h2>
+<h3 id="p19" data-paragraph="19" data-source-pages="3">CELL INFUSIONS</h3>
+<figure id="Figure_1" data-source-pages="9,10"><img src="figures/Figure_1.png" alt="Figure 1. Clinical Response in the Patient"><figcaption id="p20" data-paragraph="20" data-source-pages="9,10"><span class="caption-title">Figure 1. Clinical Response in the Patient</span><p>Panel A shows the lentiviral vector used to infect T cells from the patient. <mark class="hl hl-m2" id="h-method_m1-011-a" data-back="sum-h-method_m1-011 sum-h-method_m2-003 sum-h-method_m2-017" data-zh-m1="換成水泡口炎病毒外套 (VSV-G) 把它包起來 (pseudotyped)" data-pids-m1="h-method_m1-011" data-zh-m2="以 pELPs 19-BB-z 慢病毒轉導 ／ T 細胞進入分裂期後，才加入 pELPs 19-BB-z 慢病毒液共培養" data-pids-m2="h-method_m2-003 h-method_m2-017">A pseudotyped, clinical-grade lentiviral vector of vesicular stomatitis virus protein G (pELPs 19-BB-z)</mark> <mark class="hl hl-summary" id="h-method_m1-002-a" data-back="sum-h-l1-002 sum-h-l1-023 sum-h-method_m1-002 sum-h-method_m1-005 sum-h-method_m1-014 sum-h-method_m1-015 sum-h-method_m1-016 sum-h-l1-003 sum-h-l1-025" data-zh-summary="裝上一支能辨認 B 細胞身分標籤 (CD19) 的人工天線 ／ 是從一種抗體剪下來、能死死抓住 CD19 的辨識夾子 ／ 並額外加上一個讓 T 細胞開火後不會很快熄火的助燃訊號 (4-1BB) ／ 一個是讓 T 細胞開火的核心開關 $(CD3\zeta)$" data-pids-summary="h-l1-002 h-l1-023 h-l1-003 h-l1-025" data-zh-m1="將 anti-CD19 scFv 與 4-1BB (CD137) 共刺激域及 $CD3\zeta$ 訊號域串接為單一嵌合受體 ／ 把辨識 CD19 的抗體、開火按鈕、持續作戰按鈕全部裝在 T 細胞的膜外與膜內 ／ 最外側是從小鼠 FMC63 抗體剪下來的單鏈變異片段 ／ 中間接上 T 細胞常用的 $CD8\alpha$ hinge 與跨膜段 ／ 胞內側則把 4-1BB (CD137) 的訊號域串在 $CD3\zeta$ 前面" data-pids-m1="h-method_m1-002 h-method_m1-005 h-method_m1-014 h-method_m1-015 h-method_m1-016">directing expression of anti-CD19 scFv derived from FMC63 murine monoclonal antibody, human CD8α hinge and transmembrane domain, and human 4-1BB and CD3ζ signaling domains</mark> was produced. <mark class="hl hl-m1" id="h-method_m1-013-a" data-back="sum-h-method_m1-013" data-zh-m1="CAR19 本身是一條由四段功能組成的融合蛋白" data-pids-m1="h-method_m1-013">Details of the CAR19 transgene, at the bottom of the panel, show the major functional elements</mark>. The figure is not to scale. 3′LTR denotes 3′ long terminal repeat; 5′LTR, 5′ long terminal repeat; Amp R, ampicillin resistance gene; Bovine GH Poly A, bovine growth hormone with polyadenylation tail; cPPT/CTS, central polypurine tract with central termination sequence; <mark class="hl hl-m1" id="h-method_m1-021-a" data-back="sum-h-method_m1-021" data-zh-m1="啟動子挑 $EF-1\alpha$ 而不是 CMV" data-pids-m1="h-method_m1-021">EF-1α, elongation factor 1-alpha</mark>; env, envelope; gag, group-specific antigen; pol, HIV gene encoding polymerase and reverse transcriptase; R, repeat; RRE, rev response element; scFv, single-chain variable fragment; TM, transmembrane; and WPRE, woodchuck hepatitis virus post-transcriptional regulatory element. Panel B shows serum creatinine, uric acid, and lactate dehydrogenase (LDH) levels from day 1 to day 28 after the first CART19-cell infusion. <mark class="hl hl-m4" id="h-method_m4-014-b" data-back="sum-h-method_m4-014" data-zh-m4="本病人後來的 tumor lysis syndrome (Day 22) 是延遲反應" data-pids-m4="h-method_m4-014">The peak levels coincided with hospitalization for the tumor lysis syndrome.</mark> Panel C shows <mark class="hl hl-m5" id="h-method_m5-011-a" data-back="sum-h-method_m5-003 sum-h-method_m5-004 sum-h-method_m5-011 sum-h-method_m5-007" data-zh-m5="化療前、化療後 Day −1 (回輸前一天) ／ Day 23 (急性反應期) ／ 切片則取一小塊完整組織做 H&amp;E 染色 ／ 每個時間點都同時抽 whole blood 與做一次骨髓穿刺 (aspirate) 加切片 (biopsy)" data-pids-m5="h-method_m5-003 h-method_m5-004 h-method_m5-011 h-method_m5-007">bone marrow–biopsy specimens obtained 3 days after chemotherapy (day −1, before CART19-cell infusion) and 23 days and 6 months after CART19-cell infusion (hematoxylin and eosin)</mark>. <mark class="hl hl-m3" id="h-method_m5-012-a" data-back="sum-h-method_m3-014 sum-h-method_m5-012 sum-h-method_m9-039" data-zh-m3="CLL 佔骨髓約 40%" data-pids-m3="h-method_m3-014" data-zh-m5="baseline 60% cellularity、CLL 佔 40%" data-pids-m5="h-method_m5-012" data-zh-m9="baseline 骨髓 40% 是 CLL clone" data-pids-m9="h-method_m9-039">The baseline specimen shows hypercellular bone marrow (60%) with trilineage hematopoiesis, infiltrated by predominantly interstitial aggregates of small, mature lymphocytes that account for 40% of total cellularity</mark>. <mark class="hl hl-summary" id="h-method_m5-013-a" data-back="sum-h-l1-007 sum-h-l1-056 sum-h-method_m5-013" data-zh-summary="把癌細胞全部清光 ／ 到第 23 天，骨髓活檢已測不到白血病細胞" data-pids-summary="h-l1-007 h-l1-056" data-zh-m5="Day 23 剩 10% CD5-negative 淋巴 aggregates" data-pids-m5="h-method_m5-013">The specimen obtained on day 23 shows residual lymphoid aggregates (10%) that were negative for chronic lymphoid leukemia (CLL), with a mixture of T cells and CD5-negative B cells</mark>. <mark class="hl hl-m5" id="h-method_m5-014-a" data-back="sum-h-method_m5-014 sum-h-method_m6-004" data-zh-m5="6 個月完全空掉" data-pids-m5="h-method_m5-014" data-zh-m6="作者要證明病人達到完全緩解" data-pids-m6="h-method_m6-004">The specimen obtained 6 months after infusion shows trilineage hematopoiesis, without lymphoid aggregates and continued absence of CLL</mark>. <mark class="hl hl-m6" id="h-method_m6-017-a" data-back="sum-h-method_m6-017 sum-h-method_m6-018" data-zh-m6="對比增強電腦斷層 (contrast-enhanced CT) 則從解剖層次量 axillary 等淋巴結體積 ／ 在入組前、Day 31、Day 104 各拍一次" data-pids-m6="h-method_m6-017 h-method_m6-018">Panel D shows contrast-enhanced CT scans obtained before the patient was enrolled in the study and 31 days and 104 days after the first infusion.</mark> <mark class="hl hl-summary" id="h-method_m6-019-b" data-back="sum-h-l1-058 sum-h-method_m6-017 sum-h-method_m6-019 sum-h-method_m6-040" data-zh-summary="腫脹的淋巴結也在一個月內消退" data-pids-summary="h-l1-058" data-zh-m6="對比增強電腦斷層 (contrast-enhanced CT) 則從解剖層次量 axillary 等淋巴結體積 ／ 看到原本 1–3 cm 的淋巴結在一個月內完全退散 ／ CT 淋巴結完全退散" data-pids-m6="h-method_m6-017 h-method_m6-019 h-method_m6-040">The preinfusion CT scan reveals 1-to-3-cm bilateral masses. Regression of axillary lymphadenopathy occurred within 1 month after infusion and was sustained.</mark> Arrows highlight various enlarged lymph nodes before therapy and lymphnode responses on comparable CT scans after therapy.</p></figcaption></figure>
+<p id="p21" data-paragraph="21" data-source-pages="3"><mark class="hl hl-summary" id="h-l1-021-a" data-back="sum-h-l1-001 sum-h-l1-021 sum-h-l1-031 sum-h-method_m1-006 sum-h-method_m2-003 sum-h-method_m2-010 sum-h-method_m2-017" data-zh-summary="作者把病人自己的免疫殺手細胞 (T 細胞) 拉出體外 ／ 從血液中撈出來、在體外改造，再回輸給病人 ／ 用它把 CAR 天線的圖紙塞進病人的 T 細胞" data-pids-summary="h-l1-001 h-l1-021 h-l1-031" data-zh-m1="運送這台對講機圖紙的是慢病毒" data-pids-m1="h-method_m1-006" data-zh-m2="以 pELPs 19-BB-z 慢病毒轉導 ／ Clinical Cell and Vaccine Production Facility (CVPF) 在 GMP 條件下把細胞解凍 ／ T 細胞進入分裂期後，才加入 pELPs 19-BB-z 慢病毒液共培養" data-pids-m2="h-method_m2-003 h-method_m2-010 h-method_m2-017">Autologous T cells from the patient were thawed and transduced with lentivirus to express the CD19-specific chimeric antigen receptor</mark> (Fig. 1A). <mark class="hl hl-summary" id="h-l1-035-a" data-back="sum-h-l1-035 sum-h-method_m3-001 sum-h-method_m3-002 sum-h-method_m3-003 sum-h-method_m3-004 sum-h-method_m3-005 sum-h-method_m3-009 sum-h-method_m3-011 sum-h-method_m3-012 sum-h-method_m3-021 sum-h-method_m3-027" data-zh-summary="病人先接受一輪較弱的化療，幫免疫系統清出位置" data-pids-summary="h-l1-035" data-zh-m3="於 CART19 回輸前 4 天 ／ 施用不含 rituximab 的 pentostatin + cyclophosphamide 化療 ／ 透過清空 host 淋巴球創造 CART19 擴增空間 ／ 這輪化療目的不是殺癌 ／ 先把病人自己的淋巴球數量壓下去 ／ 作者直接拿掉 rituximab 只留下前兩味藥 ／ 劑量是 pentostatin 4 mg/m² 體表面積一劑加 cyclophosphamide 600 mg/m² 一劑 ／ 於回輸前 4 天給藥 ／ 化療把大部分淋巴球清掉後 ／ 作者的替代路線是只用溫和淋巴球耗竭清出空間" data-pids-m3="h-method_m3-001 h-method_m3-002 h-method_m3-003 h-method_m3-004 h-method_m3-005 h-method_m3-009 h-method_m3-011 h-method_m3-012 h-method_m3-021 h-method_m3-027">Four days before cell infusion, the patient received chemotherapy designed for depletion of lymphocytes (pentostatin at a dose of 4 mg per square meter of body-surface area and cyclophosphamide at a dose of 600 mg per square meter) without rituximab</mark>.<sup class="citation">9</sup> <mark class="hl hl-m3" id="h-method_m3-013-a" data-back="sum-h-method_m3-013 sum-h-method_m3-014 sum-h-method_m6-002 sum-h-method_m9-039" data-zh-m3="中間第 3 天還做了一次骨髓 biopsy ／ CLL 佔骨髓約 40%" data-pids-m3="h-method_m3-013 h-method_m3-014" data-zh-m6="在治療前後量化 CLL 負擔與 TP53 缺失比例" data-pids-m6="h-method_m6-002" data-zh-m9="baseline 骨髓 40% 是 CLL clone" data-pids-m9="h-method_m9-039">Three days after chemotherapy but before cell infusion, the bone marrow was hypercellular with approximately 40% involvement by CLL</mark>. <mark class="hl hl-m9" id="h-method_m6-025-a" data-back="sum-h-method_m6-025 sum-h-method_m9-004 sum-h-method_m9-029" data-zh-m6="本案 baseline 骨髓 CD19⁺CD5⁺ 幾乎全表達 $\kappa$" data-pids-m6="h-method_m6-025" data-zh-m9="加入一組各帶不同螢光顏色的抗體 (anti-CD19、anti-CD5、anti-CD10、anti-CD23、$anti-\kappa$、anti-λ) ／ 本研究病人 baseline 呈現 clonal $\kappa$ 表現" data-pids-m9="h-method_m9-004 h-method_m9-029">Leukemia cells expressed kappa light chain and CD5, CD19, CD20, and CD23</mark>. <mark class="hl hl-m6" id="h-method_m6-006-a" data-back="sum-h-method_m6-006 sum-h-method_m6-007" data-zh-m6="染色體核型分析 (karyotype) 把分裂中期的染色體一條條染色看形狀 ／ baseline 20 個細胞裡有 10 個帶 17p 相關異常" data-pids-m6="h-method_m6-006 h-method_m6-007">Cytogenetic analysis showed two separate clones, both resulting in loss of chromosome 17p and the</mark> <em>TP53</em> locus <mark class="hl hl-m6" id="h-method_m6-008-a" data-back="sum-h-method_m6-008" data-zh-m6="(46,XY,del(17)(p12)[5]/46,XY,der(17)t(17;21)(q10;q10)[5]/46,XY[14])" data-pids-m6="h-method_m6-008">(46,XY,del(17)(p12)[5]/46,XY,der(17)t(17;21)(q10;q10)[5]/46,XY[14])</mark>. Four days after chemotherapy, <mark class="hl hl-summary" id="h-l1-036-a" data-back="sum-h-l1-036 sum-h-method_m10-029 sum-h-method_m2-020 sum-h-method_m2-021 sum-h-method_m3-032 sum-h-method_m4-001 sum-h-method_m4-004 sum-h-method_m4-005 sum-h-method_m4-006 sum-h-method_m4-007" data-zh-summary="只回輸每公斤 $1.5\times10^{5}$ 顆改造細胞，分三天輸完" data-pids-summary="h-l1-036" data-zh-m2="最終產品裡約 5% 的 T 細胞掛上 CAR ／ 總共 3×10⁸ 顆 T 細胞中有 1.42×10⁷ 顆是 CART19" data-pids-m2="h-method_m2-020 h-method_m2-021" data-zh-m3="1.46×10⁵ / kg 這種低劑量幾乎必然消失無蹤" data-pids-m3="h-method_m3-032" data-zh-m4="以「10% / 30% / 60%」漸增式分三日靜脈輸注 CART19 ／ 全部要回輸的 CART19 細胞 (1.42×10⁷ 顆轉導細胞、相當於 1.46×10⁵ 顆/kg 體重) ／ 拆成連續三天的三次靜脈輸注 ／ 第 1 天先給 10%、第 2 天給 30%、第 3 天給 60% ／ 首次給藥時機是化療後第 4 天" data-pids-m4="h-method_m4-001 h-method_m4-004 h-method_m4-005 h-method_m4-006 h-method_m4-007" data-zh-m10="這正是 1.5×10⁵/kg 這種極低劑量還能被說服有效的關鍵論述" data-pids-m10="h-method_m10-029">the patient received a total of 3×10⁸ T cells, of which 5% were transduced, for a total of 1.42×10⁷ transduced cells (1.46×10⁵ cells per kilogram) split into three consecutive daily intravenous infusions (10% on day 1, 30% on day 2, and 60% on day 3)</mark>. <mark class="hl hl-m4" id="h-method_m4-015-a" data-back="sum-h-method_m4-015" data-zh-m4="刻意不追加外源性 IL-2" data-pids-m4="h-method_m4-015">No postinfusion cytokines were administered.</mark> <mark class="hl hl-summary" id="h-method_m4-002-a" data-back="sum-h-l1-039 sum-h-method_m4-002 sum-h-method_m4-009 sum-h-method_m4-010" data-zh-summary="最初兩週病人幾乎沒什麼感覺" data-pids-summary="h-l1-039" data-zh-m4="觀察即時輸注毒性 ／ 觀察病人有沒有立即輸注反應 ／ 三次過程都沒立即毒性" data-pids-m4="h-method_m4-002 h-method_m4-009 h-method_m4-010">No toxic effects of infusions were noted.</mark></p>
+<h3 id="p22" data-paragraph="22" data-source-pages="3">CLINICAL RESPONSE AND EVALUATIONS</h3>
+<p id="p23" data-paragraph="23" data-source-pages="3"><mark class="hl hl-summary" id="h-l1-040-a" data-back="sum-h-l1-040" data-zh-summary="直到第 14 天他才開始發燒、寒顫、疲倦" data-pids-summary="h-l1-040">Fourteen days after the first infusion, the patient began having chills and low-grade fevers associated with grade 2 fatigue</mark>. Over the next 5 days, the chills intensified, and his temperature escalated to 39.2°C (102.5°F), associated with rigors, diaphoresis, anorexia, nausea, and diarrhea. He had no respiratory or cardiac symptoms. Because of the fevers, chest radiography and blood, urine, and stool cultures were performed, and were all negative or normal. <mark class="hl hl-summary" id="h-l1-041-a" data-back="sum-h-l1-041 sum-h-method_m4-014" data-zh-summary="第 22 天發展成腫瘤崩解症候群" data-pids-summary="h-l1-041" data-zh-m4="本病人後來的 tumor lysis syndrome (Day 22) 是延遲反應" data-pids-m4="h-method_m4-014">The tumor lysis syndrome was diagnosed on day 22 after infusion</mark> (Fig. 1B). <mark class="hl hl-summary" id="h-l1-043-a" data-back="sum-h-l1-043" data-zh-summary="當非常多癌細胞在幾天內同時被殺死、它們裡面的化學物質（例如尿酸、鉀、磷）一起湧進血液所引發的急症" data-pids-summary="h-l1-043">The uric acid level was 10.6 mg per deciliter (630.5 μmol per liter), the phosphorus level was 4.7 mg per deciliter (1.5 mmol per liter)</mark> (normal range, 2.4 to 4.7 mg per deciliter [0.8 to 1.5 mmol per liter]), and <mark class="hl hl-summary" id="h-l1-043-b" data-back="sum-h-l1-043" data-zh-summary="當非常多癌細胞在幾天內同時被殺死、它們裡面的化學物質（例如尿酸、鉀、磷）一起湧進血液所引發的急症" data-pids-summary="h-l1-043">the lactate dehydrogenase level was 1130 U per liter</mark> (normal range, 98 to 192). <mark class="hl hl-summary" id="h-l1-044-a" data-back="sum-h-l1-044" data-zh-summary="會把腎臟等器官短暫淹壞" data-pids-summary="h-l1-044">There was evidence of acute kidney injury, with a creatinine level of 2.60 mg per deciliter</mark> (229.8 μmol per liter) (baseline level, &lt;1.0 mg per deciliter [&lt;88.4 μmol per liter]). <mark class="hl hl-summary" id="h-l1-042-a" data-back="sum-h-l1-042 sum-h-l1-045" data-zh-summary="需要住院處理 ／ 用醫院常備的補液與尿酸清除藥物 (rasburicase) 就能壓下去" data-pids-summary="h-l1-042 h-l1-045">The patient was hospitalized and treated with fluid resuscitation and rasburicase</mark>. <mark class="hl hl-summary" id="h-l1-046-a" data-back="sum-h-l1-046" data-zh-summary="病人的腎功能在幾天內就恢復" data-pids-summary="h-l1-046">The uric acid level returned to the normal range within 24 hours, and the creatinine level within 3 days; he was discharged on hospital day 4</mark>. The lactate dehydrogenase level decreased gradually, becoming normal over the following month.</p>
+<p id="p24" data-paragraph="24" data-source-pages="3"><mark class="hl hl-summary" id="h-l1-058-a" data-back="sum-h-l1-058" data-zh-summary="腫脹的淋巴結也在一個月內消退" data-pids-summary="h-l1-058">By day 28 after CART19-cell infusion, adenopathy was no longer palpable</mark>, and <mark class="hl hl-summary" id="h-l1-007-b" data-back="sum-h-l1-007 sum-h-l1-056 sum-h-method_m6-003 sum-h-method_m6-004" data-zh-summary="把癌細胞全部清光 ／ 到第 23 天，骨髓活檢已測不到白血病細胞" data-pids-summary="h-l1-007 h-l1-056" data-zh-m6="以客觀證明完全緩解 ／ 作者要證明病人達到完全緩解" data-pids-m6="h-method_m6-003 h-method_m6-004">on day 23, there was no evidence of CLL in the bone marrow</mark> (Fig. 1C). <mark class="hl hl-summary" id="h-method_m6-006-b" data-back="sum-h-l1-057 sum-h-method_m6-006 sum-h-method_m6-009 sum-h-method_m6-037" data-zh-summary="原本 200 個細胞裡有 170 個帶 TP53 缺失，如今降到只剩 2 個" data-pids-summary="h-l1-057" data-zh-m6="染色體核型分析 (karyotype) 把分裂中期的染色體一條條染色看形狀 ／ 治療後 15/15 顆全部回復正常 ／ karyotype 15/15 顆回復正常" data-pids-m6="h-method_m6-006 h-method_m6-009 h-method_m6-037">The karyotype was now normal in 15 of 15 cells (46,XY), and FISH testing was negative for deletion</mark> <em>TP53</em><mark class="hl hl-m6" id="h-method_m6-002-b" data-back="sum-h-method_m6-002 sum-h-method_m6-011 sum-h-method_m6-013 sum-h-method_m6-014 sum-h-method_m6-038" data-zh-m6="在治療前後量化 CLL 負擔與 TP53 缺失比例 ／ 在 200 顆細胞裡直接數幾顆有兩份訊號、幾顆缺失 ／ 治療後只剩 2/200 ／ 落在陰性對照的背景範圍 ／ FISH 只剩 2/200 落回背景" data-pids-m6="h-method_m6-002 h-method_m6-011 h-method_m6-013 h-method_m6-014 h-method_m6-038"> in 198 of 200 cells examined; this is considered to be within normal limits in negative controls.</mark> <mark class="hl hl-m9" id="h-method_m6-026-a" data-back="sum-h-method_m3-010 sum-h-method_m6-026 sum-h-method_m6-027 sum-h-method_m6-039 sum-h-method_m9-001 sum-h-method_m9-004 sum-h-method_m9-040 sum-h-method_m9-050 sum-h-method_m9-053" data-zh-m3="CART19 本身就會清掉 B 細胞" data-pids-m3="h-method_m3-010" data-zh-m6="Day 31 flow 顯示 CD5⁺CD10⁻CD19⁺CD23⁺ 淋巴球 gate 已 &lt;1% ／ 連正常 B 細胞都測不到 ／ flow CD5⁺CD10⁻CD19⁺CD23⁺ &lt;1%" data-pids-m6="h-method_m6-026 h-method_m6-027 h-method_m6-039" data-zh-m9="以多參數流式細胞儀量化 CD19⁺/CD5⁺$/\kappa/\lambda$ subset ／ 加入一組各帶不同螢光顏色的抗體 (anti-CD19、anti-CD5、anti-CD10、anti-CD23、$anti-\kappa$、anti-λ) ／ Day 31 已降到 &lt;1% ／ 而作者用 &lt;1% 當「undetectable」的門檻 ／ Day 31 讀到 &lt;1% 因此可宣稱為 CLL 已無殘留" data-pids-m9="h-method_m9-001 h-method_m9-004 h-method_m9-040 h-method_m9-050 h-method_m9-053">Flow-cytometric analysis showed no residual CLL, and B cells were not detectable (&lt;1% of cells within the CD5 + CD10 − CD19 + CD23 + lymphocyte gate).</mark> <mark class="hl hl-m6" id="h-method_m6-040-a" data-back="sum-h-method_m5-005 sum-h-method_m6-019 sum-h-method_m6-040" data-zh-m5="Day 31 (完全緩解評估點)" data-pids-m5="h-method_m5-005" data-zh-m6="看到原本 1–3 cm 的淋巴結在一個月內完全退散 ／ CT 淋巴結完全退散" data-pids-m6="h-method_m6-019 h-method_m6-040">CT scanning performed on day 31 after infusion showed resolution of adenopathy (Fig. 1D).</mark></p>
+<p id="p25" data-paragraph="25" data-source-pages="3">Three and 6 months after CART19-cell infusion, the physical examination remained unremarkable, with no palpable adenopathy, and CT scanning performed 3 months after CART19-cell infusion showed sustained remission (Fig. 1D). <mark class="hl hl-m5" id="h-method_m5-006-a" data-back="sum-h-method_m5-006" data-zh-m5="Day 90 (3 個月) 與 Day 180 (6 個月)" data-pids-m5="h-method_m5-006">Bone marrow studies at 3 and 6 months also showed no evidence of CLL</mark> by means of morphologic analysis, karyotype analysis (46,XY), or flow-cytometric analysis, with a continued lack of normal B cells as well. <mark class="hl hl-summary" id="h-l1-008-a" data-back="sum-h-l1-008 sum-h-l1-059 sum-h-l1-070" data-zh-summary="緩解持續 10 個月 ／ 撰稿當時，病人已維持完全緩解 10 個月 ／ 追蹤時間也只有大約一年" data-pids-summary="h-l1-008 h-l1-059 h-l1-070">Remission had been sustained for 10 months as of this writing</mark>.</p>
+<h3 id="p26" data-paragraph="26" data-source-pages="3">TOXICITY OF CART19 CELLS</h3>
+<p id="p27" data-paragraph="27" data-source-pages="3,4"><mark class="hl hl-m4" id="h-method_m4-002-b" data-back="sum-h-method_m4-002 sum-h-method_m4-009 sum-h-method_m4-010" data-zh-m4="觀察即時輸注毒性 ／ 觀察病人有沒有立即輸注反應 ／ 三次過程都沒立即毒性" data-pids-m4="h-method_m4-002 h-method_m4-009 h-method_m4-010">The cell infusions had no acute toxic effects.</mark> The only serious (grade 3 or 4) adverse event noted was the grade 3 tumor lysis syndrome described above. The patient had grade 1 lymphopenia at baseline and grade 2 or 3 lymphopenia beginning on day 1 and continuing through the most recent follow-up visit, 10 months after therapy. Grade 4 lymphopenia, with an absolute lymphocyte count of 140 cells per cubic millimeter, was recorded on day 19, but from day 22 through the most recent followup visit, the absolute lymphocyte count ranged between 390 and 780 cells per cubic millimeter (grade 2 or 3 lymphopenia). <mark class="hl hl-summary" id="h-l1-067-a" data-back="sum-h-l1-067" data-zh-summary="除此之外只有短暫的血球下降與輕微流感樣症狀，都不算嚴重" data-pids-summary="h-l1-067">The patient had transient grade 1 thrombocytopenia (platelet count, 98,000 to 131,000 per cubic millimeter) from day 19 through day 26 and grade 1 or 2 neutropenia</mark> (absolute neutrophil count, 1090 to 1630 per cubic millimeter) from day 17 through day 33. Other signs and symptoms that were probably related to the study treatment included grade 1 and 2 elevations in aminotransferase and alkaline phosphatase levels, which developed 17 days after the first infusion and resolved by day 33. <mark class="hl hl-summary" id="h-l1-067-b" data-back="sum-h-l1-067" data-zh-summary="除此之外只有短暫的血球下降與輕微流感樣症狀，都不算嚴重" data-pids-summary="h-l1-067">Grade 1 and 2 constitutional symptoms consisted of fevers, chills, diaphoresis, myalgias, headache, and fatigue</mark>. <mark class="hl hl-summary" id="h-l1-065-a" data-back="sum-h-l1-065" data-zh-summary="結果病人陷入抗體不足，需要每月靜脈補充免疫球蛋白" data-pids-summary="h-l1-065">Grade 2 hypogammaglobulinemia was corrected with infusions of intravenous immune globulin</mark>.</p>
+<h3 id="p28" data-paragraph="28" data-source-pages="4">ANALYSIS OF SERUM AND BONE MARROW CYTOKINES</h3>
+<figure id="Figure_2" data-source-pages="11"><img src="figures/Figure_2.png" alt="Figure 2. Serum and Bone Marrow Cytokines before and after Chimeric Antigen Receptor T-Cell Infusion"><figcaption id="p29" data-paragraph="29" data-source-pages="11"><span class="caption-title">Figure 2. Serum and Bone Marrow Cytokines before and after Chimeric Antigen Receptor T-Cell Infusion</span><p><mark class="hl hl-summary" id="h-l1-053-a" data-back="sum-h-l1-053 sum-h-method_m8-024" data-zh-summary="作者測量了干擾素 $\gamma$、白血球介素 6，以及召喚更多免疫細胞的訊號分子 CXCL9 與 CXCL10" data-pids-summary="h-l1-053" data-zh-m8="CXCL9 與 CXCL10 是被 $IFN-\gamma$ 直接觸發" data-pids-m8="h-method_m8-024">Serial measurements of the cytokine interferon-γ (Panel A), the interferon-γ–stimulated chemokines C-X-C motif chemokine 10 (CXCL10) (Panel B) and C-X-C motif ligand 9 (CXCL9) (Panel C), and interleukin-6 (Panel D) were measured at the indicated time points</mark>. <mark class="hl hl-summary" id="h-l1-055-a" data-back="sum-h-l1-055 sum-h-method_m8-002" data-zh-summary="時間點剛好與腫瘤崩解症候群、骨髓中癌細胞的消失重疊" data-pids-summary="h-l1-055" data-zh-m8="把 tumor lysis syndrome 的臨床時序與免疫活化證據耦合起來" data-pids-m8="h-method_m8-002">The increases in these inflammatory cytokines and chemokines coincided with the onset of the tumor lysis syndrome</mark>. Low levels of interleukin-6 were detected at baseline, whereas interferon-γ, CXCL9, and CXCL10 were below the limits of detection at baseline. <mark class="hl hl-m8" id="h-method_m8-018-a" data-back="sum-h-method_m8-018" data-zh-m8="搭配已知濃度換算的對照線就能把螢光讀值換成 pg/mL" data-pids-m8="h-method_m8-018">Standard-curve ranges for the analytes and baseline values in the patient, given in parentheses</mark>, were as follows: interferon-γ, 11.2 to 23,972 pg per milliliter (1.4 pg per milliliter); CXCL10, 2.1 to 5319 pg per milliliter (274 pg per milliliter); CXCL9, 48.2 to 3700 pg per milliliter (177 pg per milliliter); interleukin-6, 2.7 to 4572 pg per milliliter (8.3 pg per milliliter); tumor necrosis factor α (TNF-α), 1.9 to 4005 pg per milliliter (not detectable); and soluble interleukin-2 receptor, 13.4 to 34,210 pg per milliliter (644 pg per milliliter). Panel E shows the induction of the immune response in bone marrow. <mark class="hl hl-m8" id="h-method_m8-009-a" data-back="sum-h-method_m8-009 sum-h-method_m8-022" data-zh-m8="六種顏色對應六種細胞激素 ／ $IFN-\gamma$、IL-6、CXCL9、CXCL10、sIL-2R、$TNF-\alpha$" data-pids-m8="h-method_m8-009 h-method_m8-022">The cytokines TNF-α, interleukin-6, interferon-γ, chemokine CXCL9, and soluble interleukin-2 receptor</mark> were <mark class="hl hl-m5" id="h-method_m5-010-a" data-back="sum-h-method_m5-010" data-zh-m5="離心取上清液做 Luminex 測骨髓 cytokine" data-pids-m5="h-method_m5-010">measured in supernatant fluids obtained from bone marrow aspirates on the indicated days before and after CART19-cell infusion</mark>. The increases in levels of interleukin-6, interferon-γ, CXCL9, and soluble interleukin-2 receptor <mark class="hl hl-m8" id="h-method_m8-002-b" data-back="sum-h-method_m8-002" data-zh-m8="把 tumor lysis syndrome 的臨床時序與免疫活化證據耦合起來" data-pids-m8="h-method_m8-002">coincided with the tumor lysis syndrome, peak chimeric antigen receptor T-cell infiltration, and eradication of the leukemic infiltrate</mark>.</p></figcaption></figure>
+<p id="p30" data-paragraph="30" data-source-pages="4">The patient’s clinical response was accompanied by a delayed increase in levels of inflammatory cytokines (Fig. 2A through 2D), with <mark class="hl hl-summary" id="h-l1-054-a" data-back="sum-h-l1-054 sum-h-method_m5-019 sum-h-method_m8-022 sum-h-method_m8-024" data-zh-summary="發現這些警報素在第 17 到 23 天集體飆升到基線的一百多倍" data-pids-summary="h-l1-054" data-zh-m5="Day 23 剛好落在 CART19 峰值期與 cytokine 峰 (Day 17-23)" data-pids-m5="h-method_m5-019" data-zh-m8="$IFN-\gamma$、IL-6、CXCL9、CXCL10、sIL-2R、$TNF-\alpha$ ／ CXCL9 與 CXCL10 是被 $IFN-\gamma$ 直接觸發" data-pids-m8="h-method_m8-022 h-method_m8-024">levels of interferon-γ, the interferon-γ–responsive chemokines CXCL9 and CXCL10, and interleukin-6 that were 160 times as high as baseline levels. The temporal rise in cytokine levels paralleled the clinical symptoms, peaking 17 to 23 days after the first CART19-cell infusion</mark>.</p>
+<p id="p31" data-paragraph="31" data-source-pages="4"><mark class="hl hl-m5" id="h-method_m5-010-b" data-back="sum-h-method_m5-010 sum-h-method_m8-003 sum-h-method_m9-003" data-zh-m5="離心取上清液做 Luminex 測骨髓 cytokine" data-pids-m5="h-method_m5-010" data-zh-m8="作者把病人的血清或骨髓抽取液上清 (bone marrow aspirate supernatant) 倒進一個小孔" data-pids-m8="h-method_m8-003" data-zh-m9="作者從骨髓吸取物做出單細胞懸液" data-pids-m9="h-method_m9-003">The supernatants from serial bone marrow aspirates were measured for cytokines and showed evidence of immune activation</mark> (Fig. 2E). Significant increases in interferon-γ, CXCL9, interleukin-6, and soluble interleukin-2 receptor were noted, as compared with the baseline levels on the day before T-cell infusion; <mark class="hl hl-m5" id="h-method_m5-004-b" data-back="sum-h-method_m5-004 sum-h-method_m5-019" data-zh-m5="Day 23 (急性反應期) ／ Day 23 剛好落在 CART19 峰值期與 cytokine 峰 (Day 17-23)" data-pids-m5="h-method_m5-004 h-method_m5-019">the values peaked on day 23 after the first CART19-cell infusion</mark>. <mark class="hl hl-summary" id="h-l1-055-b" data-back="sum-h-l1-055" data-zh-summary="時間點剛好與腫瘤崩解症候群、骨髓中癌細胞的消失重疊" data-pids-summary="h-l1-055">The increase in bone marrow cytokines coincided with the elimination of leukemia cells from the marrow</mark>. <mark class="hl hl-m8" id="h-method_m8-027-a" data-back="sum-h-method_m8-027" data-zh-m8="$TNF-\alpha$ 則作為對照——它幾乎不動" data-pids-m8="h-method_m8-027">Serum and marrow tumor necrosis factor α remained unchanged</mark>.</p>
+<h3 id="p32" data-paragraph="32" data-source-pages="4">EXPANSION AND PERSISTENCE OF CHIMERIC ANTIGEN RECEPTOR T CELLS</h3>
+<figure id="Figure_3" data-source-pages="12"><img src="figures/Figure_3.png" alt="Figure 3. Expansion and Persistence of Chimeric Antigen Receptor T Cells In Vivo"><figcaption id="p33" data-paragraph="33" data-source-pages="12"><span class="caption-title">Figure 3. Expansion and Persistence of Chimeric Antigen Receptor T Cells In Vivo</span><p><mark class="hl hl-summary" id="h-l1-048-b" data-back="sum-h-l1-048 sum-h-method_m10-003 sum-h-method_m5-001 sum-h-method_m5-007 sum-h-method_m5-009 sum-h-method_m7-001 sum-h-method_m7-005 sum-h-method_m7-006 sum-h-method_m7-007 sum-h-method_m7-025 sum-h-method_m7-026" data-zh-summary="他們用 PCR（一種能專門放大某段 DNA 序列的偵測法）追蹤帶有天線基因的細胞" data-pids-summary="h-l1-048" data-zh-m5="建立可縱向追蹤 CART19 動態、宿主 cytokine 反應與腫瘤負荷的血液與骨髓取樣管線 ／ 每個時間點都同時抽 whole blood 與做一次骨髓穿刺 (aspirate) 加切片 (biopsy) ／ 抽 genomic DNA 做 qPCR" data-pids-m5="h-method_m5-001 h-method_m5-007 h-method_m5-009" data-zh-m7="以絕對定量的即時 PCR ／ 作者每次抽病人的血或骨髓 ／ 把染色體 DNA (genomic DNA, gDNA) 抓出來 ／ 反覆翻倍的 DNA 放大反應 (即時定量 PCR, qPCR) ／ 因此改用 gDNA 為模板，直接把訊號等同細胞數 ／ 取樣也刻意涵蓋兩個部位（血液與骨髓）" data-pids-m7="h-method_m7-001 h-method_m7-005 h-method_m7-006 h-method_m7-007 h-method_m7-025 h-method_m7-026" data-zh-m10="作者拿到 qPCR 每個時間點的「每 $\mu g$ gDNA 幾個 CAR19 拷貝」" data-pids-m10="h-method_m10-003">Genomic DNA (gDNA) was isolated from samples of the patient’s whole blood (Panel A) and bone marrow aspirates (Panel B) collected at serial time points before and after chimeric antigen receptor T-cell infusion and used for quantitative real-time polymerase-chain-reaction (PCR) analysis</mark>. <mark class="hl hl-m7" id="h-method_m7-013-b" data-back="sum-h-method_m7-008 sum-h-method_m7-013 sum-h-method_m7-014" data-zh-m7="專找 CAR19 這段人工轉基因的序列 ／ 輸出指標是「每微克 gDNA 中的 CAR19 拷貝數 $(transgene copies per \mu g gDNA)$」 ／ 拷貝數 → 佔循環淋巴球百分比" data-pids-m7="h-method_m7-008 h-method_m7-013 h-method_m7-014">As assessed on the basis of transgenic DNA and the percentage of lymphocytes expressing CAR19</mark>, <mark class="hl hl-summary" id="h-l1-006-a" data-back="sum-h-l1-006 sum-h-l1-049 sum-h-method_m10-028 sum-h-method_m4-016 sum-h-method_m7-003" data-zh-summary="爆量增殖上千倍 ／ 這些改造細胞在血液與骨髓中短短三週內就增加了超過一千倍" data-pids-summary="h-l1-006 h-l1-049" data-zh-m4="4-1BB 版 CAR-T 能自體擴增" data-pids-m4="h-method_m4-016" data-zh-m7="擴增倍數、峰值時間及衰減曲線" data-pids-m7="h-method_m7-003" data-zh-m10="in vivo expansion 倍數變成主要有效性代理指標" data-pids-m10="h-method_m10-028">the chimeric antigen receptor T cells expanded to levels that were more than 1000 times as high as initial engraftment levels in the peripheral blood and bone marrow</mark>. <mark class="hl hl-m7" id="h-method_m7-004-a" data-back="sum-h-method_m7-004" data-zh-m7="將「臨床療效」與「活體 CAR-T 動力學」量化耦合" data-pids-m7="h-method_m7-004">Peak levels of chimeric antigen receptor T cells were temporally correlated with the tumor lysis syndrome</mark>. A blood sample obtained on day 0 and a bone marrow sample obtained on day −1 had no PCR signal at baseline. <mark class="hl hl-m9" id="h-method_m9-001-a" data-back="sum-h-method_m5-002 sum-h-method_m6-015 sum-h-method_m6-023 sum-h-method_m6-025 sum-h-method_m9-001 sum-h-method_m9-003 sum-h-method_m9-007 sum-h-method_m9-028 sum-h-method_m9-029" data-zh-m5="供下游 qPCR、Luminex 與流式使用" data-pids-m5="h-method_m5-002" data-zh-m6="多參數流式細胞儀 (multi-parameter flow cytometry) 從細胞層次量 CD19⁺CD5⁺ 亞群 ／ 看到 CD19⁺CD5⁺ 亞群裡 $\kappa$ 佔壓倒性 ／ 本案 baseline 骨髓 CD19⁺CD5⁺ 幾乎全表達 $\kappa$" data-pids-m6="h-method_m6-015 h-method_m6-023 h-method_m6-025" data-zh-m9="以多參數流式細胞儀量化 CD19⁺/CD5⁺$/\kappa/\lambda$ subset ／ 作者從骨髓吸取物做出單細胞懸液 ／ 細胞被送進多參數流式細胞儀 (multi-parameter flow cytometry) ／ 癌細胞若全部只帶 $\kappa$ 或全部只帶 $\lambda$，就是「同一祖先繼承同一選擇」的分子指紋 (clonal restriction) ／ 本研究病人 baseline 呈現 clonal $\kappa$ 表現" data-pids-m9="h-method_m9-001 h-method_m9-003 h-method_m9-007 h-method_m9-028 h-method_m9-029">Flow-cytometric analysis of bone marrow aspirates at baseline (Panel C) shows predominant infiltration with CD19+CD5+ cells that were clonal, as assessed by means of immunoglobulin kappa light-chain staining</mark>, with a paucity of T cells. <mark class="hl hl-m5" id="h-method_m6-027-b" data-back="sum-h-method_m5-005 sum-h-method_m6-027 sum-h-method_m9-030" data-zh-m5="Day 31 (完全緩解評估點)" data-pids-m5="h-method_m5-005" data-zh-m6="連正常 B 細胞都測不到" data-pids-m6="h-method_m6-027" data-zh-m9="Day 31 這一 clone 消失" data-pids-m9="h-method_m9-030">On day 31 after infusion, CD5+ T cells were present, and no normal or malignant B cells were detected.</mark> The numbers indicate the relative frequency of cells in each quadrant. <mark class="hl hl-m9" id="h-method_m6-028-a" data-back="sum-h-method_m6-028 sum-h-method_m9-002 sum-h-method_m9-032 sum-h-method_m9-037 sum-h-method_m9-041" data-zh-m6="dot-plot x/y 兩軸都用 log₁₀ scale" data-pids-m6="h-method_m6-028" data-zh-m9="以 log₁₀ 雙軸 dot-plot 判定 clonality 消長 ／ 作者為什麼把 dot-plot 的 x/y 軸都設成 log₁₀ 尺度 ／ 改成 log 尺度後，每個「decade (十倍)」佔一格視覺空間 ／ log 軸才容納得下「一個 clone 從 40% 掉到 0.01%」這種跨四個量級的殞落" data-pids-m9="h-method_m9-002 h-method_m9-032 h-method_m9-037 h-method_m9-041">Both the x axis and the y axis show a log₁₀ scale.</mark> <mark class="hl hl-m9" id="h-method_m5-008-a" data-back="sum-h-method_m5-008 sum-h-method_m9-004 sum-h-method_m9-015 sum-h-method_m9-019 sum-h-method_m6-016 sum-h-method_m9-021 sum-h-method_m9-022" data-zh-m5="可直接跑 flow cytometry (量 CD5/CD19/κ/λ)" data-pids-m5="h-method_m5-008" data-zh-m6="以及這群細胞的 $\kappa/\lambda$ 免疫球蛋白光鏈分布" data-pids-m6="h-method_m6-016" data-zh-m9="加入一組各帶不同螢光顏色的抗體 (anti-CD19、anti-CD5、anti-CD10、anti-CD23、$anti-\kappa$、anti-λ) ／ 最後每顆細胞都拿到「它是 CD19⁺ 嗎？CD5⁺ 嗎？$\kappa$ 或 $\lambda$？」的完整多維座標 ／ 作者先在第一張 dot-plot 上框出「同時 CD19⁺ 又 CD5⁺」的象限 ／ 只把落在這個框內的細胞往下傳 ／ 第二張 dot-plot 只畫這批細胞的 $\kappa$ 對 $\lambda$" data-pids-m9="h-method_m9-004 h-method_m9-015 h-method_m9-019 h-method_m9-021 h-method_m9-022">The gating strategy involved an initial gating on CD19+ and CD5+ cells in the boxes on the left, and the subsequent identification of immunoglobulin kappa and lambda expression on the CD19+CD5+ subset</mark> (boxes on the right).</p></figcaption></figure>
+<p id="p34" data-paragraph="34" data-source-pages="4"><mark class="hl hl-m7" id="h-method_m7-008-a" data-back="sum-h-method_m7-008 sum-h-method_m7-012" data-zh-m7="專找 CAR19 這段人工轉基因的序列 ／ 整組 primers 與 probe 只認 CAR19 這段獨特序列" data-pids-m7="h-method_m7-008 h-method_m7-012">Real-time PCR detected DNA encoding anti-CD19 chimeric antigen receptor (CAR19) beginning on day 1 after the first infusion</mark> (Fig. 3A). <mark class="hl hl-summary" id="h-l1-049-a" data-back="sum-h-l1-049 sum-h-method_m10-005 sum-h-method_m10-015 sum-h-method_m5-019 sum-h-method_m7-003" data-zh-summary="這些改造細胞在血液與骨髓中短短三週內就增加了超過一千倍" data-pids-summary="h-l1-049" data-zh-m5="Day 23 剛好落在 CART19 峰值期與 cytokine 峰 (Day 17-23)" data-pids-m5="h-method_m5-019" data-zh-m7="擴增倍數、峰值時間及衰減曲線" data-pids-m7="h-method_m7-003" data-zh-m10="前 21 天 CART19 一路暴衝 ／ 分界靠 qPCR 訊號峰值定：血液 Day 21、骨髓 Day 23" data-pids-m10="h-method_m10-005 h-method_m10-015">More than a 3-log expansion of the cells in vivo was noted by day 21 after infusion</mark>. <mark class="hl hl-summary" id="h-l1-050-a" data-back="sum-h-l1-050 sum-h-method_m7-002 sum-h-method_m7-014" data-zh-summary="最高峰時每五顆循環淋巴球就有一顆是它" data-pids-summary="h-l1-050" data-zh-m7="追蹤循環血液與骨髓中 CART19 細胞 ／ 拷貝數 → 佔循環淋巴球百分比" data-pids-m7="h-method_m7-002 h-method_m7-014">At peak levels, CART19 cells in blood accounted for more than 20% of circulating lymphocytes</mark>; <mark class="hl hl-m7" id="h-method_m7-004-b" data-back="sum-h-method_m7-004" data-zh-m7="將「臨床療效」與「活體 CAR-T 動力學」量化耦合" data-pids-m7="h-method_m7-004">these peak levels coincided with the occurrence of constitutional symptoms, the tumor lysis syndrome</mark> (Fig. 1B), and elevations in serum cytokine levels (Fig. 2A through 2D). <mark class="hl hl-summary" id="h-l1-060-a" data-back="sum-h-l1-060 sum-h-method_m10-010 sum-h-method_m5-006 sum-h-method_m5-021" data-zh-summary="六個月後，這些改造細胞仍以高峰的十分之一水準留守體內" data-pids-summary="h-l1-060" data-zh-m5="Day 90 (3 個月) 與 Day 180 (6 個月) ／ Day 90 與 Day 180 則負責證明 4-1BB 版 CAR-T 不會像 CD28 版那樣早早消失" data-pids-m5="h-method_m5-006 h-method_m5-021" data-zh-m10="第 21 天達到峰值後數字慢慢往下掉" data-pids-m10="h-method_m10-010">CART19 cells remained detectable at high levels 6 months after the infusions, though the values decreased by a factor of 10 from peak levels</mark>. <mark class="hl hl-summary" id="h-l1-051-a" data-back="sum-h-l1-051 sum-h-method_m10-001 sum-h-method_m10-002 sum-h-method_m10-009 sum-h-method_m10-013 sum-h-method_m10-027 sum-h-method_m10-031 sum-h-method_m7-003 sum-h-method_m7-031" data-zh-summary="血液中大約每 1.2 天就翻倍" data-pids-summary="h-l1-051" data-zh-m7="擴增倍數、峰值時間及衰減曲線 ／ 1.2 天倍增與 31 天半衰期這些關鍵數字" data-pids-m7="h-method_m7-003 h-method_m7-031" data-zh-m10="以指數擴增 + 一階衰減模型擬合 qPCR 時間序列 ／ 取得 CART19 在血液與骨髓中的擴增速率與清除速率 ／ 斜率等於 $\log 2 / T_d$，反推倍增時間 $(doubling time, T_d)$ ／ 斜率反推清除半衰期 $(elimination half-life, T_{1/2})$ ／ 作者把 CART19 嵌進 PK 語言 (pharmacokinetic framework) ／ 血液 half-life ≈ 31 天" data-pids-m10="h-method_m10-001 h-method_m10-002 h-method_m10-009 h-method_m10-013 h-method_m10-027 h-method_m10-031">The doubling time of chimeric antigen receptor T cells in blood was approximately 1.2 days, with an elimination half-life of 31 days</mark>.</p>
+<h3 id="p35" data-paragraph="35" data-source-pages="4">CHIMERIC ANTIGEN RECEPTOR T CELLS IN BONE MARROW</h3>
+<p id="p36" data-paragraph="36" data-source-pages="4"><mark class="hl hl-m7" id="h-method_m7-002-c" data-back="sum-h-method_m7-002" data-zh-m7="追蹤循環血液與骨髓中 CART19 細胞" data-pids-m7="h-method_m7-002">CART19 cells were identified in bone marrow specimens beginning 23 days after the first infusion</mark> (Fig. 3B) and <mark class="hl hl-m10" id="h-method_m10-001-b" data-back="sum-h-method_m10-001 sum-h-method_m10-002 sum-h-method_m10-032 sum-h-method_m5-021 sum-h-method_m7-003" data-zh-m5="Day 90 與 Day 180 則負責證明 4-1BB 版 CAR-T 不會像 CD28 版那樣早早消失" data-pids-m5="h-method_m5-021" data-zh-m7="擴增倍數、峰值時間及衰減曲線" data-pids-m7="h-method_m7-003" data-zh-m10="以指數擴增 + 一階衰減模型擬合 qPCR 時間序列 ／ 取得 CART19 在血液與骨髓中的擴增速率與清除速率 ／ 骨髓 ≈ 34 天" data-pids-m10="h-method_m10-001 h-method_m10-002 h-method_m10-032">persisted for at least 6 months, with a decay half-life of 34 days</mark>. <mark class="hl hl-m10" id="h-method_m10-015-b" data-back="sum-h-method_m10-015" data-zh-m10="分界靠 qPCR 訊號峰值定：血液 Day 21、骨髓 Day 23" data-pids-m10="h-method_m10-015">The highest levels of CART19 cells in the bone marrow were identified at the first assessment 23 days after the first infusion</mark> and coincided with induction of an immune response, as indicated by cytokine-secretion profiles (Fig. 2E). <mark class="hl hl-m9" id="h-method_m9-031-a" data-back="sum-h-method_m6-015 sum-h-method_m6-024 sum-h-method_m9-002 sum-h-method_m9-030 sum-h-method_m9-031" data-zh-m6="多參數流式細胞儀 (multi-parameter flow cytometry) 從細胞層次量 CD19⁺CD5⁺ 亞群 ／ 就代表單株增殖 (clonal expansion)" data-pids-m6="h-method_m6-015 h-method_m6-024" data-zh-m9="以 log₁₀ 雙軸 dot-plot 判定 clonality 消長 ／ Day 31 這一 clone 消失 ／ 就是「腫瘤 clone 被清除」的直接證據" data-pids-m9="h-method_m9-002 h-method_m9-030 h-method_m9-031">Flow-cytometric analysis of bone marrow aspirates indicated a clonal expansion of CD5+CD19+ cells at baseline that was absent 1 month after infusion and in a sample obtained 3 months after infusion</mark> (data not shown). <mark class="hl hl-m3" id="h-method_m6-027-c" data-back="sum-h-method_m3-010 sum-h-method_m6-027" data-zh-m3="CART19 本身就會清掉 B 細胞" data-pids-m3="h-method_m3-010" data-zh-m6="連正常 B 細胞都測不到" data-pids-m6="h-method_m6-027">Normal B cells were not detected after treatment (Fig. 3C).</mark></p>
+<h2 id="p37" data-paragraph="37" data-source-pages="5">DISCUSSION</h2>
+<p id="p38" data-paragraph="38" data-source-pages="5"><mark class="hl hl-summary" id="h-l1-047-a" data-back="sum-h-l1-047" data-zh-summary="而這個延遲爆發本身也是最強的療效證據，證明改造細胞花了兩週在體內完成一次大規模殺敵" data-pids-summary="h-l1-047">We report the delayed development of the tumor lysis syndrome and a complete response 3 weeks after treatment with autologous T cells genetically modified to target CD19</mark> through transduction with a lentivirus vector expressing anti-CD19 linked to CD3-zeta and CD137 (4-1BB) signaling domains. Genetically modified cells were present at high levels in bone marrow for at least 6 months after infusion. The generation of a CD19-specific immune response in bone marrow was demonstrated by temporal release of cytokines and ablation of leukemia cells that coincided with peak infiltration of chimeric antigen receptor T cells. Development of the tumor lysis syndrome after cellular immunotherapy has not been reported previously.<sup class="citation">10</sup> The finding that chimeric antigen receptor T cells are capable of extensive proliferation and cytotoxicity in vivo indicates the need for caution in the design of clinical trials when chimeric antigen receptors with new specificities are tested.<sup class="citation">11</sup></p>
+<p id="p39" data-paragraph="39" data-source-pages="5">Genetic manipulation of autologous T cells to target specific tumor antigens is an attractive strategy for cancer therapy.<sup class="citation">3,4</sup> An important feature of this approach is that chimeric antigen receptor T cells can recognize tumor targets in an HLA-unrestricted manner, so that “off-the-shelf” chimeric antigen receptors can be constructed for tumors with a wide variety of histologic features. <mark class="hl hl-summary" id="h-l1-030-b" data-back="sum-h-l1-030" data-zh-summary="作者需要一輛擅長把貨物永久嵌進染色體、且已被閹割到既不會複製也不會致病的病毒工程車 (lentivirus，源自 HIV 家族但已無感染力)" data-pids-summary="h-l1-030">We used HIV-derived lentiviral vectors for cancer therapy</mark>, an approach that may have some advantages over the use of retroviral vectors.<sup class="citation">12</sup></p>
+<p id="p40" data-paragraph="40" data-source-pages="5"><mark class="hl hl-summary" id="h-l1-027-a" data-back="sum-h-l1-027" data-zh-summary="先前世代的 CAR 只按下開火開關，結果 T 細胞一開火就迅速耗盡、從血液中消失" data-pids-summary="h-l1-027">In previous trials of chimeric antigen receptor T cells, objective tumor responses have been modest, and in vivo proliferation of modified cells has not been sustained</mark>.<sup class="citation">13-15</sup> We developed a <mark class="hl hl-summary" id="h-l1-003-c" data-back="sum-h-l1-003 sum-h-l1-029" data-zh-summary="並額外加上一個讓 T 細胞開火後不會很快熄火的助燃訊號 (4-1BB) ／ 加上 4-1BB 之後，T 細胞就像被裝了長效電池，開火之後仍能長期繁殖與存活" data-pids-summary="h-l1-003 h-l1-029">second-generation chimeric antigen receptor designed to address this limitation by incorporation of the CD137 (4-1BB) signaling domain, on the basis of our preclinical observation that this molecule promoted the persistence of antigen-specific and antigen-nonspecific chimeric antigen receptor T-cells</mark>.<sup class="citation">5,6</sup> <mark class="hl hl-m1" id="h-method_m1-029-a" data-back="sum-h-method_m1-029" data-zh-m1="Brentjens 團隊用 CD28-CAR 治 CLL" data-pids-m1="h-method_m1-029">Brentjens and colleagues reported preliminary results of a clinical trial of CD19-targeted chimeric antigen receptors linked to a CD28 signaling domain and found transient tumor responses in two of three patients with advanced CLL</mark><sup class="citation">16</sup>; however, <mark class="hl hl-summary" id="h-l1-027-b" data-back="sum-h-l1-027 sum-h-method_m1-030" data-zh-summary="先前世代的 CAR 只按下開火開關，結果 T 細胞一開火就迅速耗盡、從血液中消失" data-pids-summary="h-l1-027" data-zh-m1="改造 T 細胞很快就從循環中消失" data-pids-m1="h-method_m1-030">the chimeric antigen receptors rapidly disappeared from the circulation</mark>.</p>
+<p id="p41" data-paragraph="41" data-source-pages="5"><mark class="hl hl-summary" id="h-l1-038-a" data-back="sum-h-l1-004 sum-h-l1-038" data-zh-summary="只回輸極低劑量的改造細胞 ／ 過去大家都以為要塞進大量細胞才可能有效，這篇論文示範了只要細胞能自我擴增，少量就綽綽有餘" data-pids-summary="h-l1-004 h-l1-038">It was unexpected that the very low dose of chimeric antigen receptor T cells that we infused would result in a clinically evident antitumor response</mark>. Indeed, <mark class="hl hl-summary" id="h-l1-037-a" data-back="sum-h-l1-037 sum-h-method_m3-032" data-zh-summary="這個劑量比過去多數 CAR 臨床試驗低了幾個數量級" data-pids-summary="h-l1-037" data-zh-m3="1.46×10⁵ / kg 這種低劑量幾乎必然消失無蹤" data-pids-m3="h-method_m3-032">the infused dose of 1.5×10⁵ chimeric antigen receptor T cells per kilogram was several orders of magnitude below doses used in previous studies of T cells modified to express chimeric antigen receptors or transgenic T-cell receptors</mark>.<sup class="citation">13,16-18</sup> We speculate that <mark class="hl hl-m3" id="h-method_m3-006-a" data-back="sum-h-method_m3-006 sum-h-method_m3-022" data-zh-m3="讓等下要回輸的 CART19 有空位擴增 ／ 剛回輸進去的 CART19 一進來就吃到滿滿的支持訊號" data-pids-m3="h-method_m3-006 h-method_m3-022">the chemotherapy may potentiate the effects of chimeric antigen receptor T cells in several ways, including increasing engraftment and migration to tumor cells</mark>,<sup class="citation">19</sup> as well as potentiating the ability of chimeric antigen receptor T cells to kill stressed tumor cells that would otherwise survive the chemotherapy.<sup class="citation">20,21</sup> Whether the inclusion of exogenous cytokines would further increase the activity of chimeric antigen receptor T cells is not known.</p>
+<p id="p42" data-paragraph="42" data-source-pages="5">The <mark class="hl hl-summary" id="h-l1-029-b" data-back="sum-h-l1-029" data-zh-summary="加上 4-1BB 之後，T 細胞就像被裝了長效電池，開火之後仍能長期繁殖與存活" data-pids-summary="h-l1-029">prolonged persistence of CART19 cells in the blood and bone marrow of our patient may result from inclusion of the 4-1BB signaling domain</mark>. It is likely that the CART19-cell–mediated elimination of normal B cells facilitated the induction of immunologic tolerance to the chimeric antigen receptor, since <mark class="hl hl-m3" id="h-method_m3-031-a" data-back="sum-h-method_m3-031" data-zh-m3="免疫系統還可能認出 murine scFv 把 CART19 清掉" data-pids-m3="h-method_m3-031">the CART19 cells that express the single-chain Fv antibody fragment containing murine sequences were not rejected</mark>. Given the absence of detectable CD19-positive leukemia cells in this patient, it is possible that homeostasis of the chimeric antigen receptor T cells was achieved at least in part from stimulation delivered by early B-cell progenitors as they began to emerge in the bone marrow. We speculate that this would be a new mechanism to maintain “memory” chimeric antigen receptor T cells.</p>
+<p id="p43" data-paragraph="43" data-source-pages="6">Although <mark class="hl hl-summary" id="h-l1-024-b" data-back="sum-h-l1-024" data-zh-summary="CD19 是一張只掛在 B 細胞身上的專屬身分標籤，其他重要器官都沒有" data-pids-summary="h-l1-024">CD19 is an attractive tumor target, with expression limited to normal and malignant B cells</mark>, there is concern that persistence of the chimeric antigen receptor T cells will mediate long-term B-cell deficiency. In fact, in our patient, <mark class="hl hl-summary" id="h-l1-064-a" data-back="sum-h-l1-064" data-zh-summary="血液與骨髓在六個月以上都測不到 B 細胞" data-pids-summary="h-l1-064">B cells were absent from the blood and bone marrow for at least 6 months after infusion</mark>. <mark class="hl hl-summary" id="h-l1-066-a" data-back="sum-h-l1-066" data-zh-summary="所幸他並沒有因此頻繁感染" data-pids-summary="h-l1-066">This patient did not have recurrent infections</mark>. Targeting B cells through CD20 with rituximab is an effective and relatively safe strategy for patients with B-cell neoplasms, and long-term B-cell lymphopenia is manageable.<sup class="citation">22</sup> Patients treated with rituximab have been reported to have a return of B cells within months after discontinuation of therapy. <mark class="hl hl-summary" id="h-l1-071-a" data-back="sum-h-l1-071" data-zh-summary="緩解能否撐更久、B 細胞會不會慢慢長回來、抗體不足是否會演變成嚴重感染" data-pids-summary="h-l1-071">It is not yet clear whether such recovery will occur in patients whose anti–B-cell T cells persist in vivo</mark>.</p>
+<p id="p44" data-paragraph="44" data-source-pages="6"><mark class="hl hl-summary" id="h-l1-005-c" data-back="sum-h-l1-005 sum-h-l1-016" data-zh-summary="在一位傳統療法失敗、帶有 TP53 缺失的慢性淋巴球白血病病人體內 ／ 這位病人的癌細胞把煞車丟了，因此化療打不死它們" data-pids-summary="h-l1-005 h-l1-016">Patients who have CLL with</mark> <em>TP53</em> deletions have short remissions after standard therapies.<sup class="citation">23</sup> <mark class="hl hl-summary" id="h-l1-017-a" data-back="sum-h-l1-017 sum-h-method_m3-024" data-zh-summary="長期選項只剩下配對捐贈者的骨髓移植" data-pids-summary="h-l1-017" data-zh-m3="帶 TP53 缺失的 CLL 過去唯一能長期壓下癌症的辦法是把別人的骨髓整組換進來" data-pids-m3="h-method_m3-024">Allogeneic bone marrow transplantation has been the only approach that has induced long-term remissions in patients with advanced CLL</mark>.<sup class="citation">24</sup> However, <mark class="hl hl-summary" id="h-method_m3-025-a" data-back="sum-h-method_m3-025 sum-h-l1-018 sum-h-method_m3-026" data-zh-summary="這種移植對年長患者風險太高" data-pids-summary="h-l1-018" data-zh-m3="別人的免疫系統會反過來攻擊病人 (GvHD) ／ 對年長 CLL 病人風險過高" data-pids-m3="h-method_m3-025 h-method_m3-026">the resulting potent graft-versus-tumor effect is associated with considerable morbidity because of the high frequency of chronic graft-versus-host disease</mark>, which is often especially severe in older patients — those who are typically affected by CLL.<sup class="citation">24,25</sup> <mark class="hl hl-m3" id="h-method_m3-029-a" data-back="sum-h-method_m3-029" data-zh-m3="既避開 GvHD、又保留骨髓不動" data-pids-m3="h-method_m3-029">Our study suggests that genetically modified autologous T cells may circumvent this limitation</mark>.</p>
+<p id="p45" data-paragraph="45" data-source-pages="6">The delayed onset of the tumor lysis syndrome and cytokine secretion, combined with vigorous in vivo chimeric antigen receptor T-cell expansion and prominent antileukemia activity, points to substantial and sustained effector functions of the CART19 cells. Our early research highlights the potency of this therapy and provides support for the detailed study of autologous T cells genetically modified to target CD19 (and other targets) through transduction of a chimeric antigen receptor linked to potent signaling domains. Unlike antibody-mediated therapy, chimeric antigen receptor–modified T cells have the potential to replicate in vivo, and <mark class="hl hl-summary" id="h-l1-061-a" data-back="sum-h-l1-061" data-zh-summary="暗示它們具備長期看守的潛力" data-pids-summary="h-l1-061">long-term persistence could lead to sustained tumor control</mark>. <mark class="hl hl-summary" id="h-l1-069-a" data-back="sum-h-l1-069" data-zh-summary="同一試驗另有兩名 CLL 病人也有反應，但作者交代細節要看後續文獻" data-pids-summary="h-l1-069">Two other patients with advanced CLL have also received CART19 infusions according to this protocol, and all three have had tumor responses</mark>.<sup class="citation">26</sup> These findings warrant continued study of CD19-redirected T cells for B-cell neoplasms.</p>
+<h2 id="p46" data-paragraph="46" data-source-pages="6">Acknowledgments</h2>
+<p id="p47" data-paragraph="47" data-source-pages="6">Supported in part by grants from the National Institutes of Health (K24 CA11787901, 1PN2-EY016586, and R01CA120409), the Alliance for Cancer Gene Therapy, and the Leukemia and Lymphoma Society (7000-02).</p>
+<p id="p48" data-paragraph="48" data-source-pages="6">Disclosure forms provided by the authors are available with the full text of this article at NEJM.org.</p>
+<p id="p49" data-paragraph="49" data-source-pages="6">We thank Irina Kulikovskaya for the quantitative polymerase-chain-reaction (Q-PCR) assay; Erica Suppa and Casey Krebs for the Luminex assay; Jennifer Wright for Q-PCR assay development; John Scholler for assay development; Tatiana Mikheeva for sample processing; Qun-Bin Xiong for flow-cytometric analysis; Zhaohui Zheng, Julio Cotte, Andrea Brennan, and <mark class="hl hl-m2" id="h-method_m2-010-b" data-back="sum-h-method_m2-002 sum-h-method_m2-010" data-zh-m2="於 GMP 條件下用 CD3/CD28 珠子活化擴增後 ／ Clinical Cell and Vaccine Production Facility (CVPF) 在 GMP 條件下把細胞解凍" data-pids-m2="h-method_m2-002 h-method_m2-010">members of the Clinical Cell and Vaccine Production facility for developing methods for clinical-scale ex vivo lentiviral transduction and for cell manufacturing</mark>; the Human Immunology Core for reagents; <mark class="hl hl-m1" id="h-method_m1-012-a" data-back="sum-h-method_m1-012 sum-h-method_m1-034" data-zh-m1="方便臨床規模生產 ／ 並委由 Lentigen 公司做臨床級生產" data-pids-m1="h-method_m1-012 h-method_m1-034">Boro Dropulic (Lentigen) for clinical-grade vector production</mark>; Elizabeth Veloso, Lester Lledo, Joan Gilmore, Gwendolyn Binder, and Anne Chew for assistance in clinical research support; Sharyn Katz for assistance with imaging; and Stephan Schuster, Elizabeth Hexner, Stephan Grupp, Carmine Carpenito, Michael Milone, and Donald Siegel for advice.</p>
+<h2 id="p50" data-paragraph="50" data-source-pages="6">REFERENCES</h2>
+<p id="p51" data-paragraph="51" data-source-pages="6" class="reference" data-reference-number="1">1. Gross G, Waks T, Eshhar Z. Expression of immunoglobulin-T-cell receptor chimeric molecules as functional receptors with antibody-type specificity. Proc Natl Acad Sci U S A. 1989; 86:10024–8. [PubMed: 2513569]</p>
+<p id="p52" data-paragraph="52" data-source-pages="6" class="reference" data-reference-number="2">2. Irving BA, Weiss A. The cytoplasmic domain of the T cell receptor zeta chain is sufficient to couple to receptor-associated signal transduction pathways. Cell. 1991; 64:891–901. [PubMed: 1705867]</p>
+<p id="p53" data-paragraph="53" data-source-pages="6" class="reference" data-reference-number="3">3. Sadelain M, Brentjens R, Rivière I. The promise and potential pitfalls of chimeric antigen receptors. Curr Opin Immunol. 2009; 21:215–23. [PubMed: 19327974]</p>
+<p id="p54" data-paragraph="54" data-source-pages="7" class="reference" data-reference-number="4">4. Jena B, Dotti G, Cooper LJ. Redirecting T-cell specificity by introducing a tumor-specific chimeric antigen receptor. Blood. 2010; 116:1035–44. [PubMed: 20439624]</p>
+<p id="p55" data-paragraph="55" data-source-pages="7" class="reference" data-reference-number="5">5. <mark class="hl hl-m1" id="h-method_m1-027-a" data-back="sum-h-method_m1-027" data-zh-m1="作者自己的動物實驗 (Milone 2009 Mol Ther；Carpenito 2009 PNAS)" data-pids-m1="h-method_m1-027">Milone MC, Fish JD, Carpenito C, et al. Chimeric receptors containing CD137 signal transduction domains mediate enhanced survival of T cells and increased antileukemic efficacy in vivo. Mol Ther. 2009</mark>; 17:1453–64. [PubMed: 19384291]</p>
+<p id="p56" data-paragraph="56" data-source-pages="7" class="reference" data-reference-number="6">6. <mark class="hl hl-m1" id="h-method_m1-027-b" data-back="sum-h-method_m1-027" data-zh-m1="作者自己的動物實驗 (Milone 2009 Mol Ther；Carpenito 2009 PNAS)" data-pids-m1="h-method_m1-027">Carpenito C, Milone MC, Hassan R, et al.</mark> Control of large, established tumor xe-nografts with genetically retargeted human T cells containing CD28 and CD137 domains. Proc Natl Acad Sci U S A. 2009; 106:3360–5. [PubMed: 19211796]</p>
+<p id="p57" data-paragraph="57" data-source-pages="7" class="reference" data-reference-number="7">7. Uckun FM, Jaszcz W, Ambrus JL, et al. Detailed studies on expression and function of CD19 surface determinant by using B43 monoclonal antibody and the clinical potential of anti-CD19 immunotoxins. Blood. 1988; 71:13–29. [PubMed: 3257143]</p>
+<p id="p58" data-paragraph="58" data-source-pages="7" class="reference" data-reference-number="8">8. <mark class="hl hl-m2" id="h-method_m2-016-b" data-back="sum-h-method_m2-002 sum-h-method_m2-011 sum-h-method_m2-016" data-zh-m2="於 GMP 條件下用 CD3/CD28 珠子活化擴增後 ／ 接著用 CD3/CD28 共刺激珠子活化擴增 ／ protocol 沿用 Porter et al. 2006 Blood" data-pids-m2="h-method_m2-002 h-method_m2-011 h-method_m2-016">Porter DL, Levine BL, Bunin N, et al. A phase 1 trial of donor lymphocyte infusions expanded and activated ex vivo via CD3/CD28 costimulation.</mark> Blood. 2006; 107:1325–31. [PubMed: 16269610]</p>
+<p id="p59" data-paragraph="59" data-source-pages="7" class="reference" data-reference-number="9">9. Lamanna N, Kalaycio M, Maslak P, et al. <mark class="hl hl-m3" id="h-method_m3-007-a" data-back="sum-h-method_m3-007" data-zh-m3="配方沿用 Lamanna 2006 J Clin Oncol 的 PCR (pentostatin/cyclophosphamide/rituximab) regimen" data-pids-m3="h-method_m3-007">Pentostatin, cyclophosphamide, and rituximab is an active, well-tolerated regimen for patients with previously treated chronic lymphocytic leukemia</mark>. J Clin Oncol. 2006; 24:1575–81. [PubMed: 16520464]</p>
+<p id="p60" data-paragraph="60" data-source-pages="7" class="reference" data-reference-number="10">10. Baeksgaard L, Sørensen J. Acute tumor lysis syndrome in solid tumors — a case report and review of the literature. Cancer Chemother Pharmacol. 2003; 51:187–92. [PubMed: 12655435]</p>
+<p id="p61" data-paragraph="61" data-source-pages="7" class="reference" data-reference-number="11">11. Kohn DB, Dotti G, Brentjens R, et al. CARS on track in the clinic. Mol Ther. 2011; 19:432–8. [PubMed: 21358705]</p>
+<p id="p62" data-paragraph="62" data-source-pages="7" class="reference" data-reference-number="12">12. June CH, Blazar BR, Riley JL. Engineering lymphocyte subsets: tools, trials and tribulations. Nat Rev Immunol. 2009; 9:704–16. [PubMed: 19859065]</p>
+<p id="p63" data-paragraph="63" data-source-pages="7" class="reference" data-reference-number="13">13. Kershaw MH, Westwood JA, Parker LL, et al. A phase I study on adoptive immunotherapy using gene-modified T cells for ovarian cancer. Clin Cancer Res. 2006; 12:6106–15. [PubMed: 17062687]</p>
+<p id="p64" data-paragraph="64" data-source-pages="7" class="reference" data-reference-number="14">14. Till BG, Jensen MC, Wang J, et al. Adoptive immunotherapy for indolent non-Hodgkin lymphoma and mantle cell lymphoma using genetically modified autologous CD20-specific T cells. Blood. 2008; 112:2261–71. [PubMed: 18509084]</p>
+<p id="p65" data-paragraph="65" data-source-pages="7" class="reference" data-reference-number="15">15. Pule MA, Savoldo B, Myers GD, et al. Virus-specific T cells engineered to coexpress tumor-specific receptors: persistence and antitumor activity in individuals with neuroblastoma. Nat Med. 2008; 14:1264–70. [PubMed: 18978797]</p>
+<p id="p66" data-paragraph="66" data-source-pages="7" class="reference" data-reference-number="16">16. Brentjens R, Yeh R, Bernal Y, Riviere I, Sadelain M. Treatment of chronic lymphocytic leukemia with genetically targeted autologous T cells: case report of an unforeseen adverse event in a phase I clinical trial. Mol Ther. 2010; 18:666–8. [PubMed: 20357779]</p>
+<p id="p67" data-paragraph="67" data-source-pages="7" class="reference" data-reference-number="17">17. Morgan RA, Yang JC, Kitano M, Dudley ME, Laurencot C, Rosenberg SA. Case report of a serious adverse event following the administration of T cells transduced with a chimeric antigen receptor recognizing ERBB2. Mol Ther. 2010; 18:843–51. [PubMed: 20179677]</p>
+<p id="p68" data-paragraph="68" data-source-pages="7" class="reference" data-reference-number="18">18. Johnson LA, Morgan RA, Dudley ME, et al. Gene therapy with human and mouse T-cell receptors mediates cancer regression and targets normal tissues expressing cognate antigen. Blood. 2009; 114:535–46. [PubMed: 19451549]</p>
+<p id="p69" data-paragraph="69" data-source-pages="7" class="reference" data-reference-number="19">19. Klebanoff CA, Khong HT, Antony PA, Palmer DC, Restifo NP. Sinks, suppressors and antigen presenters: how lymphodepletion enhances T cell-mediated tumor immunotherapy. Trends Immunol. 2005; 26:111–7. [PubMed: 15668127] Trends Immunol. 2005; 26:298. Erratum.</p>
+<p id="p70" data-paragraph="70" data-source-pages="7" class="reference" data-reference-number="20">20. Zitvogel L, Apetoh L, Ghiringhelli F, Kroemer G. Immunological aspects of cancer chemotherapy. Nat Rev Immunol. 2008; 8:59–73. [PubMed: 18097448]</p>
+<p id="p71" data-paragraph="71" data-source-pages="7" class="reference" data-reference-number="21">21. Ramakrishnan R, Assudani D, Nagaraj S, et al. Chemotherapy enhances tumor cell susceptibility to CTL-mediated killing during cancer immunotherapy in mice. J Clin Invest. 2010; 120:1111–24. [PubMed: 20234093]</p>
+<p id="p72" data-paragraph="72" data-source-pages="7" class="reference" data-reference-number="22">22. Molina A. A decade of rituximab: improving survival outcomes in non-Hodgkin’s lymphoma. Annu Rev Med. 2008; 59:237–50. [PubMed: 18186705]</p>
+<p id="p73" data-paragraph="73" data-source-pages="7" class="reference" data-reference-number="23">23. Döhner H, Fischer K, Bentz M, et al. p53 gene deletion predicts for poor survival and non-response to therapy with purine analogs in chronic B-cell leukemias. Blood. 1995; 85:1580–9. [PubMed: 7888675]</p>
+<p id="p74" data-paragraph="74" data-source-pages="8" class="reference" data-reference-number="24">24. Gribben JG, Hosing C, Maloney DG. Stem cell transplantation for indolent lymphoma and chronic lymphocytic leukemia. Biol Blood Marrow Transplant. 2011; 17(Suppl):S63–S70. [PubMed: 21195313]</p>
+<p id="p75" data-paragraph="75" data-source-pages="8" class="reference" data-reference-number="25">25. Sorror ML, Storer BE, Maloney DG, Sandmaier BM, Martin PJ, Storb R. Out-comes after allogeneic hematopoietic cell transplantation with nonmyeloablative or myeloablative conditioning regimens for treatment of lymphoma and chronic lymphocytic leukemia. Blood. 2008; 111:446–52. [PubMed: 17916744]</p>
+<p id="p76" data-paragraph="76" data-source-pages="8" class="reference" data-reference-number="26">26. Kalos M, Levine BL, Porter DL, et al. T cells with chimeric antigen receptors have potent antitumor effects and can establish memory in patients with advanced leukemia. Sci Transl Med. 2011; 3:95ra73.</p>
+</article></main></body>
+</html>
