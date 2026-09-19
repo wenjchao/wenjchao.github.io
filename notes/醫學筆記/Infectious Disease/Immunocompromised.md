@@ -1,7 +1,5 @@
 # Immunocompromised
 
-## 摘要
-
 ## 內文
 ### 總表：缺哪段 → 來哪類
 
@@ -31,11 +29,11 @@
 
 ### 情境三 HSCT（hematopoietic stem cell transplant）：三期換班
 
-[[Immunocompromised/HSCT 後感染：三期與預防|摘要]]
+[[Immunocompromised/HSCT 後感染：三期與預防]]
 
 ### 情境四 CAR-T（chimeric antigen receptor T cell）：三期換班，最後剩 B cell 缺
 
-[[Immunocompromised/CAR-T 後感染預防|摘要]]
+[[Immunocompromised/CAR-T 後感染預防]]
 
 ### 情境五 後天免疫疾病
 

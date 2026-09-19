@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="1090" viewBox="0 0 880 1090" role="img" aria-labelledby="title desc">
+  <title id="title">LPS 如何讓 macrophage 發出發炎訊號</title>
+  <desc id="desc">細胞外的 LPS 是細菌成分與 PAMP；macrophage 細胞膜上的 TLR4 與協助蛋白辨認 LPS，啟動胞內訊號。NF-κB 這個轉錄因子被活化後進入細胞核，增加相關基因轉錄。細胞製造並分泌 cytokines，作用於血管內皮與白血球。本圖只畫 TLR4 的例子，不代表所有 PRR 都位於細胞表面。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#44566e"/></marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#7250a3"/></marker>
+    <style>
+      text{font-family:'PingFang TC','Noto Sans TC','Microsoft JhengHei',sans-serif;fill:#1f2937}
+      .title{font-size:27px;font-weight:700}
+      .h{font-size:22px;font-weight:650}
+      .body{font-size:19px}
+      .small{font-size:16px}
+      .muted{fill:#526275}
+      .flow{fill:none;stroke:#44566e;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+      .purpleflow{fill:none;stroke:#7250a3;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrowPurple)}
+      .num{font-size:17px;font-weight:700;fill:white;text-anchor:middle;dominant-baseline:middle}
+    </style>
+  </defs>
+  <rect width="880" height="1090" fill="white"/>
+  <text x="36" y="46" class="title">LPS 如何讓 macrophage 發出發炎訊號</text>
+  <text x="36" y="78" class="body muted">辨認細菌成分 → 啟動基因轉錄 → 製造並分泌訊號蛋白</text>
+
+  <!-- A cell compartment; the top and bottom bands explicitly show the plasma membrane. -->
+  <rect x="40" y="256" width="800" height="550" rx="28" fill="#f2f7fb" stroke="#7094b5" stroke-width="3"/>
+  <path d="M69 264H811M69 798H811" stroke="#b6ccde" stroke-width="3" fill="none"/>
+  <text x="53" y="119" class="body muted">細胞外</text>
+  <text x="57" y="297" class="h" fill="#2e5e82">Macrophage</text>
+  <text x="691" y="297" class="body muted">細胞質</text>
+  <path d="M731 236V255" stroke="#7094b5" stroke-width="2"/>
+  <text x="706" y="227" class="small muted">細胞膜</text>
+
+  <!-- LPS is a molecular fragment, deliberately not drawn as a microbe or receptor. -->
+  <circle cx="91" cy="160" r="16" fill="#b96925"/><text x="91" y="160" class="num">1</text>
+  <g transform="translate(152 130)">
+    <path d="M20 9H56V24H84V39H109" stroke="#b96925" stroke-width="4" fill="none"/>
+    <rect x="11" y="0" width="18" height="18" rx="3" fill="#f2c17d" stroke="#b96925" stroke-width="2"/>
+    <rect x="47" y="15" width="18" height="18" rx="3" fill="#f2c17d" stroke="#b96925" stroke-width="2"/>
+    <rect x="75" y="30" width="18" height="18" rx="3" fill="#f2c17d" stroke="#b96925" stroke-width="2"/>
+    <path d="M15 21V51L9 66M24 21V50L29 66M36 22V50L41 66" fill="none" stroke="#b96925" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="323" y="154" class="h" fill="#9c551e">LPS：被辨認的細菌成分</text>
+  <text x="323" y="183" class="body">來自 gram-negative bacteria 的外膜，屬於 PAMP</text>
+  <path d="M201 202V221" class="flow"/>
+
+  <!-- Membrane-embedded receptor complex. -->
+  <path d="M180 226V242Q180 251 189 251H212Q221 251 221 242V226" fill="none" stroke="#207a81" stroke-width="12" stroke-linecap="round"/>
+  <path d="M200 251V281" stroke="#207a81" stroke-width="12" stroke-linecap="round"/>
+  <ellipse cx="249" cy="238" rx="14" ry="20" fill="#c6e5e4" stroke="#207a81" stroke-width="3"/>
+  <circle cx="293" cy="249" r="16" fill="#207a81"/><text x="293" y="249" class="num">2</text>
+  <rect x="318" y="219" width="354" height="61" rx="9" fill="white" opacity="0.97"/>
+  <text x="330" y="242" class="h" fill="#17666d">TLR4 ＋ 協助蛋白</text>
+  <text x="330" y="268" class="body">膜上的受體蛋白；TLR 屬於 PRR</text>
+
+  <path d="M200 291V329" class="flow"/>
+  <rect x="86" y="340" width="229" height="70" rx="13" fill="white" stroke="#8fa9be" stroke-width="2"/>
+  <circle cx="107" cy="359" r="15" fill="#526e89"/><text x="107" y="359" class="num">3</text>
+  <text x="208" y="366" class="h" text-anchor="middle">胞內訊號傳遞</text>
+  <text x="200" y="394" class="body muted" text-anchor="middle">使 NF-κB 活化</text>
+  <path d="M200 421V445" class="flow"/>
+
+  <!-- NF-kappa B moves from cytoplasm into the visibly separated nucleus. -->
+  <rect x="139" y="456" width="123" height="42" rx="21" fill="#e6dcf3" stroke="#7250a3" stroke-width="2"/>
+  <text x="200" y="484" class="h" text-anchor="middle" fill="#63428f">NF-κB</text>
+  <text x="200" y="525" class="body" text-anchor="middle">細胞內的轉錄因子</text>
+
+  <rect x="448" y="342" width="350" height="253" rx="52" fill="#fbf8ff" stroke="#aa8ac9" stroke-width="3"/>
+  <text x="623" y="380" class="h" text-anchor="middle" fill="#71518f">細胞核</text>
+  <path d="M276 477H520" class="purpleflow"/>
+  <text x="365" y="453" class="body" text-anchor="middle" fill="#7250a3">進入細胞核</text>
+  <circle cx="504" cy="423" r="16" fill="#7250a3"/><text x="504" y="423" class="num">4</text>
+  <rect x="537" y="455" width="172" height="41" rx="20" fill="#e6dcf3" stroke="#7250a3" stroke-width="2"/>
+  <text x="623" y="483" class="h" text-anchor="middle" fill="#63428f">NF-κB</text>
+  <path d="M623 505V518" class="purpleflow"/>
+  <text x="623" y="543" class="h" text-anchor="middle">提高相關基因轉錄</text>
+  <path d="M539 566Q561 550 583 566T627 566T671 566T715 566M539 566Q561 582 583 566T627 566T671 566T715 566" stroke="#aa8ac9" stroke-width="2" fill="none"/>
+  <path d="M555 558V574M577 560V572M599 560V572M621 558V574M643 559V573M665 560V572M687 559V573" stroke="#aa8ac9" stroke-width="1.5"/>
+  <text x="744" y="572" class="small muted" text-anchor="middle">DNA</text>
+  <path d="M623 582V628" class="purpleflow"/>
+  <rect x="640" y="596" width="70" height="27" rx="5" fill="#f2f7fb"/>
+  <text x="649" y="616" class="body" fill="#7250a3">mRNA</text>
+
+  <!-- Cytokine synthesis is in cytoplasm and secretion crosses the cell boundary. -->
+  <rect x="426" y="641" width="361" height="74" rx="13" fill="white" stroke="#b88737" stroke-width="2"/>
+  <circle cx="450" cy="662" r="16" fill="#b88737"/><text x="450" y="662" class="num">5</text>
+  <text x="615" y="671" class="h" text-anchor="middle">製造 cytokines</text>
+  <text x="615" y="699" class="body" text-anchor="middle">把基因訊息轉成訊號蛋白</text>
+  <g fill="#d5a443" stroke="#a27323" stroke-width="1.5">
+    <circle cx="579" cy="745" r="8"/><circle cx="604" cy="755" r="8"/><circle cx="629" cy="740" r="8"/>
+  </g>
+  <path d="M605 771V847" class="flow"/>
+  <rect x="630" y="767" width="150" height="33" rx="5" fill="#f2f7fb"/>
+  <text x="642" y="791" class="body">分泌到細胞外</text>
+  <text x="58" y="845" class="body muted">細胞外</text>
+  <circle cx="508" cy="865" r="16" fill="#b88737"/><text x="508" y="865" class="num">6</text>
+  <text x="545" y="872" class="h">作用於其他細胞</text>
+  <path d="M603 881V901H246V925" class="flow"/>
+  <path d="M603 901H637V925" class="flow"/>
+  <rect x="92" y="935" width="305" height="85" rx="14" fill="#edf6f5" stroke="#abc9c7" stroke-width="2"/>
+  <text x="245" y="964" class="h" text-anchor="middle">血管內皮</text>
+  <text x="245" y="994" class="body" text-anchor="middle">IL-1、TNF-α：增加黏附分子</text>
+  <rect x="476" y="935" width="323" height="85" rx="14" fill="#fff7e7" stroke="#d8c190" stroke-width="2"/>
+  <text x="637" y="964" class="h" text-anchor="middle">白血球</text>
+  <text x="637" y="994" class="body" text-anchor="middle">IL-8：引導 neutrophil 移動</text>
+
+  <text x="36" y="1058" class="small muted">此圖只畫 TLR4 的例子；其他 PRR 也可位於細胞內，並使用不同訊號途徑。</text>
+</svg>

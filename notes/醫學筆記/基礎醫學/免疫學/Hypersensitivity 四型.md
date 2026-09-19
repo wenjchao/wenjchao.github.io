@@ -1,6 +1,9 @@
 # Hypersensitivity 四型過敏反應
 
 ## 內文
+
+[[免疫反應如何造成組織損傷|全文|群組縮排]]
+
 ### Type 1: Mast cell + IgE ⇒ vasoactive
 
 同一機轉、輕到重：**局部 urticaria（anti-histamine）→ 全身 anaphylaxis（epinephrine）**。

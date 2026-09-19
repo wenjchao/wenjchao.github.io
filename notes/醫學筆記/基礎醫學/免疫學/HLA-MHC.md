@@ -4,6 +4,8 @@
 ### Class I vs Class II（誰呈現給誰）
 （待補 by claude）
 
+[[MHC II 的抗原載入|群組縮排]]
+
 ### 疾病關聯
 
 | HLA | 疾病／情況 |

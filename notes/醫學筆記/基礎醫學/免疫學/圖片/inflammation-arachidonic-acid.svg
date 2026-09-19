@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="590" viewBox="0 0 900 590" role="img" aria-labelledby="title desc">
+<title id="title">Arachidonic acid 的合成分支</title><desc id="desc">細胞膜 phospholipids 經 PLA2 釋出 arachidonic acid，經 COX 產生 PGE2、PGI2、TXA2，經 5-lipoxygenase 產生 LTB4 或 LTC4、D4、E4。</desc>
+<defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#516879" stroke-width="1.4"/></marker></defs>
+<rect width="900" height="590" rx="16" fill="#f8fafc"/>
+<g font-family="Arial, PingFang TC, sans-serif" text-anchor="middle" fill="#183447">
+<text x="450" y="33" font-size="21" font-weight="700">細胞受刺激後，以膜脂質製造局部介質</text>
+<rect x="250" y="52" width="400" height="48" rx="8" fill="#e2ecf2"/><text x="450" y="82" font-size="20">Membrane phospholipids</text>
+<path d="M450 100 V165" stroke="#516879" stroke-width="2" marker-end="url(#a)"/><text x="510" y="140" font-size="18">PLA₂</text>
+<rect x="290" y="175" width="320" height="48" rx="8" fill="#dbeee9"/><text x="450" y="205" font-size="22" font-weight="700">Arachidonic acid</text>
+<path d="M390 223 V245 H235 V283" fill="none" stroke="#516879" stroke-width="2" marker-end="url(#a)"/><path d="M510 223 V245 H675 V283" fill="none" stroke="#516879" stroke-width="2" marker-end="url(#a)"/>
+<rect x="65" y="292" width="340" height="48" rx="8" fill="#e3e8f8"/><text x="235" y="323" font-size="21" font-weight="700">COX</text>
+<rect x="505" y="292" width="340" height="48" rx="8" fill="#f7e8d9"/><text x="675" y="323" font-size="21" font-weight="700">5-lipoxygenase</text>
+<path d="M235 340 V373" fill="none" stroke="#516879" stroke-width="2" marker-end="url(#a)"/><path d="M675 340 V373" fill="none" stroke="#516879" stroke-width="2" marker-end="url(#a)"/>
+<rect x="45" y="382" width="380" height="174" rx="9" fill="white" stroke="#c8d0e5"/>
+<text x="235" y="415" font-size="20" font-weight="700">PGE₂</text><text x="235" y="442" font-size="18">痛覺致敏、提高體溫設定點</text>
+<text x="235" y="477" font-size="18">PGI₂：擴張血管、抑制血小板聚集</text><text x="235" y="512" font-size="18">TXA₂：收縮血管、促進血小板聚集</text>
+<rect x="475" y="382" width="380" height="174" rx="9" fill="white" stroke="#e7d1bc"/>
+<text x="665" y="414" font-size="20" font-weight="700">LTB₄</text><text x="665" y="444" font-size="18">引導 neutrophils 移動</text>
+<text x="665" y="482" font-size="20" font-weight="700">LTC₄／LTD₄／LTE₄</text><text x="665" y="512" font-size="18">增加通透性、收縮氣道平滑肌</text>
+</g></svg>

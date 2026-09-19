@@ -4,7 +4,7 @@
 ### 共通
 
 1. 病因：idiopathic、autoimmune、infection（HCV）
-2. Immune complex 沉積相關：ANCA 類、IgA（HSP）、cryoglobulinemia、polyarteritis nodosa（[[Hypersensitivity 四型|Type III]]）
+2. 小血管炎分為 **ANCA-associated** 類（GPA、MPA、EGPA，相關腎病變典型為 pauci-immune）與 **immune-complex** 類（IgA vasculitis、mixed cryoglobulinemia 等，見 [[Hypersensitivity 四型|Type III]]）。Pauci-immune 指組織檢查沒有明顯的免疫球蛋白沉積，不能把它與 immune-complex 沉積視為同一機轉。PAN 另列為中型血管炎。
 3. Lab：ESR、CRP、anemia、相關抗體
 
 ### 血管大小總表
@@ -59,3 +59,7 @@
 [[眼部侵犯：uveitis 與 conjunctivitis]]
 
 [[近端無力的鑑別]]
+
+### 分類來源
+
+ANCA／immune-complex 的區分：First Aid 2026，書頁 478–479、614／PDF 500–501、636；p614 的 ANCA-associated 腎病變列為 negative immunofluorescence／pauci-immune。

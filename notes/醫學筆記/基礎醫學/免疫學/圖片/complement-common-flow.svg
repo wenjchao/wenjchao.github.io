@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1090" viewBox="0 0 800 1090" role="img" aria-labelledby="title desc">
+  <title id="title">補體的共通反應與 C3b 放大回圈</title>
+  <desc id="desc">C3 convertase 是切開 C3 的蛋白質複合體。C3a 離開表面促發炎，C3b 附著表面作吞噬標記。C3b 結合 factor B，再由 factor D 切割 B，組成另一個 C3 convertase，切開更多 C3。原有 C3 convertase 加入 C3b 形成 C5 convertase；它切開 C5，產生發炎與趨化用的 C5a，以及接上 C6 至 C9 形成 MAC 的 C5b。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="#566879"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="#147D78"/></marker>
+    <marker id="arrow-red" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="#BD5A45"/></marker>
+    <style>
+      text { font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; fill: #172B3A; }
+      .center { text-anchor: middle; }
+      .name { font-size: 29px; font-weight: 650; }
+      .body { font-size: 23px; font-weight: 450; }
+      .small { font-size: 22px; font-weight: 450; }
+      .enzyme { fill: #EDF4FD; stroke: #6191C5; stroke-width: 2; }
+      .surface { fill: #EAF7F3; stroke: #53A59B; stroke-width: 2; }
+      .free { fill: #FFF2EA; stroke: #D68C75; stroke-width: 2; }
+      .flow { fill: none; stroke: #566879; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .teal-flow { fill: none; stroke: #147D78; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-teal); }
+      .red-flow { fill: none; stroke: #BD5A45; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-red); }
+    </style>
+  </defs>
+
+  <rect width="800" height="1090" fill="#FFFFFF"/>
+
+  <!-- C3: the convertase acts on its substrate, then products take different routes. -->
+  <rect x="132" y="24" width="384" height="91" rx="16" class="enzyme"/>
+  <text x="324" y="61" class="center name">C3 convertase</text>
+  <text x="324" y="94" class="center body">切開 C3 的蛋白質複合體</text>
+  <path d="M324 116 V144" class="flow"/>
+  <text x="373" y="144" class="small">切開</text>
+  <circle cx="324" cy="183" r="35" fill="#FFFFFF" stroke="#8090A0" stroke-width="2"/>
+  <text x="324" y="194" class="center name">C3</text>
+  <path d="M299 208 L124 246" class="red-flow"/>
+  <path d="M337 217 L357 246" class="teal-flow"/>
+
+  <rect x="28" y="252" width="185" height="130" rx="16" class="free"/>
+  <text x="120" y="289" class="center name" style="fill:#AC503E">C3a</text>
+  <text x="120" y="328" class="center body">離開表面</text>
+  <text x="120" y="362" class="center body">促發炎</text>
+
+  <rect x="262" y="252" width="190" height="130" rx="16" class="surface"/>
+  <text x="357" y="289" class="center name" style="fill:#136D66">C3b</text>
+  <text x="357" y="328" class="center body">附著表面</text>
+  <text x="357" y="362" class="center body">作吞噬標記</text>
+
+  <!-- Amplification: factor D cuts bound B; it is not drawn as a retained component. -->
+  <path d="M453 308 H522" class="teal-flow"/>
+  <text x="647" y="219" class="center body" style="fill:#147D78;font-weight:650">C3b 放大回圈</text>
+  <rect x="531" y="252" width="234" height="110" rx="16" fill="#FFFFFF" stroke="#79B4AC" stroke-width="2"/>
+  <text x="648" y="288" class="center small">C3b 結合 factor B</text>
+  <text x="648" y="328" class="center small">再由 factor D 切 B</text>
+  <path d="M648 363 V399" class="teal-flow"/>
+  <rect x="526" y="407" width="239" height="96" rx="16" class="enzyme"/>
+  <text x="645" y="444" class="center body">另一個</text>
+  <text x="645" y="480" class="center name" style="font-size:27px">C3 convertase</text>
+  <path d="M766 455 H787 V183 H368" class="teal-flow"/>
+  <text x="595" y="165" class="center body" style="fill:#147D78">切開更多 C3</text>
+
+  <!-- C5 convertase explicitly retains the original C3 convertase and adds C3b. -->
+  <path d="M357 383 V430" class="teal-flow"/>
+  <text x="391" y="416" class="small" style="fill:#147D78">加入</text>
+  <rect x="176" y="441" width="306" height="190" rx="16" class="enzyme"/>
+  <text x="329" y="480" class="center body">原有的 C3 convertase</text>
+  <text x="329" y="520" class="center name" style="fill:#136D66">＋ C3b</text>
+  <path d="M329 535 V563" class="flow"/>
+  <text x="329" y="604" class="center name">C5 convertase</text>
+
+  <path d="M329 632 V662" class="flow"/>
+  <text x="378" y="659" class="small">切開</text>
+  <circle cx="329" cy="701" r="35" fill="#FFFFFF" stroke="#8090A0" stroke-width="2"/>
+  <text x="329" y="712" class="center name">C5</text>
+  <path d="M304 726 L124 767" class="red-flow"/>
+  <path d="M342 735 L357 767" class="teal-flow"/>
+
+  <rect x="28" y="775" width="185" height="130" rx="16" class="free"/>
+  <text x="120" y="812" class="center name" style="fill:#AC503E">C5a</text>
+  <text x="120" y="851" class="center body">離開表面</text>
+  <text x="120" y="885" class="center body">發炎／趨化</text>
+
+  <rect x="262" y="775" width="190" height="76" rx="16" class="surface"/>
+  <text x="357" y="823" class="center name" style="fill:#136D66">C5b</text>
+  <path d="M357 852 V955" class="teal-flow"/>
+  <rect x="299" y="884" width="177" height="40" fill="#FFFFFF"/>
+  <text x="384" y="913" class="center body">接上 C6–C9</text>
+
+  <rect x="232" y="964" width="250" height="104" rx="16" fill="#F3EEFC" stroke="#9A80BB" stroke-width="2"/>
+  <text x="357" y="1006" class="center name" style="fill:#65458A">MAC</text>
+  <text x="357" y="1043" class="center body">在膜上形成孔洞</text>
+</svg>
